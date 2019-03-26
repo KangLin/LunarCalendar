@@ -1,6 +1,7 @@
 #include "LunarCalendarModel.h"
 #include <QTextCharFormat>
 #include <QDebug>
+#include <QPalette>
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -84,18 +85,15 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return QString();
     }
 
-//    QTextCharFormat fmt = formatForCell(row, column);
-//    if (role == Qt::BackgroundRole)
-//        return fmt.background().color();
-//    if (role == Qt::ForegroundRole)
-//        return fmt.foreground().color();
-//    if (role == Qt::FontRole)
-//        return fmt.font();
-//    if (role == Qt::ToolTipRole)
-//        return fmt.toolTip();
-//    return QVariant();
-    
-    // FIXME: Implement me!
+    QTextCharFormat fmt = formatForCell(row, column);
+    if (role == Qt::BackgroundRole)
+        return fmt.background().color();
+    if (role == Qt::ForegroundRole)
+        return fmt.foreground().color();
+    if (role == Qt::FontRole)
+        return fmt.font();
+    if (role == Qt::ToolTipRole)
+        return fmt.toolTip();
     return QVariant();
 }
 
@@ -245,4 +243,22 @@ int CLunarCalendarModel::columnForDayOfWeek(Qt::DayOfWeek day) const
     if (column < 0)
         column += 7;
     return column;
+}
+
+QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
+{
+    QPalette pal;
+    QPalette::ColorGroup cg = QPalette::Active;
+    
+    if(dateForCell(row, col).month() != m_ShownMonth)
+    {
+        cg = QPalette::Disabled;
+        //cg = QPalette::Inactive;
+    }
+
+    QTextCharFormat format;
+    format.setBackground(pal.brush(cg, QPalette::Base));
+    format.setForeground(pal.brush(cg, QPalette::Text));
+    
+    return format;
 }

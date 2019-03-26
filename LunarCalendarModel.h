@@ -4,6 +4,7 @@
 #include <QAbstractTableModel>
 #include <QDate>
 #include <QLocale>
+#include <QTextCharFormat>
 
 class CLunarCalendarModel : public QAbstractTableModel
 {
@@ -44,6 +45,7 @@ private:
     int WeeksOfMonth();
     int columnForFirstOfMonth(const QDate &date) const;
     int columnForDayOfWeek(Qt::DayOfWeek day) const;
+    QTextCharFormat formatForCell(int row, int col) const;
     
 private:
     QDate m_Date;
