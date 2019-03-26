@@ -11,7 +11,14 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 {
     ui->setupUi(this);
     
+    ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
+    ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tvMonth->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tvMonth->horizontalHeader()->setSectionsClickable(false);
+    ui->tvMonth->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tvMonth->verticalHeader()->setSectionsClickable(false);
     ui->tvMonth->setModel(new CLunarCalendarModel(this));
+    ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     
     for(int i = 0; i < 12; i++)
     {
@@ -73,5 +80,28 @@ int CLunarCalendar::ChangeMonth()
 {
     CLunarCalendarModel* pModel = static_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentIndex() + 1);
+    ChangeTitle(selectedDate());
     return 0;
+}
+
+void CLunarCalendar::setShowGrid(bool show)
+{
+    ui->tvMonth->setShowGrid(show);
+}
+
+/*!
+    \property QCalendarWidget::selectedDate
+    \brief the currently selected date.
+
+    The selected date must be within the date range specified by the
+    minimumDate and maximumDate properties. By default, the selected
+    date is the current date.
+
+    \sa setDateRange()
+*/
+
+QDate CLunarCalendar::selectedDate() const
+{
+    CLunarCalendarModel* pModel = static_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    return pModel->GetDate();
 }

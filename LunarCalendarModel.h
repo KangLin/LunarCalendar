@@ -31,7 +31,7 @@ public:
     
     int showMonth(int year, int month);
     int setDate(const QDate &d);
-
+    QDate GetDate();
     int setMinimumDate(const QDate &date);
     int setMaximumDate(const QDate &date);
 

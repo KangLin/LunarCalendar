@@ -15,6 +15,22 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     ~CLunarCalendar();
     
+    QDate selectedDate() const;
+
+    int yearShown() const;
+    int monthShown() const;
+
+    QDate minimumDate() const;
+    void setMinimumDate(const QDate &date);
+
+    QDate maximumDate() const;
+    void setMaximumDate(const QDate &date);
+
+    Qt::DayOfWeek firstDayOfWeek() const;
+    void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
+    
+    void setShowGrid(bool show);
+    
 private slots:
     void on_tbNext_clicked();
     void on_tbPrevious_clicked();

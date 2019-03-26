@@ -23,6 +23,15 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
     if (role == Qt::TextAlignmentRole)
         return static_cast<int>(Qt::AlignCenter);
     
+    if (role == Qt::ForegroundRole)
+    {
+        int day = section + m_FirstDay;
+        if(day > 7)
+            day %= 7;
+        if(Qt::Saturday == day || Qt::Sunday == day)
+            return QColor(Qt::red);
+    }
+    
     if(Qt::DisplayRole != role)
         return QVariant();
     switch (orientation) {
@@ -111,8 +120,14 @@ Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const
 {
     if (!index.isValid())
         return Qt::NoItemFlags;
-    
-    return Qt::ItemIsEditable; // FIXME: Implement me!
+    QDate date = dateForCell(index.row(), index.column());
+    if (!date.isValid())
+        return QAbstractTableModel::flags(index);
+    if (date < m_MinimumDate)
+        return Qt::NoItemFlags;
+    if (date > m_MaximumDate)
+        return Qt::NoItemFlags;
+    return QAbstractTableModel::flags(index);
 }
 
 int CLunarCalendarModel::showMonth(int year, int month)
@@ -126,6 +141,11 @@ int CLunarCalendarModel::showMonth(int year, int month)
     
     internalUpdate();
     return 0;
+}
+
+QDate CLunarCalendarModel::GetDate()
+{
+    return m_Date;
 }
 
 void CLunarCalendarModel::internalUpdate()
@@ -247,18 +267,21 @@ int CLunarCalendarModel::columnForDayOfWeek(Qt::DayOfWeek day) const
 
 QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
 {
+    QTextCharFormat format;
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
-    
-    if(dateForCell(row, col).month() != m_ShownMonth)
+    QDate d = dateForCell(row, col);
+
+    if(d.month() != m_ShownMonth)
     {
         cg = QPalette::Disabled;
-        //cg = QPalette::Inactive;
+        //cg = QPalette::Inactive;    
     }
-
-    QTextCharFormat format;
+    
     format.setBackground(pal.brush(cg, QPalette::Base));
-    format.setForeground(pal.brush(cg, QPalette::Text));
+    format.setForeground(pal.brush(cg, QPalette::Text));    
+    if(d.dayOfWeek() == Qt::Saturday || Qt::Sunday == d.dayOfWeek())
+        format.setForeground(QBrush(Qt::red));
     
     return format;
 }
