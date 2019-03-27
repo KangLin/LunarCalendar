@@ -19,36 +19,38 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
 }
 
 QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientation, int role) const
-{    
-    if (role == Qt::TextAlignmentRole)
+{
+    switch (role) {
+    case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
-    
-    if (role == Qt::ForegroundRole)
-    {
-        int day = section + m_FirstDay;
-        if(day > 7)
-            day %= 7;
-        if(Qt::Saturday == day || Qt::Sunday == day)
-            return QColor(Qt::red);
-    }
-    
-    if(Qt::DisplayRole != role)
-        return QVariant();
-    switch (orientation) {
-    case Qt::Horizontal:
-    {
-        int day = section + m_FirstDay;
-        if(day > 7)
-            day %= 7;
-        return m_Locale.dayName(day, QLocale::NarrowFormat);
-    }
-    case Qt::Vertical:
-        QDate date = dateForCell(section, columnForDayOfWeek(Qt::Monday));
-        if (date.isValid())
-            return date.weekNumber();
-        else 
-            return QVariant();
-    }
+    case Qt::ForegroundRole:
+        if(Qt::Horizontal == orientation)
+        {
+            int day = section + m_FirstDay;
+            if(day > 7)
+                day %= 7;
+            if(Qt::Saturday == day || Qt::Sunday == day)
+                return GetHeight();
+        }
+        break;
+    case Qt::DisplayRole:
+        switch (orientation) {
+        case Qt::Horizontal:
+        {
+            int day = section + m_FirstDay;
+            if(day > 7)
+                day %= 7;
+            return m_Locale.dayName(day, QLocale::NarrowFormat);
+        }
+        case Qt::Vertical:
+            QDate date = dateForCell(section, columnForDayOfWeek(Qt::Monday));
+            if (date.isValid())
+                return date.weekNumber();
+            else
+                return QVariant();
+        }
+        break;
+    };
     return QVariant();
 }
 
@@ -80,29 +82,32 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
-    
-    if (role == Qt::TextAlignmentRole)
-        return (int) Qt::AlignCenter;
 
     int row = index.row();
     int column = index.column();
-
-    if(role == Qt::DisplayRole) {
-        QDate date = dateForCell(row, column);
-        if (date.isValid())
-            return date.day();
-        return QString();
-    }
-
     QTextCharFormat fmt = formatForCell(row, column);
-    if (role == Qt::BackgroundRole)
+    switch (role) {
+    case Qt::TextAlignmentRole:
+        return static_cast<int>(Qt::AlignCenter);
+    case Qt::DisplayRole:
+    case Qt::EditRole:
+        {
+            QDate date = dateForCell(row, column);
+            if (date.isValid())
+                return date.day();
+            return QString();
+        }
+    case Qt::BackgroundRole:
         return fmt.background().color();
-    if (role == Qt::ForegroundRole)
+    case Qt::ForegroundRole:
         return fmt.foreground().color();
-    if (role == Qt::FontRole)
+    case Qt::FontRole:
         return fmt.font();
-    if (role == Qt::ToolTipRole)
+    case Qt::ToolTipRole:
         return fmt.toolTip();
+    default:
+        break;
+    };
     return QVariant();
 }
 
@@ -138,12 +143,95 @@ int CLunarCalendarModel::showMonth(int year, int month)
     m_ShownYear = year;
     m_ShownMonth = month;
     m_RowCount = WeeksOfMonth();
-    
     internalUpdate();
     return 0;
 }
 
-QDate CLunarCalendarModel::GetDate()
+int CLunarCalendarModel::GetShowYear()
+{
+    return m_ShownYear;
+}
+
+int CLunarCalendarModel::GetShowMonth()
+{
+    return m_ShownMonth;
+}
+
+int CLunarCalendarModel::setDate(const QDate &d)
+{
+    if(!d.isValid())
+        return -1;
+    m_Date = d;
+    if (m_Date < m_MinimumDate)
+        m_Date = m_MinimumDate;
+    else if (m_Date > m_MaximumDate)
+        m_Date = m_MaximumDate;
+    return 0;
+}
+
+int CLunarCalendarModel::SetMinimumDate(const QDate &d)
+{
+    if (!d.isValid() || d == m_MinimumDate)
+        return 0;
+
+    m_MinimumDate = d;
+    if (m_MaximumDate < m_MinimumDate)
+        m_MaximumDate = m_MinimumDate;
+    if (m_Date < m_MinimumDate)
+        m_Date = m_MinimumDate;
+    internalUpdate();
+    return 0;
+}
+
+QDate CLunarCalendarModel::GetMinimumDate()
+{
+    return m_MinimumDate;
+}
+
+int CLunarCalendarModel::SetMaximumDate(const QDate &d)
+{
+    if (!d.isValid() || d == m_MaximumDate)
+        return 0;
+
+    m_MaximumDate = d;
+    if (m_MinimumDate > m_MaximumDate)
+        m_MinimumDate = m_MaximumDate;
+    if (m_Date > m_MaximumDate)
+        m_Date = m_MaximumDate;
+    internalUpdate();
+    return 0;
+}
+
+QDate CLunarCalendarModel::GetMaximumDate()
+{
+    return m_MaximumDate;
+}
+
+Qt::DayOfWeek CLunarCalendarModel::firstDayOfWeek() const
+{
+    return m_FirstDay;
+}
+
+void CLunarCalendarModel::setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
+{
+    m_FirstDay = dayOfWeek;
+}
+
+int CLunarCalendarModel::setRange(const QDate &min, const QDate &max)
+{
+    m_MinimumDate = min;
+    m_MaximumDate = max;
+    if (m_MinimumDate > m_MaximumDate)
+        qSwap(m_MinimumDate, m_MaximumDate);
+    if (m_Date < m_MinimumDate)
+        m_Date = m_MinimumDate;
+    if (m_Date > m_MaximumDate)
+        m_Date = m_MaximumDate;
+    internalUpdate();
+    return 0;
+}
+
+QDate CLunarCalendarModel::GetDate() const
 {
     return m_Date;
 }
@@ -162,7 +250,7 @@ QDate CLunarCalendarModel::dateForCell(int row, int column) const
     if (row < 0 || row > m_RowCount - 1
         || column < 0 || column > m_ColumnCount - 1)
         return QDate();
-    const QDate refDate = firstDate();
+    const QDate refDate = firstDateMonth();
     if (!refDate.isValid())
         return QDate();
 
@@ -172,6 +260,42 @@ QDate CLunarCalendarModel::dateForCell(int row, int column) const
 
     const int requestedDay = 7 * (row) + column - columnForFirstOfShownMonth - refDate.day() + 1;
     return refDate.addDays(requestedDay);
+}
+
+void CLunarCalendarModel::cellForDate(const QDate &date, int *row, int *column) const
+{
+    if (!row && !column)
+        return;
+
+    if (row)
+        *row = -1;
+    if (column)
+        *column = -1;
+
+    const QDate refDate = firstDateMonth();
+    if (!refDate.isValid())
+        return;
+
+    const int columnForFirstOfShownMonth = columnForFirstOfMonth(refDate);
+    const int requestedPosition = refDate.daysTo(date) + columnForFirstOfShownMonth + refDate.day() - 1;
+
+    int c = requestedPosition % 7;
+    int r = requestedPosition / 7;
+    if (c < 0) {
+        c += 7;
+        r -= 1;
+    }
+
+    if (columnForFirstOfShownMonth < 0)
+        r += 1;
+
+    if (r < 0 || r > m_RowCount - 1 || c < 0 || c > m_ColumnCount - 1)
+        return;
+
+    if (row)
+        *row = r;
+    if (column)
+        *column = c;
 }
 
 /*
@@ -186,7 +310,7 @@ of Oct we render 1 Oct in 1st or 2nd row. If referenceDate is 17 of Oct we show 
 dates before 17 of Oct, and since this month contains the hole 5-14 Oct, the first of Oct
 will be rendered in 2nd or 3rd row, showing more dates from previous month.
 */
-QDate CLunarCalendarModel::firstDate() const
+QDate CLunarCalendarModel::firstDateMonth() const
 {
     int refDay = 1;
     while (refDay <= 31) {
@@ -198,7 +322,7 @@ QDate CLunarCalendarModel::firstDate() const
     return QDate();
 }
 
-QDate CLunarCalendarModel::endDate() const
+QDate CLunarCalendarModel::endDateMonth() const
 {
     int day = 31;
     while(day >= 1)
@@ -216,9 +340,9 @@ int CLunarCalendarModel::WeeksOfMonth()
     if(1 == m_ShownMonth)
     {
         int y;
-        firstDate().weekNumber(&y);
-        if(firstDate().year() != y)
-            return endDate().weekNumber() + 1;
+        firstDateMonth().weekNumber(&y);
+        if(firstDateMonth().year() != y)
+            return endDateMonth().weekNumber() + 1;
     }
     if(12 == m_ShownMonth)
     {
@@ -243,10 +367,10 @@ int CLunarCalendarModel::WeeksOfMonth()
         }
         if(bNext)
         {
-            return date.weekNumber() - firstDate().weekNumber() + 1 + 1;
+            return date.weekNumber() - firstDateMonth().weekNumber() + 1 + 1;
         }
     }
-    return endDate().weekNumber() - firstDate().weekNumber() + 1;
+    return endDateMonth().weekNumber() - firstDateMonth().weekNumber() + 1;
 }
 
 int CLunarCalendarModel::columnForFirstOfMonth(const QDate &date) const
@@ -271,17 +395,24 @@ QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
     QDate d = dateForCell(row, col);
-
     if(d.month() != m_ShownMonth)
     {
-        cg = QPalette::Disabled;
-        //cg = QPalette::Inactive;    
+        cg = QPalette::Disabled;   
     }
     
     format.setBackground(pal.brush(cg, QPalette::Base));
     format.setForeground(pal.brush(cg, QPalette::Text));    
-    if(d.dayOfWeek() == Qt::Saturday || Qt::Sunday == d.dayOfWeek())
-        format.setForeground(QBrush(Qt::red));
+    if(d.dayOfWeek() == Qt::Saturday
+            || Qt::Sunday == d.dayOfWeek()
+            || d == QDate::currentDate())
+        format.setForeground(QBrush(GetHeight()));
     
     return format;
+}
+
+QColor CLunarCalendarModel::GetHeight() const
+{
+    QPalette pal;
+    QPalette::ColorGroup cg = QPalette::Active;
+    return QColor(Qt::red);// pal.color(cg, QPalette::Highlight);
 }
