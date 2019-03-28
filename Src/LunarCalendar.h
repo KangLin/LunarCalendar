@@ -2,12 +2,13 @@
 #define LUNARCALENDAR_H
 
 #include <QWidget>
+#include "lunar_calendar_export.h"
 
 namespace Ui {
 class CLunarCalendar;
 }
 
-class CLunarCalendar : public QWidget
+class LUNAR_CALENDAR_EXPORT CLunarCalendar : public QWidget
 {
     Q_OBJECT
     
