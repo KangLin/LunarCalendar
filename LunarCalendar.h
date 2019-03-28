@@ -27,6 +27,7 @@ public:
     void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
     void setShowGrid(bool show);
+    void setShowToday(bool bShow);
     
     QDate minimumDate() const;
     void setMinimumDate(const QDate &date);
@@ -51,7 +52,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     
 private:
-    int ChangeTitle();
+    int ShowSelectTitle();
     int ChangeMonth();
     int UpdateMonthMenu();
     int UpdateSelect();
@@ -59,6 +60,7 @@ private:
 private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
+    bool m_bShowToday;
 };
 
 #endif // LUNARCALENDAR_H

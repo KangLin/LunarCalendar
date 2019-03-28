@@ -11,7 +11,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CLunarCalendar),
     m_oldRow(0),
-    m_oldCol(0)
+    m_oldCol(0),
+    m_bShowToday(true)
 {
     ui->setupUi(this);
     
@@ -43,7 +44,7 @@ CLunarCalendar::~CLunarCalendar()
     delete ui;
 }
 
-int CLunarCalendar::ChangeTitle()
+int CLunarCalendar::ShowSelectTitle()
 {
     QDate d;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
@@ -110,13 +111,21 @@ int CLunarCalendar::ChangeMonth()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
-    ChangeTitle();
+    ShowSelectTitle();
     return 0;
 }
 
 void CLunarCalendar::setShowGrid(bool show)
 {
     ui->tvMonth->setShowGrid(show);
+}
+
+void CLunarCalendar::setShowToday(bool bShow)
+{
+    if(m_bShowToday == bShow)
+        return;
+    m_bShowToday = bShow;
+    ui->pbToday->setVisible(m_bShowToday);
 }
 
 /*!
@@ -190,6 +199,12 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
 {
     if(!date.isValid())
         return;
+    
+    if(QDate::currentDate() > date)
+        ui->pbToday->setVisible(false);
+    else
+        setShowToday(m_bShowToday);
+    
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
@@ -212,6 +227,12 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
 {
     if(!date.isValid())
         return;
+    
+    if(QDate::currentDate() < date)
+        ui->pbToday->setVisible(false);
+    else
+        setShowToday(m_bShowToday);
+    
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
@@ -232,6 +253,11 @@ void CLunarCalendar::setDateRange(const QDate &min, const QDate &max)
     if (!min.isValid() || !max.isValid())
         return;
 
+    if(QDate::currentDate() < min || QDate::currentDate() > max)
+        ui->pbToday->setVisible(false);
+    else
+        setShowToday(m_bShowToday);
+    
     QDate oldDate = pModel->GetDate();
     pModel->setRange(min, max);
     ui->spYear->setRange(min.year(), max.year());
@@ -296,7 +322,6 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 
     m_oldCol = index.column();
     m_oldRow = index.row();
-    qDebug() << "pressd:oldRow:" << m_oldRow << ";oldCol:" << m_oldCol;
 }
 
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
@@ -350,7 +375,6 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 
 int CLunarCalendar::UpdateSelect()
 {
-    qDebug() << "oldRow:" << m_oldRow << ";oldCol:" << m_oldCol;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(m_oldRow >= pModel->rowCount())
         m_oldRow = pModel->rowCount() - 1;
@@ -366,7 +390,7 @@ int CLunarCalendar::UpdateSelect()
     if(d.isValid())
     {
         pModel->setDate(d);
-        ChangeTitle();
+        ShowSelectTitle();
         emit sigSelectionChanged();
     }
     return 0;

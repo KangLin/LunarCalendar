@@ -10,10 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     CLunarCalendar* pLunarCalendar = new CLunarCalendar(this);
     setCentralWidget(pLunarCalendar);
-    
+    //pLunarCalendar->setShowToday(false);
     //pLunarCalendar->setSelectedDate(QDate::currentDate());
     //pLunarCalendar->setShowGrid(true);
-    //pLunarCalendar->setDateRange(QDate(2017, 3, 11), QDate(2018, 3, 20));
+    //pLunarCalendar->setDateRange(QDate(2017, 3, 11), QDate(2019, 4, 20));
     
 }
 
