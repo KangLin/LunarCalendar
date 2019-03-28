@@ -12,7 +12,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui(new Ui::CLunarCalendar),
     m_oldRow(0),
     m_oldCol(0),
-    m_bShowToday(true)
+    m_bShowToday(true),
+    m_bShowHead(true)
 {
     ui->setupUi(this);
     
@@ -126,6 +127,29 @@ void CLunarCalendar::setShowToday(bool bShow)
         return;
     m_bShowToday = bShow;
     ui->pbToday->setVisible(m_bShowToday);
+}
+
+void CLunarCalendar::setShowWeeks(bool bShow)
+{
+    ui->tvMonth->verticalHeader()->setVisible(bShow);
+}
+
+void CLunarCalendar::setShowWeekHead(bool bShow)
+{
+    ui->tvMonth->horizontalHeader()->setVisible(bShow);
+}
+
+void CLunarCalendar::setShowHead(bool bShow)
+{
+    if(m_bShowHead == bShow)
+        return;
+    m_bShowHead = bShow;
+    ui->spYear->setVisible(bShow);
+    ui->tbNext->setVisible(bShow);
+    ui->tbPrevious->setVisible(bShow);
+    ui->cbMonth->setVisible(bShow);
+    ui->lbDateText->setVisible(bShow);
+    setShowToday(bShow);
 }
 
 /*!
