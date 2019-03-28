@@ -13,7 +13,7 @@ class CLunarCalendar : public QWidget
     
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
-    ~CLunarCalendar();
+    virtual ~CLunarCalendar() override;
     
     QDate selectedDate() const;
 public Q_SLOTS:
@@ -51,7 +51,7 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     
 private:
-    int ChangeTitle(const QDate &date);
+    int ChangeTitle();
     int ChangeMonth();
     int UpdateMonthMenu();
     int UpdateSelect();
