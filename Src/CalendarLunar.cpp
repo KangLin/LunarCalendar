@@ -11,7 +11,8 @@ static const QString ymc[] = {"十一", "十二", "正", "二", "三", "四", "�
 static const QString rmc[] = {"初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"};
 
 CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)
-{   
+{
+    InitHoliday();
 }
 
 QString CCalendarLunar::GetLunar(const QDate &date)
@@ -38,6 +39,16 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
     QString szDate;
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
+    
+    QMap<int, QString> holiday = m_Holiday[day.Lmc];
+    if(!holiday.isEmpty())
+        szDay = holiday[day.Ldi];
+    if(!szDay.isEmpty())
+        return szDay;
+    
+    if(-1 != day.qk)
+        return jqmc[day.qk];       
+    
     if(0 == day.Ldi)
     {
         if (day.Lleap)
@@ -46,8 +57,62 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
             szDay = ymc[day.Lmc] + "月";
     } else
         szDay = rmc[day.Ldi];
-    if(-1 != day.qk)
-        szDay = jqmc[day.qk];
 
     return szDay;
+}
+
+/*
+节日名称 节日时间
+春节 正月初一
+元宵节（上元节）正月十五
+龙抬头 二月初二
+社日节（土地诞） 二月初二
+上巳节 三月初三
+寒食节 清明节前一天
+清明节 阳历4月5日前后
+端午节 五月初五
+七夕节 七月初七
+七月半（中元节） 七月十四/十五
+中秋节 八月十五
+重阳节 九月初九
+寒衣节 十月初一
+下元节 十月十五
+冬至节 阳历12月22日前后
+腊八节 腊月初八
+祭灶节（小年） 腊月廿三或廿四
+岁除（除夕）腊月廿九或三十
+*/
+
+int CCalendarLunar::InitHoliday()
+{
+    AddHoliday(1, 1, "春节");
+    AddHoliday(1, 15, "元宵");
+    AddHoliday(2, 2, "社日");
+    AddHoliday(3, 3, "上巳");
+    AddHoliday(5, 5, "端午");
+    AddHoliday(7, 7, "七夕");
+    AddHoliday(8, 15, "中秋");
+    AddHoliday(9, 9, "重阳");
+    AddHoliday(10, 1, "寒衣");
+    AddHoliday(10, 15, "下元");
+    AddHoliday(12, 8, "腊八");
+    AddHoliday(12, 24, "小年");
+    return 0;
+}
+
+int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
+{
+    int m = month + 1;
+    if(m > 11)
+        m = m % 12;
+    QMap<int, QString> d;
+    d = m_Holiday[m];
+    d.insert(day - 1, szName);
+    m_Holiday[m] = d;
+    return 0;
+}
+
+int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
+{
+    return 0;
 }
