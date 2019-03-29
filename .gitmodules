@@ -1,0 +1,3 @@
+[submodule "3th_lib/sxtwl"]
+	path = 3th_lib/sxtwl
+	url = https://github.com/yuangu/sxtwl_cpp.git

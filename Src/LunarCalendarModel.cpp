@@ -2,6 +2,7 @@
 #include <QTextCharFormat>
 #include <QDebug>
 #include <QPalette>
+#include "CalendarLunar.h"
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -94,7 +95,10 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         {
             QDate date = dateForCell(row, column);
             if (date.isValid())
-                return date.day();
+            {
+                CCalendarLunar lunar;
+                return QString::number(date.day()) + "\n" + lunar.GetLunarDay(date);
+            }
             return QString();
         }
     case Qt::BackgroundRole:

@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QKeyEvent>
 #include <QModelIndex>
+#include "CalendarLunar.h"
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
@@ -54,7 +55,10 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QLocale native = QLocale::system();
-    ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat)));
+    CCalendarLunar l;
+    ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
+                            + "\n"
+                            + l.GetLunar(d));
     return 0;
 }
 
