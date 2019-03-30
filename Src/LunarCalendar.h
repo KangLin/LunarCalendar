@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "lunar_calendar_export.h"
+#include <QMap>
 
 namespace Ui {
 class CLunarCalendar;
@@ -41,6 +42,9 @@ public:
 public Q_SLOTS:
     void setDateRange(const QDate &min, const QDate &max);
 
+public:
+    int AddHoliday(int month, int day, const QString &szName);
+    
 Q_SIGNALS:
     void sigSelectionChanged();
 

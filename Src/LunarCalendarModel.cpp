@@ -17,6 +17,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_ColumnCount = 7;
     m_Locale = QLocale::system();
     m_FirstDay = m_Locale.firstDayOfWeek();
+    InitHoliday();
 }
 
 QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -96,8 +97,13 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             QDate date = dateForCell(row, column);
             if (date.isValid())
             {
-                CCalendarLunar lunar;
-                return QString::number(date.day()) + "\n" + lunar.GetLunarDay(date);
+                QString szHoliday = m_Holiday[m_ShownMonth][date.day()];
+                if(szHoliday.isEmpty())
+                {      
+                    CCalendarLunar lunar;
+                    szHoliday = lunar.GetLunarDay(date);
+                }
+                return QString::number(date.day()) + "\n" + szHoliday;
             }
             return QString();
         }
@@ -419,4 +425,21 @@ QColor CLunarCalendarModel::GetHeight() const
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
     return QColor(Qt::red);// pal.color(cg, QPalette::Highlight);
+}
+
+int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
+{
+    m_Holiday[month].insert(day, szName);
+    return 0;
+}
+
+int CLunarCalendarModel::InitHoliday()
+{
+    AddHoliday(1, 1, "元旦");
+    AddHoliday(3, 8, "妇女节");
+    AddHoliday(5, 1, "劳动节");
+    AddHoliday(6, 1, "儿童节");
+    AddHoliday(8, 1, "建军节");
+    AddHoliday(10, 1, "国庆节");
+    return 0;
 }

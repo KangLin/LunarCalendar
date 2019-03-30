@@ -105,10 +105,8 @@ int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
     int m = month + 1;
     if(m > 11)
         m = m % 12;
-    QMap<int, QString> d;
-    d = m_Holiday[m];
-    d.insert(day - 1, szName);
-    m_Holiday[m] = d;
+
+    m_Holiday[m].insert(day - 1, szName);
     return 0;
 }
 

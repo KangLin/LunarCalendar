@@ -44,6 +44,9 @@ public:
 
     QDate dateForCell(int row, int column) const;
     void cellForDate(const QDate &date, int *row, int *column) const;
+    
+    int AddHoliday(int month, int day, const QString &szName);
+    
 private:
     void internalUpdate();
     QDate firstDateMonth() const;
@@ -53,6 +56,7 @@ private:
     int columnForDayOfWeek(Qt::DayOfWeek day) const;
     QTextCharFormat formatForCell(int row, int col) const;
     QColor GetHeight() const;
+    int InitHoliday();
     
 private:
     QDate m_Date;
@@ -63,6 +67,8 @@ private:
     int m_ColumnCount, m_RowCount;
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;
+    
+    QMap<int, QMap<int, QString> > m_Holiday;
 };
 
 #endif // CCALENDARMODEL_H

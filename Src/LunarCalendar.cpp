@@ -423,3 +423,10 @@ int CLunarCalendar::UpdateSelect()
     }
     return 0;
 }
+
+int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    pModel->AddHoliday(month, day, szName);
+    return 0;
+}
