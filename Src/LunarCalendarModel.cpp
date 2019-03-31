@@ -97,15 +97,26 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             QDate date = dateForCell(row, column);
             if (date.isValid())
             {
-                QString szHoliday = m_Holiday[m_ShownMonth][date.day()];
+                return "<font color='" + fmt.foreground().color().name() + "'>"
+                        + QString::number(date.day()) + "</font>";
+            }
+            return QString();
+        }
+    case LunarRole:
+        {
+            QDate date = dateForCell(row, column);
+            if (date.isValid())
+            {
+                QString szHoliday = m_Holiday[date.month()][date.day()];
                 if(szHoliday.isEmpty())
                 {      
                     CCalendarLunar lunar;
                     szHoliday = lunar.GetLunarDay(date);
+                } else {
+                    szHoliday = "<font color='" + GetHeight().name() + "'>" + szHoliday + "</font>";
                 }
-                return QString::number(date.day()) + "\n" + szHoliday;
+                return szHoliday;
             }
-            return QString();
         }
     case Qt::BackgroundRole:
         return fmt.background().color();

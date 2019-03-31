@@ -31,4 +31,5 @@ else: target.path = $$OUT_PWD/install
 OTHER_FILES += appveyor.yml \
     README.md \
     README_zh_CN.md \
-    ci/*
+    ci/* \
+    tag.sh
