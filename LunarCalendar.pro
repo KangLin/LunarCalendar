@@ -27,3 +27,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 else: target.path = $$OUT_PWD/install
 !isEmpty(target.path): INSTALLS += target
+
+OTHER_FILES += appveyor.yml \
+    README.md \
+    README_zh_CN.md \
+    ci/*

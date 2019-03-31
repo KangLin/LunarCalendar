@@ -424,7 +424,8 @@ QColor CLunarCalendarModel::GetHeight() const
 {
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
-    return QColor(Qt::red);// pal.color(cg, QPalette::Highlight);
+    //return QColor(Qt::red);
+    return pal.color(cg, QPalette::Highlight);
 }
 
 int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
