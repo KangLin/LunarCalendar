@@ -29,7 +29,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->verticalHeader()->setSectionsClickable(false);
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     ui->tvMonth->setModel(pModel);
-    //ui->tvMonth->setItemDelegate(new CLunarCalendarDelegate(this));
+    ui->tvMonth->setItemDelegate(new CLunarCalendarDelegate(this));
     ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     ui->tvMonth->installEventFilter(this);
     setShowGrid(false);
