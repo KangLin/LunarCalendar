@@ -1,9 +1,6 @@
 #include "LunarCalendarDelegate.h"
 #include "FrmCell.h"
 #include "LunarCalendarModel.h"
-#include <QApplication>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QPainter>
 
 CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent) : QStyledItemDelegate (parent)
