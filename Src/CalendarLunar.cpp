@@ -36,7 +36,6 @@ QString CCalendarLunar::GetLunar(const QDate &date)
 QString CCalendarLunar::GetLunarDay(const QDate &date)
 {
     QString szDay;
-    QString szDate;
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
     
