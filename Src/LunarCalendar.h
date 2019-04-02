@@ -2,7 +2,7 @@
 #define LUNARCALENDAR_H
 
 #include <QWidget>
-#include "lunar_calendar_export.h"
+#include "lunarcalendar_export.h"
 #include <QMap>
 
 namespace Ui {

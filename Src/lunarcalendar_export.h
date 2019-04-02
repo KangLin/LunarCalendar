@@ -6,7 +6,7 @@
 #endif
 
 #if defined(Q_OS_LINUX)
-	#include "lunar_calendar_export_linux.h"
+    #include "lunarcalendar_export_linux.h"
 #endif
 
 #endif
