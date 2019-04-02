@@ -32,4 +32,5 @@ OTHER_FILES += appveyor.yml \
     README.md \
     README_zh_CN.md \
     ci/* \
-    tag.sh
+    tag.sh \
+    CMakeLists.txt

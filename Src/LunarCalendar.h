@@ -9,7 +9,7 @@ namespace Ui {
 class CLunarCalendar;
 }
 
-class LUNAR_CALENDAR_EXPORT CLunarCalendar : public QWidget
+class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
     Q_OBJECT
     

@@ -1,4 +1,4 @@
-TARGET = LunarCalendar
+TARGET = LunarCalendarApp
 TEMPLATE = app
 
 QT += core gui
@@ -35,3 +35,6 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 else: target.path = $$OUT_PWD/../install/bin
 !isEmpty(target.path): INSTALLS += target
+
+OTHER_FILES += \
+    CMakeLists.txt

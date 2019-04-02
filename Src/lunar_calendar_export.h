@@ -2,7 +2,7 @@
 #define TASKS_EXPORT_H
 
 #if defined (Q_OS_WIN)
-	#include "lunar_calendar_export_windows.h"
+	#include "lunarcalendar_export_windows.h"
 #endif
 
 #if defined(Q_OS_LINUX)
