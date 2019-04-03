@@ -1,6 +1,8 @@
 #include "CalendarLunar.h"
 #include "lunar.h"
 #include <QDate>
+#include <QDebug>
+#include <QTime>
 
 static const QString Gan[] = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
 static const QString Zhi[] = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
@@ -38,7 +40,6 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
     QString szDay;
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-    
     QMap<int, QString> holiday = m_Holiday[day.Lmc];
     if(!holiday.isEmpty())
         szDay = holiday[day.Ldi];

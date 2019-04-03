@@ -11,7 +11,7 @@ CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent) : QStyledItemDel
 void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     CFrmCell cell;
-    cell.SetValue(index.data(CLunarCalendarModel::SolarRole).toString(),
+     cell.SetValue(index.data(CLunarCalendarModel::SolarRole).toString(),
                   index.data(CLunarCalendarModel::LunarRole).toString());
     
     painter->save();

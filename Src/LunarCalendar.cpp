@@ -18,8 +18,11 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_bShowHead(true)
 {
     ui->setupUi(this);
+
+    CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
     
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
+    setShowGrid(false);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -27,20 +30,19 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->horizontalHeader()->setSectionsClickable(false);
     ui->tvMonth->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tvMonth->verticalHeader()->setSectionsClickable(false);
-    CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     ui->tvMonth->setModel(pModel);
     ui->tvMonth->setItemDelegate(new CLunarCalendarDelegate(this));
     ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     ui->tvMonth->installEventFilter(this);
-    setShowGrid(false);
     
     for(int i = 0; i < 12; i++)
     {
         ui->cbMonth->addItem(QLocale::system().monthName(i + 1), i + 1);
     }
-    
+
     ui->spYear->setValue(pModel->GetDate().year());
     ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
+
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -117,6 +119,8 @@ void CLunarCalendar::on_pbToday_clicked()
 int CLunarCalendar::ChangeMonth()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return -1;
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
     ShowSelectTitle();
     return 0;
@@ -172,6 +176,7 @@ void CLunarCalendar::setShowHead(bool bShow)
 QDate CLunarCalendar::selectedDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return QDate();
     return pModel->GetDate();
 }
 
@@ -181,6 +186,7 @@ void CLunarCalendar::setSelectedDate(const QDate &date)
         return;
 
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     if(pModel->GetDate() != date)
     {
         pModel->setDate(date);
@@ -210,18 +216,21 @@ void CLunarCalendar::setSelectedDate(const QDate &date)
 int CLunarCalendar::yearShown() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
     return pModel->GetShowYear();
 }
 
 int CLunarCalendar::monthShown() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
     return pModel->GetShowMonth();
 }
 
 QDate CLunarCalendar::maximumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return QDate();
     return pModel->GetMaximumDate();
 }
 
@@ -236,6 +245,7 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
         setShowToday(m_bShowToday);
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
     ui->spYear->setMaximum(date.year());
@@ -250,6 +260,7 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
 QDate CLunarCalendar::minimumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return QDate();
     return pModel->GetMinimumDate();
 }
 
@@ -264,6 +275,7 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
         setShowToday(m_bShowToday);
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
     ui->spYear->setMinimum(date.year());
@@ -278,6 +290,7 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
 void CLunarCalendar::setDateRange(const QDate &min, const QDate &max)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     if(pModel->GetMaximumDate() == max && pModel->GetMinimumDate() == min)
         return;
     if (!min.isValid() || !max.isValid())
@@ -307,6 +320,7 @@ int CLunarCalendar::UpdateMonthMenu()
     bool prevEnabled = true;
     bool nextEnabled = true;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
     if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
         beg = pModel->GetMinimumDate().month();
         if (pModel->GetShowMonth() == pModel->GetMinimumDate().month())
@@ -331,12 +345,14 @@ int CLunarCalendar::UpdateMonthMenu()
 Qt::DayOfWeek CLunarCalendar::firstDayOfWeek() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return QLocale::system().firstDayOfWeek();
     return pModel->firstDayOfWeek();
 }
 
 void CLunarCalendar::setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     pModel->setFirstDayOfWeek(dayOfWeek);
 }
 
@@ -346,6 +362,7 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
         return;
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return;
     QDate d = pModel->dateForCell(index.row(), index.column());
     if(d.isValid())
         setSelectedDate(d);
@@ -406,6 +423,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 int CLunarCalendar::UpdateSelect()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
     if(m_oldRow >= pModel->rowCount())
         m_oldRow = pModel->rowCount() - 1;
     if(m_oldRow < 0)
@@ -429,6 +447,7 @@ int CLunarCalendar::UpdateSelect()
 int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
     pModel->AddHoliday(month, day, szName);
     return 0;
 }

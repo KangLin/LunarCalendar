@@ -1,5 +1,5 @@
-#ifndef LUNARCALENDARDELEGATE_H
-#define LUNARCALENDARDELEGATE_H
+#ifndef LUNARCALENDARDELEGATE_H_KL
+#define LUNARCALENDARDELEGATE_H_KL
 
 #include <QStyledItemDelegate>
 
@@ -15,4 +15,4 @@ public:
     virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-#endif // LUNARCALENDARDELEGATE_H
+#endif // LUNARCALENDARDELEGATE_H_KL
