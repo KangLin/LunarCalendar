@@ -108,6 +108,7 @@ install:
 
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
+  - git submodule update --init --recursive
   - if "%BUILD_TARGERT%" == "android" C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build-install-tools-windows.sh
 
 build_script:
