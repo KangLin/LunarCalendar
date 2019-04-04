@@ -21,8 +21,10 @@ QString CCalendarLunar::GetLunar(const QDate &date)
 {
     QString szDate;
     Lunar l;
+    //Year year = l.getYearCal(date.year());
+    //szDate = ShX[year.ShX] + " ";
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-    szDate = Gan[day.Lyear2.tg] + Zhi[day.Lyear2.dz] + "年";
+    szDate += Gan[day.Lyear2.tg] + Zhi[day.Lyear2.dz] + "年";
     if (day.Lleap)
 	{
 		szDate += "润" + ymc[day.Lmc] + "月" + rmc[day.Ldi] + "日";
