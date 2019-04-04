@@ -102,21 +102,18 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             }
             return QString();
         }
+    case SolarHoliday:
+        return m_Day[row * 7 + column].Holiday;
     case LunarRole:
-        {
-            return m_Day[row * 7 + column].Lunar;
-            QDate date = dateForCell(row, column);
-            if (date.isValid())
-            {
-                QString szHoliday = m_Holiday[date.month()][date.day()];
-                if(szHoliday.isEmpty())
-                {      
-                    CCalendarLunar lunar;
-                    szHoliday = lunar.GetLunarDay(date);
-                }
-                return szHoliday;
-            }
-        }
+        return m_Day[row * 7 + column].Lunar;
+    case LunarHolidayRole:
+        return m_Day[row * 7 + column].LunarHoliday;
+    case LunarHolidayColorRole:
+    {
+        if(!m_Day[row * 7 + column].LunarHoliday.isEmpty())
+            return GetHeight();
+        return fmt.foreground().color();
+    }
     case Qt::BackgroundRole:
         return fmt.background().color();
     case Qt::ForegroundRole:
@@ -175,8 +172,13 @@ int CLunarCalendarModel::showMonth(int year, int month)
                 break;
             _DAY day;
             day.Solar = d.day();
-            CCalendarLunar lunar;
-            day.Lunar = lunar.GetLunarDay(d);
+            
+            CCalendarLunar lunar(d);
+            day.Lunar = lunar.GetLunarDay();
+            day.Holiday = m_Holiday[d.month()][d.day()];    
+            day.LunarHoliday = lunar.GetAnniversary();
+            if(day.LunarHoliday.isEmpty())
+                day.LunarHoliday = lunar.GetHoliday();
             m_Day.push_back(day);
         }
         row++;
@@ -436,16 +438,18 @@ QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
     QDate d = dateForCell(row, col);
     if(d.month() != m_ShownMonth)
     {
-        cg = QPalette::Disabled;   
+        cg = QPalette::Disabled;
     }
+
+    format.setBackground(pal.brush(cg, QPalette::Window));
+    format.setForeground(pal.brush(cg, QPalette::Text));
     
-    format.setBackground(pal.brush(cg, QPalette::Base));
-    format.setForeground(pal.brush(cg, QPalette::Text));    
     if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
-            || d == QDate::currentDate())
+            || d == QDate::currentDate()
+            || !m_Day[row * 7 + col].Holiday.isEmpty())
         format.setForeground(QBrush(GetHeight()));
-    
+
     return format;
 }
 

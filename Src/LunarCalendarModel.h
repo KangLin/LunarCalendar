@@ -25,7 +25,10 @@ public:
     enum ROLE
     {
         SolarRole = Qt::DisplayRole,
-        LunarRole = Qt::UserRole + 1
+        SolarHoliday = Qt::UserRole + 1,
+        LunarRole,
+        LunarHolidayRole,
+        LunarHolidayColorRole
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -76,7 +79,9 @@ private:
     struct _DAY
     {
         int Solar;
+        QString Holiday;
         QString Lunar;
+        QString LunarHoliday;
     };
     QVector<_DAY> m_Day;
     

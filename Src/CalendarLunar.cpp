@@ -17,6 +17,63 @@ CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)
     InitHoliday();
 }
 
+CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
+{
+    InitHoliday();
+    
+    if(date.isValid())
+    {
+        Lunar l;
+        Day day = l.getDayBySolar(date.year(), date.month(), date.day());
+        m_szLunar = Gan[day.Lyear2.tg] + Zhi[day.Lyear2.dz] + "年";
+        if (day.Lleap)
+        {
+            m_szLunar += "润" + ymc[day.Lmc] + "月" + rmc[day.Ldi] + "日";
+        }
+        else
+        {
+            m_szLunar += ymc[day.Lmc] + "月" + rmc[day.Ldi] + "日";
+        }
+        
+        QMap<int, QString> holiday = m_Holiday[day.Lmc];
+        if(!holiday.isEmpty())
+            m_szHoliday = holiday[day.Ldi];
+        
+        holiday = m_Anniversary[day.Lmc];
+        if(!holiday.isEmpty())
+            m_szAnniversary = holiday[day.Ldi];
+        
+        if(-1 != day.qk)
+            m_szLunarDay = jqmc[day.qk];
+        else
+        {
+            if(0 == day.Ldi)
+            {
+                if (day.Lleap)
+                    m_szLunarDay += "润" + ymc[day.Lmc] + "月";
+                else
+                    m_szLunarDay = ymc[day.Lmc] + "月";
+            } else
+                m_szLunarDay = rmc[day.Ldi];
+        }
+    }
+}
+
+QString CCalendarLunar::GetLunar()
+{
+    return m_szLunar;
+}
+
+QString CCalendarLunar::GetLunarDay()
+{
+    return m_szLunarDay;
+}
+
+QString CCalendarLunar::GetHoliday()
+{
+    return m_szHoliday;
+}
+
 QString CCalendarLunar::GetLunar(const QDate &date)
 {
     QString szDate;
@@ -42,7 +99,13 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
     QString szDay;
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-    QMap<int, QString> holiday = m_Holiday[day.Lmc];
+    QMap<int, QString> holiday = m_Anniversary[day.Lmc];
+    if(!holiday.isEmpty())
+        m_szAnniversary = holiday[day.Ldi];
+    if(!m_szAnniversary.isEmpty())
+        return m_szAnniversary;
+    
+    holiday = m_Holiday[day.Lmc];
     if(!holiday.isEmpty())
         szDay = holiday[day.Ldi];
     if(!szDay.isEmpty())
@@ -114,5 +177,15 @@ int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
 
 int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
 {
+    int m = month + 1;
+    if(m > 11)
+        m = m % 12;
+
+    m_Anniversary[m].insert(day - 1, szName);
     return 0;
+}
+
+QString CCalendarLunar::GetAnniversary()
+{
+    return m_szAnniversary;
 }

@@ -2,6 +2,7 @@
 #define FRMCELL_H
 
 #include <QWidget>
+#include <QPalette>
 
 namespace Ui {
 class CFrmCell;
@@ -15,7 +16,8 @@ public:
     explicit CFrmCell(QWidget *parent = nullptr);
     ~CFrmCell();
     
-    int SetValue(const QString &szSolar, const QString &szLunar);
+    int SetValue(const QString &szSolar, const QPalette &palSolar,
+                 const QString &szLunar, const QPalette &palLunar);
     
 private:
     Ui::CFrmCell *ui;

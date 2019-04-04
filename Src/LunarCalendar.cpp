@@ -50,7 +50,6 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 
     ui->spYear->setValue(pModel->GetDate().year());
     ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
-
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -67,10 +66,10 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QLocale native = QLocale::system();
-    CCalendarLunar l;
+    CCalendarLunar l(d);
     ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
                             + "\n"
-                            + l.GetLunar(d));
+                            + l.GetLunar());
     return 0;
 }
 
