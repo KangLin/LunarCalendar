@@ -87,32 +87,41 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 
     int row = index.row();
     int column = index.column();
-    QTextCharFormat fmt = formatForCell(row, column);
+    QDate d = dateForCell(row, column);
+    QTextCharFormat fmt = formatForCell(d, row, column);
     switch (role) {
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
     case Qt::EditRole:
-        {
-            return m_Day[row * 7 + column].Solar;
-            QDate date = dateForCell(row, column);
-            if (date.isValid())
-            {
-                return QString::number(date.day());
-            }
-            return QString();
-        }
-    case SolarHoliday:
-        return m_Day[row * 7 + column].Holiday;
+    case SolarRole:
+        return d.day();
     case LunarRole:
-        return m_Day[row * 7 + column].Lunar;
-    case LunarHolidayRole:
-        return m_Day[row * 7 + column].LunarHoliday;
-    case LunarHolidayColorRole:
+        if(!GetDay(row, column).SolarHoliday.isEmpty())
+            return GetDay(row, column).SolarHoliday;
+        if(!GetDay(row, column).LunarHoliday.isEmpty())
+            return GetDay(row, column).LunarHoliday;
+        return GetDay(row, column).Lunar;
+    case LunarColorRole:
     {
-        if(!m_Day[row * 7 + column].LunarHoliday.isEmpty())
+        if(!GetDay(row, column).LunarHoliday.isEmpty())
             return GetHeight();
-        return fmt.foreground().color();
+        
+        QPalette pal;
+        QPalette::ColorGroup cg = QPalette::Active;
+        if(d.month() != m_ShownMonth)
+        {
+            cg = QPalette::Disabled;
+        }
+        return pal.brush(cg, QPalette::Text).color();
+    }
+    case LunarFontRole:
+    {
+        QTextCharFormat format;
+        QFont font = format.font();
+        if(!GetDay(row, column).LunarHoliday.isEmpty())
+            font.setBold(true);
+        return font;
     }
     case Qt::BackgroundRole:
         return fmt.background().color();
@@ -175,10 +184,12 @@ int CLunarCalendarModel::showMonth(int year, int month)
             
             CCalendarLunar lunar(d);
             day.Lunar = lunar.GetLunarDay();
-            day.Holiday = m_Holiday[d.month()][d.day()];    
+            day.SolarHoliday = m_Holiday[d.month()][d.day()];    
             day.LunarHoliday = lunar.GetAnniversary();
             if(day.LunarHoliday.isEmpty())
                 day.LunarHoliday = lunar.GetHoliday();
+            if(day.LunarHoliday.isEmpty())
+                day.LunarHoliday = lunar.GetJieQi();
             m_Day.push_back(day);
         }
         row++;
@@ -430,12 +441,12 @@ int CLunarCalendarModel::columnForDayOfWeek(Qt::DayOfWeek day) const
     return column;
 }
 
-QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
+QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) const
 {
     QTextCharFormat format;
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
-    QDate d = dateForCell(row, col);
+
     if(d.month() != m_ShownMonth)
     {
         cg = QPalette::Disabled;
@@ -447,17 +458,21 @@ QTextCharFormat CLunarCalendarModel::formatForCell(int row, int col) const
     if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             || d == QDate::currentDate()
-            || !m_Day[row * 7 + col].Holiday.isEmpty())
+            || !GetDay(row, col).SolarHoliday.isEmpty())
+    {
+        QFont font = format.font();
+        font.setBold(true);
+        format.setFont(font);
         format.setForeground(QBrush(GetHeight()));
-
+    }
     return format;
 }
 
 QColor CLunarCalendarModel::GetHeight() const
 {
+    //return QColor(Qt::red);
     QPalette pal;
     QPalette::ColorGroup cg = QPalette::Active;
-    //return QColor(Qt::red);
     return pal.color(cg, QPalette::Highlight);
 }
 
@@ -476,4 +491,9 @@ int CLunarCalendarModel::InitHoliday()
     AddHoliday(8, 1, "建军节");
     AddHoliday(10, 1, "国庆节");
     return 0;
+}
+
+CLunarCalendarModel::_DAY CLunarCalendarModel::GetDay(int row, int col) const
+{
+    return m_Day[row * 7 + col];
 }

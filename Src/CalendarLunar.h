@@ -17,6 +17,7 @@ public:
     QString GetLunarDay();
     QString GetHoliday();
     QString GetAnniversary();
+    QString GetJieQi();
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
 
@@ -26,6 +27,7 @@ private:
     QString m_szLunarDay;
     QString m_szHoliday;
     QString m_szAnniversary;
+    QString m_szJieQi;
     QMap<int, QMap<int, QString> > m_Holiday;
     QMap<int, QMap<int, QString> > m_Anniversary;
 };

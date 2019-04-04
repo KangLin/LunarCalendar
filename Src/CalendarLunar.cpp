@@ -44,18 +44,17 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
             m_szAnniversary = holiday[day.Ldi];
         
         if(-1 != day.qk)
-            m_szLunarDay = jqmc[day.qk];
-        else
+            m_szJieQi = jqmc[day.qk];
+        
+        if(0 == day.Ldi)
         {
-            if(0 == day.Ldi)
-            {
-                if (day.Lleap)
-                    m_szLunarDay += "润" + ymc[day.Lmc] + "月";
-                else
-                    m_szLunarDay = ymc[day.Lmc] + "月";
-            } else
-                m_szLunarDay = rmc[day.Ldi];
-        }
+            if (day.Lleap)
+                m_szLunarDay += "润" + ymc[day.Lmc] + "月";
+            else
+                m_szLunarDay = ymc[day.Lmc] + "月";
+        } else
+            m_szLunarDay = rmc[day.Ldi];
+        
     }
 }
 
@@ -72,6 +71,11 @@ QString CCalendarLunar::GetLunarDay()
 QString CCalendarLunar::GetHoliday()
 {
     return m_szHoliday;
+}
+
+QString CCalendarLunar::GetJieQi()
+{
+    return m_szJieQi;
 }
 
 QString CCalendarLunar::GetLunar(const QDate &date)

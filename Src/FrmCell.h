@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPalette>
+#include <QFont>
 
 namespace Ui {
 class CFrmCell;
@@ -16,8 +17,12 @@ public:
     explicit CFrmCell(QWidget *parent = nullptr);
     ~CFrmCell();
     
-    int SetValue(const QString &szSolar, const QPalette &palSolar,
-                 const QString &szLunar, const QPalette &palLunar);
+    int SetValue(const QString &szSolar,
+                 const QPalette &palSolar,
+                 const QFont &fontSolar,
+                 const QString &szLunar,
+                 const QPalette &palLunar,
+                 const QFont &fontLunar);
     
 private:
     Ui::CFrmCell *ui;

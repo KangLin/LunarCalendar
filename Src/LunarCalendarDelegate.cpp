@@ -19,21 +19,27 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
     CFrmCell cell;
     QPalette palette, paletteLunar;
     palette = option.palette;
-    palette.setBrush(QPalette::Background, QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
-    palette.setBrush(QPalette::Foreground, QBrush(QColor(index.data(Qt::ForegroundRole).value<QColor>())));
+    palette.setBrush(QPalette::Background,
+                QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
+    palette.setBrush(QPalette::Foreground,
+                QBrush(QColor(index.data(Qt::ForegroundRole).value<QColor>())));
     paletteLunar = option.palette;
-    paletteLunar.setBrush(QPalette::Background, QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
-    paletteLunar.setBrush(QPalette::Foreground, QBrush(QColor(index.data(CLunarCalendarModel::LunarHolidayColorRole).value<QColor>())));
-    
-    QString szLunar = index.data(CLunarCalendarModel::SolarHoliday).toString();
-    if(szLunar.isEmpty())
-        szLunar = index.data(CLunarCalendarModel::LunarHolidayRole).toString();
-    if(szLunar.isEmpty())
-        szLunar = index.data(CLunarCalendarModel::LunarRole).toString();
+    paletteLunar.setBrush(QPalette::Background,
+                QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
+    paletteLunar.setBrush(QPalette::Foreground,
+                QBrush(QColor(index.data(
+                 CLunarCalendarModel::LunarColorRole).value<QColor>())));
+
+    QFont fontSolar, fontLunar;
+    fontSolar = index.data(Qt::FontRole).value<QFont>();
+    fontLunar = index.data(CLunarCalendarModel::LunarFontRole).value<QFont>();
     cell.SetValue(index.data(CLunarCalendarModel::SolarRole).toString(),
                   palette,
-                  szLunar,
-                  paletteLunar);
+                  fontSolar,
+                  index.data(CLunarCalendarModel::LunarRole).toString(),
+                  paletteLunar,
+                  fontLunar);
+    
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     if(pView->horizontalHeader()->minimumSectionSize() < cell.width())
         pView->horizontalHeader()->setMinimumSectionSize(cell.width());

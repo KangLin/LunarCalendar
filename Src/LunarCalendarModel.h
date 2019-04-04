@@ -24,11 +24,10 @@ public:
     
     enum ROLE
     {
-        SolarRole = Qt::DisplayRole,
-        SolarHoliday = Qt::UserRole + 1,
+        SolarRole = Qt::UserRole + 1,
         LunarRole,
-        LunarHolidayRole,
-        LunarHolidayColorRole
+        LunarColorRole,
+        LunarFontRole
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -63,7 +62,7 @@ private:
     int WeeksOfMonth();
     int columnForFirstOfMonth(const QDate &date) const;
     int columnForDayOfWeek(Qt::DayOfWeek day) const;
-    QTextCharFormat formatForCell(int row, int col) const;
+    QTextCharFormat formatForCell(QDate d, int row, int col) const;
     QColor GetHeight() const;
     int InitHoliday();
     
@@ -79,11 +78,12 @@ private:
     struct _DAY
     {
         int Solar;
-        QString Holiday;
+        QString SolarHoliday;
         QString Lunar;
         QString LunarHoliday;
     };
     QVector<_DAY> m_Day;
+    _DAY GetDay(int row, int col) const;
     
     QMap<int, QMap<int, QString> > m_Holiday;
 };
