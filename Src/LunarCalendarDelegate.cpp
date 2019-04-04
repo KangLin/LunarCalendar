@@ -5,6 +5,7 @@
 #include <QApplication>
 #include <QTableView>
 #include <QHeaderView>
+#include <QPalette>
 
 CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent) : QStyledItemDelegate (parent)
 {
@@ -22,13 +23,16 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
         pView->horizontalHeader()->setMinimumSectionSize(cell.width());
     if(pView->verticalHeader()->minimumSectionSize() < cell.height())
         pView->verticalHeader()->setMinimumSectionSize(cell.height());
-    
+
     painter->save();
-    painter->setBrush(option.backgroundBrush);
     painter->translate(option.rect.topLeft());
+    painter->setBrush(option.backgroundBrush);
+   
     cell.resize(option.rect.size());
     cell.render(painter);
-    painter->restore();//*/
+    painter->restore();
+    
+    //*/
     
     //获取项风格设置    
     /*

@@ -23,7 +23,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
     
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
-    setShowGrid(false);
+    setShowGrid(true);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
