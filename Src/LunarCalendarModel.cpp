@@ -94,6 +94,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case Qt::DisplayRole:
     case Qt::EditRole:
         {
+            return m_Day[row * 7 + column].Solar;
             QDate date = dateForCell(row, column);
             if (date.isValid())
             {
@@ -103,6 +104,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         }
     case LunarRole:
         {
+            return m_Day[row * 7 + column].Lunar;
             QDate date = dateForCell(row, column);
             if (date.isValid())
             {
@@ -161,6 +163,25 @@ int CLunarCalendarModel::showMonth(int year, int month)
     m_ShownYear = year;
     m_ShownMonth = month;
     m_RowCount = WeeksOfMonth();
+    
+    m_Day.clear();
+    QDate d;
+    int row = 0, col = 0;
+    do{
+        for(int col = 0; col < 7; col++)
+        {
+            d = dateForCell(row, col);
+            if(d.isNull())
+                break;
+            _DAY day;
+            day.Solar = d.day();
+            CCalendarLunar lunar;
+            day.Lunar = lunar.GetLunarDay(d);
+            m_Day.push_back(day);
+        }
+        row++;
+    }while(d.isValid());
+    
     internalUpdate();
     return 0;
 }

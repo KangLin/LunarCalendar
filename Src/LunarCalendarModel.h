@@ -5,6 +5,7 @@
 #include <QDate>
 #include <QLocale>
 #include <QTextCharFormat>
+#include <QVector>
 
 class CLunarCalendarModel : public QAbstractTableModel
 {
@@ -72,6 +73,12 @@ private:
     int m_ColumnCount, m_RowCount;
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;
+    struct _DAY
+    {
+        int Solar;
+        QString Lunar;
+    };
+    QVector<_DAY> m_Day;
     
     QMap<int, QMap<int, QString> > m_Holiday;
 };
