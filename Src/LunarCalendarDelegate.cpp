@@ -16,17 +16,27 @@ CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent) : QStyledItemDel
 void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
     //*
+    QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     CFrmCell cell;
     QPalette palette, paletteLunar;
     palette = option.palette;
+    
     palette.setBrush(QPalette::Background,
                 QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
-    palette.setBrush(QPalette::Foreground,
+    if(pView->currentIndex() == index)
+        palette.setBrush(QPalette::Foreground,
+                QBrush(palette.color(QPalette::Active, QPalette::HighlightedText)));
+    else
+        palette.setBrush(QPalette::Foreground,
                 QBrush(QColor(index.data(Qt::ForegroundRole).value<QColor>())));
     paletteLunar = option.palette;
     paletteLunar.setBrush(QPalette::Background,
                 QBrush(QColor(index.data(Qt::BackgroundRole).value<QColor>())));
-    paletteLunar.setBrush(QPalette::Foreground,
+    if(pView->currentIndex() == index)
+        paletteLunar.setBrush(QPalette::Foreground,
+                QBrush(palette.color(QPalette::Active, QPalette::HighlightedText)));
+    else
+        paletteLunar.setBrush(QPalette::Foreground,
                 QBrush(QColor(index.data(
                  CLunarCalendarModel::LunarColorRole).value<QColor>())));
 
@@ -40,16 +50,20 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
                   paletteLunar,
                   fontLunar);
     
-    QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     if(pView->horizontalHeader()->minimumSectionSize() < cell.width())
         pView->horizontalHeader()->setMinimumSectionSize(cell.width());
     if(pView->verticalHeader()->minimumSectionSize() < cell.height())
-        pView->verticalHeader()->setMinimumSectionSize(cell.height());
-
-    painter->save();
+        pView->verticalHeader()->setMinimumSectionSize(cell.height());       
+    
+    if(pView->currentIndex() == index)
+    {
+        QPalette palette;
+        painter->setBrush(palette.brush(QPalette::Active, QPalette::Highlight));
+        painter->drawRect(option.rect);
+    }
+    painter->save();   
     painter->translate(option.rect.topLeft());
     painter->setBrush(option.backgroundBrush);
-
     cell.resize(option.rect.size());
     cell.render(painter);
     painter->restore();
