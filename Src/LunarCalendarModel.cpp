@@ -2,6 +2,8 @@
 #include <QTextCharFormat>
 #include <QDebug>
 #include <QPalette>
+#include <QApplication>
+#include <QStyle>
 #include "CalendarLunar.h"
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
