@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     CLunarCalendar* pLunarCalendar = new CLunarCalendar(this);
+    
     setCentralWidget(pLunarCalendar);
     //pLunarCalendar->setShowToday(false);
     //pLunarCalendar->setSelectedDate(QDate::currentDate());
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //pLunarCalendar->setShowWeekHead(false);
     //pLunarCalendar->setShowWeeks(false);
     //pLunarCalendar->setShowHead(false);
+    pLunarCalendar->AddAnniversary(4, 18, "my birth");
 }
 
 MainWindow::~MainWindow()

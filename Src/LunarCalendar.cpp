@@ -469,6 +469,12 @@ int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
-    pModel->AddHoliday(month, day, szName);
-    return 0;
+    return pModel->AddHoliday(month, day, szName);
+}
+
+int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
+    return pModel->AddAnniversary(month, day, szName);
 }

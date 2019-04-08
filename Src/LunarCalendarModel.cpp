@@ -99,14 +99,14 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case SolarRole:
         return d.day();
     case LunarRole:
-        if(!GetDay(row, column).SolarHoliday.isEmpty())
-            return GetDay(row, column).SolarHoliday;
-        if(!GetDay(row, column).LunarHoliday.isEmpty())
-            return GetDay(row, column).LunarHoliday;
-        return GetDay(row, column).Lunar;
+        if(!GetDay(row, column).szSolarHoliday.isEmpty())
+            return GetDay(row, column).szSolarHoliday;
+        if(!GetDay(row, column).szLunarHoliday.isEmpty())
+            return GetDay(row, column).szLunarHoliday;
+        return GetDay(row, column).szLunar;
     case LunarColorRole:
     {
-        if(!GetDay(row, column).LunarHoliday.isEmpty())
+        if(!GetDay(row, column).szLunarHoliday.isEmpty())
             return GetHeight();
         
         QPalette pal = QApplication::style()->standardPalette();
@@ -121,10 +121,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     {
         QTextCharFormat format;
         QFont font = format.font();
-        if(!GetDay(row, column).LunarHoliday.isEmpty())
+        if(!GetDay(row, column).szLunarHoliday.isEmpty())
             font.setBold(true);
         return font;
     }
+    case Anniversary:
+        return GetDay(row, column).szAnniversary;
     case Qt::BackgroundRole:
         return fmt.background().color();
     case Qt::ForegroundRole:
@@ -185,13 +187,16 @@ int CLunarCalendarModel::showMonth(int year, int month)
             day.Solar = d.day();
             
             CCalendarLunar lunar(d);
-            day.Lunar = lunar.GetLunarDay();
-            day.SolarHoliday = m_Holiday[d.month()][d.day()];    
-            day.LunarHoliday = lunar.GetAnniversary();
-            if(day.LunarHoliday.isEmpty())
-                day.LunarHoliday = lunar.GetHoliday();
-            if(day.LunarHoliday.isEmpty())
-                day.LunarHoliday = lunar.GetJieQi();
+            day.szLunar = lunar.GetLunarDay();
+            day.szSolarHoliday = m_Holiday[d.month()][d.day()];    
+            
+            day.szLunarHoliday = lunar.GetHoliday();
+            if(day.szLunarHoliday.isEmpty())
+                day.szLunarHoliday = lunar.GetJieQi();
+            
+            day.szAnniversary = lunar.GetAnniversary();
+            if(day.szAnniversary.isEmpty())
+                day.szAnniversary = m_Anniversary[d.month()][d.day()];
             m_Day.push_back(day);
         }
         row++;
@@ -460,11 +465,11 @@ QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) co
     if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             || d == QDate::currentDate()
-            || !GetDay(row, col).SolarHoliday.isEmpty())
+            || !GetDay(row, col).szSolarHoliday.isEmpty())
     {
         format.setForeground(QBrush(GetHeight()));
     }
-    if(!GetDay(row, col).SolarHoliday.isEmpty())
+    if(!GetDay(row, col).szSolarHoliday.isEmpty())
     {
         QFont font = format.font();
         font.setBold(true);
@@ -483,7 +488,25 @@ QColor CLunarCalendarModel::GetHeight() const
 
 int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
-    m_Holiday[month].insert(day, szName);
+    m_Holiday[month][day] = szName;
+    int row, col;
+    QDate date(m_ShownYear, month, day);
+    cellForDate(date, &row, &col);
+    if(-1 == row || -1 == col || m_Day.isEmpty())
+        return -1;
+    m_Day[row * 7 + col].szSolarHoliday = szName;            
+    return 0;
+}
+
+int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)
+{
+    m_Anniversary[month][day] = szName;
+    int row, col;
+    QDate date(m_ShownYear, month, day);
+    cellForDate(date, &row, &col);
+    if(-1 == row || -1 == col || m_Day.isEmpty())
+        return -1;
+    m_Day[row * 7 + col].szAnniversary = szName;            
     return 0;
 }
 

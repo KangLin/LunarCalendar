@@ -22,7 +22,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
     int firstHeight = 10;
     QPalette palette = QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
-    QColor solarColor, lunarColor;
+    QColor solarColor, lunarColor, anniversaryColor;
         
     if(pView->currentIndex() == index)
     palette.setBrush(QPalette::Background,
@@ -41,6 +41,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
         lunarColor = QColor(index.data(
                           CLunarCalendarModel::LunarColorRole).value<QColor>());
     paletteLunar.setBrush(QPalette::Foreground, QBrush(lunarColor));
+    
+    if(pView->currentIndex() == index)
+        anniversaryColor = palette.color(QPalette::Active, QPalette::HighlightedText);
+    else
+        anniversaryColor = QColor(index.data(Qt::ForegroundRole).value<QColor>());
     
     QFont fontSolar, fontLunar;
     fontSolar = index.data(Qt::FontRole).value<QFont>();
@@ -78,7 +83,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
     //*
     QString szSolar = index.data(CLunarCalendarModel::SolarRole).toString();
     QString szLunar = index.data(CLunarCalendarModel::LunarRole).toString();
-
+    QString szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
+    
     painter->save();
     painter->setFont(fontSolar);
     QFontMetrics m = painter->fontMetrics();
@@ -107,10 +113,13 @@ void CLunarCalendarDelegate::paint(QPainter *painter, const QStyleOptionViewItem
         painter->drawRect(option.rect);
     }
     
-    painter->setPen(Qt::red);
-    painter->drawArc(option.rect.left() + option.rect.width() / 2 - 3,
-                     option.rect.top() + option.rect.height() / 6 - 3,
-                     6, 6, 0 ,5760);
+    if(!szAnniversary.isEmpty())
+    {
+        painter->setPen(anniversaryColor);
+        painter->drawArc(option.rect.left() + option.rect.width() / 2 - 3,
+                         option.rect.top() + option.rect.height() / 6 - 3,
+                         6, 6, 0, 5760);
+    }
     
     painter->setFont(fontSolar);
     painter->setBackground(palette.background());

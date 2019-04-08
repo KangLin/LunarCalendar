@@ -43,7 +43,7 @@ public Q_SLOTS:
 
 public:
     int AddHoliday(int month, int day, const QString &szName);
-    
+    int AddAnniversary(int month, int day, const QString &szName);
 Q_SIGNALS:
     void sigSelectionChanged();
 
