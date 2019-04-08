@@ -33,10 +33,19 @@ Qt 写的农历库。带一个日历应用程序。
         mkdir build
 
 - 编译
+  + 用 qmake 
 
-        qmake LunarCalendar.pro
+        cd build
+        qmake ../LunarCalendar.pro
         make install
     
+  + 用 cmake
+  
+        cd build
+        cmake ..
+        cmake --build .
+
+
 ------------------------------------------------
 
 ### 使用
@@ -44,6 +53,10 @@ Qt 写的农历库。带一个日历应用程序。
 
         include(LunarCalendar.pri)
 
+- cmake工程
+
+        add_subdirectory(Src)
+        
 ------------------------------------------------
 
 ### 下载

@@ -31,10 +31,17 @@ Use QT write lunar calendar.
         cd LunarCalendar
         mkdir build
 
-- Compile
++ Use qmake 
 
-        qmake LunarCalendar.pro
-        make install
+      cd build
+      qmake ../LunarCalendar.pro
+      make install
+  
++ Use cmake
+
+      cd build
+      cmake ..
+      cmake --build .
 
 ------------------------------------------------
 ### Use
@@ -42,6 +49,10 @@ Use QT write lunar calendar.
 
          Include(LunarCalendar.pri)
 
+- cmake project
+
+        add_subdirectory(Src)
+        
 ------------------------------------------------
 
 ### Download
