@@ -83,7 +83,9 @@ if [ -n "$GENERATORS" ]; then
          -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5
     cmake --build . --target install --config Release ${RABBIT_MAKE_JOB_PARA}
 else
-    ${QT_ROOT}/bin/qmake ${SOURCE_DIR}/LunarCalendar.pro "CONFIG+=release"
+    ${QT_ROOT}/bin/qmake ${SOURCE_DIR}/LunarCalendar.pro \
+        "CONFIG+=release" \
+        PREFIX=`pwd`/install
     $MAKE -f Makefile
     echo "$MAKE install ...."
     $MAKE install
