@@ -18,7 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //pLunarCalendar->setShowWeekHead(false);
     //pLunarCalendar->setShowWeeks(false);
     //pLunarCalendar->setShowHead(false);
-    pLunarCalendar->AddAnniversary(4, 18, "my birth");
+    pLunarCalendar->AddAnniversary(4, 1, "my birth");
+    pLunarCalendar->AddAnniversary(4, 5, "you birth");
+
 }
 
 MainWindow::~MainWindow()
