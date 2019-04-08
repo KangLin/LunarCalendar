@@ -29,6 +29,7 @@ else: target.path = $$OUT_PWD/install
 !isEmpty(target.path): INSTALLS += target
 
 OTHER_FILES += appveyor.yml \
+    .travis.yml \
     README.md \
     README_zh_CN.md \
     ci/* \
