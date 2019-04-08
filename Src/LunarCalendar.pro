@@ -7,7 +7,8 @@ OTHER_FILES += \
     CMakeLists.txt
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-else: target.path = $$OUT_PWD/../install/bin
+qnx: target.path = /tmp/$${TARGET}
+else: unix:!android: target.path = /opt/$${TARGET}
+else: target.path = $$OUT_PWD/../install
+target.path = $${target.path}/bin
 !isEmpty(target.path): INSTALLS += target

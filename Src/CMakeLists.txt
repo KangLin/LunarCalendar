@@ -15,8 +15,11 @@ ENDFOREACH()
 
 SET(QT_INSTALL_DIR "${Qt5_DIR}/../../..")
 
+set(INSTALL_HEAD_FILES
+    LunarCalendar.h
+    )
 set(HEAD_FILES
-    LunarCalendar.h 
+    ${INSTALL_HEAD_FILES}
     LunarCalendarModel.h 
     CalendarLunar.h 
     ../3th_lib/sxtwl/src/lunar.h 
@@ -62,7 +65,7 @@ INSTALL(TARGETS ${PROJECT_NAME}
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         )
 # Install head files
-INSTALL(FILES ${HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+INSTALL(FILES ${INSTALL_HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 # Install cmake files
 #configure_file(TransformCoordinateConfig.cmake.in ${CMAKE_BINARY_DIR}/TransformCoordinateConfig.cmake @ONLY)
 #install(FILES ${CMAKE_BINARY_DIR}/TransformCoordinateConfig.cmake DESTINATION .)

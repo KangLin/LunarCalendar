@@ -19,7 +19,8 @@ SOURCES += LunarCalendar.cpp \
     $$PWD/../3th_lib/sxtwl/src/XL.cpp \  
     $$PWD/LunarCalendarDelegate.cpp
 
-HEADERS += LunarCalendar.h \
+INSTALL_HEADERS += LunarCalendar.h
+HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarModel.h \
     $$PWD/CalendarLunar.h \
     $$PWD/../3th_lib/sxtwl/src/lunar.h \
@@ -30,3 +31,11 @@ HEADERS += LunarCalendar.h \
     $$PWD/LunarCalendarDelegate.h
 
 FORMS += LunarCalendar.ui
+
+install.files = $$INSTALL_HEADERS
+# Default rules for deployment.
+qnx: install.path = /tmp/$${TARGET}
+else: unix:!android: install.path = /opt/$${TARGET}
+else: install.path = $$OUT_PWD/../install
+install.path = $${install.path}/include
+!isEmpty(install.path): INSTALLS += install
