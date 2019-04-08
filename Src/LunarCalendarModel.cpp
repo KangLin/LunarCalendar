@@ -109,7 +109,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(!GetDay(row, column).LunarHoliday.isEmpty())
             return GetHeight();
         
-        QPalette pal;
+        QPalette pal = QApplication::style()->standardPalette();
         QPalette::ColorGroup cg = QPalette::Active;
         if(d.month() != m_ShownMonth)
         {
@@ -446,7 +446,7 @@ int CLunarCalendarModel::columnForDayOfWeek(Qt::DayOfWeek day) const
 QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) const
 {
     QTextCharFormat format;
-    QPalette pal;
+    QPalette pal = QApplication::style()->standardPalette();
     QPalette::ColorGroup cg = QPalette::Active;
 
     if(d.month() != m_ShownMonth)
@@ -462,10 +462,13 @@ QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) co
             || d == QDate::currentDate()
             || !GetDay(row, col).SolarHoliday.isEmpty())
     {
+        format.setForeground(QBrush(GetHeight()));
+    }
+    if(!GetDay(row, col).SolarHoliday.isEmpty())
+    {
         QFont font = format.font();
         font.setBold(true);
         format.setFont(font);
-        format.setForeground(QBrush(GetHeight()));
     }
     return format;
 }
@@ -473,7 +476,7 @@ QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) co
 QColor CLunarCalendarModel::GetHeight() const
 {
     //return QColor(Qt::red);
-    QPalette pal;
+    QPalette pal = QApplication::style()->standardPalette();
     QPalette::ColorGroup cg = QPalette::Active;
     return pal.color(cg, QPalette::Highlight);
 }
