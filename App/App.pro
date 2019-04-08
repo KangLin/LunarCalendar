@@ -24,7 +24,7 @@ FORMS += \
         MainWindow.ui
 
 android {
-    LIBS *= "-L$$OUT_PWD/../LunarCalendar"
+    LIBS *= "-L$$OUT_PWD/../Src"
 } else {
     LIBS *= "-L$$DESTDIR"
 }

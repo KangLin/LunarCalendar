@@ -24,7 +24,7 @@ win32 {
                     --compiler-runtime \
                     --verbose 7 \
                     "$${INSTALL_TARGET}"
-    INSTALLS += Deployment_qtlib
+    INSTALLS += Deployment_qtlib target
 } else {
     # Default rules for deployment.
     target.path = $${PREFIX}/bin
