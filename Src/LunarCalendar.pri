@@ -17,8 +17,7 @@ SOURCES += LunarCalendar.cpp \
     $$PWD/../3th_lib/sxtwl/src/JD.cpp \
     $$PWD/../3th_lib/sxtwl/src/SSQ.cpp \
     $$PWD/../3th_lib/sxtwl/src/XL.cpp \  
-    $$PWD/LunarCalendarDelegate.cpp \
-    $$PWD/FrmCell.cpp
+    $$PWD/LunarCalendarDelegate.cpp
 
 HEADERS += LunarCalendar.h \
     $$PWD/LunarCalendarModel.h \
@@ -28,8 +27,6 @@ HEADERS += LunarCalendar.h \
     $$PWD/../3th_lib/sxtwl/src/JD.h \
     $$PWD/../3th_lib/sxtwl/src/SSQ.h \
     $$PWD/../3th_lib/sxtwl/src/XL.h \
-    $$PWD/LunarCalendarDelegate.h \
-    $$PWD/FrmCell.h
+    $$PWD/LunarCalendarDelegate.h
 
-FORMS += LunarCalendar.ui \
-    $$PWD/FrmCell.ui
+FORMS += LunarCalendar.ui

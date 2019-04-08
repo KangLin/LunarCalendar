@@ -27,7 +27,8 @@ public:
         SolarRole = Qt::UserRole + 1,
         LunarRole,
         LunarColorRole,
-        LunarFontRole
+        LunarFontRole,
+        Anniversary
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -54,6 +55,7 @@ public:
     void cellForDate(const QDate &date, int *row, int *column) const;
     
     int AddHoliday(int month, int day, const QString &szName);
+    int AddAnniversary(int month, int day, const QString &szName);
     
 private:
     void internalUpdate();
@@ -78,14 +80,16 @@ private:
     struct _DAY
     {
         int Solar;
-        QString SolarHoliday;
-        QString Lunar;
-        QString LunarHoliday;
+        QString szSolarHoliday;
+        QString szLunar;
+        QString szLunarHoliday;
+        QString szAnniversary;
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
     
     QMap<int, QMap<int, QString> > m_Holiday;
+    QMap<int, QMap<int, QString> > m_Anniversary;
 };
 
 #endif // CCALENDARMODEL_H

@@ -8,7 +8,6 @@
 #include <QModelIndex>
 #include "CalendarLunar.h"
 #include "LunarCalendarDelegate.h"
-#include "FrmCell.h"
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
@@ -30,12 +29,12 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tvMonth->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     
-    CFrmCell cell;
+    /*
     ui->tvMonth->horizontalHeader()->setMinimumSize(cell.size());
     ui->tvMonth->horizontalHeader()->setMinimumSectionSize(cell.width());
     ui->tvMonth->verticalHeader()->setMinimumSize(cell.size());
     ui->tvMonth->verticalHeader()->setMinimumSectionSize(cell.height());
-    
+    */
     ui->tvMonth->horizontalHeader()->setSectionsClickable(false);
     ui->tvMonth->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tvMonth->verticalHeader()->setSectionsClickable(false);
@@ -469,6 +468,12 @@ int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
-    pModel->AddHoliday(month, day, szName);
-    return 0;
+    return pModel->AddHoliday(month, day, szName);
+}
+
+int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
+    return pModel->AddAnniversary(month, day, szName);
 }
