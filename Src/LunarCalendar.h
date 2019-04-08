@@ -18,7 +18,6 @@ public:
     virtual ~CLunarCalendar() override;
     
     QDate selectedDate() const;
-public Q_SLOTS:
     void setSelectedDate(const QDate &date);
 
 public:
@@ -53,7 +52,7 @@ private slots:
     void on_tbPrevious_clicked();
     void on_pbToday_clicked();
     void on_cbMonth_currentIndexChanged(int index);
-    void on_spYear_valueChanged(int);
+    void on_spYear_valueChanged(int value);
     void on_tvMonth_pressed(const QModelIndex &index);
     
 protected:
@@ -70,6 +69,7 @@ private:
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
     bool m_bShowHead;
+    bool m_bUpdate;
 };
 
 #endif // LUNARCALENDAR_H

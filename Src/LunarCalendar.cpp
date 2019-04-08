@@ -16,7 +16,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
-    m_bShowHead(true)
+    m_bShowHead(true),
+    m_bUpdate(true)
 {
     ui->setupUi(this);
 
@@ -73,9 +74,11 @@ int CLunarCalendar::ShowSelectTitle()
     return 0;
 }
 
-void CLunarCalendar::on_spYear_valueChanged(int)
+void CLunarCalendar::on_spYear_valueChanged(int value)
 {
+    Q_UNUSED(value);
     ChangeMonth();
+    
     UpdateMonthMenu();
 }
 
@@ -90,7 +93,6 @@ void CLunarCalendar::on_tbNext_clicked()
         ui->spYear->setValue(ui->spYear->value() + 1);
     }
     ui->cbMonth->setCurrentIndex(i);
-    ChangeMonth();
 }
 
 void CLunarCalendar::on_tbPrevious_clicked()
@@ -104,7 +106,6 @@ void CLunarCalendar::on_tbPrevious_clicked()
         ui->spYear->setValue(ui->spYear->value() - 1);
     }
     ui->cbMonth->setCurrentIndex(i);
-    ChangeMonth();
 }
 
 void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
@@ -125,9 +126,11 @@ void CLunarCalendar::on_pbToday_clicked()
 
 int CLunarCalendar::ChangeMonth()
 {
+    if(!m_bUpdate)
+        return -1;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
-        return -1;
+        return -2;
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
     ShowSelectTitle();
     return 0;
@@ -253,11 +256,13 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
+    m_bUpdate = false;
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
     ui->spYear->setMaximum(date.year());
     UpdateMonthMenu();
     QDate newDate = pModel->GetDate();
+    m_bUpdate = true;
     if (oldDate != newDate) {
         ChangeMonth();
         emit sigSelectionChanged();
@@ -280,13 +285,14 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
         ui->pbToday->setVisible(false);
     else
         setShowToday(m_bShowToday);
-    
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
+    m_bUpdate = false;
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
     ui->spYear->setMinimum(date.year());
     UpdateMonthMenu();
+    m_bUpdate = true;
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
         ChangeMonth();
@@ -307,13 +313,13 @@ void CLunarCalendar::setDateRange(const QDate &min, const QDate &max)
         ui->pbToday->setVisible(false);
     else
         setShowToday(m_bShowToday);
-    
+    m_bUpdate = false;
     QDate oldDate = pModel->GetDate();
     pModel->setRange(min, max);
     ui->spYear->setRange(min.year(), max.year());
 
     UpdateMonthMenu();
-
+    m_bUpdate = true;
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
         ChangeMonth();
@@ -326,6 +332,7 @@ int CLunarCalendar::UpdateMonthMenu()
     int beg = 1, end = 12;
     bool prevEnabled = true;
     bool nextEnabled = true;
+    m_bUpdate = false;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
     if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
@@ -341,11 +348,18 @@ int CLunarCalendar::UpdateMonthMenu()
 
     ui->tbPrevious->setEnabled(prevEnabled);
     ui->tbNext->setEnabled(nextEnabled);
+    
+    int index = ui->cbMonth->currentIndex();
     ui->cbMonth->clear();
-
     for (int i = beg; i <= end; i++) {
         ui->cbMonth->addItem(QLocale::system().monthName(i), i);
     }
+    if(index >= ui->cbMonth->count())
+        index = ui->cbMonth->count() - 1;
+    if(index < 0)
+        index = 0;
+    ui->cbMonth->setCurrentIndex(index);
+    m_bUpdate = true;
     return 0;
 }
 
