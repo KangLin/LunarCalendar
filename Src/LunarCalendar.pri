@@ -33,9 +33,5 @@ HEADERS += $$INSTALL_HEADERS \
 FORMS += LunarCalendar.ui
 
 install.files = $$INSTALL_HEADERS
-# Default rules for deployment.
-qnx: install.path = /tmp/$${TARGET}
-else: unix:!android: install.path = /opt/$${TARGET}
-else: install.path = $$OUT_PWD/../install
-install.path = $${install.path}/include
+install.path = $${PREFIX}/include
 !isEmpty(install.path): INSTALLS += install
