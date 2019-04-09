@@ -13,7 +13,6 @@ if [ -n "$1" ]; then
     echo "    - Test is ok ?"
     echo "    - Translation is ok ?"
     echo "    - Setup file is ok ?"
-    echo "    - Update_*.xml is ok ?"
     
     read -t 30 -p "Be sure to input Y, not input N: " INPUT
     if [ "$INPUT" != "Y" -a "$INPUT" != "y" ]; then

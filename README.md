@@ -25,6 +25,11 @@ Use QT write lunar calendar.
 
 ------------------------------------------------
 
+### Screenshots
+![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
+
+------------------------------------------------
+
 ### Compile
 - Create and enter the build directory
 
