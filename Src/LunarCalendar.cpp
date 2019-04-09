@@ -23,7 +23,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
     
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
-    setShowGrid(true);
+    SetShowGrid(true);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -119,7 +119,7 @@ void CLunarCalendar::on_pbToday_clicked()
     int nIndex = ui->cbMonth->findData(QDate::currentDate().month());
     if(nIndex > -1)
         ui->cbMonth->setCurrentIndex(nIndex);
-    setSelectedDate(QDate::currentDate());
+    SetSelectedDate(QDate::currentDate());
     ChangeMonth();
 }
 
@@ -135,12 +135,12 @@ int CLunarCalendar::ChangeMonth()
     return 0;
 }
 
-void CLunarCalendar::setShowGrid(bool show)
+void CLunarCalendar::SetShowGrid(bool show)
 {
     ui->tvMonth->setShowGrid(show);
 }
 
-void CLunarCalendar::setShowToday(bool bShow)
+void CLunarCalendar::SetShowToday(bool bShow)
 {
     if(m_bShowToday == bShow)
         return;
@@ -148,17 +148,17 @@ void CLunarCalendar::setShowToday(bool bShow)
     ui->pbToday->setVisible(m_bShowToday);
 }
 
-void CLunarCalendar::setShowWeeks(bool bShow)
+void CLunarCalendar::SetShowWeeks(bool bShow)
 {
     ui->tvMonth->verticalHeader()->setVisible(bShow);
 }
 
-void CLunarCalendar::setShowWeekHead(bool bShow)
+void CLunarCalendar::SetShowWeekHead(bool bShow)
 {
     ui->tvMonth->horizontalHeader()->setVisible(bShow);
 }
 
-void CLunarCalendar::setShowHead(bool bShow)
+void CLunarCalendar::SetShowHead(bool bShow)
 {
     if(m_bShowHead == bShow)
         return;
@@ -168,7 +168,7 @@ void CLunarCalendar::setShowHead(bool bShow)
     ui->tbPrevious->setVisible(bShow);
     ui->cbMonth->setVisible(bShow);
     ui->lbDateText->setVisible(bShow);
-    setShowToday(bShow);
+    SetShowToday(bShow);
 }
 
 /*!
@@ -182,14 +182,14 @@ void CLunarCalendar::setShowHead(bool bShow)
     \sa setDateRange()
 */
 
-QDate CLunarCalendar::selectedDate() const
+QDate CLunarCalendar::SelectedDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return QDate();
     return pModel->GetDate();
 }
 
-void CLunarCalendar::setSelectedDate(const QDate &date)
+void CLunarCalendar::SetSelectedDate(const QDate &date)
 {
     if (!date.isValid())
         return;
@@ -222,28 +222,28 @@ void CLunarCalendar::setSelectedDate(const QDate &date)
     emit sigSelectionChanged();
 }
 
-int CLunarCalendar::yearShown() const
+int CLunarCalendar::YearShown() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
     return pModel->GetShowYear();
 }
 
-int CLunarCalendar::monthShown() const
+int CLunarCalendar::MonthShown() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
     return pModel->GetShowMonth();
 }
 
-QDate CLunarCalendar::maximumDate() const
+QDate CLunarCalendar::MaximumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return QDate();
     return pModel->GetMaximumDate();
 }
 
-void CLunarCalendar::setMaximumDate(const QDate &date)
+void CLunarCalendar::SetMaximumDate(const QDate &date)
 {
     if(!date.isValid())
         return;
@@ -251,7 +251,7 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
     if(QDate::currentDate() > date)
         ui->pbToday->setVisible(false);
     else
-        setShowToday(m_bShowToday);
+        SetShowToday(m_bShowToday);
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
@@ -268,14 +268,14 @@ void CLunarCalendar::setMaximumDate(const QDate &date)
     }
 }
 
-QDate CLunarCalendar::minimumDate() const
+QDate CLunarCalendar::MinimumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return QDate();
     return pModel->GetMinimumDate();
 }
 
-void CLunarCalendar::setMinimumDate(const QDate &date)
+void CLunarCalendar::SetMinimumDate(const QDate &date)
 {
     if(!date.isValid())
         return;
@@ -283,7 +283,7 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
     if(QDate::currentDate() < date)
         ui->pbToday->setVisible(false);
     else
-        setShowToday(m_bShowToday);
+        SetShowToday(m_bShowToday);
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
     m_bUpdate = false;
@@ -299,7 +299,7 @@ void CLunarCalendar::setMinimumDate(const QDate &date)
     }
 }
 
-void CLunarCalendar::setDateRange(const QDate &min, const QDate &max)
+void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
@@ -311,7 +311,7 @@ void CLunarCalendar::setDateRange(const QDate &min, const QDate &max)
     if(QDate::currentDate() < min || QDate::currentDate() > max)
         ui->pbToday->setVisible(false);
     else
-        setShowToday(m_bShowToday);
+        SetShowToday(m_bShowToday);
     m_bUpdate = false;
     QDate oldDate = pModel->GetDate();
     pModel->setRange(min, max);
@@ -362,14 +362,14 @@ int CLunarCalendar::UpdateMonthMenu()
     return 0;
 }
 
-Qt::DayOfWeek CLunarCalendar::firstDayOfWeek() const
+Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return QLocale::system().firstDayOfWeek();
     return pModel->firstDayOfWeek();
 }
 
-void CLunarCalendar::setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
+void CLunarCalendar::SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
@@ -385,7 +385,7 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
     if(!pModel) return;
     QDate d = pModel->dateForCell(index.row(), index.column());
     if(d.isValid())
-        setSelectedDate(d);
+        SetSelectedDate(d);
 
     m_oldCol = index.column();
     m_oldRow = index.row();

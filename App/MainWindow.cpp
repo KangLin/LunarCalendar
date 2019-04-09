@@ -11,13 +11,13 @@ MainWindow::MainWindow(QWidget *parent) :
     CLunarCalendar* pLunarCalendar = new CLunarCalendar(this);
     
     setCentralWidget(pLunarCalendar);
-    //pLunarCalendar->setShowToday(false);
-    //pLunarCalendar->setSelectedDate(QDate::currentDate());
-    //pLunarCalendar->setShowGrid(true);
-    //pLunarCalendar->setDateRange(QDate(2017, 3, 11), QDate(2019, 4, 20));
-    //pLunarCalendar->setShowWeekHead(false);
-    //pLunarCalendar->setShowWeeks(false);
-    //pLunarCalendar->setShowHead(false);
+//    pLunarCalendar->SetShowToday(false);
+//    pLunarCalendar->SetSelectedDate(QDate::currentDate());
+//    pLunarCalendar->SetShowGrid(true);
+//    pLunarCalendar->SetDateRange(QDate(2017, 3, 11), QDate(2019, 4, 20));
+//    pLunarCalendar->SetShowWeekHead(false);
+//    pLunarCalendar->SetShowWeeks(false);
+//    pLunarCalendar->SetShowHead(false);
     pLunarCalendar->AddAnniversary(4, 1, "my birth");
     pLunarCalendar->AddAnniversary(4, 5, "you birth");
 

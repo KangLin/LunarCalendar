@@ -17,33 +17,31 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
     
-    QDate selectedDate() const;
-    void setSelectedDate(const QDate &date);
+    QDate SelectedDate() const;
+    void SetSelectedDate(const QDate &date);
 
-public:
-    int yearShown() const;
-    int monthShown() const;
+    int YearShown() const;
+    int MonthShown() const;
     
-    Qt::DayOfWeek firstDayOfWeek() const;
-    void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
+    Qt::DayOfWeek FirstDayOfWeek() const;
+    void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
-    void setShowGrid(bool show);
-    void setShowToday(bool bShow);
-    void setShowWeekHead(bool bShow);
-    void setShowWeeks(bool bShow);
-    void setShowHead(bool bShow);
+    void SetShowGrid(bool show);
+    void SetShowToday(bool bShow);
+    void SetShowWeekHead(bool bShow);
+    void SetShowWeeks(bool bShow);
+    void SetShowHead(bool bShow);
     
-    QDate minimumDate() const;
-    void setMinimumDate(const QDate &date);
+    QDate MinimumDate() const;
+    void SetMinimumDate(const QDate &date);
 
-    QDate maximumDate() const;
-    void setMaximumDate(const QDate &date);
-public Q_SLOTS:
-    void setDateRange(const QDate &min, const QDate &max);
+    QDate MaximumDate() const;
+    void SetMaximumDate(const QDate &date);
+    void SetDateRange(const QDate &min, const QDate &max);
 
-public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
+
 Q_SIGNALS:
     void sigSelectionChanged();
 

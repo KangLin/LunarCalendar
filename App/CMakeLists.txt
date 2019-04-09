@@ -8,6 +8,7 @@ set(SOURCE_FILES
 set(SOURCE_UI_FILES
     MainWindow.ui
     )
+set(RESOURCE_FILES Resource/Resource.qrc)
 
 add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")
 add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
@@ -16,7 +17,8 @@ add_definitions(-DBUILD_PLATFORM="${BUILD_PLATFORM}")
 if(WIN32)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 endif()
-add_executable(${PROJECT_NAME}App ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES})
+add_executable(${PROJECT_NAME}App ${SOURCE_FILES}
+    ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
 SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}App ${APP_LIBS})
 target_include_directories(${PROJECT_NAME}App PUBLIC "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")

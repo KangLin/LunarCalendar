@@ -23,6 +23,10 @@ HEADERS += \
 FORMS += \
         MainWindow.ui
 
+RESOURCES += Resource/Resource.qrc
+
+RC_FILE = AppIcon.rc
+
 android {
     LIBS *= "-L$$OUT_PWD/../Src"
 } else {
@@ -61,4 +65,5 @@ else: target.path = $$OUT_PWD/../install/bin
 !isEmpty(target.path): INSTALLS += target
 
 OTHER_FILES += \
-    CMakeLists.txt
+    CMakeLists.txt \
+    AppIcon.rc
