@@ -37,6 +37,16 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
                 return GetHeight();
         }
         break;
+    case SolarColorRole:
+        if(Qt::Horizontal == orientation)
+        {
+            int day = section + m_FirstDay;
+            if(day > 7)
+                day %= 7;
+            if(Qt::Saturday == day || Qt::Sunday == day)
+                return ColorHighlight;
+        }
+        return ColorNormal;
     case Qt::DisplayRole:
         switch (orientation) {
         case Qt::Horizontal:
@@ -90,7 +100,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     int row = index.row();
     int column = index.column();
     QDate d = dateForCell(row, column);
-    QTextCharFormat fmt = formatForCell(d, row, column);
     switch (role) {
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
@@ -106,35 +115,41 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return GetDay(row, column).szLunar;
     case LunarColorRole:
     {
-        if(!GetDay(row, column).szLunarHoliday.isEmpty())
-            return GetHeight();
-        
-        QPalette pal = QApplication::style()->standardPalette();
-        QPalette::ColorGroup cg = QPalette::Active;
         if(d.month() != m_ShownMonth)
-        {
-            cg = QPalette::Disabled;
-        }
-        return pal.brush(cg, QPalette::Text).color();
+            return ColorDisable;
+
+        if(GetDay(row, column).szLunarHoliday.isEmpty())
+            return ColorNormal;
+        
+        return ColorHighlight;
     }
     case LunarFontRole:
     {
-        QTextCharFormat format;
-        QFont font = format.font();
-        if(!GetDay(row, column).szLunarHoliday.isEmpty())
-            font.setBold(true);
-        return font;
+        if(GetDay(row, column).szLunarHoliday.isEmpty())
+            return FontNormal;
+        
+        return FontBold;
     }
     case Anniversary:
         return GetDay(row, column).szAnniversary;
-    case Qt::BackgroundRole:
-        return fmt.background().color();
-    case Qt::ForegroundRole:
-        return fmt.foreground().color();
-    case Qt::FontRole:
-        return fmt.font();
-    case Qt::ToolTipRole:
-        return fmt.toolTip();
+    case SolarColorRole:
+    {
+        if(d.month() != m_ShownMonth)
+            return ColorDisable;
+
+        if(d.dayOfWeek() == Qt::Saturday
+                || Qt::Sunday == d.dayOfWeek()
+                || d == QDate::currentDate()
+                || !GetDay(row, column).szSolarHoliday.isEmpty())
+            return ColorHighlight;
+        
+        return ColorNormal;
+    }
+    case SolarFontRole:
+        if(GetDay(row, column).szSolarHoliday.isEmpty())
+            return FontNormal;
+        
+        return FontBold;
     default:
         break;
     };

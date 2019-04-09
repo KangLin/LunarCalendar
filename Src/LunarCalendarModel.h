@@ -22,9 +22,23 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     
+    enum _COLOR_ROLE
+    {
+        ColorNormal,
+        ColorDisable,
+        ColorHighlight
+    };
+    enum _FONT_ROLE
+    {
+        FontBold,
+        FontNormal,
+    };
+    
     enum ROLE
     {
         SolarRole = Qt::UserRole + 1,
+        SolarColorRole,
+        SolarFontRole,
         LunarRole,
         LunarColorRole,
         LunarFontRole,

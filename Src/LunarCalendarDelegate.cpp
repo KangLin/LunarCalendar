@@ -11,7 +11,34 @@
 #include <QFontInfo>
 #include <QFontMetrics>
 
-CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent) : QStyledItemDelegate (parent)
+QColor GetColorRole(const QPalette &palette, int role)
+{
+    switch (role) {
+    case CLunarCalendarModel::ColorNormal:
+        return palette.color(QPalette::Active, QPalette::Text);
+    case CLunarCalendarModel::ColorDisable:
+        return palette.color(QPalette::Disabled, QPalette::Text);
+    case CLunarCalendarModel::ColorHighlight:
+        return palette.color(QPalette::Active, QPalette::BrightText);
+    }
+    return QColor();
+}
+
+QFont GetFontRole(QFont &font, int role)
+{
+    switch (role) {
+    case CLunarCalendarModel::FontBold:
+        font.setBold(true);
+        break;
+    case CLunarCalendarModel::FontNormal:
+        font.setBold(false);
+        break;
+    }
+    return font;
+}
+
+CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent)
+    : QStyledItemDelegate (parent)
 {
 }
 
@@ -20,17 +47,20 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                                    const QModelIndex &index) const
 {
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
-    QPalette palette = QApplication::style()->standardPalette();
+    QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
     QColor solarColor, lunarColor, anniversaryColor;
-
-    QFont fontSolar, fontLunar;
-    fontSolar = index.data(Qt::FontRole).value<QFont>();
-    fontLunar = index.data(CLunarCalendarModel::LunarFontRole).value<QFont>();
+    
+    QFont fontSolar = option.font, fontLunar = fontSolar;
+    fontSolar = GetFontRole(fontSolar,
+                      index.data(CLunarCalendarModel::SolarFontRole).toInt());
+    fontLunar = GetFontRole(fontLunar,
+                      index.data(CLunarCalendarModel::LunarFontRole).toInt());
 
     QString szSolar = index.data(CLunarCalendarModel::SolarRole).toString();
     QString szLunar = index.data(CLunarCalendarModel::LunarRole).toString();
-    QString szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
+    QString szAnniversary
+            = index.data(CLunarCalendarModel::Anniversary).toString();
     
     painter->save();
     painter->setFont(fontSolar);
@@ -70,21 +100,23 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         painter->drawRect(option.rect);
 
         solarColor = palette.color(QPalette::Active, QPalette::HighlightedText);
-        lunarColor = solarColor;  
+        lunarColor = solarColor;
     }
     else
     {
-        solarColor = QColor(index.data(Qt::ForegroundRole).value<QColor>());
-        lunarColor = QColor(index.data(
-                                CLunarCalendarModel::LunarColorRole).value<QColor>());
+        solarColor = GetColorRole(palette,
+                       index.data(CLunarCalendarModel::SolarColorRole).toInt());
+        lunarColor = GetColorRole(palette,
+                       index.data(CLunarCalendarModel::LunarColorRole).toInt());
     }
     anniversaryColor = solarColor;
-    
+  
     if(!szAnniversary.isEmpty())
     {
         painter->setBrush(anniversaryColor);
         painter->setPen(anniversaryColor);
-        painter->drawEllipse(option.rect.left() + (option.rect.width() >> 1) - 2,
+        painter->drawEllipse(option.rect.left()
+                             + (option.rect.width() >> 1) - 2,
                              option.rect.top() + (height >> 1) - 6,
                              4, 4);
     }
@@ -102,5 +134,31 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     pos.setY(option.rect.top() + (height << 1) + ((height - solarHeight) >> 1));
     painter->drawText(pos, szLunar);
 
+    painter->restore();
+}
+
+CLunarCalendarHeaderDelegate::CLunarCalendarHeaderDelegate(QObject *parent)
+    : QStyledItemDelegate (parent)
+{
+}
+
+void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
+                                         const QStyleOptionViewItem &option,
+                                         const QModelIndex &index) const
+{
+    QPalette palette = option.palette;
+    QPalette paletteLunar = palette;
+    QColor color = GetColorRole(palette,
+                      index.data(CLunarCalendarModel::SolarColorRole).toInt());
+    QString szText = index.data(Qt::DisplayRole).toString();
+    
+    painter->save();
+    painter->setFont(option.font);
+    QFontMetrics m = painter->fontMetrics();
+    QPoint pos;
+    pos.setX(option.rect.left()
+             + ((option.rect.width() - m.width(szText)) >> 1));
+    pos.setY(option.rect.top() + ((option.rect.height() - m.height()) >> 1));
+    painter->drawText(pos, szText);
     painter->restore();
 }

@@ -40,8 +40,11 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->verticalHeader()->setSectionsClickable(false);
     ui->tvMonth->setModel(pModel);
     ui->tvMonth->setItemDelegate(new CLunarCalendarDelegate(ui->tvMonth));
+    ui->tvMonth->horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
+    ui->tvMonth->verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
     ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     ui->tvMonth->installEventFilter(this);
+    //ui->tvMonth->setAlternatingRowColors(true); //设置奇偶行颜色  
     
     for(int i = 0; i < 12; i++)
     {
