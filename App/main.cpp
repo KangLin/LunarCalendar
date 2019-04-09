@@ -2,6 +2,7 @@
 #include <QApplication>
 #include <QFile>
 #include <QTranslator>
+#include <QDir>
 
 int main(int argc, char *argv[])
 {
