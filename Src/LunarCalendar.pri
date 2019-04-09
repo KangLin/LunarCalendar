@@ -2,14 +2,15 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
-DEFINES += LunarCalendar_EXPORTS
-INCLUDEPATH = $$PWD/../3th_lib/sxtwl/src
+INCLUDEPATH = $$PWD $$PWD/../3th_lib/sxtwl/src
 msvc {
     QMAKE_CXXFLAGS += "/utf-8"
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
 }
 
-SOURCES += LunarCalendar.cpp \
+DEFINES += LunarCalendar_EXPORTS
+
+SOURCES += $$PWD/LunarCalendar.cpp \
     $$PWD/LunarCalendarModel.cpp \
     $$PWD/CalendarLunar.cpp \
     $$PWD/../3th_lib/sxtwl/src/lunar.cpp \
@@ -19,10 +20,10 @@ SOURCES += LunarCalendar.cpp \
     $$PWD/../3th_lib/sxtwl/src/XL.cpp \  
     $$PWD/LunarCalendarDelegate.cpp
 
-INSTALL_HEADERS += LunarCalendar.h \
-    lunarcalendar_export.h \
-    lunarcalendar_export_linux.h \
-    lunarcalendar_export_windows.h
+INSTALL_HEADERS += $$PWD/LunarCalendar.h \
+    $$PWD/lunarcalendar_export.h \
+    $$PWD/lunarcalendar_export_windows.h \
+    $$PWD/lunarcalendar_export_linux.h 
 
 HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarModel.h \
@@ -34,4 +35,4 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/../3th_lib/sxtwl/src/XL.h \
     $$PWD/LunarCalendarDelegate.h
 
-FORMS += LunarCalendar.ui
+FORMS += $$PWD/LunarCalendar.ui
