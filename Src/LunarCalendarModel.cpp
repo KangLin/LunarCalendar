@@ -503,24 +503,28 @@ QColor CLunarCalendarModel::GetHeight() const
 
 int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
-    m_Holiday[month][day] = szName;
+    if(szName.isEmpty())
+        return -1;
+    m_Holiday[month].insertMulti(day, szName);
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
     if(-1 == row || -1 == col || m_Day.isEmpty())
-        return -1;
+        return -2;
     m_Day[row * 7 + col].szSolarHoliday = szName;            
     return 0;
 }
 
 int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)
 {
-    m_Anniversary[month][day] = szName;
+    if(szName.isEmpty())
+        return -1;
+    m_Anniversary[month].insertMulti(day, szName);
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
     if(-1 == row || -1 == col || m_Day.isEmpty())
-        return -1;
+        return -2;
     m_Day[row * 7 + col].szAnniversary = szName;            
     return 0;
 }

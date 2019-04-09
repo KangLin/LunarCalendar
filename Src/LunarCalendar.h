@@ -33,6 +33,7 @@ public:
     void SetShowWeekHead(bool bShow);
     void SetShowWeeks(bool bShow);
     void SetShowHead(bool bShow);
+    void SetShowTools(bool bShow);
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
