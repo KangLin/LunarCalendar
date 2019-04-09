@@ -67,3 +67,5 @@ else: target.path = $$OUT_PWD/../install/bin
 OTHER_FILES += \
     CMakeLists.txt \
     AppIcon.rc
+
+include(Resource/Translations/Translations.pri)

@@ -19,7 +19,7 @@ QColor GetColorRole(const QPalette &palette, int role)
     case CLunarCalendarModel::ColorDisable:
         return palette.color(QPalette::Disabled, QPalette::Text);
     case CLunarCalendarModel::ColorHighlight:
-        return palette.color(QPalette::Active, QPalette::BrightText);
+        return palette.color(QPalette::Active, QPalette::Highlight);
     }
     return QColor();
 }
@@ -151,9 +151,11 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
     QColor color = GetColorRole(palette,
                       index.data(CLunarCalendarModel::SolarColorRole).toInt());
     QString szText = index.data(Qt::DisplayRole).toString();
-    
+
     painter->save();
     painter->setFont(option.font);
+    painter->setPen(color);
+    
     QFontMetrics m = painter->fontMetrics();
     QPoint pos;
     pos.setX(option.rect.left()

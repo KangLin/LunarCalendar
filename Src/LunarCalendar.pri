@@ -36,3 +36,5 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarDelegate.h
 
 FORMS += $$PWD/LunarCalendar.ui
+
+include($$PWD/Resource/Translations/Translations.pri)

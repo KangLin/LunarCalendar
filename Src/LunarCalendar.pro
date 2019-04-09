@@ -14,7 +14,6 @@ include(LunarCalendar.pri)
 OTHER_FILES += \
     CMakeLists.txt
 
-
 header_files.target = header_files
 header_files.files = $$INSTALL_HEADERS
 win32 {
