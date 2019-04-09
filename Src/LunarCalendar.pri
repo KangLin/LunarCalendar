@@ -19,7 +19,11 @@ SOURCES += LunarCalendar.cpp \
     $$PWD/../3th_lib/sxtwl/src/XL.cpp \  
     $$PWD/LunarCalendarDelegate.cpp
 
-INSTALL_HEADERS += LunarCalendar.h
+INSTALL_HEADERS += LunarCalendar.h \
+    lunarcalendar_export.h \
+    lunarcalendar_export_linux.h \
+    lunarcalendar_export_windows.h
+
 HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarModel.h \
     $$PWD/CalendarLunar.h \
@@ -31,7 +35,3 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarDelegate.h
 
 FORMS += LunarCalendar.ui
-
-install.files = $$INSTALL_HEADERS
-install.path = $${PREFIX}/include
-!isEmpty(install.path): INSTALLS += install

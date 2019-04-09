@@ -14,9 +14,14 @@ include(LunarCalendar.pri)
 OTHER_FILES += \
     CMakeLists.txt
 
-win32 {    
+
+header_files.target = header_files
+header_files.files = $$INSTALL_HEADERS
+win32 {
+    header_files.path = $$system_path($${PREFIX})/include
+
     INSTALL_TARGET = $$system_path($${DESTDIR}/$(TARGET))
-      
+
     Deployment_qtlib.target = Deployment_qtlib
     Deployment_qtlib.files = $$system_path($${DESTDIR}/)
     Deployment_qtlib.path = $$system_path($${PREFIX})
@@ -24,9 +29,10 @@ win32 {
                     --compiler-runtime \
                     --verbose 7 \
                     "$${INSTALL_TARGET}"
-    INSTALLS += Deployment_qtlib target
+    INSTALLS += Deployment_qtlib target header_files
 } else {
+    header_files.path = $${PREFIX}/include
     # Default rules for deployment.
     target.path = $${PREFIX}/bin
-    !isEmpty(target.path): INSTALLS += target
+    !isEmpty(target.path): INSTALLS += target header_files
 }
