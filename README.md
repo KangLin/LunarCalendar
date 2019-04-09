@@ -24,9 +24,15 @@ Use QT write lunar calendar.
 - [![Linux Build Status](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 ------------------------------------------------
+### Introduction
+
+Lunar calendar written in Qt, support QSS
+
+------------------------------------------------
 
 ### Screenshots
-![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
+- ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
+- ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
 
 ------------------------------------------------
 

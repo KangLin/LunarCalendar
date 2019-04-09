@@ -25,9 +25,15 @@ Qt 写的农历库。带一个日历应用程序。
 - [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 ------------------------------------------------
+### 介绍
+
+用Qt写的农历，支持QSS
+
+------------------------------------------------
 
 ### 屏幕截图
-![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
+- ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
+- ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
 
 ------------------------------------------------
 

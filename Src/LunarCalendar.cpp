@@ -8,6 +8,31 @@
 #include <QModelIndex>
 #include "CalendarLunar.h"
 #include "LunarCalendarDelegate.h"
+#include <QTranslator>
+#include <QApplication>
+#include <QDir>
+
+class CLunarCalendarPrivate
+{
+public:
+    CLunarCalendarPrivate() 
+    {
+        QString szPre;    
+    #if defined(Q_OS_ANDROID) || _DEBUG
+        szPre = ":/Translations";
+    #else
+        szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
+    #endif
+        m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
+        qApp->installTranslator(&m_Translator);
+    }
+    ~CLunarCalendarPrivate()
+    {
+        qApp->removeTranslator(&m_Translator);
+    }
+private:
+    QTranslator m_Translator;
+};
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),

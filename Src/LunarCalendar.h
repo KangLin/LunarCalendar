@@ -54,16 +54,16 @@ private slots:
     void on_cbMonth_currentIndexChanged(int index);
     void on_spYear_valueChanged(int value);
     void on_tvMonth_pressed(const QModelIndex &index);
-    
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
-    
+
 private:
     int ShowSelectTitle();
     int ChangeMonth();
     int UpdateMonthMenu();
     int UpdateSelect();
-    
+
 private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
