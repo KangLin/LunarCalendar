@@ -21,6 +21,7 @@ private Q_SLOTS:
     
 private:
     Ui::MainWindow *ui;
+public:
     CLunarCalendar* m_pLunarCalendar;
 };
 
