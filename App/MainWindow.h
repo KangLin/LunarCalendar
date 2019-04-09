@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "LunarCalendar.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,8 +16,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     
+private Q_SLOTS:
+    void slotUpdateCalendar();
+    
 private:
     Ui::MainWindow *ui;
+    CLunarCalendar* m_pLunarCalendar;
 };
 
 #endif // MAINWINDOW_H

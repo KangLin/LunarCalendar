@@ -19,7 +19,9 @@ public:
     
     QDate SelectedDate() const;
     void SetSelectedDate(const QDate &date);
-
+    
+    QString SelectedLunar();
+    
     int YearShown() const;
     int MonthShown() const;
     

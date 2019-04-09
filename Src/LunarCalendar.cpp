@@ -181,7 +181,6 @@ void CLunarCalendar::SetShowHead(bool bShow)
 
     \sa setDateRange()
 */
-
 QDate CLunarCalendar::SelectedDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
@@ -220,6 +219,15 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
         m_oldRow = row;
     }
     emit sigSelectionChanged();
+}
+
+QString CLunarCalendar::SelectedLunar()
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return QString();
+    QDate date = pModel->GetDate();
+    CCalendarLunar l(date);
+    return l.GetLunar();
 }
 
 int CLunarCalendar::YearShown() const
