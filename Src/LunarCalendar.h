@@ -69,7 +69,6 @@ private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
-    bool m_bShowHead;
     bool m_bUpdate;
 };
 
