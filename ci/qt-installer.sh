@@ -25,7 +25,7 @@ case $RABBIT_ARCH in
      x86)
         SELECTEDPACKAGES=android_x86
         ;;
-     unix)
+    unix)
         SELECTEDPACKAGES=gcc_64
         ;;
        *)
