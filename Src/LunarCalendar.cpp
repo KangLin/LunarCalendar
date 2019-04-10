@@ -84,6 +84,13 @@ CLunarCalendar::~CLunarCalendar()
     delete ui;
 }
 
+void CLunarCalendar::Init()
+{
+    static CLunarCalendarPrivate* p = nullptr;
+    if(nullptr == p)
+        p = new CLunarCalendarPrivate();
+}
+
 int CLunarCalendar::ShowSelectTitle()
 {
     QDate d;

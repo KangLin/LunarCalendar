@@ -17,6 +17,8 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
     
+    static void Init();
+    
     QDate SelectedDate() const;
     void SetSelectedDate(const QDate &date);
     

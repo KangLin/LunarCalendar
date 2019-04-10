@@ -9,18 +9,18 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="54"/>
-        <location filename="../../LunarCalendar.ui" line="74"/>
+        <location filename="../../LunarCalendar.ui" line="104"/>
+        <location filename="../../LunarCalendar.ui" line="124"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="97"/>
+        <location filename="../../LunarCalendar.ui" line="147"/>
         <source>ToDay</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="106"/>
+        <location filename="../../LunarCalendar.ui" line="54"/>
         <source>Date text</source>
         <translation></translation>
     </message>
