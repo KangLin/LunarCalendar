@@ -37,4 +37,4 @@ HEADERS += $$INSTALL_HEADERS \
 
 FORMS += $$PWD/LunarCalendar.ui
 
-include($$PWD/Resource/Translations/Translations.pri)
+include($$PWD/../pri/Translations.pri)

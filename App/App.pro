@@ -68,4 +68,4 @@ OTHER_FILES += \
     CMakeLists.txt \
     AppIcon.rc
 
-include(Resource/Translations/Translations.pri)
+include(../pri/Translations.pri)

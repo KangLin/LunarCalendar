@@ -47,7 +47,7 @@
 #              |                             |- ${TRANSLATIONS_NAME}_zh_CN.ts
 #              |                             |- ${TRANSLATIONS_NAME}_zh_TW.ts
 #              |- cmake
-#                     |- Translations.cmake
+#              |      |- Translations.cmake
 #              |- Src
 #                     |- Resource
 #                                |-Translations
