@@ -33,6 +33,7 @@ public:
     void SetShowWeekHead(bool bShow);
     void SetShowWeeks(bool bShow);
     void SetShowHead(bool bShow);
+    void SetShowTools(bool bShow);
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
@@ -68,7 +69,6 @@ private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
-    bool m_bShowHead;
     bool m_bUpdate;
 };
 

@@ -171,21 +171,25 @@ int CCalendarLunar::InitHoliday()
 
 int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
 {
+    if(szName.isEmpty())
+        return -1;
     int m = month + 1;
     if(m > 11)
         m = m % 12;
 
-    m_Holiday[m][day - 1] = szName;
+    m_Holiday[m].insertMulti(day - 1, szName);
     return 0;
 }
 
 int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
 {
+    if(szName.isEmpty())
+        return -1;
     int m = month + 1;
     if(m > 11)
         m = m % 12;
 
-    m_Anniversary[m][day - 1] = szName;
+    m_Anniversary[m].insertMulti(day - 1, szName);
     return 0;
 }
 

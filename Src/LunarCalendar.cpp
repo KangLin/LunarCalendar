@@ -40,7 +40,6 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
-    m_bShowHead(true),
     m_bUpdate(true)
 {
     ui->setupUi(this);
@@ -96,7 +95,7 @@ int CLunarCalendar::ShowSelectTitle()
     QLocale native = QLocale::system();
     CCalendarLunar l(d);
     ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
-                            + "\n"
+                            + " "
                             + l.GetLunar());
     return 0;
 }
@@ -188,14 +187,16 @@ void CLunarCalendar::SetShowWeekHead(bool bShow)
 
 void CLunarCalendar::SetShowHead(bool bShow)
 {
-    if(m_bShowHead == bShow)
-        return;
-    m_bShowHead = bShow;
+    SetShowTools(bShow);
+    ui->lbDateText->setVisible(bShow);
+}
+
+void CLunarCalendar::SetShowTools(bool bShow)
+{
     ui->spYear->setVisible(bShow);
     ui->tbNext->setVisible(bShow);
     ui->tbPrevious->setVisible(bShow);
     ui->cbMonth->setVisible(bShow);
-    ui->lbDateText->setVisible(bShow);
     SetShowToday(bShow);
 }
 
@@ -509,6 +510,8 @@ int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 
 int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
 {
+    if(szName.isEmpty())
+        return -1;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
     return pModel->AddAnniversary(month, day, szName);

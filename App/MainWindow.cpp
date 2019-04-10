@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     
     setCentralWidget(m_pLunarCalendar);
 //    m_pLunarCalendar->SetShowToday(false);
+//    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
 //    m_pLunarCalendar->SetDateRange(QDate(2017, 3, 11), QDate(2019, 4, 20));
