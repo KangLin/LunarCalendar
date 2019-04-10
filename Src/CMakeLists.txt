@@ -43,8 +43,14 @@ set(SOURCE_FILES
 set(SOURCE_UI_FILES
     LunarCalendar.ui 
     )
+
+#翻译
+include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
+include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
+
 #设置资源文件
 SET(RCC_FILES
+    ${TRANSLATIONS_RESOURCE_FILES}
     )
 
 if(WIN32)
@@ -52,6 +58,7 @@ if(WIN32)
     set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 endif()
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES} ${RCC_FILES})
+add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/3th_lib/sxtwl/src)
 GENERATE_EXPORT_HEADER(${PROJECT_NAME})

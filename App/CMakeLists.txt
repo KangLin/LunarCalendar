@@ -8,7 +8,14 @@ set(SOURCE_FILES
 set(SOURCE_UI_FILES
     MainWindow.ui
     )
-set(RESOURCE_FILES Resource/Resource.qrc)
+
+#翻译
+set(TRANSLATIONS_NAME ${PROJECT_NAME}App)
+include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
+include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
+
+set(RESOURCE_FILES Resource/Resource.qrc
+    "${CMAKE_CURRENT_BINARY_DIR}/translations.qrc")
 
 add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")
 add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
@@ -19,6 +26,8 @@ if(WIN32)
 endif()
 add_executable(${PROJECT_NAME}App ${SOURCE_FILES}
     ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
+add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
+
 SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
 target_link_libraries(${PROJECT_NAME}App ${APP_LIBS})
 target_include_directories(${PROJECT_NAME}App PUBLIC "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")
