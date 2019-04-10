@@ -63,7 +63,9 @@ Lunar calendar written in Qt, support QSS
 
   + Is a QT project, directly introduces LunarCalendar.pri
 
-         Include(LunarCalendar.pri)
+        TRANSLATIONS_DIR=$$PWD/../3th_libs/LunarCalendar/Src
+        TRANSLATIONS_TARGET=LunarCalendar
+        include(LunarCalendar.pri)
 
   + cmake project
 

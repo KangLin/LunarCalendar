@@ -28,7 +28,8 @@ endif()
 add_executable(${PROJECT_NAME} ${SOURCE_FILES}
     ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
-
+set_target_properties(${PROJECT_NAME}
+    PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 target_link_libraries(${PROJECT_NAME} LunarCalendar ${QT_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")

@@ -66,6 +66,8 @@ Qt 写的农历库。带一个日历应用程序。
 
   + 是QT工程，则直接引入 LunarCalendar.pri
 
+        TRANSLATIONS_DIR=$$PWD/../3th_libs/LunarCalendar/Src
+        TRANSLATIONS_NAME=LunarCalendar
         include(LunarCalendar.pri)
 
   + cmake工程
