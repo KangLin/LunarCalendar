@@ -15,7 +15,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
 
 set(RESOURCE_FILES Resource/Resource.qrc
-    "${CMAKE_CURRENT_BINARY_DIR}/translations.qrc")
+    "${TRANSLATIONS_RESOURCE_FILES}")
 
 add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")
 add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
