@@ -1,6 +1,7 @@
 TARGET = LunarCalendar
 TEMPLATE = lib
 DESTDIR = $$OUT_PWD/../bin
+CONFIG += link_pkgconfig
 
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp

@@ -31,8 +31,8 @@ Lunar calendar written in Qt, support QSS
 ------------------------------------------------
 
 ### Screenshots
-- ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
-- ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
+![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
+![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
 
 ------------------------------------------------
 
@@ -57,13 +57,17 @@ Lunar calendar written in Qt, support QSS
 
 ------------------------------------------------
 ### Use
-- Direct source code. Is a QT project, directly introduces LunarCalendar.pri
+- Direct source code.
+
+        git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+
+  + Is a QT project, directly introduces LunarCalendar.pri
 
          Include(LunarCalendar.pri)
 
-- cmake project
+  + cmake project
 
-        add_subdirectory(Src)
+        add_subdirectory(3th_libs/LunarCalendar/Src)
         
 ------------------------------------------------
 

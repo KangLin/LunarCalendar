@@ -32,8 +32,8 @@ Qt 写的农历库。带一个日历应用程序。
 ------------------------------------------------
 
 ### 屏幕截图
-- ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
-- ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
+![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
+![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
 
 ------------------------------------------------
 
@@ -60,13 +60,17 @@ Qt 写的农历库。带一个日历应用程序。
 ------------------------------------------------
 
 ### 使用
-- 直接用源码。是QT工程，则直接引入 LunarCalendar.pri
+- 直接用源码
+
+        git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+
+  + 是QT工程，则直接引入 LunarCalendar.pri
 
         include(LunarCalendar.pri)
 
-- cmake工程
+  + cmake工程
 
-        add_subdirectory(Src)
+        add_subdirectory(3th_libs/LunarCalendar/Src)
         
 ------------------------------------------------
 
