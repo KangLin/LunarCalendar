@@ -30,7 +30,10 @@ int main(int argc, char *argv[])
 //    }
     
     MainWindow w;
+#if defined (Q_OS_ANDROID)
+    w.showFullScreen();
+#else
     w.show();
-    
+#endif
     return a.exec();
 }

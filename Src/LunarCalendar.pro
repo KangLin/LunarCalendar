@@ -1,6 +1,6 @@
 TARGET = LunarCalendar
 TEMPLATE = lib
-DESTDIR = $$OUT_PWD/../bin
+!android: DESTDIR = $$OUT_PWD/../bin
 CONFIG += link_pkgconfig
 
 isEmpty(PREFIX) {
@@ -29,10 +29,12 @@ win32 {
                     --compiler-runtime \
                     --verbose 7 \
                     "$${INSTALL_TARGET}"
-    INSTALLS += Deployment_qtlib target header_files
+    INSTALLS += Deployment_qtlib
 } else {
     header_files.path = $${PREFIX}/include
     # Default rules for deployment.
-    target.path = $${PREFIX}/bin
-    !isEmpty(target.path): INSTALLS += target header_files
+    !android: target.path = $${PREFIX}/bin
 }
+
+INSTALLS += target
+!android: INSTALLS += header_files

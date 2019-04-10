@@ -11,7 +11,7 @@ msvc {
 
 INCLUDEPATH = ../Src
 
-DESTDIR = $$OUT_PWD/../bin
+!android: DESTDIR = $$OUT_PWD/../bin
 
 SOURCES += \
         main.cpp \
@@ -54,15 +54,9 @@ win32 {
     INSTALLS += Deployment_qtlib
 } else {
     # Default rules for deployment.
-    target.path = $${PREFIX}/bin
+    !android: target.path = $${PREFIX}/bin
     !isEmpty(target.path): INSTALLS += target
 }
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-else: target.path = $$OUT_PWD/../install/bin
-!isEmpty(target.path): INSTALLS += target
 
 OTHER_FILES += \
     CMakeLists.txt \
