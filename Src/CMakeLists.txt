@@ -60,7 +60,8 @@ if(WIN32)
     set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 endif()
 IF(MSVC)
-    add_compile_options(/utf-8)
+    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 ENDIF()
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
@@ -74,14 +75,36 @@ string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
+export(
+    TARGETS
+        ${PROJECT_NAME}
+    FILE
+        ${CMAKE_CURRENT_BINARY_DIR}/cmake/${PROJECT_NAME}-targets.cmake  # not going to be installed
+)
+
+# Install head files
+#INSTALL(FILES ${INSTALL_HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+set_property(
+    TARGET
+        ${PROJECT_NAME}
+    PROPERTY
+        PUBLIC_HEADER "${INSTALL_HEAD_FILES}"
+)
+
 # Install target
 INSTALL(TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         )
-# Install head files
-INSTALL(FILES ${INSTALL_HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+#INSTALL(
+#        EXPORT ${PROJECT_NAME}
+#        DESTINATION
+#            ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}-${PROJECT_VERSION}/
+#        NAMESPACE ${PROJECT_NAME}::
+#    )
 # Install cmake files
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendarConfig.cmake.in
     ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake @ONLY)
