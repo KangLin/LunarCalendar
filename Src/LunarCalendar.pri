@@ -38,5 +38,5 @@ HEADERS += $$INSTALL_HEADERS \
 FORMS += $$PWD/LunarCalendar.ui
 
 TRANSLATIONS_DIR=$$PWD
-TRANSLATIONS_TARGET=LunarCalendar
+TRANSLATIONS_NAME=LunarCalendar
 include($$PWD/../pri/Translations.pri)
