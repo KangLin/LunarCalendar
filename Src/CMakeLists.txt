@@ -1,3 +1,5 @@
+project(LunarCalendar)
+
 #需要的QT组件
 SET(QT_COMPONENTS Core Gui Widgets)
 find_package(Qt5 COMPONENTS ${QT_COMPONENTS})
@@ -60,14 +62,17 @@ endif()
 IF(MSVC)
     add_compile_options(/utf-8)
 ENDIF()
-add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES} ${RCC_FILES})
+add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES}
+    ${SOURCE_UI_FILES} ${RCC_FILES})
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/3th_lib/sxtwl/src)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../3th_lib/sxtwl/src)
 include(GenerateExportHeader)
 GENERATE_EXPORT_HEADER(${PROJECT_NAME})
 string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
-INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 # Install target
 INSTALL(TARGETS ${PROJECT_NAME}
@@ -78,17 +83,21 @@ INSTALL(TARGETS ${PROJECT_NAME}
 # Install head files
 INSTALL(FILES ${INSTALL_HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 # Install cmake files
-configure_file(${CMAKE_SOURCE_DIR}/cmake/LunarCalendarConfig.cmake.in ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendarConfig.cmake.in
+    ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake DESTINATION .)
 write_basic_package_version_file(
     "${CMAKE_BINARY_DIR}/LunarCalendarConfigVersion.cmake"
     VERSION ${BUILD_VERSION}
     COMPATIBILITY AnyNewerVersion)
-install(FILES ${CMAKE_BINARY_DIR}/LunarCalendarConfigVersion.cmake DESTINATION .)
+install(FILES ${CMAKE_BINARY_DIR}/LunarCalendarConfigVersion.cmake
+    DESTINATION .)
 if(NOT MSVC)
     # Install pc files
-    configure_file(${CMAKE_SOURCE_DIR}/cmake/LunarCalendar.pc.in ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
-    install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc DESTINATION lib/pkgconfig)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendar.pc.in
+        ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
+    install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc
+        DESTINATION lib/pkgconfig)
 endif()
 IF(WIN32 AND BUILD_SHARED_LIBS)
     IF(CMAKE_BUILD_TYPE MATCHES Release AND MINGW)
