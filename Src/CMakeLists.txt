@@ -57,10 +57,14 @@ if(WIN32)
     #set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
     set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 endif()
+IF(MSVC)
+    add_compile_options(/utf-8)
+ENDIF()
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES} ${RCC_FILES})
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}/3th_lib/sxtwl/src)
+include(GenerateExportHeader)
 GENERATE_EXPORT_HEADER(${PROJECT_NAME})
 string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
@@ -74,18 +78,18 @@ INSTALL(TARGETS ${PROJECT_NAME}
 # Install head files
 INSTALL(FILES ${INSTALL_HEAD_FILES} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 # Install cmake files
-#configure_file(TransformCoordinateConfig.cmake.in ${CMAKE_BINARY_DIR}/TransformCoordinateConfig.cmake @ONLY)
-#install(FILES ${CMAKE_BINARY_DIR}/TransformCoordinateConfig.cmake DESTINATION .)
-#write_basic_package_version_file(
-#    "${CMAKE_BINARY_DIR}/TransformCoordinateConfigVersion.cmake"
-#    VERSION ${BUILD_VERSION}
-#    COMPATIBILITY AnyNewerVersion)
-#install(FILES ${CMAKE_BINARY_DIR}/TransformCoordinateConfigVersion.cmake DESTINATION .)
-#if(NOT MSVC)
-#    # Install pc files
-#    configure_file(TransformCoordinate.pc.in ${CMAKE_BINARY_DIR}/TransformCoordinate.pc @ONLY)
-#    install(FILES ${CMAKE_BINARY_DIR}/TransformCoordinate.pc DESTINATION lib/pkgconfig)
-#endif()
+configure_file(${CMAKE_SOURCE_DIR}/cmake/LunarCalendarConfig.cmake.in ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/LunarCalendarConfig.cmake DESTINATION .)
+write_basic_package_version_file(
+    "${CMAKE_BINARY_DIR}/LunarCalendarConfigVersion.cmake"
+    VERSION ${BUILD_VERSION}
+    COMPATIBILITY AnyNewerVersion)
+install(FILES ${CMAKE_BINARY_DIR}/LunarCalendarConfigVersion.cmake DESTINATION .)
+if(NOT MSVC)
+    # Install pc files
+    configure_file(${CMAKE_SOURCE_DIR}/cmake/LunarCalendar.pc.in ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
+    install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc DESTINATION lib/pkgconfig)
+endif()
 IF(WIN32 AND BUILD_SHARED_LIBS)
     IF(CMAKE_BUILD_TYPE MATCHES Release AND MINGW)
         #windeployqt 分发时，是根据是否 strip 来判断是否是 DEBUG 版本,而用mingw编译时,qt没有自动 strip

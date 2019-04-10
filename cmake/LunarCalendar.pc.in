@@ -1,0 +1,10 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: @PROJECT_NAME@
+Description: Lunar calendar C++ library
+Version: @BUILD_VERSION@
+Libs: -L${libdir} -lLunarCalendar
+Cflags: -I${includedir} 
+
