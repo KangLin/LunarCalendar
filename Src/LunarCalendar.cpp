@@ -5,6 +5,7 @@
 #include <QLocale>
 #include <QDebug>
 #include <QKeyEvent>
+#include <QWheelEvent>
 #include <QModelIndex>
 #include "CalendarLunar.h"
 #include "LunarCalendarDelegate.h"
@@ -68,6 +69,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
     ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     ui->tvMonth->installEventFilter(this);
+    //ui->tvMonth->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
     //ui->tvMonth->setAlternatingRowColors(true); //设置奇偶行颜色  
     
     for(int i = 0; i < 12; i++)
@@ -438,6 +440,27 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
     switch(event->type()){
+    case QEvent::TouchBegin:
+        
+        qDebug() << "QEvent::TouchBegin";
+        break;
+    case QEvent::TouchEnd:
+        qDebug() << "QEvent::TouchEnd";
+        break;
+    case QEvent::Wheel:
+        {
+            qDebug() << "QEvent::Wheel";
+            QWheelEvent *we = (QWheelEvent*)event;
+            if(we->delta() > 0)
+            {
+                QKeyEvent *pKeyEvent = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Up, Qt::NoModifier);
+                QApplication::postEvent(this, pKeyEvent);
+            } else {
+                QKeyEvent *pKeyEvent = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Down, Qt::NoModifier);
+                QApplication::postEvent(this, pKeyEvent);
+            }
+            break;
+        }
     case QEvent::KeyRelease:
         {
             QKeyEvent* ke = (QKeyEvent*)event;
