@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     
     MainWindow w;
 #if defined (Q_OS_ANDROID)
-    w.showFullScreen();
+    w.showMaximized();
 #else
     w.show();
 #endif
