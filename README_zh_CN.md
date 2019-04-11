@@ -10,24 +10,23 @@
 
 ### 功能
 
-Qt 写的农历库。带一个日历应用程序。
+Qt 写的农历。它提供：
+
+- 一个Qt界面的农历日历库，支持 QSS (换肤功能）。
+- 一个简单的日历应用程序。
+- 此库的一个完整应用 [任务](https://github.com/KangLin/Tasks)
 
 #### 支持以下平台
-- Windows
-- Linux、Unix
-- Android
-- Mac os
-- IOS
+- [x] Windows
+- [x] Linux、Unix
+- [x] Android
+- [ ] Mac os
+- [ ] IOS
 
 ------------------------------------------------
 
 - [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 - [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
-
-------------------------------------------------
-### 介绍
-
-用Qt写的农历，支持QSS
 
 ------------------------------------------------
 

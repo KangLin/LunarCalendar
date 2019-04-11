@@ -18,7 +18,7 @@ export WORKDIR=$PWD
 INSTALLER=$1
 OUTPUT=$2
 SCRIPT="$(mktemp /tmp/tmp.XXXXXXXXX)"
-case $RABBIT_ARCH in
+case $BUILD_ARCH in
     arm*)
         SELECTEDPACKAGES=android_armv7
         ;;
@@ -29,7 +29,7 @@ case $RABBIT_ARCH in
         SELECTEDPACKAGES=gcc_64
         ;;
        *)
-       echo "Aach[$RABBIT_ARCH] don't suppoert"
+       echo "Aach[$BUILD_ARCH] don't suppoert"
 esac
 
 cat <<EOF > $SCRIPT

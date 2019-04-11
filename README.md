@@ -9,24 +9,25 @@ Author: KangLin (kl222@126.com)
 
 ### Features
 
-Use QT write lunar calendar.
+The lunar calendar written by Qt. It provides:
 
+- A lunar calendar library of Qt GUI, support QSS.
+- A simple calendar app.
+- A complete application of this library [Tasks](https://github.com/KangLin/Tasks)
 
-- Windows
-- Linux、Unix
-- Android
-- Mac os
-- IOS
+------------------------------------------------
+### Support system
+
+- [x] Windows
+- [x] Linux、Unix
+- [x] Android
+- [ ] Mac os
+- [ ] IOS
 
 ------------------------------------------------
 
 - [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 - [![Linux Build Status](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
-
-------------------------------------------------
-### Introduction
-
-Lunar calendar written in Qt, support QSS
 
 ------------------------------------------------
 
