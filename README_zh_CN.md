@@ -33,6 +33,7 @@ Qt 写的农历。它提供：
 ### 屏幕截图
 ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
 ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
+![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
 

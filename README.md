@@ -34,6 +34,7 @@ The lunar calendar written by Qt. It provides:
 ### Screenshots
 ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
 ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
+![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
 
