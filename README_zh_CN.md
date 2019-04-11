@@ -71,6 +71,23 @@ Qt 写的农历。它提供：
 
         add_subdirectory(3th_libs/LunarCalendar/Src)
         
+
+- 加载翻译资源
+  + 用库中提供的函数
+
+        CLunarCalendar::InitTranslator();
+
+  + 自定义
+  
+        QString szPre;    
+        #if defined(Q_OS_ANDROID) || _DEBUG
+            szPre = ":/Translations";
+        #else
+            szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
+        #endif
+        m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
+        qApp->installTranslator(&m_Translator);
+        
 ------------------------------------------------
 
 ### 下载

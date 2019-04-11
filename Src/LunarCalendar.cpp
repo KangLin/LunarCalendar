@@ -86,7 +86,7 @@ CLunarCalendar::~CLunarCalendar()
     delete ui;
 }
 
-void CLunarCalendar::Init()
+void CLunarCalendar::InitTranslator()
 {
     static CLunarCalendarPrivate* p = nullptr;
     if(nullptr == p)

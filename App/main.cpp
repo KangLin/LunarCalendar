@@ -15,11 +15,11 @@ int main(int argc, char *argv[])
     szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
 #endif
     
-    QTranslator tApp, tTasks;
+    QTranslator tApp;
     tApp.load(szPre + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
     a.installTranslator(&tApp);
-    tTasks.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
-    a.installTranslator(&tTasks);
+    
+    CLunarCalendar::InitTranslator();
     
 //    QFile file("d:/Source/Tasks/Src/Resource/sink/dark/style.qss");  
 //    if(file.open(QFile::ReadOnly))

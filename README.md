@@ -70,6 +70,22 @@ The lunar calendar written by Qt. It provides:
 
         add_subdirectory(3th_libs/LunarCalendar/Src)
         
+- Load translator
+  + Use libary function
+
+        CLunarCalendar::InitTranslator();
+
+  + Customize
+  
+        QString szPre;    
+        #if defined(Q_OS_ANDROID) || _DEBUG
+            szPre = ":/Translations";
+        #else
+            szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
+        #endif
+        m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
+        qApp->installTranslator(&m_Translator);
+
 ------------------------------------------------
 
 ### Download
