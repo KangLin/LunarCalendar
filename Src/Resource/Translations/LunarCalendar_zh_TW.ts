@@ -5,8 +5,8 @@
     <name>CLunarCalendar</name>
     <message>
         <location filename="../../LunarCalendar.ui" line="14"/>
-        <source>Form</source>
-        <translation></translation>
+        <source>Calendar</source>
+        <translation>日歷</translation>
     </message>
     <message>
         <location filename="../../LunarCalendar.ui" line="104"/>

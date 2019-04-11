@@ -6,7 +6,25 @@
     <message>
         <location filename="../../MainWindow.ui" line="14"/>
         <source>Calendar</source>
-        <translation>日历</translation>
+        <translation>日歷</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="19"/>
+        <source>Update</source>
+        <translation>更新</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="20"/>
+        <source>About</source>
+        <translation>關於</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../../main.cpp" line="35"/>
+        <source>Calendar</source>
+        <translation>日歷</translation>
     </message>
 </context>
 </TS>

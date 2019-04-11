@@ -18,6 +18,8 @@ public:
     
 private Q_SLOTS:
     void slotUpdateCalendar();
+    void slotAbout();
+    void slotUpdate();
     
 private:
     Ui::MainWindow *ui;

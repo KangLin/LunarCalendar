@@ -3,7 +3,10 @@
 #include <QFile>
 #include <QTranslator>
 #include <QDir>
-
+#ifdef RABBITCOMMON
+    #include "Tools.h"
+    #include "FrmUpdater/FrmUpdater.h"
+#endif
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -19,7 +22,17 @@ int main(int argc, char *argv[])
     tApp.load(szPre + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
     a.installTranslator(&tApp);
     
+#ifdef RABBITCOMMON
+    CTools::Instance()->InitTranslator();
+    CFrmUpdater u;
+    if(!u.GenerateUpdateXml())
+        return 0;
+#endif
+
     CLunarCalendar::InitTranslator();
+    
+    a.setApplicationName("LunarCalendar");
+    a.setApplicationDisplayName(QObject::tr("Calendar"));
     
 //    QFile file("d:/Source/Tasks/Src/Resource/sink/dark/style.qss");  
 //    if(file.open(QFile::ReadOnly))

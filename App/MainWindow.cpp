@@ -3,12 +3,22 @@
 #include <QDebug>
 #include <QDate>
 
+#ifdef RABBITCOMMON
+    #include "DlgAbout/DlgAbout.h"
+    #include "FrmUpdater/FrmUpdater.h"
+#endif
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     m_pLunarCalendar = new CLunarCalendar(this);
+    
+#ifdef RABBITCOMMON
+    menuBar()->addAction(tr("Update"), this, SLOT(slotUpdate()));
+    menuBar()->addAction(tr("About"), this, SLOT(slotAbout()));
+#endif
     
     setCentralWidget(m_pLunarCalendar);
 //    m_pLunarCalendar->SetShowToday(false);
@@ -30,6 +40,23 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::slotAbout()
+{
+#ifdef RABBITCOMMON
+    CDlgAbout about;
+    about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
+    about.exec();
+#endif
+}
+
+void MainWindow::slotUpdate()
+{
+#ifdef RABBITCOMMON
+    CFrmUpdater *fu = new CFrmUpdater();
+    fu->show();
+#endif
 }
 
 void MainWindow::slotUpdateCalendar()

@@ -23,10 +23,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-else: target.path = $$OUT_PWD/install
-!isEmpty(target.path): INSTALLS += target
+isEmpty(PREFIX) {
+    qnx : PREFIX = /tmp
+    else : android : PREFIX = /.
+    else : unnix : PREFIX = /usr/local
+    else : PREFIX = $$OUT_PWD/install
+}
+
+DISTFILES += Authors.md \
+    Authors_zh_CN.md \
+    ChangeLog.md \
+    License.md
+
+other.files = $$DISTFILES
+other.path = $$PREFIX
+other.CONFIG += directory no_check_exist 
+!android : INSTALLS += other
 
 OTHER_FILES += appveyor.yml \
     .travis.yml \
