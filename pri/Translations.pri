@@ -88,7 +88,10 @@ QM_FILES_RESOURCE_PREFIX = Translations
 QM_FILES_INSTALL_PATH = $$PREFIX/Translations
 
 android : CONFIG *= embed_translations
-CONFIG(debug, debug|release) : CONFIG *= embed_translations
+CONFIG(debug, debug|release) {
+    CONFIG *= embed_translations
+    DEFINES *= _DEBUG
+}
 
 lessThan(QT_MAJOR_VERSION, 5) : LESS_5_12 = 1
 greaterThan(QT_MAJOR_VERSION, 4) : lessThan(QT_MINOR_VERSION, 12) LESS_5_12 = 1
