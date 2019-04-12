@@ -73,19 +73,19 @@ The lunar calendar written by Qt. It provides:
       - No submodule:
         + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
 
-            git clone https://github.com/KangLin/LunarCalendar.git
+                git clone https://github.com/KangLin/LunarCalendar.git
 
         + Add follow code in qt project file
         
-            isEmpty(LunarCalendarRoot): LunarCalendarRoot=$$(LunarCalendarRoot)
-            !isEmpty(LunarCalendarRoot): exists("$${LunarCalendarRoot}/Src/LunarCalendar.pri"){
-                DEFINES += LunarCalendar
-                include($${LunarCalendarRoot}/Src/LunarCalendar.pri)
-            } else{
-                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
-                message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                message("2. Then set value LunarCalendarRoot to download root dirctory")
-            }
+                isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
+                !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/Src/LunarCalendar.pri"){
+                    DEFINES += LunarCalendar
+                    include($${LunarCalendar_DIR}/Src/LunarCalendar.pri)
+                } else{
+                    message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
+                    message("   git clone https://github.com/KangLin/LunarCalendar.git")
+                    message("2. Then set value LunarCalendar_DIR to download root dirctory")
+                }
 
   + Is a QT project, directly introduces LunarCalendar.pri
 

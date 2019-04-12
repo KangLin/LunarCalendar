@@ -73,17 +73,17 @@ Qt 写的农历。它提供：
 
     - 非子模块方式：
       + 下载源码：https://github.com/KangLin/LunarCalendar
-      + 在环境变量（LunarCalendarRoot） 或 QMAKE参数 （LunarCalendarRoot） 
+      + 在环境变量（LunarCalendar_DIR） 或 QMAKE参数 （LunarCalendar_DIR） 
         中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
     
-            isEmpty(LunarCalendarRoot): LunarCalendarRoot=$$(LunarCalendarRoot)
-            !isEmpty(LunarCalendarRoot): exists("$${LunarCalendarRoot}/Src/LunarCalendar.pri"){
+            isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
+            !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/Src/LunarCalendar.pri"){
                 DEFINES += LunarCalendar
-                include($${LunarCalendarRoot}/Src/LunarCalendar.pri)
+                include($${LunarCalendar_DIR}/Src/LunarCalendar.pri)
             } else{
                 message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
                 message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                message("2. Then set value LunarCalendarRoot to download root dirctory")
+                message("2. Then set value LunarCalendar_DIR to download root dirctory")
             }
     
   + cmake工程

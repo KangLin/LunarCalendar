@@ -32,7 +32,7 @@ if(MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "-mwindows")
 elseif(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE
-        "/SUBSYSTEM:WINDOWS\",5.01\"") # /ENTRY:mainCRTStartup")
+        "/SUBSYSTEM:WINDOWS\",5.01\" /ENTRY:mainCRTStartup")
 endif()
 SET(APP_LIBS LunarCalendar ${QT_LIBRARIES})
 if(TARGET RabbitCommon)
