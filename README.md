@@ -54,7 +54,7 @@ The lunar calendar written by Qt. It provides:
 + Use cmake
 
       cd build
-      cmake ..
+      cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
       cmake --build .
 
 ------------------------------------------------

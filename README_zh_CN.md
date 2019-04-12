@@ -54,7 +54,7 @@ Qt 写的农历。它提供：
   + 用 cmake
   
         cd build
-        cmake ..
+        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
         cmake --build .
 
 ------------------------------------------------
