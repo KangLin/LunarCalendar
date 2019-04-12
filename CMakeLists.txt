@@ -123,16 +123,16 @@ endif()
 add_subdirectory(Src)
 option(BUILD_APP "Set to ON to build applaction" ON)
 if(BUILD_APP)
-    set(RabbitCommonRoot $ENV{RabbitCommonRoot} CACHE PATH "Set RabbitCommon source code root directory.")
-    if(EXISTS ${RabbitCommonRoot}/Src)
-        add_subdirectory(${RabbitCommonRoot}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+    set(RabbitCommon_DIR $ENV{RabbitCommon_DIR} CACHE PATH "Set RabbitCommon source code root directory.")
+    if(EXISTS ${RabbitCommon_DIR}/Src)
+        add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
     else()
         message(FATAL_ERROR 
         "1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:"
         "   git clone https://github.com/KangLin/RabbitCommon.git"
-        "2. Then set cmake value or environment variable RabbitCommonRoot to download root dirctory."
+        "2. Then set cmake value or environment variable RabbitCommon_DIR to download root dirctory."
         "    ag:"
-        "       cmake -DRabbitCommonRoot= ")
+        "       cmake -DRabbitCommon_DIR= ")
     endif()
     add_subdirectory(App)
 endif(BUILD_APP)

@@ -111,7 +111,7 @@ before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - git submodule update --init --recursive
   - git clone https://github.com/KangLin/RabbitCommon.git
-  - set RabbitCommonRoot=%APPVEYOR_BUILD_FOLDER%/RabbitCommon
+  - set RabbitCommon_DIR=%APPVEYOR_BUILD_FOLDER%/RabbitCommon
   - if "%BUILD_TARGERT%" == "android" C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build-install-tools-windows.sh
 
 build_script:
