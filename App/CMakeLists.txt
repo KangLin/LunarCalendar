@@ -34,8 +34,15 @@ elseif(${CMAKE_CXX_COMPILER} MATCHES ".*/(cl)(\\..*)")
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE
         "/SUBSYSTEM:WINDOWS\",5.01\" /ENTRY:mainCRTStartup")
 endif()
-target_link_libraries(${PROJECT_NAME} LunarCalendar ${QT_LIBRARIES})
-target_include_directories(${PROJECT_NAME} PUBLIC
+SET(APP_LIBS LunarCalendar ${QT_LIBRARIES})
+if(TARGET RabbitCommon)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE -DRABBITCOMMON)
+    target_include_directories(${PROJECT_NAME}
+        PRIVATE "${RabbitCommonRoot}/Src")
+    set(APP_LIBS ${APP_LIBS} RabbitCommon)
+endif()
+target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
+target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")
 # Install target
 INSTALL(TARGETS ${PROJECT_NAME}

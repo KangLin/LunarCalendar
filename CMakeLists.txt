@@ -116,15 +116,35 @@ else()
     set(BUILD_ARCH ${CMAKE_ANDROID_ARCH})
 endif()
 
+if("Debug" STREQUAL CMAKE_BUILD_TYPE)
+    add_definitions(-D_DEBUG)
+endif()
+
 add_subdirectory(Src)
 option(BUILD_APP "Set to ON to build applaction" ON)
-if(BUILD_APP)    
+if(BUILD_APP)
+    set(RabbitCommonRoot $ENV{RabbitCommonRoot} CACHE PATH "Set RabbitCommon source code root directory.")
+    if(EXISTS ${RabbitCommonRoot}/Src)
+        add_subdirectory(${RabbitCommonRoot}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+    else()
+        message(FATAL_ERROR 
+        "1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:"
+        "   git clone https://github.com/KangLin/RabbitCommon.git"
+        "2. Then set cmake value or environment variable RabbitCommonRoot to download root dirctory."
+        "    ag:"
+        "       cmake -DRabbitCommonRoot= ")
+    endif()
     add_subdirectory(App)
 endif(BUILD_APP)
 
 set(OTHER_FILES
     License.md
+    Authors.md
+    Authors_zh_CN.md
+    ChangeLog.md
     )
+
+INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
 
 # 设置安装前缀
 SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/install CACHE STRING "Install path prefix.") 
