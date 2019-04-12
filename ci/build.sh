@@ -89,7 +89,7 @@ else
             
         $MAKE
         echo "$MAKE install ...."
-        $MAKE install  
+        $MAKE install
     fi
 fi
 #if [ "${BUILD_TARGERT}" != "android" ]; then
