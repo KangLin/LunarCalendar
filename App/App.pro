@@ -92,5 +92,10 @@ include(../pri/Translations.pri)
 isEmpty(RabbitCommonRoot): RabbitCommonRoot=$$(RabbitCommonRoot)
 !isEmpty(RabbitCommonRoot): exists("$${RabbitCommonRoot}/Src/RabbitCommon.pri"){
     DEFINES += RABBITCOMMON
-    include($${RabbitCommonRoot}/Src/RabbitCommon.pri)
-} else: message("Please set RabbitCommonRoot")
+    include("$${RabbitCommonRoot}/Src/RabbitCommon.pri")
+} else{
+    message("RabbitCommonRoot:$$RabbitCommonRoot")
+    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
+    message("   git clone https://github.com/KangLin/RabbitCommon.git")
+    error  ("2. Then set value RabbitCommonRoot to download root dirctory")
+}

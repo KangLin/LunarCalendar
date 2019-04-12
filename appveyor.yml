@@ -18,7 +18,7 @@ environment:
 
   ##### msvc 2015 ########
   - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 14 2015"
+    #GENERATORS: "Visual Studio 14 2015"
     TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.10\msvc2015
     AUTOBUILD_ARCH: x86
@@ -111,7 +111,7 @@ before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - git submodule update --init --recursive
   - git clone https://github.com/KangLin/RabbitCommon.git
-  - set RabbitCommonRoot="%APPVEYOR_BUILD_FOLDER%/RabbitCommon"
+  - set RabbitCommonRoot=%APPVEYOR_BUILD_FOLDER%/RabbitCommon
   - if "%BUILD_TARGERT%" == "android" C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build-install-tools-windows.sh
 
 build_script:

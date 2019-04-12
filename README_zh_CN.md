@@ -61,17 +61,34 @@ Qt 写的农历。它提供：
 
 ### 使用
 - 直接用源码
+  + 是QT工程
+    - 子模块方式：
+      + 增加子模块：
+      
+            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+      
+      + 在工程文件(.pro)中直接引入 LunarCalendar.pri
 
-        git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+            include(3th_libs/LunarCalendar/LunarCalendar.pri)
 
-  + 是QT工程，则直接引入 LunarCalendar.pri
-
-        include(LunarCalendar.pri)
-
+    - 非子模块方式：
+      + 下载源码：https://github.com/KangLin/LunarCalendar
+      + 在环境变量（LunarCalendarRoot） 或 QMAKE参数 （LunarCalendarRoot） 
+        中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
+    
+            isEmpty(LunarCalendarRoot): LunarCalendarRoot=$$(LunarCalendarRoot)
+            !isEmpty(LunarCalendarRoot): exists("$${LunarCalendarRoot}/Src/LunarCalendar.pri"){
+                DEFINES += LunarCalendar
+                include($${LunarCalendarRoot}/Src/LunarCalendar.pri)
+            } else{
+                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
+                message("   git clone https://github.com/KangLin/LunarCalendar.git")
+                message("2. Then set value LunarCalendarRoot to download root dirctory")
+            }
+    
   + cmake工程
 
         add_subdirectory(3th_libs/LunarCalendar/Src)
-        
 
 - 加载翻译资源
   + 用库中提供的函数

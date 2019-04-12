@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
 void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
-    CDlgAbout about;
+    CDlgAbout about(this);
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     about.exec();
 #endif
