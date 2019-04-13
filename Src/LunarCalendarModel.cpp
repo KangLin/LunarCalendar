@@ -189,17 +189,21 @@ int CLunarCalendarModel::showMonth(int year, int month)
     m_ShownMonth = month;
     m_RowCount = WeeksOfMonth();
     
+    QTime tStart = QTime::currentTime();
     m_Day.clear();
     QDate d;
     int row = 0, col = 0;
     do{
         for(int col = 0; col < 7; col++)
         {
+            QTime tOnceStart = QTime::currentTime();
             d = dateForCell(row, col);
             if(d.isNull())
                 break;
             _DAY day;
             day.Solar = d.day();
+            
+            qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
             CCalendarLunar lunar(d);
             day.szLunar = lunar.GetLunarDay();
@@ -213,9 +217,12 @@ int CLunarCalendarModel::showMonth(int year, int month)
             if(day.szAnniversary.isEmpty())
                 day.szAnniversary = m_Anniversary[d.month()][d.day()];
             m_Day.push_back(day);
+            
+            qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
         }
         row++;
     }while(d.isValid());
+    qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
     
     internalUpdate();
     return 0;

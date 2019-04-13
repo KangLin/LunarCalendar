@@ -12,6 +12,8 @@ static const QString jqmc[] = {"冬至", "小寒", "大寒", "立春", "雨水",
 static const QString ymc[] = {"十一", "十二", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"}; //月名称,建寅
 static const QString rmc[] = {"初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"};
 
+static QMap<int, QMap<int, QString> > g_Holiday;
+
 CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)
 {
     InitHoliday();
@@ -24,7 +26,10 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
     if(date.isValid())
     {
         Lunar l;
+        QTime tStart = QTime::currentTime();
         Day day = l.getDayBySolar(date.year(), date.month(), date.day());
+        qDebug() << "getDayBySolar time:" << tStart.msecsTo(QTime::currentTime());
+        
         m_szLunar = Gan[day.Lyear2.tg] + Zhi[day.Lyear2.dz] + "年";
         if (day.Lleap)
         {
@@ -35,7 +40,7 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
             m_szLunar += ymc[day.Lmc] + "月" + rmc[day.Ldi] + "日";
         }
         
-        QMap<int, QString> holiday = m_Holiday[day.Lmc];
+        QMap<int, QString> holiday = g_Holiday[day.Lmc];
         if(!holiday.isEmpty())
             m_szHoliday = holiday[day.Ldi];
         
@@ -109,7 +114,7 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
     if(!m_szAnniversary.isEmpty())
         return m_szAnniversary;
     
-    holiday = m_Holiday[day.Lmc];
+    holiday = g_Holiday[day.Lmc];
     if(!holiday.isEmpty())
         szDay = holiday[day.Ldi];
     if(!szDay.isEmpty())
@@ -154,6 +159,9 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
 
 int CCalendarLunar::InitHoliday()
 {
+    if(!g_Holiday.isEmpty())
+        return 0;
+    
     AddHoliday(1, 1, "春节");
     AddHoliday(1, 15, "元宵");
     AddHoliday(2, 2, "社日");
@@ -177,7 +185,7 @@ int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
     if(m > 11)
         m = m % 12;
 
-    m_Holiday[m].insertMulti(day - 1, szName);
+    g_Holiday[m].insertMulti(day - 1, szName);
     return 0;
 }
 

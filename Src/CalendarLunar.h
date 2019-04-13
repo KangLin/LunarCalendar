@@ -18,17 +18,17 @@ public:
     QString GetHoliday();
     QString GetAnniversary();
     QString GetJieQi();
-    int AddHoliday(int month, int day, const QString &szName);
+    static int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
 
 private:
-    int InitHoliday();
+    static int InitHoliday();
     QString m_szLunar;
     QString m_szLunarDay;
     QString m_szHoliday;
     QString m_szAnniversary;
     QString m_szJieQi;
-    QMap<int, QMap<int, QString> > m_Holiday;
+    
     QMap<int, QMap<int, QString> > m_Anniversary;
 };
 
