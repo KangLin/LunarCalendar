@@ -54,7 +54,7 @@ INSTALL(TARGETS ${PROJECT_NAME}
 # Install other files
 INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
 
-IF(WIN32)
+IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
     SET(RUNTIME_FILE "${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
     IF(CMAKE_BUILD_TYPE MATCHES Release AND MINGW)
         #windeployqt 分发时，是根据是否 strip 来判断是否是 DEBUG 版本,而用mingw编译时,qt没有自动 strip
