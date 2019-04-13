@@ -33,7 +33,7 @@ get_filename_component(_prefix "${_dir}" ABSOLUTE)
 
 find_path(LunarCalendar_INCLUDE_DIR LunarCalendar.h
     HINTS ${_prefix}
-    PATH_SUFFIXES include)
+    PATH_SUFFIXES include/LunarCalendar)
 find_library(LunarCalendar_LIBRARY LunarCalendar
     HINTS ${_prefix}
     PATH_SUFFIXES lib)

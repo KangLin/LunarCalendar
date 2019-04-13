@@ -4,7 +4,7 @@
 #include <QTranslator>
 #include <QDir>
 #ifdef RABBITCOMMON
-    #include "Tools.h"
+    #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
 #endif
 int main(int argc, char *argv[])
@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     a.installTranslator(&tApp);
     
 #ifdef RABBITCOMMON
-    CTools::Instance()->InitTranslator();
+    CRabbitCommonTools::Instance()->InitTranslator();
     CFrmUpdater u;
     if(!u.GenerateUpdateXml())
         return 0;
