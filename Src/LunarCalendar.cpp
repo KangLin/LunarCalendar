@@ -105,7 +105,7 @@ int CLunarCalendar::ShowSelectTitle()
     CCalendarLunar l(d);
     ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
                             + " "
-                            + l.GetLunar());
+                            + SelectedLunar());
     return 0;
 }
 

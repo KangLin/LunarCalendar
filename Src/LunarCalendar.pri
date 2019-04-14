@@ -8,7 +8,8 @@ msvc {
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
 }
 
-DEFINES += LunarCalendar_EXPORTS
+CONFIG(static): DEFINES *= LUNARCALENDAR_STATIC_DEFINE
+else: DEFINES *= LunarCalendar_EXPORTS
 
 SOURCES += $$PWD/LunarCalendar.cpp \
     $$PWD/LunarCalendarModel.cpp \
