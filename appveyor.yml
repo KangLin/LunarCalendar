@@ -1,5 +1,5 @@
 #TODO: Change version
-version: 'v0.0.1.{build}'
+version: 'v0.0.1-51-g69a43cb.{build}'
 
 environment:
   matrix: 
@@ -121,10 +121,12 @@ build_script:
   - C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build.sh
 
 artifacts:
-  - path: build_${BUILD_TARGERT}/install
+  - path: build_${BUILD_TARGERT}/LunarCalendar-Setup-*.exe
     name: LunarCalendar_$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(AUTOBUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
     type: zip
 
+  - path: build_${BUILD_TARGERT}/update_windows.xml
+  
 test: off
 
 #See:https://www.appveyor.com/docs/deployment/github/

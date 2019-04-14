@@ -33,12 +33,18 @@ isEmpty(PREFIX) {
 DISTFILES += Authors.md \
     Authors_zh_CN.md \
     ChangeLog.md \
-    License.md
+    License.md \
+    App/AppIcon.ico
 
 other.files = $$DISTFILES
 other.path = $$PREFIX
 other.CONFIG += directory no_check_exist 
+
+install.files = Install/Install.nsi
+install.path = $$OUT_PWD
+install.CONFIG += directory no_check_exist 
 !android : INSTALLS += other
+win32:  INSTALLS += install
 
 OTHER_FILES += appveyor.yml \
     .travis.yml \
@@ -47,4 +53,5 @@ OTHER_FILES += appveyor.yml \
     ci/* \
     tag.sh \
     CMakeLists.txt \
-    cmake/*
+    cmake/* \
+    Install/*

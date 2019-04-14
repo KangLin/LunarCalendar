@@ -11,7 +11,7 @@ CONFIGURE_FILE(
 ADD_CUSTOM_TARGET(uninstall
     "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake")
 
-SET(BUILD_VERSION "v0.0.1")
+SET(BUILD_VERSION "v0.0.1-51-g69a43cb")
 # Find Git Version Patch
 IF(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     if(NOT GIT)
@@ -145,6 +145,8 @@ set(OTHER_FILES
     )
 
 INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
+
+INSTALL(FILES Install/Install.nsi DESTINATION "${CMAKE_BINARY_DIR}")
 
 # 设置安装前缀
 SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/install CACHE STRING "Install path prefix.") 

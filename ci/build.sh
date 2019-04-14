@@ -110,4 +110,11 @@ if [ "${BUILD_TARGERT}" != "android" ]; then
         cp /C/OpenSSL-Win64/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win64/bin/ssleay32.dll install/bin
     fi
+    
+    "/C/Program Files (x86)/NSIS/makensis.exe" "Install.nsi"
+    MD5=`md5sum LunarCalendar-Setup-*.exe|awk '{print $1}'`
+    echo "MD5:${MD5}"
+    install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" --md5 ${MD5}
+    
+    cat update_windows.xml
 fi
