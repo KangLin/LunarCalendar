@@ -2,6 +2,7 @@
 #include "ui_MainWindow.h"
 #include <QDebug>
 #include <QDate>
+#include <QIcon>
 
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
@@ -46,6 +47,7 @@ void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
     CDlgAbout about(this);
+    about.m_AppIcon = windowIcon().pixmap(windowIcon().availableSizes().at(0));
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     about.exec();
 #endif
@@ -55,6 +57,8 @@ void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
     CFrmUpdater *fu = new CFrmUpdater();
+    fu->SetTitle(qApp->applicationDisplayName(),
+                 windowIcon().pixmap(windowIcon().availableSizes().at(0)));
     fu->show();
 #endif
 }

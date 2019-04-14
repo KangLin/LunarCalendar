@@ -22,14 +22,11 @@ int main(int argc, char *argv[])
     tApp.load(szPre + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
     a.installTranslator(&tApp);
     
-#ifdef RABBITCOMMON
-    CRabbitCommonTools::Instance()->InitTranslator();
-    CFrmUpdater u;
-    if(!u.GenerateUpdateXml())
-        return 0;
-#endif
-
     CLunarCalendar::InitResource();
+    
+#ifdef RABBITCOMMON
+    CRabbitCommonTools::Instance()->Init();
+#endif
     
     a.setApplicationName("LunarCalendar");
     a.setApplicationDisplayName(QObject::tr("Calendar"));
@@ -43,6 +40,15 @@ int main(int argc, char *argv[])
 //    }
     
     MainWindow w;
+    
+#ifdef RABBITCOMMON
+    CFrmUpdater u;
+    u.SetTitle(qApp->applicationDisplayName(),
+                 w.windowIcon().pixmap(w.windowIcon().availableSizes().at(0)));
+    if(!u.GenerateUpdateXml())
+        return 0;
+#endif
+    
 #if defined (Q_OS_ANDROID)
     w.showMaximized();
 #else
