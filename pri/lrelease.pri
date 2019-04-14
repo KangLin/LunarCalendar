@@ -47,10 +47,22 @@ defineTest(qtPrepareTool) {
     }
 }
 
+# http://www.w3.org/TR/xml/#syntax
+defineReplace(xml_escape) {
+    1 ~= s,&,&amp;,
+    1 ~= s,\',&apos;,
+    1 ~= s,\",&quot;,
+    1 ~= s,<,&lt;,
+    1 ~= s,>,&gt;,
+    return($$1)
+}
+
 qtPrepareTool(QMAKE_LRELEASE, lrelease)
 
+isEmpty(TRANSLATIONS_NAME) : TRANSLATIONS_NAME = $${TARGET}
 isEmpty(LRELEASE_DIR): LRELEASE_DIR = .qm
 isEmpty(QM_FILES_RESOURCE_PREFIX): QM_FILES_RESOURCE_PREFIX = i18n
+isEmpty(RCC_DIR):RCC_DIR = .
 
 lrelease.name = lrelease
 lrelease.input = TRANSLATIONS EXTRA_TRANSLATIONS
@@ -60,17 +72,36 @@ silent: lrelease.commands = @echo lrelease ${QMAKE_FILE_IN} && $$lrelease.comman
 lrelease.CONFIG = no_link target_predeps no_clean
 QMAKE_EXTRA_COMPILERS += lrelease
 
-all_translations = $$TRANSLATIONS $$EXTRA_TRANSLATIONS
+all_translations = $${TRANSLATIONS_TS_FILES}
+QM_FILES=
 for (translation, all_translations) {
     # mirrors $$LRELEASE_DIR/${QMAKE_FILE_IN_BASE}.qm above
     translation = $$basename(translation)
     QM_FILES += $$OUT_PWD/$$LRELEASE_DIR/$$replace(translation, \\..*$, .qm)
 }
-embed_translations {
-    qmake_qm_files.files = $$QM_FILES
-    qmake_qm_files.base = $$OUT_PWD/$$LRELEASE_DIR
-    qmake_qm_files.prefix = $$QM_FILES_RESOURCE_PREFIX
-    RESOURCES += qmake_qm_files
+
+embed_translations {    
+    RESOURCE_QRC_FILE = $$RCC_DIR/translations_$${TRANSLATIONS_NAME}.qrc
+
+    RESOURCE_QRC_FILE_CONTENT = \
+                "<!DOCTYPE RCC><RCC version=\"1.0\">" \
+                "<qresource prefix=\"$$xml_escape($$QM_FILES_RESOURCE_PREFIX)\">"
+    abs_base = $$absolute_path($$eval($$OUT_PWD/$$LRELEASE_DIR), $$_PRO_FILE_PWD_)
+    for(file, QM_FILES) {
+            abs_path = $$absolute_path($$file, $$_PRO_FILE_PWD_)
+            for (file, abs_path) {
+                exists($$file/*): next()  # exclude directories
+                alias = $$basename(file)
+                RESOURCE_QRC_FILE_CONTENT += \
+                    "<file alias=\"$$xml_escape($$alias)\">$$xml_escape($$file)</file>"
+            }
+        }
+    RESOURCE_QRC_FILE_CONTENT += \
+            "</qresource>" \
+            "</RCC>"
+    !write_file($$OUT_PWD/$$RESOURCE_QRC_FILE, RESOURCE_QRC_FILE_CONTENT): \
+            error()
+    RESOURCES += $$OUT_PWD/$$RESOURCE_QRC_FILE
 } else {
     !isEmpty(QM_FILES_INSTALL_PATH) {
         qm_files.files += $$QM_FILES

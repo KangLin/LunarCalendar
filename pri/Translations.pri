@@ -78,11 +78,11 @@
 isEmpty(TRANSLATIONS_DIR) : TRANSLATIONS_DIR = $$_PRO_FILE_PWD_
 isEmpty(TRANSLATIONS_NAME) : TRANSLATIONS_NAME = $${TARGET}
 
-TRANSLATIONS += \
+TRANSLATIONS_TS_FILES = \
     $$TRANSLATIONS_DIR/Resource/Translations/$${TRANSLATIONS_NAME}_zh_CN.ts \
     $$TRANSLATIONS_DIR/Resource/Translations/$${TRANSLATIONS_NAME}_zh_TW.ts
-TRANSLATIONS_NAME=
-TRANSLATIONS_DIR=
+
+TRANSLATIONS *= $$TRANSLATIONS_TS_FILES
 
 QM_FILES_RESOURCE_PREFIX = Translations
 QM_FILES_INSTALL_PATH = $$PREFIX/Translations
@@ -93,12 +93,15 @@ CONFIG(debug, debug|release) {
     DEFINES *= _DEBUG
 }
 
-lessThan(QT_MAJOR_VERSION, 5) : LESS_5_12 = 1
-greaterThan(QT_MAJOR_VERSION, 4) : lessThan(QT_MINOR_VERSION, 12) LESS_5_12 = 1
+#lessThan(QT_MAJOR_VERSION, 5) : LESS_5_12 = 1
+#greaterThan(QT_MAJOR_VERSION, 4) : lessThan(QT_MINOR_VERSION, 12) LESS_5_12 = 1
 
-isEmpty(LESS_5_12) {
-    CONFIG *= lrelease
-    qm_files.CONFIG = no_check_exist
-} else {
+#isEmpty(LESS_5_12) {
+#    CONFIG *= lrelease
+#    qm_files.CONFIG = no_check_exist
+#} else {
     include($$PWD/lrelease.pri)
-}
+#}
+
+TRANSLATIONS_NAME=
+TRANSLATIONS_DIR=

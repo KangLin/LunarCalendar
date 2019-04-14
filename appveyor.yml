@@ -48,14 +48,16 @@ environment:
     TOOLCHAIN_VERSION: 15
     QT_ROOT: C:\Qt\5.12\msvc2017
     AUTOBUILD_ARCH: x86
-
+    STATIC: ON
+        
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     GENERATORS: "Visual Studio 14 2015 Win64"
     BUILD_TARGERT: windows_msvc
     TOOLCHAIN_VERSION: 15
     QT_ROOT: C:\Qt\5.12\msvc2017_64
     AUTOBUILD_ARCH: x64
-  
+    STATIC: ON
+    
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     GENERATORS: "Visual Studio 14 2015 Win64"
     BUILD_TARGERT: windows_msvc

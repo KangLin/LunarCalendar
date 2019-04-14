@@ -34,7 +34,7 @@ msvc {
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
 }
 
-INCLUDEPATH = ../Src
+INCLUDEPATH = ../Src ../Src/export
 
 !android: DESTDIR = $$OUT_PWD/../bin
 
@@ -48,7 +48,8 @@ HEADERS += \
 FORMS += \
         MainWindow.ui
 
-RESOURCES += Resource/Resource.qrc
+RESOURCES += \
+    Resource/Resource.qrc
 
 RC_FILE = AppIcon.rc
 

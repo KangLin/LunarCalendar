@@ -2,7 +2,7 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
-INCLUDEPATH = $$PWD $$PWD/../3th_lib/sxtwl/src
+INCLUDEPATH = $$PWD $$PWD/export $$PWD/../3th_lib/sxtwl/src
 msvc {
     QMAKE_CXXFLAGS += "/utf-8"
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
@@ -22,9 +22,9 @@ SOURCES += $$PWD/LunarCalendar.cpp \
     $$PWD/LunarCalendarDelegate.cpp
 
 INSTALL_HEADERS += $$PWD/LunarCalendar.h \
-    $$PWD/lunarcalendar_export.h \
-    $$PWD/lunarcalendar_export_windows.h \
-    $$PWD/lunarcalendar_export_linux.h 
+    $$PWD/export/lunarcalendar_export.h \
+    $$PWD/export/lunarcalendar_export_windows.h \
+    $$PWD/export/lunarcalendar_export_linux.h 
 
 HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarModel.h \

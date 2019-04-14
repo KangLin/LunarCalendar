@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
         return 0;
 #endif
 
-    CLunarCalendar::InitTranslator();
+    CLunarCalendar::InitResource();
     
     a.setApplicationName("LunarCalendar");
     a.setApplicationDisplayName(QObject::tr("Calendar"));

@@ -98,7 +98,7 @@ The lunar calendar written by Qt. It provides:
 - Load translator
   + Use libary function
 
-        CLunarCalendar::InitTranslator();
+        CLunarCalendar::InitResource();
 
   + Customize
   

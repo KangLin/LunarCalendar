@@ -2,6 +2,7 @@ TARGET = LunarCalendar
 TEMPLATE = lib
 !android: DESTDIR = $$OUT_PWD/../bin
 CONFIG += link_pkgconfig
+CONFIG(staticlib): CONFIG*=static
 
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp
@@ -17,7 +18,7 @@ OTHER_FILES += \
 
 header_files.target = header_files
 header_files.files = $$INSTALL_HEADERS
-win32 {
+!CONFIG(static): win32 {
     header_files.path = $$system_path($${PREFIX})/include
 
     INSTALL_TARGET = $$system_path($${DESTDIR}/$(TARGET))

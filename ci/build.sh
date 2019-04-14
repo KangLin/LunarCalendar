@@ -70,22 +70,28 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$GENERATORS" ]; then
-    cmake -G"${GENERATORS}" ${SOURCE_DIR} \
+    if [ -n "${STATIC}" ]; then
+        CONFIG_PARA="-DBUILD_SHARED_LIBS=${STATIC}"
+    fi
+    cmake -G"${GENERATORS}" ${SOURCE_DIR} ${CONFIG_PARA} \
          -DCMAKE_INSTALL_PREFIX=`pwd`/install \
          -DCMAKE_VERBOSE=ON \
          -DCMAKE_BUILD_TYPE=Release \
          -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5
     cmake --build . --target install --config Release -- ${RABBIT_MAKE_JOB_PARA}
 else
+    if [ "ON" = "${STATIC}" ]; then
+        CONFIG_PARA="CONFIG*=static"
+    fi
     if [ "${BUILD_TARGERT}" = "android" ]; then
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
-            "CONFIG+=release" 
+            "CONFIG+=release" ${CONFIG_PARA}
         
         $MAKE
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
-            "CONFIG+=release" \
-            PREFIX=`pwd`/install
+            "CONFIG+=release" ${CONFIG_PARA}\
+            PREFIX=`pwd`/install 
             
         $MAKE
         echo "$MAKE install ...."

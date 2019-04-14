@@ -86,11 +86,15 @@ CLunarCalendar::~CLunarCalendar()
     delete ui;
 }
 
-void CLunarCalendar::InitTranslator()
+//TODO: add clean
+void CLunarCalendar::InitResource()
 {
     static CLunarCalendarPrivate* p = nullptr;
     if(nullptr == p)
         p = new CLunarCalendarPrivate();
+#if defined(Q_OS_ANDROID) || _DEBUG
+    Q_INIT_RESOURCE(translations_LunarCalendar);
+#endif
 }
 
 int CLunarCalendar::ShowSelectTitle()

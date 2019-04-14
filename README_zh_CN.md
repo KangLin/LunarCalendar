@@ -93,7 +93,7 @@ Qt 写的农历。它提供：
 - 加载翻译资源
   + 用库中提供的函数
 
-        CLunarCalendar::InitTranslator();
+        CLunarCalendar::InitResource();
 
   + 自定义
   
