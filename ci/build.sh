@@ -98,7 +98,7 @@ else
         $MAKE install
     fi
 fi
-if [ "${BUILD_TARGERT}" != "android" ]; then
+if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
     #cd ${SOURCE_DIR}
     #cp Install/Install.nsi build_${BUILD_TARGERT}
     #"/C/Program Files (x86)/NSIS/makensis.exe" "build_${BUILD_TARGERT}/Install.nsi"

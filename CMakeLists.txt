@@ -142,6 +142,7 @@ set(OTHER_FILES
     Authors.md
     Authors_zh_CN.md
     ChangeLog.md
+    App/AppIcon.ico
     )
 
 INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
