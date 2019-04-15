@@ -54,4 +54,5 @@ OTHER_FILES += appveyor.yml \
     tag.sh \
     CMakeLists.txt \
     cmake/* \
-    Install/*
+    Install/* \
+    Update/*
