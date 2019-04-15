@@ -6,6 +6,7 @@
 #include <QLocale>
 #include <QTextCharFormat>
 #include <QVector>
+#include "LunarCalendar.h"
 
 class CLunarCalendarModel : public QAbstractTableModel
 {
@@ -71,7 +72,13 @@ public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     
+    int SetCalendarType(CLunarCalendar::_CalendarType type);
+    CLunarCalendar::_CalendarType GetCalendarType();
+    int SetViewType(CLunarCalendar::_VIEW_TYPE type);
+    CLunarCalendar::_VIEW_TYPE GeViewType();
+    
 private:
+    int ShowMonth();
     void internalUpdate();
     QDate firstDateMonth() const;
     QDate endDateMonth() const;
@@ -104,6 +111,9 @@ private:
     
     QMap<int, QMap<int, QString> > m_Holiday;
     QMap<int, QMap<int, QString> > m_Anniversary;
+    
+    CLunarCalendar::_VIEW_TYPE m_viewType;
+    CLunarCalendar::_CalendarType m_calendarType;
 };
 
 #endif // CCALENDARMODEL_H

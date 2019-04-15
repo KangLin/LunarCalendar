@@ -30,8 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);
-//    m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
-//    m_pLunarCalendar->AddAnniversary(4, 5, "you birth");
+    //m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
+    //m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
+    //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
             this, SLOT(slotUpdateCalendar()));

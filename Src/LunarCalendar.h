@@ -47,6 +47,17 @@ public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
 
+    enum _CalendarType{
+        CalendarTypeSolar = 0x01,
+        CalendarTypeLunar = 0x02
+    };
+    int SetCalendarType(_CalendarType type);
+    enum _VIEW_TYPE{
+        ViewTypeMonth,
+        ViewTypeWeek
+    };
+    int SetViewType(_VIEW_TYPE type);
+    
 Q_SIGNALS:
     void sigSelectionChanged();
 

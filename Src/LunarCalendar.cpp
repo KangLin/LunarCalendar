@@ -44,7 +44,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_bUpdate(true)
 {
     ui->setupUi(this);
-
+    
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
     
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
@@ -71,7 +71,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->installEventFilter(this);
     //ui->tvMonth->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
     //ui->tvMonth->setAlternatingRowColors(true); //设置奇偶行颜色  
-    
+//    QFont font = ui->tvMonth->font();
+//    font.setPointSize(6);
+//    ui->tvMonth->setFont(font);
     for(int i = 0; i < 12; i++)
     {
         ui->cbMonth->addItem(QLocale::system().monthName(i + 1), i + 1);
@@ -549,4 +551,20 @@ int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
     return pModel->AddAnniversary(month, day, szName);
+}
+
+int CLunarCalendar::SetViewType(_VIEW_TYPE type)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return -2;
+    return pModel->SetViewType(type);
+}
+
+int CLunarCalendar::SetCalendarType(_CalendarType type)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return -2;
+    return pModel->SetCalendarType(type);
 }

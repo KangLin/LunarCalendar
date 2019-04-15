@@ -15,6 +15,12 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_ShownMonth(m_Date.month()),
       m_FirstDay(QLocale().firstDayOfWeek())      
 {
+    SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
+                        CLunarCalendar::CalendarTypeLunar
+                        | CLunarCalendar::CalendarTypeSolar));
+    
+    SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
+                    CLunarCalendar::ViewTypeMonth));
     m_RowCount = 5;
     m_ColumnCount = 7;
     m_Locale = QLocale::system();
@@ -184,45 +190,55 @@ int CLunarCalendarModel::showMonth(int year, int month)
 {
     if (m_ShownYear == year && m_ShownMonth == month)
         return 0;
-
+    
     m_ShownYear = year;
     m_ShownMonth = month;
+    return ShowMonth();
+}
+
+int CLunarCalendarModel::ShowMonth()
+{
     m_RowCount = WeeksOfMonth();
     
-    QTime tStart = QTime::currentTime();
+    //QTime tStart = QTime::currentTime();
     m_Day.clear();
     QDate d;
     int row = 0, col = 0;
     do{
         for(int col = 0; col < 7; col++)
         {
-            QTime tOnceStart = QTime::currentTime();
+            //QTime tOnceStart = QTime::currentTime();
+            
             d = dateForCell(row, col);
             if(d.isNull())
                 break;
             _DAY day;
             day.Solar = d.day();
+            day.szSolarHoliday = m_Holiday[d.month()][d.day()];
             
-            qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
+            //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
-            CCalendarLunar lunar(d);
-            day.szLunar = lunar.GetLunarDay();
-            day.szSolarHoliday = m_Holiday[d.month()][d.day()];    
-            
-            day.szLunarHoliday = lunar.GetHoliday();
-            if(day.szLunarHoliday.isEmpty())
-                day.szLunarHoliday = lunar.GetJieQi();
-            
-            day.szAnniversary = lunar.GetAnniversary();
+            if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
+            {
+                CCalendarLunar lunar(d);
+                day.szLunar = lunar.GetLunarDay();
+                
+                day.szLunarHoliday = lunar.GetHoliday();
+                if(day.szLunarHoliday.isEmpty())
+                    day.szLunarHoliday = lunar.GetJieQi();
+                
+                day.szAnniversary = lunar.GetAnniversary();
+            }
             if(day.szAnniversary.isEmpty())
                 day.szAnniversary = m_Anniversary[d.month()][d.day()];
+            
             m_Day.push_back(day);
             
-            qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
+            //qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
         }
         row++;
     }while(d.isValid());
-    qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
+    //qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
     
     internalUpdate();
     return 0;
@@ -550,4 +566,27 @@ int CLunarCalendarModel::InitHoliday()
 CLunarCalendarModel::_DAY CLunarCalendarModel::GetDay(int row, int col) const
 {
     return m_Day[row * 7 + col];
+}
+
+int CLunarCalendarModel::SetViewType(CLunarCalendar::_VIEW_TYPE type)
+{
+    m_viewType = type;
+    return 0;
+}
+
+CLunarCalendar::_VIEW_TYPE CLunarCalendarModel::GeViewType()
+{
+    return m_viewType;
+}
+
+int CLunarCalendarModel::SetCalendarType(CLunarCalendar::_CalendarType type)
+{
+    m_calendarType = type;
+    ShowMonth();
+    return 0;
+}
+
+CLunarCalendar::_CalendarType CLunarCalendarModel::GetCalendarType()
+{
+    return m_calendarType;
 }

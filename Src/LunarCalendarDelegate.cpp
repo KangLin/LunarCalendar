@@ -10,6 +10,7 @@
 #include <QFont>
 #include <QFontInfo>
 #include <QFontMetrics>
+#include <algorithm> 
 
 QColor GetColorRole(const QPalette &palette, int role)
 {
@@ -50,49 +51,69 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
     QColor solarColor, lunarColor, anniversaryColor;
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(pView->model());
     
-    QFont fontSolar = option.font, fontLunar = fontSolar;
-    fontSolar = GetFontRole(fontSolar,
-                      index.data(CLunarCalendarModel::SolarFontRole).toInt());
-    fontLunar = GetFontRole(fontLunar,
-                      index.data(CLunarCalendarModel::LunarFontRole).toInt());
-
-    QString szSolar = index.data(CLunarCalendarModel::SolarRole).toString();
-    QString szLunar = index.data(CLunarCalendarModel::LunarRole).toString();
-    QString szAnniversary
-            = index.data(CLunarCalendarModel::Anniversary).toString();
+    bool bSolar = pModel->GetCalendarType() & CLunarCalendar::CalendarTypeSolar;
+    bool bLunar = pModel->GetCalendarType() & CLunarCalendar::CalendarTypeLunar;
+   
+    QFont fontSolar = option.font;
+    QFont fontLunar = fontSolar;
     
-    painter->save();
-    painter->setFont(fontSolar);
-    QFontMetrics m = painter->fontMetrics();
-    int solarHeight = m.height();
-    int solarWidth = m.width(szSolar);
+    QString szSolar, szLunar, szAnniversary;
+    
+    int solarHeight = 0;
+    int solarWidth = 0;
     int firstHeight = 6;
-    painter->setFont(fontLunar);
-    m = painter->fontMetrics();
-    int lunarHeight = m.height();
-    int lunarWidth = m.width(szLunar);
+    int lunarHeight = 0;
+    int lunarWidth = 0;
+    int width = 0;
+    int height = 0;
+    int nRow = 1;
+    painter->save();
     
-    int width = lunarWidth;
-    int height = lunarHeight;
-    if(width < solarWidth)
-        width = solarWidth;
-    if(height < solarHeight)
-        height = solarHeight;
-    if(height < firstHeight)
-        height = firstHeight;
-    if(width < firstHeight)
-        width = firstHeight;
+    if(bSolar)
+    {
+        fontSolar = GetFontRole(fontSolar,
+                          index.data(CLunarCalendarModel::SolarFontRole).toInt());
+        szSolar = index.data(CLunarCalendarModel::SolarRole).toString();
+        
+        painter->setFont(fontSolar);
+        QFontMetrics m = painter->fontMetrics();
+        solarHeight = m.height();
+        solarWidth = m.width(szSolar);
+        width = std::max(firstHeight, solarWidth);
+        height = std::max(firstHeight, solarHeight);
+        nRow++;
+    }
+    
+    if(bLunar)
+    {
+        fontLunar = GetFontRole(fontLunar,
+                          index.data(CLunarCalendarModel::LunarFontRole).toInt());
+        szLunar = index.data(CLunarCalendarModel::LunarRole).toString();  
+        
+        painter->setFont(fontLunar);
+        QFontMetrics m = painter->fontMetrics();
+        lunarHeight = m.height();
+        lunarWidth = m.width(szLunar); 
+        
+        width = std::max(width, lunarWidth);
+        height = std::max(height, lunarHeight);
+        nRow++;
+    }
+    
+    szAnniversary
+            = index.data(CLunarCalendarModel::Anniversary).toString();
 
     if(pView->horizontalHeader()->minimumSectionSize() < width)
         pView->horizontalHeader()->setMinimumSectionSize(width);
-    if(pView->verticalHeader()->minimumSectionSize() < 3 * height)
-        pView->verticalHeader()->setMinimumSectionSize(3 * height);
+    if(pView->verticalHeader()->minimumSectionSize() < nRow * height)
+        pView->verticalHeader()->setMinimumSectionSize(nRow * height);
 
     if(option.rect.width() > width)
         width = option.rect.width();
-    if(option.rect.height() > 3 * height)
-        height = option.rect.height() / 3;
+    if(option.rect.height() > nRow * height)
+        height = option.rect.height() / nRow;
 
     if(pView->currentIndex() == index)
     {
@@ -104,9 +125,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     }
     else
     {
-        solarColor = GetColorRole(palette,
-                       index.data(CLunarCalendarModel::SolarColorRole).toInt());
-        lunarColor = GetColorRole(palette,
+        if(bSolar)
+            solarColor = GetColorRole(palette,
+                           index.data(CLunarCalendarModel::SolarColorRole).toInt());    
+        if(bLunar)
+            lunarColor = GetColorRole(palette,
                        index.data(CLunarCalendarModel::LunarColorRole).toInt());
     }
     anniversaryColor = solarColor;
@@ -121,18 +144,26 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                              4, 4);
     }
     
-    painter->setFont(fontSolar);
-    painter->setPen(solarColor);
-    QPoint pos;
-    pos.setX(option.rect.left() + ((option.rect.width() - solarWidth) >> 1));
-    pos.setY(option.rect.top() + height + ((height - solarHeight) >> 1));
-    painter->drawText(pos, szSolar);
-  
-    painter->setFont(fontLunar);
-    painter->setPen(lunarColor);
-    pos.setX(option.rect.left() + ((option.rect.width() - lunarWidth) >> 1));
-    pos.setY(option.rect.top() + (height << 1) + ((height - solarHeight) >> 1));
-    painter->drawText(pos, szLunar);
+    if(bSolar)
+    {
+        painter->setFont(fontSolar);
+        painter->setPen(solarColor);
+        QPoint pos;
+        pos.setX(option.rect.left() + ((option.rect.width() - solarWidth) >> 1));
+        pos.setY(option.rect.top() + (height << 1) - ((height + solarHeight) >> 1));
+        painter->drawText(pos, szSolar);    
+    }
+    
+    if(bLunar)
+    {
+        painter->setFont(fontLunar);
+        painter->setPen(lunarColor);
+        QPoint pos;
+        pos.setX(option.rect.left() + ((option.rect.width() - lunarWidth) >> 1));
+        
+        pos.setY(option.rect.top() + height * nRow - ((height + solarHeight) >> 1));
+        painter->drawText(pos, szLunar);
+    }
 
     painter->restore();
 }
