@@ -71,6 +71,7 @@ public:
     
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
+    int AddLunarAnniversary(int month, int day, const QString &szName);
     
     int SetCalendarType(CLunarCalendar::_CalendarType type);
     CLunarCalendar::_CalendarType GetCalendarType();

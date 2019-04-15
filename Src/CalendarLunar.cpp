@@ -13,6 +13,7 @@ static const QString ymc[] = {"十一", "十二", "正", "二", "三", "四", "�
 static const QString rmc[] = {"初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十", "卅一"};
 
 static QMap<int, QMap<int, QString> > g_Holiday;
+static QMap<int, QMap<int, QString> > g_Anniversary;
 
 CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)
 {
@@ -26,7 +27,8 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
     if(date.isValid())
     {
         Lunar l;
-        QTime tStart = QTime::currentTime();
+        
+        //QTime tStart = QTime::currentTime();
         Day day = l.getDayBySolar(date.year(), date.month(), date.day());
         // qDebug() << "getDayBySolar time:" << tStart.msecsTo(QTime::currentTime());
         
@@ -44,7 +46,7 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
         if(!holiday.isEmpty())
             m_szHoliday = holiday[day.Ldi];
         
-        holiday = m_Anniversary[day.Lmc];
+        holiday = g_Anniversary[day.Lmc];
         if(!holiday.isEmpty())
             m_szAnniversary = holiday[day.Ldi];
         
@@ -108,7 +110,7 @@ QString CCalendarLunar::GetLunarDay(const QDate &date)
     QString szDay;
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-    QMap<int, QString> holiday = m_Anniversary[day.Lmc];
+    QMap<int, QString> holiday = g_Anniversary[day.Lmc];
     if(!holiday.isEmpty())
         m_szAnniversary = holiday[day.Ldi];
     if(!m_szAnniversary.isEmpty())
@@ -197,7 +199,7 @@ int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
     if(m > 11)
         m = m % 12;
 
-    m_Anniversary[m].insertMulti(day - 1, szName);
+    g_Anniversary[m].insertMulti(day - 1, szName);
     return 0;
 }
 

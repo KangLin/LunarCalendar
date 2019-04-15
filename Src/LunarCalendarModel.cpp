@@ -554,6 +554,15 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
     return 0;
 }
 
+int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &szName)
+{
+    if(szName.isEmpty())
+        return -1;
+
+    CCalendarLunar l;
+    return l.AddAnniversary(month, day, szName);
+}
+
 int CLunarCalendarModel::InitHoliday()
 {
     AddHoliday(1, 1, "元旦");

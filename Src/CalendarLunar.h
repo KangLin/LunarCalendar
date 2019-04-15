@@ -19,7 +19,7 @@ public:
     QString GetAnniversary();
     QString GetJieQi();
     static int AddHoliday(int month, int day, const QString &szName);
-    int AddAnniversary(int month, int day, const QString &szName);
+    static int AddAnniversary(int month, int day, const QString &szName);
 
 private:
     static int InitHoliday();
@@ -28,8 +28,6 @@ private:
     QString m_szHoliday;
     QString m_szAnniversary;
     QString m_szJieQi;
-    
-    QMap<int, QMap<int, QString> > m_Anniversary;
 };
 
 #endif // LUNAR_H

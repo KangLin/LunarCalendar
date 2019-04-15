@@ -560,6 +560,15 @@ int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
     return pModel->AddAnniversary(month, day, szName);
 }
 
+int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szName)
+{
+    if(szName.isEmpty())
+        return -1;
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
+    return pModel->AddLunarAnniversary(month, day, szName);
+}
+
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());

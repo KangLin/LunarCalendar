@@ -54,7 +54,8 @@ public:
 
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
-
+    int AddLunarAnniversary(int month, int day, const QString &szName);
+    
     enum _CalendarType{
         CalendarTypeSolar = 0x01,
         CalendarTypeLunar = 0x02
