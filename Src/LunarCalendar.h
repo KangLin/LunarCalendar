@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "lunarcalendar_export.h"
 #include <QMap>
+#include <QDate>
 
 namespace Ui {
 class CLunarCalendar;
@@ -12,6 +13,13 @@ class CLunarCalendar;
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(QDate selectedDate WRITE SetSelectedDate READ SelectedDate)
+    Q_PROPERTY(QString selectLunar READ SelectedLunar)
+    Q_PROPERTY(int yearShow READ YearShown)
+    Q_PROPERTY(int monthShow READ MonthShown)
+    Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
+    Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
+    Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
     
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
