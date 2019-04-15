@@ -457,7 +457,6 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 #ifndef QT_NO_WHEELEVENT
     case QEvent::Wheel:
         {
-            qDebug() << "QEvent::Wheel";
             QWheelEvent *we = (QWheelEvent*)event;
             const int numDegrees = we->delta() / 8;
             const int numSteps = numDegrees / 15;
@@ -468,8 +467,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                 if(index.isValid())
                 {
                     QDate currentDate = pModel->dateForCell(index.row(), index.column());
-                    currentDate = currentDate.addMonths(-numSteps);
-                    //TODO: Update date
+                    currentDate = currentDate.addDays(-numSteps * 7);
                     this->SetSelectedDate(currentDate);
                 }
             }
