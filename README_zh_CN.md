@@ -36,6 +36,10 @@ Qt 写的农历。它提供：
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
+### 依赖
+- [LunarCalendar](https://github.com/KangLin/LunarCalendar)
+  
+        git clone https://github.com/KangLin/LunarCalendar.git
 
 ### 编译
 - 建立并进入build目录
@@ -48,15 +52,19 @@ Qt 写的农历。它提供：
   + 用 qmake 
 
         cd build
-        qmake ../LunarCalendar.pro
+        qmake ../LunarCalendar.pro LunarCalendar_DIR=
         make install
     
   + 用 cmake
   
         cd build
-        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
+        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DLunarCalendar_DIR=
         cmake --build .
 
+- 安装注意  
+Qt因为版权原因，没有提供openssl动态库，所以必须自己复制openssl的动态库到安装目录下。
+    - 如果是32的，可以在Qt安装程序Tools\QtCreator\bin目录下，找到openssl的动态库（libeay32.dll、ssleay32.dll）
+    - 如果是64位，则需要自己下载openssl的二进制安装包。
 ------------------------------------------------
 
 ### 使用
@@ -83,12 +91,59 @@ Qt 写的农历。它提供：
             } else{
                 message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
                 message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                message("2. Then set value LunarCalendar_DIR to download root dirctory")
+                error("2. Then set value LunarCalendar_DIR to download root dirctory")
             }
     
   + cmake工程
+    - 子模块方式
+        
+            add_subdirectory(3th_libs/LunarCalendar/Src)
+            
+    - 非子模块方式
+       + 引入以 add_subdirectory 本项目录
+          
+                set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
+                if(EXISTS ${LunarCalendar_DIR}/Src)
+                    add_subdirectory(${LunarCalendar_DIR}/Src ${CMAKE_BINARY_DIR}/LunarCalendar)
+                else()
+                    message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar")
+                    message("   ag:")
+                    message("       git clone https://github.com/KangLin/LunarCalendar.git")
+                    message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root dirctory.")
+                    message("    ag:")
+                    message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
+                endif()
+                
+       + 在使用的工程目录CMakeLists.txt
+          
+                SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+                if(TARGET LunarCalendar)
+                    target_compile_definitions(${PROJECT_NAME}
+                                        PRIVATE -DLunarCalendar)
+                    target_include_directories(${PROJECT_NAME}
+                                        PRIVATE "${LunarCalendar_DIR}/Src"
+                                                "${LunarCalendar_DIR}/Src/export")
+                    set(APP_LIBS ${APP_LIBS} LunarCalendar)
+                endif()
+                target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
-        add_subdirectory(3th_libs/LunarCalendar/Src)
+- 以库方式使用使用
+  + Qt 工程文件
+  + cmake
+    cmake 参数 LunarCalendar_DIR 指定安装根目录
+    
+        find_package(LunarCalendar)
+
+        SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+        if(LunarCalendar_FOUND)
+            target_compile_definitions(${PROJECT_NAME}
+                                PRIVATE -DLunarCalendar)
+            target_include_directories(${PROJECT_NAME}
+                                PRIVATE "${LunarCalendar_INCLUDE_DIRS}/Src"
+                                        "${LunarCalendar_INCLUDE_DIRS}/Src/export")
+            set(APP_LIBS ${APP_LIBS} ${LunarCalendar_LIBRARIES})
+        endif()
+        target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - 加载翻译资源
   + 用库中提供的函数

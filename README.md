@@ -37,7 +37,11 @@ The lunar calendar written by Qt. It provides:
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
-
+### Depend
+- [RabbitCommon](https://github.com/KangLin/RabbitCommon)
+  
+        git clone https://github.com/KangLin/RabbitCommon.git
+        
 ### Compile
 - Create and enter the build directory
 
@@ -47,16 +51,20 @@ The lunar calendar written by Qt. It provides:
 
 + Use qmake 
 
-      cd build
-      qmake ../LunarCalendar.pro
-      make install
+        cd build
+        qmake ../LunarCalendar.pro RabbitCommon_DIR=
+        make install
   
 + Use cmake
 
-      cd build
-      cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
-      cmake --build .
+        cd build
+        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
+        cmake --build .
 
+- Note  
+If you build app. Qt does not provide openssl dynamic library for copyright reasons, so you must copy the dynamic library of openssl to the installation directory.
+     - If it is 32, you can find the dynamic library of openssl (libeay32.dll, ssleay32.dll) in the Qt installer Tools\QtCreator\bin directory.
+     - If it is 64-bit, you will need to download the binary installation package for openssl yourself.
 ------------------------------------------------
 ### Use
 - Direct source code.
@@ -84,16 +92,74 @@ The lunar calendar written by Qt. It provides:
                 } else{
                     message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
                     message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                    message("2. Then set value LunarCalendar_DIR to download root dirctory")
+                    error("2. Then set value LunarCalendar_DIR to download root dirctory")
                 }
 
   + Is a QT project, directly introduces LunarCalendar.pri
 
         include(LunarCalendar.pri)
 
-  + cmake project
++ cmake 
+  - Submodule
+    + add submodule：
+  
+            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+      
+    + Add follow code in CMakeLists.txt
+    
+            add_subdirectory(3th_libs/LunarCalendar/Src)
+          
+  - No submodule
+     + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
 
-        add_subdirectory(3th_libs/LunarCalendar/Src)
+            git clone https://github.com/KangLin/LunarCalendar.git
+          
+     + Add follow code in CMakeLists.txt
+        
+            set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
+            if(EXISTS ${LunarCalendar_DIR}/Src)
+                add_subdirectory(${LunarCalendar_DIR}/Src ${CMAKE_BINARY_DIR}/LunarCalendar)
+            else()
+                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar")
+                message("   ag:")
+                message("       git clone https://github.com/KangLin/LunarCalendar.git")
+                message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root dirctory.")
+                message("    ag:")
+                message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
+            endif()
+              
+     + Add libraries and include in CMakeLists.txt
+        
+            SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+            if(TARGET LunarCalendar)
+                target_compile_definitions(${PROJECT_NAME}
+                                  PRIVATE -DLunarCalendar)
+                target_include_directories(${PROJECT_NAME}
+                                  PRIVATE "${LunarCalendar_DIR}/Src"
+                                          "${LunarCalendar_DIR}/Src/export")
+                set(APP_LIBS ${APP_LIBS} LunarCalendar)
+            endif()
+            target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
+
+- Use in library mode
+  + Qt project file
+  + cmake
+    - Cmake parameter LunarCalendar_DIR specifies the installation root directory
+    
+            find_package(LunarCalendar)
+    
+    - Add libraries and include in CMakeLists.txt
+    
+            SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+            if(LunarCalendar_FOUND)
+                target_compile_definitions(${PROJECT_NAME}
+                                PRIVATE -DLunarCalendar)
+                target_include_directories(${PROJECT_NAME}
+                                PRIVATE "${LunarCalendar_INCLUDE_DIRS}/Src"
+                                        "${LunarCalendar_INCLUDE_DIRS}/Src/export")
+                set(APP_LIBS ${APP_LIBS} ${LunarCalendar_LIBRARIES})
+            endif()
+            target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
         
 - Load translator
   + Use libary function
