@@ -446,6 +446,7 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
     switch(event->type()){
+    
     case QEvent::TouchBegin:
         
         qDebug() << "QEvent::TouchBegin";
@@ -453,20 +454,28 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     case QEvent::TouchEnd:
         qDebug() << "QEvent::TouchEnd";
         break;
+#ifndef QT_NO_WHEELEVENT
     case QEvent::Wheel:
         {
             qDebug() << "QEvent::Wheel";
             QWheelEvent *we = (QWheelEvent*)event;
-            if(we->delta() > 0)
+            const int numDegrees = we->delta() / 8;
+            const int numSteps = numDegrees / 15;
+            CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+            if(pModel)
             {
-                QKeyEvent *pKeyEvent = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Up, Qt::NoModifier);
-                QApplication::postEvent(this, pKeyEvent);
-            } else {
-                QKeyEvent *pKeyEvent = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Down, Qt::NoModifier);
-                QApplication::postEvent(this, pKeyEvent);
+                const QModelIndex index = ui->tvMonth->currentIndex();
+                if(index.isValid())
+                {
+                    QDate currentDate = pModel->dateForCell(index.row(), index.column());
+                    currentDate = currentDate.addMonths(-numSteps);
+                    //TODO: Update date
+                    this->SetSelectedDate(currentDate);
+                }
             }
             break;
         }
+#endif
     case QEvent::KeyRelease:
         {
             QKeyEvent* ke = (QKeyEvent*)event;

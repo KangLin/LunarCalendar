@@ -88,6 +88,8 @@ int CLunarCalendarModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
+    if(CLunarCalendar::ViewTypeWeek == m_viewType)
+        return 1;
     return m_RowCount;
 }
 
