@@ -48,7 +48,6 @@ public:
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
-
     QDate MaximumDate() const;
     void SetMaximumDate(const QDate &date);
     void SetDateRange(const QDate &min, const QDate &max);
@@ -86,7 +85,7 @@ protected:
 
 private:
     int ShowSelectTitle();
-    int ChangeMonth();
+    int UpdateView();
     int UpdateMonthMenu();
     int UpdateSelect();
 

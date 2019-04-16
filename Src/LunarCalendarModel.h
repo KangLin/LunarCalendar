@@ -54,8 +54,11 @@ public:
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     
     int showMonth(int year, int month);
+    int showWeek(int year, int week);
+    int GetShowWeek();
     int GetShowMonth();
     int GetShowYear();
+    int GetWeeksOfYear(int year = QDate::currentDate().day());
     int setDate(const QDate &d);
     QDate GetDate() const;
     int SetMinimumDate(const QDate &date);
@@ -79,7 +82,9 @@ public:
     CLunarCalendar::_VIEW_TYPE GetViewType();
     
 private:
+    int Show();
     int ShowMonth();
+    int ShowWeek();
     void internalUpdate();
     QDate firstDateMonth() const;
     QDate endDateMonth() const;
@@ -96,6 +101,7 @@ private:
     QDate m_MaximumDate;
     int m_ShownYear;
     int m_ShownMonth;
+    int m_ShowWeek;
     int m_ColumnCount, m_RowCount;
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;

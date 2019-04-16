@@ -88,8 +88,6 @@ int CLunarCalendarModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.isValid())
         return 0;
-    if(CLunarCalendar::ViewTypeWeek == m_viewType)
-        return 1;
     return m_RowCount;
 }
 
@@ -188,6 +186,31 @@ Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const
     return QAbstractTableModel::flags(index);
 }
 
+int CLunarCalendarModel::Show()
+{
+    switch ( m_viewType) {
+    case CLunarCalendar::ViewTypeMonth:
+        return ShowMonth();
+    case CLunarCalendar::ViewTypeWeek:
+        return ShowWeek();
+    }
+    
+}
+
+int CLunarCalendarModel::showWeek(int year, int week)
+{
+    if (m_ShownYear == year && m_ShowWeek == week)
+        return 0;
+    m_ShownYear = year;
+    m_ShowWeek = week;
+    return ShowWeek();
+}
+
+int CLunarCalendarModel::ShowWeek()
+{
+    return ShowMonth();
+}
+
 int CLunarCalendarModel::showMonth(int year, int month)
 {
     if (m_ShownYear == year && m_ShownMonth == month)
@@ -200,7 +223,15 @@ int CLunarCalendarModel::showMonth(int year, int month)
 
 int CLunarCalendarModel::ShowMonth()
 {
-    m_RowCount = WeeksOfMonth();
+    switch(m_viewType)
+    {
+    case CLunarCalendar::ViewTypeWeek:
+        m_RowCount = 1;
+        break;
+    case CLunarCalendar::ViewTypeMonth:
+        m_RowCount = WeeksOfMonth();
+        break;
+    }
     
     //QTime tStart = QTime::currentTime();
     m_Day.clear();
@@ -254,6 +285,11 @@ int CLunarCalendarModel::GetShowYear()
 int CLunarCalendarModel::GetShowMonth()
 {
     return m_ShownMonth;
+}
+
+int CLunarCalendarModel::GetShowWeek()
+{
+    return m_ShowWeek;
 }
 
 int CLunarCalendarModel::setDate(const QDate &d)
@@ -470,6 +506,17 @@ int CLunarCalendarModel::WeeksOfMonth()
         }
     }
     return endDateMonth().weekNumber() - firstDateMonth().weekNumber() + 1;
+}
+
+int CLunarCalendarModel::GetWeeksOfYear(int year)
+{
+    QDate date(year, 1, 1);
+    QDate endDate = date.addDays(date.dayOfYear());
+    int y = 0;
+    int nWeeks = endDate.weekNumber(&year);
+    if(m_ShownYear != y)
+        nWeeks = endDate.addDays(-7).weekNumber();
+    return nWeeks;
 }
 
 int CLunarCalendarModel::columnForFirstOfMonth(const QDate &date) const
