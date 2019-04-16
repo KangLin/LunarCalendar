@@ -35,6 +35,8 @@ private:
     QTranslator m_Translator;
 };
 
+static CLunarCalendarPrivate* g_pLunarCalendarPrivate = nullptr;
+
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CLunarCalendar),
@@ -89,14 +91,24 @@ CLunarCalendar::~CLunarCalendar()
     delete ui;
 }
 
-//TODO: add clean
 void CLunarCalendar::InitResource()
 {
-    static CLunarCalendarPrivate* p = nullptr;
-    if(nullptr == p)
-        p = new CLunarCalendarPrivate();
+    if(nullptr == g_pLunarCalendarPrivate)
+        g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
 #if defined(Q_OS_ANDROID) || _DEBUG
     Q_INIT_RESOURCE(translations_LunarCalendar);
+#endif
+}
+
+void CLunarCalendar::CLeanResource()
+{
+    if(g_pLunarCalendarPrivate)
+    {
+        delete g_pLunarCalendarPrivate;
+        g_pLunarCalendarPrivate = nullptr;
+    }
+#if defined(Q_OS_ANDROID) || _DEBUG
+    Q_CLEANUP_RESOURCE(translations_LunarCalendar);
 #endif
 }
 

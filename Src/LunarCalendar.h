@@ -26,6 +26,7 @@ public:
     virtual ~CLunarCalendar() override;
     
     static void InitResource();
+    static void CLeanResource();
     
     QDate SelectedDate() const;
     void SetSelectedDate(const QDate &date);
