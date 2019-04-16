@@ -121,12 +121,12 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QLocale native = QLocale::system();
-    QString szLunar;
+    QString szDate;
+    if(CalendarTypeSolar & GetCalendarType())
+        szDate = d.toString(QLocale::system().dateFormat(QLocale::LongFormat));
     if(CalendarTypeLunar & GetCalendarType())
-        szLunar = " " + SelectedLunar();
-    ui->lbDateText->setText(
-                d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
-                + szLunar);
+        szDate += " " + SelectedLunar();
+    ui->lbDateText->setText(szDate);
     return 0;
 }
 
@@ -582,7 +582,7 @@ int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szNam
     if(!pModel) return -1;
     return pModel->AddLunarAnniversary(month, day, szName);
 }
-
+/*
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
@@ -598,7 +598,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
         return ViewTypeMonth;
     return pModel->GetViewType();
 }
-
+*/
 CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
