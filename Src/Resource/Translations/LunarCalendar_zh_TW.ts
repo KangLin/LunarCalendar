@@ -24,5 +24,15 @@
         <source>Date text</source>
         <translation></translation>
     </message>
+    <message>
+        <location filename="../../LunarCalendar.cpp" line="674"/>
+        <source>Week</source>
+        <translation>周</translation>
+    </message>
+    <message>
+        <location filename="../../LunarCalendar.cpp" line="677"/>
+        <source>Month</source>
+        <translation>月</translation>
+    </message>
 </context>
 </TS>

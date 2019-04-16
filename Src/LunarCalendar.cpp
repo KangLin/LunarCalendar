@@ -81,7 +81,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     {
         ui->cbMonth->addItem(QLocale::system().monthName(i + 1), i + 1);
     }
-
+    ui->cbMonth->setToolTip(tr("Month"));
+    
     ui->spYear->setValue(pModel->GetDate().year());
     ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
     SetSelectedDate(pModel->GetDate());
@@ -669,6 +670,14 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     if(!pModel)
         return -1;
     int nRet = pModel->SetViewType(type);
+    switch (GetViewType()) {
+    case ViewTypeWeek:
+        ui->cbMonth->setToolTip(tr("Week"));
+        break;
+    case ViewTypeMonth:
+        ui->cbMonth->setToolTip(tr("Month"));
+        break;
+    }
     UpdateMonthMenu();
     UpdateView();
     return nRet;
@@ -689,6 +698,7 @@ CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
         return static_cast<_CalendarType>(CalendarTypeLunar | CalendarTypeSolar);
     return pModel->GetCalendarType();
 }
+
 int CLunarCalendar::SetCalendarType(_CalendarType type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());

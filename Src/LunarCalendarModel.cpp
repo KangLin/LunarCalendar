@@ -189,29 +189,13 @@ Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const
     return QAbstractTableModel::flags(index);
 }
 
-int CLunarCalendarModel::Show()
-{
-    switch ( m_viewType) {
-    case CLunarCalendar::ViewTypeMonth:
-        return ShowMonth();
-    case CLunarCalendar::ViewTypeWeek:
-        return ShowWeek();
-    }
-    return 0;
-}
-
 int CLunarCalendarModel::showWeek(int year, int week)
 {
     if (m_ShownYear == year && m_ShowWeek == week)
         return 0;
     m_ShownYear = year;
     m_ShowWeek = week;
-    return ShowWeek();
-}
-
-int CLunarCalendarModel::ShowWeek()
-{
-    return ShowMonth();
+    return Show();
 }
 
 int CLunarCalendarModel::showMonth(int year, int month)
@@ -221,10 +205,10 @@ int CLunarCalendarModel::showMonth(int year, int month)
     
     m_ShownYear = year;
     m_ShownMonth = month;
-    return ShowMonth();
+    return Show();
 }
 
-int CLunarCalendarModel::ShowMonth()
+int CLunarCalendarModel::Show()
 {
     switch(m_viewType)
     {
@@ -712,7 +696,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendarModel::GetViewType()
 int CLunarCalendarModel::SetCalendarType(CLunarCalendar::_CalendarType type)
 {
     m_calendarType = type;
-    ShowMonth();
+    Show();
     return 0;
 }
 

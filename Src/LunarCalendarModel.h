@@ -83,8 +83,6 @@ public:
     
 private:
     int Show();
-    int ShowMonth();
-    int ShowWeek();
     void internalUpdate();
     QDate firstDateMonth() const;
     QDate endDateMonth() const;
