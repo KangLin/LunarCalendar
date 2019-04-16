@@ -177,7 +177,6 @@ void CLunarCalendar::on_pbToday_clicked()
     if(nIndex > -1)
         ui->cbMonth->setCurrentIndex(nIndex);
     SetSelectedDate(QDate::currentDate());
-    ChangeMonth();
 }
 
 int CLunarCalendar::ChangeMonth()
@@ -187,7 +186,8 @@ int CLunarCalendar::ChangeMonth()
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
         return -2;
-    ui->tvMonth->selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
+    //ui->tvMonth->selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
+    ui->tvMonth->selectionModel()->clear();
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
     ShowSelectTitle();
     return 0;
@@ -272,8 +272,8 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
         ui->tvMonth->selectionModel()->setCurrentIndex(pModel->index(row, col),
                                            QItemSelectionModel::SelectCurrent);
         //ui->tvMonth->setCurrentIndex(pModel->index(row, col));
-        ui->tvMonth->selectionModel()->select(pModel->index(row, col),
-                                            QItemSelectionModel::SelectCurrent);
+        //ui->tvMonth->selectionModel()->select(pModel->index(row, col),
+        //                                    QItemSelectionModel::SelectCurrent);
         ui->tvMonth->setFocus();
         m_oldCol = col;
         m_oldRow = row;
