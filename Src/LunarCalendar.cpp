@@ -81,6 +81,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 
     ui->spYear->setValue(pModel->GetDate().year());
     ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
+    SetSelectedDate(pModel->GetDate());
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -108,10 +109,12 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QLocale native = QLocale::system();
-    CCalendarLunar l(d);
-    ui->lbDateText->setText(d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
-                            + " "
-                            + SelectedLunar());
+    QString szLunar;
+    if(CalendarTypeLunar & GetCalendarType())
+        szLunar = " " + SelectedLunar();
+    ui->lbDateText->setText(
+                d.toString(QLocale::system().dateFormat(QLocale::LongFormat))
+                + szLunar);
     return 0;
 }
 
@@ -172,6 +175,7 @@ int CLunarCalendar::ChangeMonth()
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
         return -2;
+    ui->tvMonth->selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
     pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
     ShowSelectTitle();
     return 0;
@@ -533,13 +537,11 @@ int CLunarCalendar::UpdateSelect()
     if(m_oldCol < 0)
         m_oldCol = 0;
     QModelIndex index = pModel->index(m_oldRow, m_oldCol);
-    ui->tvMonth->setCurrentIndex(index);
+    //ui->tvMonth->setCurrentIndex(index);
     QDate d = pModel->dateForCell(index.row(), index.column());
     if(d.isValid())
     {
-        pModel->setDate(d);
-        ShowSelectTitle();
-        emit sigSelectionChanged();
+        SetSelectedDate(d);
     }
     return 0;
 }
@@ -597,5 +599,7 @@ int CLunarCalendar::SetCalendarType(_CalendarType type)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
         return -1;
-    return pModel->SetCalendarType(type);
+    int nRet = pModel->SetCalendarType(type);
+    ShowSelectTitle();
+    return nRet;
 }
