@@ -582,7 +582,7 @@ int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szNam
     if(!pModel) return -1;
     return pModel->AddLunarAnniversary(month, day, szName);
 }
-/*
+
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
@@ -598,7 +598,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
         return ViewTypeMonth;
     return pModel->GetViewType();
 }
-*/
+
 CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());

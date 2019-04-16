@@ -67,8 +67,8 @@ public:
         ViewTypeMonth,
         ViewTypeWeek
     };
-    /*int SetViewType(_VIEW_TYPE type);
-    _VIEW_TYPE GetViewType();*/
+    int SetViewType(_VIEW_TYPE type);
+    _VIEW_TYPE GetViewType();
     
 Q_SIGNALS:
     void sigSelectionChanged();

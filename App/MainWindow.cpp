@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pActionSolar->setCheckable(true);
     pActionSolar->setChecked(true);
     pViewMenu->addSeparator();
-    /*
+    
     QActionGroup* pViewTypeGroup = new QActionGroup(this);
     QAction* pViewMonth = pViewMenu->addAction(tr("Month"), this, SLOT(slotViewMonth()));
     pViewMonth->setCheckable(true);
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction* pViewWeek = pViewMenu->addAction(tr("Week"), this, SLOT(slotViewWeek()));
     pViewWeek->setCheckable(true);
     pViewTypeGroup->addAction(pViewWeek);
-    */
+    
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
     CFrmUpdater frmUpdate;
@@ -82,8 +82,7 @@ void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
     CFrmUpdater *fu = new CFrmUpdater();
-    fu->SetTitle(qApp->applicationDisplayName(),
-                 windowIcon().pixmap(windowIcon().availableSizes().at(0)));
+    fu->SetTitle(qApp->applicationDisplayName(), QPixmap(":/image/Calendar"));
     fu->show();
 #endif
 }
@@ -123,10 +122,10 @@ void MainWindow::slotActionSolar(bool checked)
 
 void MainWindow::slotViewMonth()
 {
-    //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeMonth);
+    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeMonth);
 }
 
 void MainWindow::slotViewWeek()
 {
-    //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
+    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
 }

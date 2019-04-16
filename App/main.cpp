@@ -42,10 +42,10 @@ int main(int argc, char *argv[])
     MainWindow w;
     
 #ifdef RABBITCOMMON
-    CFrmUpdater u;
-    u.SetTitle(qApp->applicationDisplayName(),
-                 w.windowIcon().pixmap(w.windowIcon().availableSizes().at(0)));
-    if(!u.GenerateUpdateXml())
+    CFrmUpdater *pUpdate = new CFrmUpdater();
+    pUpdate->SetTitle(qApp->applicationDisplayName(), 
+                      QPixmap(":/image/Calendar"));
+    if(!pUpdate->GenerateUpdateXml())
         return 0;
 #endif
     
