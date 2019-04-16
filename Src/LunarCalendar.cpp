@@ -135,7 +135,7 @@ int CLunarCalendar::ShowSelectTitle()
 void CLunarCalendar::on_spYear_valueChanged(int value)
 {
     Q_UNUSED(value);
-    UpdateView();
+    UpdateViewModel();
     
     UpdateMonthMenu();
 }
@@ -169,7 +169,7 @@ void CLunarCalendar::on_tbPrevious_clicked()
 void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 {
     Q_UNUSED(index);
-    UpdateView();
+    UpdateViewModel();
 }
 
 void CLunarCalendar::on_pbToday_clicked()
@@ -181,7 +181,7 @@ void CLunarCalendar::on_pbToday_clicked()
     SetSelectedDate(QDate::currentDate());
 }
 
-int CLunarCalendar::UpdateView()
+int CLunarCalendar::UpdateViewModel()
 {
     if(m_nUpdate)
         return -1;
@@ -270,7 +270,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
     {
         pModel->setDate(date);
         QDate newDate = pModel->GetDate();
-        m_nUpdate++;
+        
         ui->spYear->setValue(newDate.year());
         switch (GetViewType()) {
         case ViewTypeMonth:
@@ -290,8 +290,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
             break;
         }
         
-        m_nUpdate--;
-        UpdateView();
+        UpdateViewModel();
     }   
 
     int row, col;
@@ -361,7 +360,7 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     QDate newDate = pModel->GetDate();
     m_nUpdate--;
     if (oldDate != newDate) {
-        UpdateView();
+        UpdateViewModel();
         emit sigSelectionChanged();
     }
 }
@@ -392,7 +391,7 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
     m_nUpdate--;
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
-        UpdateView();
+        UpdateViewModel();
         emit sigSelectionChanged();
     }
 }
@@ -420,7 +419,7 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     m_nUpdate--;
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
-        UpdateView();
+        UpdateViewModel();
         emit sigSelectionChanged();
     }
 }
@@ -679,7 +678,7 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
         break;
     }
     UpdateMonthMenu();
-    UpdateView();
+    UpdateViewModel();
     return nRet;
 }
 

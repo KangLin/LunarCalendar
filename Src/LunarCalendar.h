@@ -85,7 +85,7 @@ protected:
 
 private:
     int ShowSelectTitle();
-    int UpdateView();
+    int UpdateViewModel();
     int UpdateMonthMenu();
     int UpdateSelect();
 
