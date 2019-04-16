@@ -24,6 +24,8 @@ The lunar calendar written by Qt. It provides:
 - [ ] Mac os
 - [ ] IOS
 
+Mac os and IOS, I don't have the corresponding equipment,
+please compile and test the students with the corresponding equipment.
 ------------------------------------------------
 
 - [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
@@ -32,8 +34,11 @@ The lunar calendar written by Qt. It provides:
 ------------------------------------------------
 
 ### Screenshots
+- Windows
 ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
 ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
+
+- Android
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------

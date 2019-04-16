@@ -23,6 +23,7 @@ Qt 写的农历。它提供：
 - [ ] Mac os
 - [ ] IOS
 
+Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
 ------------------------------------------------
 
 - [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
@@ -31,8 +32,11 @@ Qt 写的农历。它提供：
 ------------------------------------------------
 
 ### 屏幕截图
+- Windows
 ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
 ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
+
+- Android
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
