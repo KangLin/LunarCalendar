@@ -501,7 +501,7 @@ void CLunarCalendarModel::cellForDateWeek(const QDate &date, int *row, int *colu
     if(date.year() != m_ShownYear && date.year() != year)
         return;
     
-    *row = 1;
+    *row = 0;
     *column = columnForDayOfWeek(static_cast<Qt::DayOfWeek>(date.dayOfWeek()));
 }
 

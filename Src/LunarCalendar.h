@@ -93,7 +93,7 @@ private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
-    bool m_bUpdate;
+    int m_nUpdate;
 };
 
 #endif // LUNARCALENDAR_H
