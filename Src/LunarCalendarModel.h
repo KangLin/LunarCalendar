@@ -89,6 +89,10 @@ private:
     QDate firstDateMonth() const;
     QDate endDateMonth() const;
     int WeeksOfMonth();
+    QDate dateForCellMonth(int row, int column) const;
+    void cellForDateMonth(const QDate &date, int *row, int *column) const;
+    QDate dateForCellWeek(int row, int column) const;
+    void cellForDateWeek(const QDate &date, int *row, int *column) const;
     int columnForFirstOfMonth(const QDate &date) const;
     int columnForDayOfWeek(Qt::DayOfWeek day) const;
     QTextCharFormat formatForCell(QDate d, int row, int col) const;

@@ -639,6 +639,7 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
         return -1;
     int nRet = pModel->SetViewType(type);
     UpdateMonthMenu();
+    UpdateView();
     return nRet;
 }
 

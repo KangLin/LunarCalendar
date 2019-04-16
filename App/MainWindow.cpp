@@ -53,8 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);
-    //m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
-    //m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
+    m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
+    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     
@@ -72,7 +72,7 @@ void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
     CDlgAbout about(this);
-    about.m_AppIcon = windowIcon().pixmap(windowIcon().availableSizes().at(0));
+    about.m_AppIcon = QPixmap(":/image/Calendar");
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     about.exec();
 #endif

@@ -13,6 +13,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_MaximumDate(9999, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
+      m_ShowWeek(1),
       m_FirstDay(QLocale().firstDayOfWeek())      
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
@@ -121,7 +122,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return GetDay(row, column).szLunar;
     case LunarColorRole:
     {
-        if(d.month() != m_ShownMonth)
+        if(d.month() != m_ShownMonth
+                && CLunarCalendar::ViewTypeMonth == m_viewType)
             return ColorDisable;
 
         if(GetDay(row, column).szLunarHoliday.isEmpty())
@@ -140,7 +142,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return GetDay(row, column).szAnniversary;
     case SolarColorRole:
     {
-        if(d.month() != m_ShownMonth)
+        if(d.month() != m_ShownMonth
+                && CLunarCalendar::ViewTypeMonth == m_viewType)
             return ColorDisable;
 
         if(d.dayOfWeek() == Qt::Saturday
@@ -194,7 +197,7 @@ int CLunarCalendarModel::Show()
     case CLunarCalendar::ViewTypeWeek:
         return ShowWeek();
     }
-    
+    return 0;
 }
 
 int CLunarCalendarModel::showWeek(int year, int week)
@@ -382,6 +385,17 @@ void CLunarCalendarModel::internalUpdate()
 
 QDate CLunarCalendarModel::dateForCell(int row, int column) const
 {
+    switch (m_viewType) {
+    case CLunarCalendar::ViewTypeMonth:
+        return dateForCellMonth(row, column);
+    case CLunarCalendar::ViewTypeWeek:
+        return dateForCellWeek(row, column);
+    }
+    return QDate();
+}
+
+QDate CLunarCalendarModel::dateForCellMonth(int row, int column) const
+{
     if (row < 0 || row > m_RowCount - 1
         || column < 0 || column > m_ColumnCount - 1)
         return QDate();
@@ -397,7 +411,44 @@ QDate CLunarCalendarModel::dateForCell(int row, int column) const
     return refDate.addDays(requestedDay);
 }
 
+QDate CLunarCalendarModel::dateForCellWeek(int row, int column) const
+{
+    if (row != 0 || column < 0 || column > m_ColumnCount - 1)
+        return QDate();
+
+    QDate firstOfYear(m_ShownYear, 1, 1);
+    QDate date;
+    int year = 0;
+    int weeks = m_ShowWeek;
+    
+    if(1 != firstOfYear.weekNumber(&year))
+        weeks++;
+    
+    date = firstOfYear.addDays((weeks -1 )* 7);
+    int col = columnForDayOfWeek(static_cast<Qt::DayOfWeek>(date.dayOfWeek()));
+    QDate firstDayOfWeek = date.addDays(-col);
+    return firstDayOfWeek.addDays(column);
+}
+
 void CLunarCalendarModel::cellForDate(const QDate &date, int *row, int *column) const
+{
+    if (!row && !column)
+        return;
+    
+    if (row)
+        *row = -1;
+    if (column)
+        *column = -1;
+    
+    switch (m_viewType) {
+    case CLunarCalendar::ViewTypeMonth:
+        return cellForDateMonth(date, row, column);
+    case CLunarCalendar::ViewTypeWeek:
+        return cellForDateWeek(date, row, column);
+    }
+}
+
+void CLunarCalendarModel::cellForDateMonth(const QDate &date, int *row, int *column) const
 {
     if (!row && !column)
         return;
@@ -431,6 +482,27 @@ void CLunarCalendarModel::cellForDate(const QDate &date, int *row, int *column) 
         *row = r;
     if (column)
         *column = c;
+}
+
+void CLunarCalendarModel::cellForDateWeek(const QDate &date, int *row, int *column) const
+{
+    if (!row && !column)
+        return;
+
+    if (row)
+        *row = -1;
+    if (column)
+        *column = -1;
+    
+    int year;
+    int weeks = date.weekNumber(&year);
+    if(weeks != m_ShowWeek)
+        return;
+    if(date.year() != m_ShownYear && date.year() != year)
+        return;
+    
+    *row = 1;
+    *column = columnForDayOfWeek(static_cast<Qt::DayOfWeek>(date.dayOfWeek()));
 }
 
 /*
