@@ -76,7 +76,7 @@ public:
     int SetCalendarType(CLunarCalendar::_CalendarType type);
     CLunarCalendar::_CalendarType GetCalendarType();
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
-    CLunarCalendar::_VIEW_TYPE GeViewType();
+    CLunarCalendar::_VIEW_TYPE GetViewType();
     
 private:
     int ShowMonth();

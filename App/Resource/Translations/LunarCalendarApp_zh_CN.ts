@@ -10,11 +10,41 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="19"/>
+        <source>View</source>
+        <translation>视图</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="20"/>
+        <source>Lunar</source>
+        <translation>农历</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="25"/>
+        <source>Solar</source>
+        <translation>阳历</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="32"/>
+        <source>Month</source>
+        <translation>月</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="36"/>
+        <source>Week</source>
+        <translation>周</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="41"/>
+        <source>Help</source>
+        <translation>帮助</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="43"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="20"/>
+        <location filename="../../MainWindow.cpp" line="44"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -22,7 +52,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="35"/>
+        <location filename="../../main.cpp" line="32"/>
         <source>Calendar</source>
         <translation>日历</translation>
     </message>

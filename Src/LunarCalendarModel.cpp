@@ -205,7 +205,7 @@ int CLunarCalendarModel::ShowMonth()
     //QTime tStart = QTime::currentTime();
     m_Day.clear();
     QDate d;
-    int row = 0, col = 0;
+    int row = 0;
     do{
         for(int col = 0; col < 7; col++)
         {
@@ -585,7 +585,7 @@ int CLunarCalendarModel::SetViewType(CLunarCalendar::_VIEW_TYPE type)
     return 0;
 }
 
-CLunarCalendar::_VIEW_TYPE CLunarCalendarModel::GeViewType()
+CLunarCalendar::_VIEW_TYPE CLunarCalendarModel::GetViewType()
 {
     return m_viewType;
 }

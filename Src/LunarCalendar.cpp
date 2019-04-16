@@ -573,14 +573,29 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
-        return -2;
+        return -1;
     return pModel->SetViewType(type);
 }
 
+CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return ViewTypeMonth;
+    return pModel->GetViewType();
+}
+
+CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return static_cast<_CalendarType>(CalendarTypeLunar | CalendarTypeSolar);
+    return pModel->GetCalendarType();
+}
 int CLunarCalendar::SetCalendarType(_CalendarType type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
-        return -2;
+        return -1;
     return pModel->SetCalendarType(type);
 }

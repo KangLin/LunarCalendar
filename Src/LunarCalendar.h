@@ -61,11 +61,13 @@ public:
         CalendarTypeLunar = 0x02
     };
     int SetCalendarType(_CalendarType type);
+    _CalendarType GetCalendarType();
     enum _VIEW_TYPE{
         ViewTypeMonth,
         ViewTypeWeek
     };
     int SetViewType(_VIEW_TYPE type);
+    _VIEW_TYPE GetViewType();
     
 Q_SIGNALS:
     void sigSelectionChanged();

@@ -20,6 +20,10 @@ private Q_SLOTS:
     void slotUpdateCalendar();
     void slotAbout();
     void slotUpdate();
+    void slotActionLunar(bool checked);
+    void slotActionSolar(bool checked);
+    void slotViewMonth();
+    void slotViewWeek();
     
 private:
     Ui::MainWindow *ui;
