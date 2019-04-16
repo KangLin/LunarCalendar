@@ -160,8 +160,8 @@ void CLunarCalendar::on_tbPrevious_clicked()
     int i = ui->cbMonth->currentIndex() - 1;
     if(i < 0)
     {
-        i = ui->cbMonth->count() - 1;
         ui->spYear->setValue(ui->spYear->value() - 1);
+        i = ui->cbMonth->count() - 1;
     }
     ui->cbMonth->setCurrentIndex(i);
 }

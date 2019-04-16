@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
-//    m_pLunarCalendar->SetDateRange(QDate(2017, 3, 11), QDate(2019, 4, 20));
+    m_pLunarCalendar->SetDateRange(QDate(1999, 12, 11), QDate(2000, 4, 20));
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);
