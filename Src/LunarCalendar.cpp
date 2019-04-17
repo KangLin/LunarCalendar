@@ -46,9 +46,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_nUpdate(0)
 {
     ui->setupUi(this);
-    
+
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
-    
+
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
     SetShowGrid(true);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -83,7 +83,10 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     }
     ui->cbMonth->setToolTip(tr("Month"));
     
+    ui->spYear->setRange(pModel->GetMinimumDate().year(), 
+                         pModel->GetMaximumDate().year());
     ui->spYear->setValue(pModel->GetDate().year());
+    
     ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
     SetSelectedDate(pModel->GetDate());
 }

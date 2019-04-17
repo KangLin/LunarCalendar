@@ -24,6 +24,7 @@ Qt 写的农历。它提供：
 - [ ] IOS
 
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
+
 ------------------------------------------------
 
 - [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
@@ -50,10 +51,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
-### 依赖
-- [LunarCalendar](https://github.com/KangLin/LunarCalendar)
-  
-        git clone https://github.com/KangLin/LunarCalendar.git
 
 ### 编译
 - 建立并进入build目录
@@ -81,13 +78,14 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
     - 如果是64位，则需要自己下载openssl的二进制安装包。
 ------------------------------------------------
 
-### 使用
-- 直接用源码
+### 其它应用使用本项目
+- 直接用本项目源码
   + 是QT工程
     - 子模块方式：
       + 增加子模块：
       
             git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
+            git submodule update --init --recursive
       
       + 在工程文件(.pro)中直接引入 LunarCalendar.pri
 
@@ -95,6 +93,9 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
     - 非子模块方式：
       + 下载源码：https://github.com/KangLin/LunarCalendar
+      
+            git clone --recursive https://github.com/KangLin/LunarCalendar.git
+            
       + 在环境变量（LunarCalendar_DIR） 或 QMAKE参数 （LunarCalendar_DIR） 
         中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
     
@@ -110,10 +111,20 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
     
   + cmake工程
     - 子模块方式
-        
+      + 增加子模块：
+    
+            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
+            git submodule update --init --recursive
+      
+      + 在 CMakeLists.txt 中以子目录方式加入
+      
             add_subdirectory(3th_lib/LunarCalendar/Src)
             
     - 非子模块方式
+      + 下载源码：https://github.com/KangLin/LunarCalendar
+    
+            git clone --recursive https://github.com/KangLin/LunarCalendar.git
+       
        + 引入以 add_subdirectory 本项目录
           
                 set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")

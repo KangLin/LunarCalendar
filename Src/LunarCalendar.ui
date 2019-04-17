@@ -91,10 +91,10 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="minimum">
-        <number>1970</number>
+        <number>-99999999</number>
        </property>
        <property name="maximum">
-        <number>2999</number>
+        <number>999999999</number>
        </property>
       </widget>
      </item>

@@ -9,8 +9,8 @@
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
       m_Date(QDate::currentDate()),
-      m_MinimumDate(QDate::fromJulianDay(1)),
-      m_MaximumDate(9999, 12, 31),
+      m_MinimumDate(1, 1, 1),
+      m_MaximumDate(99999, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
       m_ShowWeek(1),

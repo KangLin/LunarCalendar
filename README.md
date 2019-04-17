@@ -26,6 +26,7 @@ The lunar calendar written by Qt. It provides:
 
 Mac os and IOS, I don't have the corresponding equipment,
 please compile and test the students with the corresponding equipment.
+
 ------------------------------------------------
 
 - [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
@@ -53,10 +54,6 @@ please compile and test the students with the corresponding equipment.
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
-### Depend
-- [RabbitCommon](https://github.com/KangLin/RabbitCommon)
-  
-        git clone https://github.com/KangLin/RabbitCommon.git
         
 ### Compile
 - Create and enter the build directory
@@ -82,13 +79,14 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
      - If it is 32, you can find the dynamic library of openssl (libeay32.dll, ssleay32.dll) in the Qt installer Tools\QtCreator\bin directory.
      - If it is 64-bit, you will need to download the binary installation package for openssl yourself.
 ------------------------------------------------
-### Use
-- Direct source code.
+### Other application use the libary
+- Direct use the libary source code.
     + Qt project
       - Submodule:
         + add submodule：
         
-                git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+                git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
+                git submodule update --init --recursive
 
         + include LunarCalendar.pri in qt project file
         
@@ -97,7 +95,7 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
       - No submodule:
         + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
 
-                git clone https://github.com/KangLin/LunarCalendar.git
+                git clone --recursive https://github.com/KangLin/LunarCalendar.git
 
         + Add follow code in qt project file
         
@@ -115,22 +113,23 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
 
         include(LunarCalendar.pri)
 
-+ cmake 
-  - Submodule
-    + add submodule：
+  + cmake 
+    - Submodule
+      + add submodule：
   
             git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
+            git submodule update --init --recursive
       
-    + Add follow code in CMakeLists.txt
+      + Add follow code in CMakeLists.txt
     
             add_subdirectory(3th_lib/LunarCalendar/Src)
           
-  - No submodule
-     + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
+    - No submodule
+      + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
 
-            git clone https://github.com/KangLin/LunarCalendar.git
+            git clone --recursive https://github.com/KangLin/LunarCalendar.git
           
-     + Add follow code in CMakeLists.txt
+      + Add follow code in CMakeLists.txt
         
             set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
             if(EXISTS ${LunarCalendar_DIR}/Src)
@@ -144,7 +143,7 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
                 message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
             endif()
               
-     + Add libraries and include in CMakeLists.txt
+       + Add libraries and include in CMakeLists.txt
         
             SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
             if(TARGET LunarCalendar)
