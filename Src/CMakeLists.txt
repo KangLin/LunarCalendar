@@ -30,6 +30,7 @@ set(HEAD_FILES
     ../3th_lib/sxtwl/src/SSQ.h
     ../3th_lib/sxtwl/src/XL.h  
     LunarCalendarDelegate.h
+    LunarTable.h
     )
 set(SOURCE_FILES
     LunarCalendar.cpp
@@ -41,6 +42,7 @@ set(SOURCE_FILES
     ../3th_lib/sxtwl/src/SSQ.cpp
     ../3th_lib/sxtwl/src/XL.cpp  
     LunarCalendarDelegate.cpp
+    LunarTable.cpp
     )
 set(SOURCE_UI_FILES
     LunarCalendar.ui 
@@ -52,6 +54,7 @@ include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
 
 #设置资源文件
 SET(RCC_FILES
+    Resource/ResourceLunarCalendar.qrc
     ${TRANSLATIONS_RESOURCE_FILES}
     )
 

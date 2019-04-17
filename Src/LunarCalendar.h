@@ -69,6 +69,9 @@ public:
     int SetViewType(_VIEW_TYPE type);
     _VIEW_TYPE GetViewType();
     
+    int LoadCalendarTable(const QString& szFile);
+    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2);
+    
 Q_SIGNALS:
     void sigSelectionChanged();
 

@@ -3,7 +3,8 @@
 #include <QDebug>
 #include <QDate>
 #include <QIcon>
-
+#include <QDir>
+#include <QApplication>
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
     #include "FrmUpdater/FrmUpdater.h"
@@ -49,7 +50,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
-    //m_pLunarCalendar->SetDateRange(QDate(1999, 12, 11), QDate(2000, 4, 20));
+//    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2120, 1, 1));
+//    m_pLunarCalendar->GenerateCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
+// m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);

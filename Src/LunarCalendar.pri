@@ -19,7 +19,8 @@ SOURCES += $$PWD/LunarCalendar.cpp \
     $$PWD/../3th_lib/sxtwl/src/JD.cpp \
     $$PWD/../3th_lib/sxtwl/src/SSQ.cpp \
     $$PWD/../3th_lib/sxtwl/src/XL.cpp \  
-    $$PWD/LunarCalendarDelegate.cpp
+    $$PWD/LunarCalendarDelegate.cpp \
+    $$PWD/LunarTable.cpp
 
 INSTALL_HEADERS += $$PWD/LunarCalendar.h \
     $$PWD/export/lunarcalendar_export.h \
@@ -34,10 +35,14 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/../3th_lib/sxtwl/src/JD.h \
     $$PWD/../3th_lib/sxtwl/src/SSQ.h \
     $$PWD/../3th_lib/sxtwl/src/XL.h \
-    $$PWD/LunarCalendarDelegate.h
+    $$PWD/LunarCalendarDelegate.h \
+    $$PWD/LunarTable.h
 
 FORMS += $$PWD/LunarCalendar.ui
 
 TRANSLATIONS_DIR=$$PWD
 TRANSLATIONS_NAME=LunarCalendar
 include($$PWD/../pri/Translations.pri)
+
+RESOURCES += \
+    $$PWD/Resource/ResourceLunarCalendar.qrc

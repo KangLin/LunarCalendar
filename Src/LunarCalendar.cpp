@@ -12,6 +12,8 @@
 #include <QTranslator>
 #include <QApplication>
 #include <QDir>
+#include "CalendarLunar.h"
+#include "LunarTable.h"
 
 class CLunarCalendarPrivate
 {
@@ -100,6 +102,8 @@ void CLunarCalendar::InitResource()
 {
     if(nullptr == g_pLunarCalendarPrivate)
         g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
+
+    Q_INIT_RESOURCE(ResourceLunarCalendar);
 #if defined(Q_OS_ANDROID) || _DEBUG
     Q_INIT_RESOURCE(translations_LunarCalendar);
 #endif
@@ -112,6 +116,8 @@ void CLunarCalendar::CLeanResource()
         delete g_pLunarCalendarPrivate;
         g_pLunarCalendarPrivate = nullptr;
     }
+
+    Q_CLEANUP_RESOURCE(ResourceLunarCalendar);
 #if defined(Q_OS_ANDROID) || _DEBUG
     Q_CLEANUP_RESOURCE(translations_LunarCalendar);
 #endif
@@ -709,4 +715,19 @@ int CLunarCalendar::SetCalendarType(_CalendarType type)
     int nRet = pModel->SetCalendarType(type);
     ShowSelectTitle();
     return nRet;
+}
+
+int CLunarCalendar::LoadCalendarTable(const QString &szFile)
+{
+    return CLunarTable::Instance()->Load(szFile);
+}
+
+int CLunarCalendar::GenerateCalendarTable(const QString &szFile,
+                                          int nThreadNumber)
+{
+    return  CLunarTable::Instance()->Generate(
+                this->MinimumDate(),
+                MaximumDate(),
+                szFile,
+                nThreadNumber);
 }

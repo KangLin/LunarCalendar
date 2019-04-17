@@ -1,8 +1,8 @@
 #include "CalendarLunar.h"
-#include "lunar.h"
 #include <QDate>
 #include <QDebug>
 #include <QTime>
+#include "LunarTable.h"
 
 static const QString g_Gan[] = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"};
 static const QString g_Zhi[] = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"};
@@ -34,42 +34,41 @@ int CCalendarLunar::GetLunar(const QDate &date)
 {
     if(!date.isValid())
         return -1;
+        
+    CLunarTable::_LUNAR_DAY day;
+    int nRet = CLunarTable::Instance()->GetLunar(date, day);
+    if(nRet)
+        return -2;
     
-    Lunar l;
-    
-    //QTime tStart = QTime::currentTime();
-    Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-    //qDebug() << "getDayBySolar time:" << tStart.msecsTo(QTime::currentTime());
-    
-    m_szLunar = g_Gan[day.Lyear2.tg] + g_Zhi[day.Lyear2.dz] + "年";
-    if (day.Lleap)
+    m_szLunar = g_Gan[day.nTg] + g_Zhi[day.nDz] + "年";
+    if (day.bLeap)
     {
-        m_szLunar += "润" + g_ymc[day.Lmc] + "月" + g_rmc[day.Ldi] + "日";
+        m_szLunar += "闰" + g_ymc[day.nMonth] + "月" + g_rmc[day.nDay] + "日";
     }
     else
     {
-        m_szLunar += g_ymc[day.Lmc] + "月" + g_rmc[day.Ldi] + "日";
+        m_szLunar += g_ymc[day.nMonth] + "月" + g_rmc[day.nDay] + "日";
     }
     
-    QMap<int, QString> holiday = g_Holiday[day.Lmc];
+    QMap<int, QString> holiday = g_Holiday[day.nMonth];
     if(!holiday.isEmpty())
-        m_szHoliday = holiday[day.Ldi];
+        m_szHoliday = holiday[day.nDay];
     
-    holiday = g_Anniversary[day.Lmc];
+    holiday = g_Anniversary[day.nMonth];
     if(!holiday.isEmpty())
-        m_szAnniversary = holiday[day.Ldi];
+        m_szAnniversary = holiday[day.nDay];
     
-    if(-1 != day.qk)
-        m_szJieQi = g_jqmc[day.qk];
+    if(-1 != day.nJq)
+        m_szJieQi = g_jqmc[day.nJq];
     
-    if(0 == day.Ldi)
+    if(0 == day.nDay)
     {
-        if (day.Lleap)
-            m_szLunarDay += "润" + g_ymc[day.Lmc] + "月";
+        if (day.bLeap)
+            m_szLunarDay += "闰" + g_ymc[day.nMonth] + "月";
         else
-            m_szLunarDay = g_ymc[day.Lmc] + "月";
+            m_szLunarDay = g_ymc[day.nMonth] + "月";
     } else
-        m_szLunarDay = g_rmc[day.Ldi];
+        m_szLunarDay = g_rmc[day.nDay];
     
     return 0;
 }
@@ -163,25 +162,4 @@ int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
 QString CCalendarLunar::GetAnniversary()
 {
     return m_szAnniversary;
-}
-
-int CCalendarLunar::Save(const QString &file)
-{
-    int nRet = 0;
-    
-    return nRet;
-}
-
-int CCalendarLunar::Load(const QString &file)
-{
-    int nRet = 0;
-    
-    return nRet;
-}
-
-int CCalendarLunar::Generate(const QDate &min, const QDate &max)
-{
-    int nRet = 0;
-    
-    return nRet;
 }
