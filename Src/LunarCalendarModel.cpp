@@ -567,9 +567,9 @@ int CLunarCalendarModel::WeeksOfMonth()
 int CLunarCalendarModel::GetWeeksOfYear(int year)
 {
     QDate date(year, 1, 1);
-    QDate endDate = date.addDays(date.dayOfYear());
+    QDate endDate = date.addDays(date.daysInYear());
     int y = 0;
-    int nWeeks = endDate.weekNumber(&year);
+    int nWeeks = endDate.weekNumber(&y);
     if(m_ShownYear != y)
         nWeeks = endDate.addDays(-7).weekNumber();
     return nWeeks;
