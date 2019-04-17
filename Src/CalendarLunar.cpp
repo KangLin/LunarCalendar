@@ -178,3 +178,10 @@ int CCalendarLunar::Load(const QString &file)
     
     return nRet;
 }
+
+int CCalendarLunar::Generate(const QDate &min, const QDate &max)
+{
+    int nRet = 0;
+    
+    return nRet;
+}

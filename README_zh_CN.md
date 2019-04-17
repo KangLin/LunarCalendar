@@ -51,7 +51,14 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
+- 目录结构
+```
+    |-App                  应用程序代码
+    |-Src                  日历库代码
+       |- LunarCalendar.h  日历库接口头文件
+```
 
+------------------------------------------------
 ### 编译
 - 依赖  
   [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
@@ -180,17 +187,6 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
         CLunarCalendar::InitResource();
 
-  + 自定义
-  
-        QString szPre;    
-        #if defined(Q_OS_ANDROID) || _DEBUG
-            szPre = ":/Translations";
-        #else
-            szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
-        #endif
-        m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
-        qApp->installTranslator(&m_Translator);
-        
 ------------------------------------------------
 
 ### 下载

@@ -54,13 +54,23 @@ please compile and test the students with the corresponding equipment.
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
+- Directory
+
+```
+  |-App                  application source code
+  |-Src                  calendar library source code
+  |- LunarCalendar.h  calendar interface header file
+```
+
+------------------------------------------------
         
 ### Compile
 
 - Depend  
   [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
-  
-        git clone https://github.com/KangLin/RabbitCommon.git
+  ```
+  git clone https://github.com/KangLin/RabbitCommon.git
+  ```
   
 - Create and enter the build directory
 
