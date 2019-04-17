@@ -9,7 +9,7 @@
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
       m_Date(QDate::currentDate()),
-      m_MinimumDate(1, 1, 1),
+      m_MinimumDate(QDate::fromJulianDay(0)), //儒略日数（Julian Day Number，JDN）的计算是从格林威治标准时间的中午开始，包含一个整天的时间，起点的时间（0日）回溯至儒略历的公元前4713年1月1日中午12点（在格里历是公元前4714年11月24日）
       m_MaximumDate(99999, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
@@ -27,6 +27,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_Locale = QLocale::system();
     m_FirstDay = m_Locale.firstDayOfWeek();
     InitHoliday();
+    Show();
 }
 
 QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -107,6 +108,9 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     int row = index.row();
     int column = index.column();
     QDate d = dateForCell(row, column);
+    if(!d.isValid())
+        return QVariant();
+    
     switch (role) {
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
@@ -220,7 +224,7 @@ int CLunarCalendarModel::Show()
         break;
     }
     
-    QTime tStart = QTime::currentTime();
+    //QTime tStart = QTime::currentTime();
     m_Day.clear();
     QDate d;
     int row = 0;
@@ -230,7 +234,7 @@ int CLunarCalendarModel::Show()
             //QTime tOnceStart = QTime::currentTime();
             
             d = dateForCell(row, col);
-            if(d.isNull())
+            if(!d.isValid())
                 break;
             _DAY day;
             day.Solar = d.day();

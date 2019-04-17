@@ -11,9 +11,8 @@ public:
     explicit CCalendarLunar(QDate date, QObject *parent = nullptr);
     explicit CCalendarLunar(QObject *parent = nullptr);
     
-    QString GetLunar(const QDate &date);
+    int GetLunar(const QDate &date);
     QString GetLunar();
-    QString GetLunarDay(const QDate &date);
     QString GetLunarDay();
     QString GetHoliday();
     QString GetAnniversary();
@@ -21,13 +20,29 @@ public:
     static int AddHoliday(int month, int day, const QString &szName);
     static int AddAnniversary(int month, int day, const QString &szName);
 
+    int Load(const QString &file);
+    int Save(const QString &file);
+    
 private:
     static int InitHoliday();
+    int Generate(const QDate &min, const QDate &max);
+    
     QString m_szLunar;
     QString m_szLunarDay;
     QString m_szHoliday;
     QString m_szAnniversary;
     QString m_szJieQi;
+    
+    struct _Lunar{
+        QString szYear;
+        int nYear;
+        QString szMonth;
+        int nMonth;
+        QString szDay;
+        int nDay;
+        QString szJieQi;
+    };
+    QMap<QDate, _Lunar> m_Lunar;
 };
 
 #endif // LUNAR_H
