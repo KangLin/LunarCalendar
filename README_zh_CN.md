@@ -31,12 +31,22 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ------------------------------------------------
 
+## 捐赠
+- 捐赠(大于￥20)：  
+![捐赠( 大于 ￥20 )](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute.png "捐赠(大于￥20)")
+
+- 捐赠￥20  
+![捐赠￥20](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute20.png "捐赠￥20")
+
+------------------------------------------------
 ### 屏幕截图
 - Windows
+
 ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
 ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
 
 - Android
+
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ------------------------------------------------
@@ -77,11 +87,11 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
     - 子模块方式：
       + 增加子模块：
       
-            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
       
       + 在工程文件(.pro)中直接引入 LunarCalendar.pri
 
-            include(3th_libs/LunarCalendar/LunarCalendar.pri)
+            include(3th_lib/LunarCalendar/LunarCalendar.pri)
 
     - 非子模块方式：
       + 下载源码：https://github.com/KangLin/LunarCalendar
@@ -101,7 +111,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
   + cmake工程
     - 子模块方式
         
-            add_subdirectory(3th_libs/LunarCalendar/Src)
+            add_subdirectory(3th_lib/LunarCalendar/Src)
             
     - 非子模块方式
        + 引入以 add_subdirectory 本项目录
@@ -172,12 +182,10 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 ------------------------------------------------
 
-## 捐赠
-- 捐赠(大于￥20)：  
-![捐赠( 大于 ￥20 )](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute.png "捐赠(大于￥20)")
+### 贡献
 
-- 捐赠￥20  
-![捐赠￥20](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute20.png "捐赠￥20")
+问题：https://github.com/KangLin/LunarCalendar/issues
+项目位置：https://github.com/KangLin/LunarCalendar
 
 ------------------------------------------------
 

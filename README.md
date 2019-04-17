@@ -33,12 +33,23 @@ please compile and test the students with the corresponding equipment.
 
 ------------------------------------------------
 
+## Donation
+- Donation (greater than ¥20):  
+![donation (greater than ¥20)](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute.png "donation (greater than ¥20)")
+
+- Donate ¥20  
+![donation ¥20](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute20.png "donation ¥20")
+
+------------------------------------------------
+
 ### Screenshots
 - Windows
+
 ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
 ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
 
 - Android
+
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
@@ -81,7 +92,7 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
 
         + include LunarCalendar.pri in qt project file
         
-                include(3th_libs/LunarCalendar/LunarCalendar.pri)
+                include(3th_lib/LunarCalendar/LunarCalendar.pri)
 
       - No submodule:
         + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
@@ -108,11 +119,11 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
   - Submodule
     + add submodule：
   
-            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_libs/LunarCalendar
+            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
       
     + Add follow code in CMakeLists.txt
     
-            add_subdirectory(3th_libs/LunarCalendar/Src)
+            add_subdirectory(3th_lib/LunarCalendar/Src)
           
   - No submodule
      + Download LunarCalendar source code from https://github.com/KangLin/LunarCalendar
@@ -189,12 +200,10 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 ------------------------------------------------
 
-## Donation
-- Donation (greater than ¥20):  
-![donation (greater than ¥20)](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute.png "donation (greater than ¥20)")
+### Contribution
 
-- Donate ¥20  
-![donation ¥20](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute20.png "donation ¥20")
+Question: https://github.com/KangLin/LunarCalendar/issues
+Project location: https://github.com/KangLin/LunarCalendar
 
 ------------------------------------------------
 
