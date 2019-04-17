@@ -28,9 +28,9 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
     {
         Lunar l;
         
-        QTime tStart = QTime::currentTime();
+        //QTime tStart = QTime::currentTime();
         Day day = l.getDayBySolar(date.year(), date.month(), date.day());
-        qDebug() << "getDayBySolar time:" << tStart.msecsTo(QTime::currentTime());
+        //qDebug() << "getDayBySolar time:" << tStart.msecsTo(QTime::currentTime());
         
         m_szLunar = Gan[day.Lyear2.tg] + Zhi[day.Lyear2.dz] + "年";
         if (day.Lleap)

@@ -227,7 +227,7 @@ int CLunarCalendarModel::Show()
     do{
         for(int col = 0; col < 7; col++)
         {
-            QTime tOnceStart = QTime::currentTime();
+            //QTime tOnceStart = QTime::currentTime();
             
             d = dateForCell(row, col);
             if(d.isNull())
@@ -236,7 +236,7 @@ int CLunarCalendarModel::Show()
             day.Solar = d.day();
             day.szSolarHoliday = m_Holiday[d.month()][d.day()];
             
-            qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
+            //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
@@ -254,11 +254,11 @@ int CLunarCalendarModel::Show()
             
             m_Day.push_back(day);
             
-            qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
+            //qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
         }
         row++;
     }while(d.isValid());
-    qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
+    //qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
     
     internalUpdate();
     return 0;
