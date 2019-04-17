@@ -56,6 +56,12 @@ please compile and test the students with the corresponding equipment.
 ------------------------------------------------
         
 ### Compile
+
+- Depend  
+  [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
+  
+        git clone https://github.com/KangLin/RabbitCommon.git
+  
 - Create and enter the build directory
 
         git clone --recursive https://github.com/KangLin/LunarCalendar.git
@@ -201,7 +207,7 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 ### Contribution
 
-Question: https://github.com/KangLin/LunarCalendar/issues
+Question: https://github.com/KangLin/LunarCalendar/issues  
 Project location: https://github.com/KangLin/LunarCalendar
 
 ------------------------------------------------

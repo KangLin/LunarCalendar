@@ -53,6 +53,11 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ------------------------------------------------
 
 ### 编译
+- 依赖  
+  [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
+  
+        git clone https://github.com/KangLin/RabbitCommon.git
+
 - 建立并进入build目录
 
         git clone --recursive https://github.com/KangLin/LunarCalendar.git
@@ -195,7 +200,7 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 ### 贡献
 
-问题：https://github.com/KangLin/LunarCalendar/issues
+问题：https://github.com/KangLin/LunarCalendar/issues  
 项目位置：https://github.com/KangLin/LunarCalendar
 
 ------------------------------------------------
