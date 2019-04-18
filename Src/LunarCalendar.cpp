@@ -44,8 +44,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui(new Ui::CLunarCalendar),
     m_oldRow(0),
     m_oldCol(0),
-    m_bShowToday(true),
-    m_nUpdate(0)
+    m_bShowToday(true)
 {
     ui->setupUi(this);
 
@@ -145,7 +144,6 @@ void CLunarCalendar::on_spYear_valueChanged(int value)
 {
     Q_UNUSED(value);
     UpdateViewModel();
-    
     UpdateMonthMenu();
 }
 
@@ -179,6 +177,7 @@ void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 {
     Q_UNUSED(index);
     UpdateViewModel();
+    EnableMonthMenu();
 }
 
 void CLunarCalendar::on_pbToday_clicked()
@@ -192,8 +191,6 @@ void CLunarCalendar::on_pbToday_clicked()
 
 int CLunarCalendar::UpdateViewModel()
 {
-    if(m_nUpdate)
-        return -1;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
         return -2;
@@ -361,13 +358,21 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
-    m_nUpdate++;
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
-    ui->spYear->setMaximum(date.year());
-    UpdateMonthMenu();
+    int year = date.year();
+    if(GetViewType() == ViewTypeWeek)
+    {
+        date.weekNumber(&year);
+    }
+    ui->spYear->setMaximum(year);
+    
+    if(ui->spYear->value() > year)
+        ui->spYear->setValue(year);
+    else 
+        UpdateMonthMenu();
+    
     QDate newDate = pModel->GetDate();
-    m_nUpdate--;
     if (oldDate != newDate) {
         UpdateViewModel();
         emit sigSelectionChanged();
@@ -392,12 +397,18 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
         SetShowToday(m_bShowToday);
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
-    m_nUpdate++;
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
-    ui->spYear->setMinimum(date.year());
-    UpdateMonthMenu();
-    m_nUpdate--;
+    int year = date.year();
+    if(GetViewType() == ViewTypeWeek)
+    {
+        date.weekNumber(&year);
+    }
+    ui->spYear->setMinimum(year);
+    if(pModel->GetShowYear() < year)
+        ui->spYear->setValue(year);
+    else 
+        UpdateMonthMenu();
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
         UpdateViewModel();
@@ -419,13 +430,27 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
         ui->pbToday->setVisible(false);
     else
         SetShowToday(m_bShowToday);
-    m_nUpdate++;
+    
     QDate oldDate = pModel->GetDate();
     pModel->setRange(min, max);
-    ui->spYear->setRange(min.year(), max.year());
 
-    UpdateMonthMenu();
-    m_nUpdate--;
+    int yearMin = min.year();
+    if(GetViewType() == ViewTypeWeek)
+    {
+        min.weekNumber(&yearMin);
+    }
+    int yearMax = max.year();
+    if(GetViewType() == ViewTypeWeek)
+        max.weekNumber(&yearMax);
+    
+    ui->spYear->setRange(yearMin, yearMax);
+    if(ui->spYear->value() < yearMin)
+        ui->spYear->setValue(yearMin);
+    else if (ui->spYear->value() > yearMax) 
+        ui->spYear->setValue(yearMax);
+    else
+        UpdateMonthMenu();
+    
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
         UpdateViewModel();
@@ -433,61 +458,38 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     }
 }
 
-int CLunarCalendar::UpdateMonthMenu()
+int CLunarCalendar::EnableMonthMenu()
 {
-    int beg = 1, end = 12;
-    
     bool prevEnabled = true;
     bool nextEnabled = true;
-    m_nUpdate++;
+    
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
-    switch (GetViewType()) {
-    case ViewTypeMonth:
-        beg = 1;
-        end = 12;
-        break;
-    case ViewTypeWeek:
-        beg = 1;
-        end = pModel->GetWeeksOfYear(ui->spYear->value());
-    }
+ 
     if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
-        
         switch (GetViewType())
         {
         case ViewTypeMonth:
-            beg = pModel->GetMinimumDate().month();
             if (pModel->GetShowMonth() == pModel->GetMinimumDate().month())
                 prevEnabled = false;
             break;
         case ViewTypeWeek:
             int year = 0;
-            beg = pModel->GetMinimumDate().weekNumber(&year);
-            if(pModel->GetMinimumDate().year() != year)
-            {
-                beg = 1;
-            }
             if (pModel->GetShowWeek() == pModel->GetMinimumDate().weekNumber(&year)
                     && pModel->GetMinimumDate().year() == year)
                 prevEnabled = false;
             break;
         }
     }
+    
     if (pModel->GetShowYear() == pModel->GetMaximumDate().year()) {
-        
         switch (GetViewType()) {
         case ViewTypeMonth:
-            end = pModel->GetMaximumDate().month();
             if (pModel->GetShowMonth() == pModel->GetMaximumDate().month())
                 nextEnabled = false;
             break;
         case ViewTypeWeek:
             int year = 0;
-            end = pModel->GetMaximumDate().weekNumber(&year);
-            if(pModel->GetMaximumDate().year() != year)
-            {
-                end = pModel->GetMaximumDate().addDays(-7).weekNumber();
-            }
             if(pModel->GetShowWeek() == pModel->GetMaximumDate().weekNumber(&year)
                     && pModel->GetMaximumDate().year() == year)
                 nextEnabled = false;
@@ -497,6 +499,58 @@ int CLunarCalendar::UpdateMonthMenu()
     
     ui->tbPrevious->setEnabled(prevEnabled);
     ui->tbNext->setEnabled(nextEnabled);
+    return 0;
+}
+
+int CLunarCalendar::UpdateMonthMenu()
+{
+    int beg = 1, end = 12;
+
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel) return -1;
+    
+    EnableMonthMenu();
+            
+    switch (GetViewType()) {
+    case ViewTypeMonth:
+        beg = 1;
+        end = 12;
+        break;
+    case ViewTypeWeek:
+        beg = 1;
+        end = pModel->GetWeeksOfYear(ui->spYear->value());
+    }
+    
+    if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
+        switch (GetViewType())
+        {
+        case ViewTypeMonth:
+            beg = pModel->GetMinimumDate().month();
+            break;
+        case ViewTypeWeek:
+            int year = 0;
+            beg = pModel->GetMinimumDate().weekNumber(&year);
+            if(pModel->GetMinimumDate().year() != year)
+            {
+                beg = 1;
+            }
+            break;
+        }
+    }
+    
+    if (pModel->GetShowYear() == pModel->GetMaximumDate().year()) {
+        switch (GetViewType()) {
+        case ViewTypeMonth:
+            end = pModel->GetMaximumDate().month();
+            break;
+        case ViewTypeWeek:
+            int year = 0;
+            end = pModel->GetMaximumDate().weekNumber(&year);
+            if(pModel->GetMaximumDate().year() < year)
+                end = pModel->GetMaximumDate().addDays(-7).weekNumber();
+            break;
+        }
+    }
     
     int index = ui->cbMonth->currentIndex();
     ui->cbMonth->clear();
@@ -515,7 +569,7 @@ int CLunarCalendar::UpdateMonthMenu()
     if(index < 0)
         index = 0;
     ui->cbMonth->setCurrentIndex(index);
-    m_nUpdate--;
+
     return 0;
 }
 
@@ -686,8 +740,26 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
         ui->cbMonth->setToolTip(tr("Month"));
         break;
     }
-    UpdateMonthMenu();
+    
+    int yearMin = pModel->GetMinimumDate().year();
+    if(GetViewType() == ViewTypeWeek)
+    {
+        pModel->GetMinimumDate().weekNumber(&yearMin);
+    }
+    int yearMax = pModel->GetMaximumDate().year();
+    if(GetViewType() == ViewTypeWeek)
+        pModel->GetMaximumDate().weekNumber(&yearMax);
+    
+    ui->spYear->setRange(yearMin, yearMax);
+    if(ui->spYear->value() < yearMin)
+        ui->spYear->setValue(yearMin);
+    else if (ui->spYear->value() > yearMax) 
+        ui->spYear->setValue(yearMax);
+    else
+        UpdateMonthMenu();
+    
     UpdateViewModel();
+    UpdateMonthMenu();
     return nRet;
 }
 

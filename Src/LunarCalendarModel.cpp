@@ -305,6 +305,7 @@ int CLunarCalendarModel::SetMinimumDate(const QDate &d)
         m_MaximumDate = m_MinimumDate;
     if (m_Date < m_MinimumDate)
         m_Date = m_MinimumDate;
+    
     internalUpdate();
     return 0;
 }

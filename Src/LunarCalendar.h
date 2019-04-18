@@ -90,13 +90,14 @@ private:
     int ShowSelectTitle();
     int UpdateViewModel();
     int UpdateMonthMenu();
+    int EnableMonthMenu();
     int UpdateSelect();
 
 private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
-    int m_nUpdate;
+    //int m_nUpdate;
 };
 
 #endif // LUNARCALENDAR_H
