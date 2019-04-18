@@ -421,6 +421,12 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     if (!min.isValid() || !max.isValid())
         return;
     
+    if(min > max)
+    {
+        qCritical() << "SetDateRange parmter error: min =" << min << " max =" << max;
+        return;
+    }
+    
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return;
     if(pModel->GetMaximumDate() == max && pModel->GetMinimumDate() == min)
@@ -466,7 +472,14 @@ int CLunarCalendar::EnableMonthMenu()
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel) return -1;
  
-    if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
+    int minYear = pModel->GetMinimumDate().year();
+    int maxYear = pModel->GetMaximumDate().year();
+    if (GetViewType() == ViewTypeWeek) {
+        pModel->GetMinimumDate().weekNumber(&minYear);
+        pModel->GetMaximumDate().weekNumber(&maxYear);
+    }
+    
+    if (pModel->GetShowYear() == minYear) {
         switch (GetViewType())
         {
         case ViewTypeMonth:
@@ -474,24 +487,20 @@ int CLunarCalendar::EnableMonthMenu()
                 prevEnabled = false;
             break;
         case ViewTypeWeek:
-            int year = 0;
-            if (pModel->GetShowWeek() == pModel->GetMinimumDate().weekNumber(&year)
-                    && pModel->GetMinimumDate().year() == year)
+            if (pModel->GetShowWeek() == pModel->GetMinimumDate().weekNumber())
                 prevEnabled = false;
             break;
         }
     }
     
-    if (pModel->GetShowYear() == pModel->GetMaximumDate().year()) {
+    if (pModel->GetShowYear() == maxYear) {
         switch (GetViewType()) {
         case ViewTypeMonth:
             if (pModel->GetShowMonth() == pModel->GetMaximumDate().month())
                 nextEnabled = false;
             break;
         case ViewTypeWeek:
-            int year = 0;
-            if(pModel->GetShowWeek() == pModel->GetMaximumDate().weekNumber(&year)
-                    && pModel->GetMaximumDate().year() == year)
+            if(pModel->GetShowWeek() == pModel->GetMaximumDate().weekNumber())
                 nextEnabled = false;
             break;
         }
@@ -510,44 +519,35 @@ int CLunarCalendar::UpdateMonthMenu()
     if(!pModel) return -1;
     
     EnableMonthMenu();
-            
-    switch (GetViewType()) {
-    case ViewTypeMonth:
-        beg = 1;
-        end = 12;
-        break;
-    case ViewTypeWeek:
-        beg = 1;
+
+    int minYear = pModel->GetMinimumDate().year();
+    int maxYear = pModel->GetMaximumDate().year();
+    
+    if (GetViewType() == ViewTypeWeek) {
         end = pModel->GetWeeksOfYear(ui->spYear->value());
+        pModel->GetMinimumDate().weekNumber(&minYear);
+        pModel->GetMaximumDate().weekNumber(&maxYear);
     }
     
-    if (pModel->GetShowYear() == pModel->GetMinimumDate().year()) {
+    if (pModel->GetShowYear() == minYear) {
         switch (GetViewType())
         {
         case ViewTypeMonth:
             beg = pModel->GetMinimumDate().month();
             break;
         case ViewTypeWeek:
-            int year = 0;
-            beg = pModel->GetMinimumDate().weekNumber(&year);
-            if(pModel->GetMinimumDate().year() != year)
-            {
-                beg = 1;
-            }
+            beg = pModel->GetMinimumDate().weekNumber();
             break;
         }
     }
     
-    if (pModel->GetShowYear() == pModel->GetMaximumDate().year()) {
+    if (pModel->GetShowYear() == maxYear) {
         switch (GetViewType()) {
         case ViewTypeMonth:
             end = pModel->GetMaximumDate().month();
             break;
         case ViewTypeWeek:
-            int year = 0;
-            end = pModel->GetMaximumDate().weekNumber(&year);
-            if(pModel->GetMaximumDate().year() < year)
-                end = pModel->GetMaximumDate().addDays(-7).weekNumber();
+            end = pModel->GetMaximumDate().weekNumber();
             break;
         }
     }
