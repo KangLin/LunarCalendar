@@ -7,7 +7,6 @@
 #include <QApplication>
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
-    #include "FrmUpdater/FrmUpdater.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -40,8 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
-    CFrmUpdater frmUpdate;
-    pHelp->addAction(frmUpdate.windowIcon(), tr("Update"), this, SLOT(slotUpdate()));
+    m_frmUpdate.SetTitle(QPixmap(":/image/Calendar"));
+    pHelp->addAction(m_frmUpdate.windowIcon(), tr("Update"), this, SLOT(slotUpdate()));
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
 #endif
     
@@ -84,9 +83,8 @@ void MainWindow::slotAbout()
 void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
-    CFrmUpdater *fu = new CFrmUpdater();
-    fu->SetTitle(qApp->applicationDisplayName(), QPixmap(":/image/Calendar"));
-    fu->show();
+    
+    m_frmUpdate.show();
 #endif
 }
 

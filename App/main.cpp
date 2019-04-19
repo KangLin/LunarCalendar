@@ -7,6 +7,7 @@
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
 #endif
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -39,16 +40,15 @@ int main(int argc, char *argv[])
 //        file.close();
 //    }
     
-    MainWindow w;
-    
-#ifdef RABBITCOMMON
-    CFrmUpdater *pUpdate = new CFrmUpdater();
-    pUpdate->SetTitle(qApp->applicationDisplayName(), 
-                      QPixmap(":/image/Calendar"));
-    if(!pUpdate->GenerateUpdateXml())
-        return 0;
+#ifdef RABBITCOMMON 
+    CFrmUpdater *pUpdate = new CFrmUpdater(); 
+    pUpdate->SetTitle(QPixmap(":/image/Calendar")); 
+    if(!pUpdate->GenerateUpdateXml()) 
+        return 0; 
 #endif
     
+    MainWindow w;
+
 #if defined (Q_OS_ANDROID)
     w.showMaximized();
 #else

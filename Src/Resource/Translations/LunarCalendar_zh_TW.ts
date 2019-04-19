@@ -25,12 +25,13 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="674"/>
+        <location filename="../../LunarCalendar.cpp" line="737"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="677"/>
+        <location filename="../../LunarCalendar.cpp" line="85"/>
+        <location filename="../../LunarCalendar.cpp" line="740"/>
         <source>Month</source>
         <translation>月</translation>
     </message>

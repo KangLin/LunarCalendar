@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include "LunarCalendar.h"
 
+#ifdef RABBITCOMMON
+    #include "FrmUpdater/FrmUpdater.h"
+#endif
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,7 +31,7 @@ private Q_SLOTS:
     
 private:
     Ui::MainWindow *ui;
-public:
+    CFrmUpdater m_frmUpdate;
     CLunarCalendar* m_pLunarCalendar;
 };
 
