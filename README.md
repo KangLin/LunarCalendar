@@ -12,7 +12,13 @@ Author: KangLin (kl222@126.com)
 The lunar calendar written by Qt. It provides:
 
 - A lunar calendar library of Qt GUI, support QSS.
-- A simple calendar app.
+   + solar calendar
+   + Lunar calendar
+   + Gregorian and Lunar Festival
+   + Gregorian and Lunar Day (eg birthday, wedding anniversary, etc.)
+   + month view
+   + week view
+- A simple calendar app. Used to illustrate how to use this lunar calendar library.
 - A complete application of this library [Tasks](https://github.com/KangLin/Tasks)
 
 ------------------------------------------------
