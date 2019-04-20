@@ -1,7 +1,7 @@
 #
 #  Download and optionally unpack a file
 #
-#  download(FILENAME p HASH h URL u1 [u2 ...] DESTINATION_DIR d [ID id] [STATUS s] [UNPACK] [RELATIVE_URL])
+#  download(FILENAME p HASH h URL u1 [u2 ...] DESTINATION_DIR d [ID id] [STATUS s] [UNPACK_PROGRAM pg] [UNPACK] [RELATIVE_URL])
 #    FILENAME - filename
 #    HASH - MD5 hash
 #    URL - full download url (first nonempty value will be chosen)
@@ -11,6 +11,7 @@
 #             function will not fail the build in case of download problem if this option is provided,
 #             but will fail in case when other operations (copy, remove, etc.) failed
 #    UNPACK - downloaded file will be unpacked to DESTINATION_DIR
+#    UNPACK_PROGRAM - unpack program. default is zip
 #    RELATIVE_URL - if set, then URL is treated as a base, and FILENAME will be appended to it
 #  Note: uses DOWNLOAD_PATH folder as cache, default is ${CMAKE_SOURCE_DIR}/.cache
 
@@ -47,7 +48,7 @@ file(REMOVE "${DOWNLOAD_WITH_CURL}")
 file(REMOVE "${DOWNLOAD_WITH_WGET}")
 
 function(download)
-  cmake_parse_arguments(DL "UNPACK;RELATIVE_URL" "FILENAME;HASH;DESTINATION_DIR;ID;STATUS" "URL" ${ARGN})
+  cmake_parse_arguments(DL "UNPACK;RELATIVE_URL" "FILENAME;HASH;DESTINATION_DIR;ID;STATUS;UNPACK_PROGRAM" "URL" ${ARGN})
 
   function(download_log)
     file(APPEND "${DOWNLOAD_LOG}" "${ARGN}\n")
@@ -57,6 +58,11 @@ function(download)
   _assert(DL_HASH)
   _assert(DL_URL)
   _assert(DL_DESTINATION_DIR)
+  
+  if(NOT DL_UNPACK_PROGRAM)
+      find_program(DL_UNPACK_PROGRAM NAMES zip zip.exe)
+  endif()
+  
   if((NOT " ${DL_UNPARSED_ARGUMENTS}" STREQUAL " ")
     OR DL_FILENAME STREQUAL ""
     OR DL_HASH STREQUAL ""
@@ -228,15 +234,15 @@ ${DOWNLOAD_LOG}
   endif()
 
   # Unpack or copy
-  if(DL_UNPACK)
+  if(DL_UNPACK AND DL_UNPACK_PROGRAM)
     if(EXISTS "${DL_DESTINATION_DIR}")
       download_log("#remove_unpack \"${DL_DESTINATION_DIR}\"")
       file(REMOVE_RECURSE "${DL_DESTINATION_DIR}")
     endif()
     download_log("#mkdir \"${DL_DESTINATION_DIR}\"")
     file(MAKE_DIRECTORY "${DL_DESTINATION_DIR}")
-    download_log("#unpack \"${DL_DESTINATION_DIR}\" \"${CACHE_CANDIDATE}\"")
-    execute_process(COMMAND "${CMAKE_COMMAND}" -E tar xzf "${CACHE_CANDIDATE}"
+    download_log("#unpack \"${DL_UNPACK_PROGRAM}\" \"${DL_DESTINATION_DIR}\" \"${CACHE_CANDIDATE}\"")
+    execute_process(COMMAND "${CMAKE_COMMAND}" -E ${DL_UNPACK_PROGRAM} "${CACHE_CANDIDATE}"
                     WORKING_DIRECTORY "${DL_DESTINATION_DIR}"
                     RESULT_VARIABLE res)
     if(NOT res EQUAL 0)

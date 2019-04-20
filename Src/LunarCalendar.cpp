@@ -51,8 +51,13 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
 
-    //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
+    bool check = connect(&m_Timer, SIGNAL(timeout()),
+                         this, SLOT(slotTimeout()));
+    Q_ASSERT(check);
+    SetShowHead(true);
+    
     SetShowGrid(true);
+    //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -237,6 +242,7 @@ void CLunarCalendar::SetShowHead(bool bShow)
 {
     SetShowTools(bShow);
     ui->lbDateText->setVisible(bShow);
+    SetShowTime(bShow);
 }
 
 void CLunarCalendar::SetShowTools(bool bShow)
@@ -802,4 +808,18 @@ int CLunarCalendar::GenerateCalendarTable(const QString &szFile,
                 MaximumDate(),
                 szFile,
                 nThreadNumber);
+}
+
+void CLunarCalendar::slotTimeout()
+{
+    ui->lbTime->setText(QTime::currentTime().toString(locale().timeFormat())); // + " " + QString::number(QTime::currentTime().msec()));
+}
+
+void CLunarCalendar::SetShowTime(bool bShow)
+{
+    ui->lbTime->setVisible(bShow);
+    if(bShow)
+        m_Timer.start(1000);
+    else
+        m_Timer.stop();
 }

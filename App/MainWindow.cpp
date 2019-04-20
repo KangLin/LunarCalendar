@@ -45,16 +45,18 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     setCentralWidget(m_pLunarCalendar);
+    //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
 //    m_pLunarCalendar->SetShowToday(false);
 //    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
-//    m_pLunarCalendar->SetShowGrid(true);
+    m_pLunarCalendar->SetShowGrid(false);
     //m_pLunarCalendar->SetDateRange(QDate(2002, 12, 30), QDate(2003, 2, 1));
 //    m_pLunarCalendar->GenerateCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
 // m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);
+//    m_pLunarCalendar->SetShowTime(false);
 //    m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);

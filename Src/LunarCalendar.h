@@ -2,6 +2,7 @@
 #define LUNARCALENDAR_H
 
 #include <QWidget>
+#include <QTimer>
 #include <QMap>
 #include <QDate>
 #include "lunarcalendar_export.h"
@@ -44,6 +45,7 @@ public:
     void SetShowWeekHead(bool bShow);
     void SetShowWeeks(bool bShow);
     void SetShowHead(bool bShow);
+    void SetShowTime(bool bShow);
     void SetShowTools(bool bShow);
     
     QDate MinimumDate() const;
@@ -82,7 +84,9 @@ private slots:
     void on_cbMonth_currentIndexChanged(int index);
     void on_spYear_valueChanged(int value);
     void on_tvMonth_pressed(const QModelIndex &index);
-
+    
+    void slotTimeout();
+    
 protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
 
@@ -97,7 +101,7 @@ private:
     Ui::CLunarCalendar *ui;
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
-    //int m_nUpdate;
+    QTimer m_Timer;
 };
 
 #endif // LUNARCALENDAR_H

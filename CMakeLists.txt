@@ -130,6 +130,7 @@ if(BUILD_APP)
     else()
         set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
         download(FILENAME RabbitCommon
+            HASH acb14d8d5cfd264d5899604281913161
             URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
             DESTINATION_DIR ${RabbitCommon_DIR}
             UNPACK
