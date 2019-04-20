@@ -12,7 +12,7 @@ CThreadGenerate::CThreadGenerate(CLunarTable *pTable,
     : QThread(parent),
       m_pTable(pTable),
       m_minDate(min),
-      m_maxDate(max)      
+      m_maxDate(max)
 {
 }
 
@@ -24,6 +24,7 @@ void CThreadGenerate::run()
 
 CLunarTable::CLunarTable(QObject *parent) : QObject(parent)
 {
+    m_bSaveAllDate = true;
     m_nThreadNumber = 0;
     Load(":/data/LunarCalendarTable");
 }
@@ -186,7 +187,7 @@ QDataStream& operator>>(QDataStream& input, Day& data)
 }
 #endif
 
-int CLunarTable::Save(const QString &file)
+int CLunarTable::Save(const QString &file, bool bAll)
 {
     int nRet = 0;
     //TODO: modify the nVersion when modify data format
@@ -198,6 +199,9 @@ int CLunarTable::Save(const QString &file)
         qCritical() << "Open file fail: " << file;
         return -1;
     }
+    
+    if(!bAll)
+        CleanOutsideRange(m_minDate, m_maxDate);
     
     QDataStream out(&f);
     out << g_Signature;
@@ -264,12 +268,15 @@ int CLunarTable::LoadVersion0(QDataStream &in)
     return 0;
 }
 
-int CLunarTable::Generate(const QDate &min, const QDate &max, const QString &szFile, int nThread)
+int CLunarTable::Generate(const QDate &min, const QDate &max, const QString &szFile, int nThread, bool bSaveAllDate)
 {
     int nRet = 0;
     
     m_nThreadNumber = nThread;
     m_szFile = szFile;
+    m_minDate = min;
+    m_maxDate = max;
+    m_bSaveAllDate = bSaveAllDate;
     CThreadGenerate* pGenerate = nullptr;
     qint64 days = min.daysTo(max);
     qint64 num = days / nThread;
@@ -306,7 +313,7 @@ void CLunarTable::slotGenerateFinished()
         return;
     if(m_szFile.isEmpty())
         return;
-    Save(m_szFile);
+    Save(m_szFile, m_bSaveAllDate);
 }
 
 int CLunarTable::Generate(const QDate &min, const QDate &max)
@@ -372,5 +379,22 @@ int CLunarTable::GetLunar(const QDate &date, _LUNAR_DAY &lunar)
     lunar.nJq = day.qk;
     m_Lunar[date.toJulianDay()] = lunar;
     
+    return 0;
+}
+
+int CLunarTable::CleanOutsideRange(const QDate &min, const QDate &max)
+{
+    if(!min.isValid() || !max.isValid())
+        return -1;
+    QMap<qint64, _LUNAR_DAY>::iterator it;
+    for(it = m_Lunar.begin(); it != m_Lunar.end();)
+    {
+        qint64 key = it.key();
+        it++;
+        if(key < min.toJulianDay() || key > max.toJulianDay())
+        {
+            m_Lunar.remove(key);
+        }
+    }
     return 0;
 }

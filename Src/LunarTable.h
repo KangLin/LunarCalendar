@@ -24,9 +24,9 @@ public:
     };
     
     int Load(const QString &file);
-    int Save(const QString &file);
+    int Save(const QString &file, bool bAll = true);
 
-    int Generate(const QDate &min, const QDate &max, const QString& szFile, int nThread = 2);
+    int Generate(const QDate &min, const QDate &max, const QString& szFile, int nThread = 2, bool bSaveAllDate = true);
     int Generate(const QDate &min, const QDate &max);
     int GetLunar(const QDate &date, _LUNAR_DAY &lunar);
 
@@ -36,10 +36,14 @@ public Q_SLOTS:
 private:
     explicit CLunarTable(QObject *parent = nullptr);
     int LoadVersion0(QDataStream &data);
+    int CleanOutsideRange(const QDate&min, const QDate& max);
+    
     QMap<qint64, _LUNAR_DAY> m_Lunar;
     QMutex m_GenerateMutex;
     QString m_szFile;
     int m_nThreadNumber;
+    QDate m_minDate, m_maxDate;
+    bool m_bSaveAllDate;
 };
 
 #include <QThread>

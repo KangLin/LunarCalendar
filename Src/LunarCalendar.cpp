@@ -795,11 +795,12 @@ int CLunarCalendar::LoadCalendarTable(const QString &szFile)
 }
 
 int CLunarCalendar::GenerateCalendarTable(const QString &szFile,
-                                          int nThreadNumber)
+                                          int nThreadNumber,
+                                          bool bSaveAllDate)
 {
     return  CLunarTable::Instance()->Generate(
                 this->MinimumDate(),
                 MaximumDate(),
                 szFile,
-                nThreadNumber);
+                nThreadNumber, bSaveAllDate);
 }

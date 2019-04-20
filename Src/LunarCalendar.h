@@ -70,7 +70,7 @@ public:
     _VIEW_TYPE GetViewType();
     
     int LoadCalendarTable(const QString& szFile);
-    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2);
+    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
     
 Q_SIGNALS:
     void sigSelectionChanged();
