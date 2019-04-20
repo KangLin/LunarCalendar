@@ -7,7 +7,7 @@
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
 #endif
-
+#include <QLocale>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

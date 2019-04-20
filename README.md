@@ -1,10 +1,10 @@
-## LunarCalendar
-
-=========================================================
+LunarCalendar  
+==============
 
 Author: KangLin (kl222@126.com)
 
 [<img src="https://github.com/KangLin/Tasks/blob/master/Resource/Image/china.png" alt="Chinese" title="Chinese" width="16" height="16"/>Chinese](README_zh_CN.md)
+
 ------------------------------------------------
 
 ### Features
@@ -14,8 +14,8 @@ The lunar calendar written by Qt. It provides:
 - A lunar calendar library of Qt GUI, support QSS.
    + solar calendar
    + Lunar calendar
-   + Gregorian and Lunar Festival
-   + Gregorian and Lunar Day (eg birthday, wedding anniversary, etc.)
+   + solar and Lunar holiday
+   + solar and Lunar Day (eg birthday, wedding anniversary, etc.)
    + month view
    + week view
 - A simple calendar app. Used to illustrate how to use this lunar calendar library.

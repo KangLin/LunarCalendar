@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     setCentralWidget(m_pLunarCalendar);
+    //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
 //    m_pLunarCalendar->SetShowToday(false);
 //    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
@@ -55,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowWeekHead(false);
 //    m_pLunarCalendar->SetShowWeeks(false);
 //    m_pLunarCalendar->SetShowHead(false);
+//    m_pLunarCalendar->SetShowTime(false);
 //    m_pLunarCalendar->AddAnniversary(4, 1, "my birth");
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);

@@ -46,12 +46,18 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldCol(0),
     m_bShowToday(true)
 {
+    //setLocale(QLocale("zh_CN"));
     ui->setupUi(this);
 
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
 
-    //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
+    bool check = connect(&m_Timer, SIGNAL(timeout()),
+                         this, SLOT(slotTimeout()));
+    Q_ASSERT(check);
+    SetShowHead(true);
+    
     SetShowGrid(true);
+    //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -80,7 +86,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 
     for(int i = 0; i < 12; i++)
     {
-        ui->cbMonth->addItem(QLocale::system().monthName(i + 1), i + 1);
+        ui->cbMonth->addItem(locale().monthName(i + 1), i + 1);
     }
     ui->cbMonth->setToolTip(tr("Month"));
     
@@ -130,10 +136,9 @@ int CLunarCalendar::ShowSelectTitle()
         return -1;
     d = pModel->GetDate();
     if(d.isNull()) return -2;
-    QLocale native = QLocale::system();
     QString szDate;
     if(CalendarTypeSolar & GetCalendarType())
-        szDate = d.toString(QLocale::system().dateFormat(QLocale::LongFormat));
+        szDate = d.toString(locale().dateFormat(QLocale::LongFormat));
     if(CalendarTypeLunar & GetCalendarType())
         szDate += " " + SelectedLunar();
     ui->lbDateText->setText(szDate);
@@ -237,6 +242,7 @@ void CLunarCalendar::SetShowHead(bool bShow)
 {
     SetShowTools(bShow);
     ui->lbDateText->setVisible(bShow);
+    SetShowTime(bShow);
 }
 
 void CLunarCalendar::SetShowTools(bool bShow)
@@ -557,7 +563,7 @@ int CLunarCalendar::UpdateMonthMenu()
     for (int i = beg; i <= end; i++) {
         switch (GetViewType()) {
         case ViewTypeMonth:
-            ui->cbMonth->addItem(QLocale::system().monthName(i), i);
+            ui->cbMonth->addItem(locale().monthName(i), i);
             break;
         case ViewTypeWeek:
             ui->cbMonth->addItem(QString::number(i), i);
@@ -576,7 +582,7 @@ int CLunarCalendar::UpdateMonthMenu()
 Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
-    if(!pModel) return QLocale::system().firstDayOfWeek();
+    if(!pModel) return locale().firstDayOfWeek();
     return pModel->firstDayOfWeek();
 }
 
@@ -803,4 +809,18 @@ int CLunarCalendar::GenerateCalendarTable(const QString &szFile,
                 MaximumDate(),
                 szFile,
                 nThreadNumber, bSaveAllDate);
+}
+
+void CLunarCalendar::slotTimeout()
+{
+    ui->lbTime->setText(QTime::currentTime().toString(locale().timeFormat())); // + " " + QString::number(QTime::currentTime().msec()));
+}
+
+void CLunarCalendar::SetShowTime(bool bShow)
+{
+    ui->lbTime->setVisible(bShow);
+    if(bShow)
+        m_Timer.start(1000);
+    else
+        m_Timer.stop();
 }
