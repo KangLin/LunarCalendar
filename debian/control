@@ -11,5 +11,11 @@ Vcs-Git: https://github.com/KangLin/LunarCalendar.git
 Package: lunarcalendar
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Description: The lunar calendar 
+  - A lunar calendar library of Qt GUI, support QSS.
+     + solar calendar
+     + Lunar calendar
+     + solar and Lunar holiday
+     + solar and Lunar Day (eg birthday, wedding anniversary, etc.)
+     + month view
+     + week view
