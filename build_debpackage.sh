@@ -26,5 +26,6 @@ export RabbitCommon_DIR=$RabbitCommon_DIR
 export Qt5_DIR=$Qt5_DIR
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$Qt5_DIR/../..
 export LD_LIBRARY_PATH
-fakeroot debian/rules binary 
+#fakeroot debian/rules binary 
+dpkg-buildpackage -us -uc -b
 

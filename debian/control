@@ -10,6 +10,7 @@ Vcs-Git: https://github.com/KangLin/LunarCalendar.git
 
 Package: lunarcalendar
 Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: The lunar calendar 
   - A lunar calendar library of Qt GUI, support QSS.
