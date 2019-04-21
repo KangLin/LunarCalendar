@@ -1,0 +1,15 @@
+Source: lunarcalendar
+Section: main
+Priority: optional
+Maintainer: Kang Lin <kl222@126.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: https://github.com/KangLin/LunarCalendar
+Vcs-Git: https://github.com/KangLin/LunarCalendar.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lunarcalendar.git
+
+Package: lunarcalendar
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
