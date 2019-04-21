@@ -1,0 +1,22 @@
+Source: lunarcalendar
+Section: main
+Priority: optional
+Maintainer: Kang Lin <kl222@126.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: https://github.com/KangLin/LunarCalendar
+Vcs-Git: https://github.com/KangLin/LunarCalendar.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lunarcalendar.git
+
+Package: lunarcalendar
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: The lunar calendar 
+  - A lunar calendar library of Qt GUI, support QSS.
+     + solar calendar
+     + Lunar calendar
+     + solar and Lunar holiday
+     + solar and Lunar Day (eg birthday, wedding anniversary, etc.)
+     + month view
+     + week view

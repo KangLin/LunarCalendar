@@ -24,7 +24,7 @@ isEmpty(BUILD_VERSION) {
     }
 }
 isEmpty(BUILD_VERSION){
-    BUILD_VERSION="v0.0.3"
+    BUILD_VERSION="v0.0.3-19-g7a39c7e"
 }
 message("BUILD_VERSION:$$BUILD_VERSION")
 DEFINES += BUILD_VERSION=\"\\\"$$quote($$BUILD_VERSION)\\\"\"
@@ -82,6 +82,14 @@ win32 {
     # Default rules for deployment.
     !android: target.path = $${PREFIX}/bin
     !isEmpty(target.path): INSTALLS += target
+}
+
+unix {
+    DESKTOP_FILE.target = DESKTOP_FILE
+    DESKTOP_FILE.files = debian/LunarCalendar.desktop
+    DESKTOP_FILE.path = $$system_path($${PREFIX})/../share/applications
+    DESKTOP_FILE.CONFIG += directory no_check_exist
+    INSTALLS += DESKTOP_FILE
 }
 
 OTHER_FILES += \

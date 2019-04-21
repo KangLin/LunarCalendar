@@ -26,6 +26,20 @@ if [ -z "$VERSION" ]; then
     VERSION=` git rev-parse --short HEAD`
 fi
 
+mkchangelog() {
+  cat >debian/changelog<<EOF
+LunarCalender ($1) ; urgency=low
+
+  * Upstream update
+
+ -- Kang Lin <kl222@126.com>  $(LANG=C date -R)
+
+`cat $2`
+EOF
+}
+
+#mkchangelog $VERSION ChangeLog.md
+
 sed -i "s/^\SET(BUILD_VERSION.*/\SET(BUILD_VERSION \"${VERSION}\")/g" ${SOURCE_DIR}/CMakeLists.txt
 sed -i "s/^\!define PRODUCT_VERSION.*/\!define PRODUCT_VERSION \"${VERSION}\"/g" ${SOURCE_DIR}/Install/Install.nsi
 APPVERYOR_VERSION="version: '${VERSION}.{build}'"
