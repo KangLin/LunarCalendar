@@ -55,4 +55,5 @@ OTHER_FILES += appveyor.yml \
     CMakeLists.txt \
     cmake/* \
     Install/* \
-    Update/*
+    Update/* \
+    debian/*

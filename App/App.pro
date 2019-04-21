@@ -84,6 +84,14 @@ win32 {
     !isEmpty(target.path): INSTALLS += target
 }
 
+unix {
+    DESKTOP_FILE.target = DESKTOP_FILE
+    DESKTOP_FILE.files = debian/LunarCalendar.desktop
+    DESKTOP_FILE.path = $$system_path($${PREFIX})/../share/applications
+    DESKTOP_FILE.CONFIG += directory no_check_exist
+    INSTALLS += DESKTOP_FILE
+}
+
 OTHER_FILES += \
     CMakeLists.txt \
     AppIcon.rc
