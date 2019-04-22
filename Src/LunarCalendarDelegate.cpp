@@ -117,6 +117,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
     if(pView->currentIndex() == index)
     {
+        painter->setPen(QPen(Qt::NoPen));
         painter->setBrush(palette.brush(QPalette::Active, QPalette::Highlight));
         painter->drawRect(option.rect);
 

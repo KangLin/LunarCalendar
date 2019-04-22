@@ -142,6 +142,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         
         return FontBold;
     }
+    case BackgroupImage:
+        return GetDay(row, column).szImageBackgroup;
     case Anniversary:
         return GetDay(row, column).szAnniversary;
     case SolarColorRole:
@@ -252,6 +254,7 @@ int CLunarCalendarModel::Show()
                     day.szLunarHoliday = lunar.GetJieQi();
                 
                 day.szAnniversary = lunar.GetAnniversary();
+                day.szImageBackgroup = lunar.GetJieQiImage();    
             }
             if(day.szAnniversary.isEmpty())
                 day.szAnniversary = m_Anniversary[d.month()][d.day()];

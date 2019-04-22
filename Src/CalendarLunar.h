@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QMap>
+#include <QPixmap>
 
 class CCalendarLunar : public QObject
 {
@@ -17,6 +18,7 @@ public:
     QString GetHoliday();
     QString GetAnniversary();
     QString GetJieQi();
+    QString GetJieQiImage();
     
     static int AddHoliday(int month, int day, const QString &szName);
     static int AddAnniversary(int month, int day, const QString &szName);
@@ -29,6 +31,7 @@ private:
     QString m_szHoliday;
     QString m_szAnniversary;
     QString m_szJieQi;
+    QString m_szImageJieQi;
 };
 
 #endif // LUNAR_H

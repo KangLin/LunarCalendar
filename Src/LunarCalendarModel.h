@@ -43,6 +43,7 @@ public:
         LunarRole,
         LunarColorRole,
         LunarFontRole,
+        BackgroupImage,
         Anniversary
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -114,6 +115,7 @@ private:
         QString szLunar;
         QString szLunarHoliday;
         QString szAnniversary;
+        QString szImageBackgroup;
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;

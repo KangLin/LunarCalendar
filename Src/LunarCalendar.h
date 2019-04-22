@@ -21,6 +21,8 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
+    Q_PROPERTY(bool showGrid READ ShowGrid WRITE SetShowGrid)
+    Q_PROPERTY(bool showBackgroupImage READ ShowBackgroupImage WRITE SetShowBackgroupImage)
     
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
@@ -41,6 +43,9 @@ public:
     void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
     void SetShowGrid(bool show);
+    bool ShowGrid();
+    void SetShowBackgroupImage(bool show);
+    bool ShowBackgroupImage();
     void SetShowToday(bool bShow);
     void SetShowWeekHead(bool bShow);
     void SetShowWeeks(bool bShow);
@@ -102,6 +107,7 @@ private:
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
     QTimer m_Timer;
+    bool m_bShowBackgroupImage;
 };
 
 #endif // LUNARCALENDAR_H

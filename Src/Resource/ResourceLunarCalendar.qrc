@@ -2,4 +2,42 @@
     <qresource prefix="/data">
         <file alias="LunarCalendarTable">Data/2000_2119_v0.dat</file>
     </qresource>
+    <qresource prefix="/image">
+        <file alias="BaiLu">Image/bailu.jpg</file>
+        <file alias="ChunFen">Image/chunfen.jpg</file>
+        <file alias="ChuShu">Image/chushu.jpg</file>
+        <file alias="DaHan">Image/dahan.jpg</file>
+        <file alias="DaShu">Image/dashu.jpg</file>
+        <file alias="DaXue">Image/daxue.jpg</file>
+        <file alias="DongZhi">Image/dongzhi.jpg</file>
+        <file alias="GuYu">Image/guyu.jpg</file>
+        <file alias="HanLu">Image/hanlu.jpg</file>
+        <file alias="JingZhe">Image/jingzhe.jpg</file>
+        <file alias="LiChun">Image/lichun.jpg</file>
+        <file alias="LiDong">Image/lidong.jpg</file>
+        <file alias="LiQiu">Image/liqiu.jpg</file>
+        <file alias="LiXia">Image/lixia.jpg</file>
+        <file alias="MangZhong">Image/mangzhong.jpg</file>
+        <file alias="QingMing">Image/qingming.jpg</file>
+        <file alias="Qiufeng">Image/qiufen.jpg</file>
+        <file alias="ShungJiang">Image/shuangjiang.jpg</file>
+        <file alias="XiaoHan">Image/xiaohan.jpg</file>
+        <file alias="XiaoMan">Image/xiaoman.jpg</file>
+        <file alias="XiaoXue">Image/xiaoxue.jpg</file>
+        <file alias="XiaShu">Image/xiashu.jpg</file>
+        <file alias="XiaZhi">Image/xiazhi.jpg</file>
+        <file alias="YuShui">Image/yushui.jpg</file>
+        <file alias="1">Image/1.png</file>
+        <file alias="2">Image/2.png</file>
+        <file alias="3">Image/3.png</file>
+        <file alias="4">Image/4.png</file>
+        <file alias="5">Image/5.png</file>
+        <file alias="6">Image/6.png</file>
+        <file alias="7">Image/7.png</file>
+        <file alias="8">Image/8.png</file>
+        <file alias="9">Image/9.png</file>
+        <file alias="10">Image/10.png</file>
+        <file alias="11">Image/11.png</file>
+        <file alias="12">Image/12.png</file>
+    </qresource>
 </RCC>

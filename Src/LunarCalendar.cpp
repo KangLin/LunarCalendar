@@ -12,6 +12,8 @@
 #include <QTranslator>
 #include <QApplication>
 #include <QDir>
+#include <QStyleOption>
+#include <QPainter>
 #include "CalendarLunar.h"
 #include "LunarTable.h"
 
@@ -44,7 +46,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui(new Ui::CLunarCalendar),
     m_oldRow(0),
     m_oldCol(0),
-    m_bShowToday(true)
+    m_bShowToday(true),
+    m_bShowBackgroupImage(true)
 {
     //setLocale(QLocale("zh_CN"));
     ui->setupUi(this);
@@ -56,7 +59,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     Q_ASSERT(check);
     SetShowHead(true);
     
-    SetShowGrid(true);
+    SetShowGrid(false);
     //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
     ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
     ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -84,6 +87,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 //    font.setPointSize(6);
 //    ui->tvMonth->setFont(font);
 
+    //ui->tvMonth->setStyleSheet("background-color:rgba(0,0,0,0)"); //设置背景透明
+    //setStyleSheet("border-image:url(d:/temp/4.jpg)"); //设置背景图片
+    
     for(int i = 0; i < 12; i++)
     {
         ui->cbMonth->addItem(locale().monthName(i + 1), i + 1);
@@ -204,8 +210,15 @@ int CLunarCalendar::UpdateViewModel()
     switch (GetViewType())
     {
     case ViewTypeMonth:
+    {
         pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
+        if(pModel && m_bShowBackgroupImage)
+        {
+            QString szJiQi = ":/image/" + QString::number(pModel->GetShowMonth());
+            ui->tvMonth->setStyleSheet("border-image:url(" + szJiQi + ")");
+        }
         break;
+    }
     case ViewTypeWeek:
         pModel->showWeek(ui->spYear->value(), ui->cbMonth->currentData().toInt());
         break;
@@ -218,6 +231,22 @@ int CLunarCalendar::UpdateViewModel()
 void CLunarCalendar::SetShowGrid(bool show)
 {
     ui->tvMonth->setShowGrid(show);
+}
+
+bool CLunarCalendar::ShowGrid()
+{
+    return ui->tvMonth->showGrid();
+}
+
+void CLunarCalendar::SetShowBackgroupImage(bool show)
+{
+    m_bShowBackgroupImage = show;
+    return;
+}
+
+bool CLunarCalendar::ShowBackgroupImage()
+{
+    return m_bShowBackgroupImage;
 }
 
 void CLunarCalendar::SetShowToday(bool bShow)
@@ -309,6 +338,15 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
     pModel->cellForDate(pModel->GetDate(), &row, &col);
     if(row >= 0 && col >= 0)
     {
+        CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+        if(pModel && m_bShowBackgroupImage)
+        {
+            QString szJiQi = pModel->data(pModel->index(row, col),
+                                CLunarCalendarModel::BackgroupImage).toString();
+            if(!szJiQi.isEmpty())
+                ui->tvMonth->setStyleSheet("border-image:url(" + szJiQi + ")");
+        }
+        
         ui->tvMonth->selectionModel()->clear();
         ui->tvMonth->selectionModel()->setCurrentIndex(pModel->index(row, col),
                                            QItemSelectionModel::SelectCurrent);
