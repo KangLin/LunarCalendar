@@ -77,8 +77,8 @@ function function_android()
     fi
 
     sudo apt-get install ant -qq -y
-    sudo apt-get install libicu-dev
-    
+    sudo apt-get install libicu-dev -qq -y
+
     function_common
     cd ${SOURCE_DIR}
 }
@@ -88,6 +88,9 @@ function function_unix()
     #汇编工具yasm
     #function_install_yasm
 
+    sudo apt-get update -y -qq
+    sudo apt-get install fakeroot -y -qq
+    
     function_common
 
     cd ${SOURCE_DIR}
@@ -97,12 +100,12 @@ function function_mingw()
 {
     #汇编工具yasm
     #function_install_yasm
-
+    
     cd ${SOURCE_DIR}
     if [ "true" == "$RABBITIM_BUILD_THIRDLIBRARY" ]; then
         export RABBITIM_BUILD_CROSS_HOST=i686-w64-mingw32 #i586-mingw32msvc
     fi
-
+    
     function_common
     cd ${SOURCE_DIR}
 }

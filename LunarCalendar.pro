@@ -56,4 +56,5 @@ OTHER_FILES += appveyor.yml \
     cmake/* \
     Install/* \
     Update/* \
-    debian/*
+    debian/* \
+    build_debpackage.sh

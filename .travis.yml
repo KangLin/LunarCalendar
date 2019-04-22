@@ -46,13 +46,7 @@ install:
   - cd ${SOURCE_DIR}
   - git clone https://github.com/KangLin/RabbitCommon.git
   - export RabbitCommon_DIR="`pwd`/RabbitCommon"
-  - >
-  if [ "$BUILD_TARGERT"="android" ]; then
-      bash ci/build-install-tools.sh > /dev/null
-  fi
-  if [ "$BUILD_TARGERT"="unix" ]; then
-      ./build_debpackage.sh
-  fi
+  - bash ci/build-install-tools.sh > /dev/null
 
 before_script:
   - cd ${SOURCE_DIR}
