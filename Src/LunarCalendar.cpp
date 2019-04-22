@@ -214,8 +214,8 @@ int CLunarCalendar::UpdateViewModel()
         pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
         if(pModel && m_bShowBackgroupImage)
         {
-            QString szJiQi = ":/image/" + QString::number(pModel->GetShowMonth());
-            ui->tvMonth->setStyleSheet("border-image:url(" + szJiQi + ")");
+            QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
+            SetBackgroup(szBackgrpup);
         }
         break;
     }
@@ -344,7 +344,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
             QString szJiQi = pModel->data(pModel->index(row, col),
                                 CLunarCalendarModel::BackgroupImage).toString();
             if(!szJiQi.isEmpty())
-                ui->tvMonth->setStyleSheet("border-image:url(" + szJiQi + ")");
+                SetBackgroup(szJiQi);
         }
         
         ui->tvMonth->selectionModel()->clear();
@@ -861,4 +861,28 @@ void CLunarCalendar::SetShowTime(bool bShow)
         m_Timer.start(1000);
     else
         m_Timer.stop();
+}
+
+int CLunarCalendar::SetBackgroup(const QString &szFile)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    if(!pModel)
+        return -1;
+
+    QPalette palette = ui->tvMonth->palette();
+    ui->tvMonth->setAutoFillBackground(m_bShowBackgroupImage);
+    if(!m_bShowBackgroupImage)
+    {
+        palette.setBrush(QPalette::Window, QBrush());
+        setPalette(palette);
+        return 0;
+    }
+    qDebug() << "File: " << szFile << ui->tvMonth->size();
+    palette.setBrush(QPalette::Background,
+                     QBrush(QPixmap(szFile).scaled(
+                                ui->tvMonth->size(),
+                                Qt::IgnoreAspectRatio,
+                                Qt::SmoothTransformation)));// 使用平滑的缩放方式  
+    ui->tvMonth->setPalette(palette);// 给widget加上背景图  
+    return 0;
 }

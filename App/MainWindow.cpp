@@ -86,7 +86,6 @@ void MainWindow::slotAbout()
 void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
-    
     m_frmUpdate.show();
 #endif
 }

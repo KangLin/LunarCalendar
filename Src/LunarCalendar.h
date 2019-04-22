@@ -101,6 +101,7 @@ private:
     int UpdateMonthMenu();
     int EnableMonthMenu();
     int UpdateSelect();
+    int SetBackgroup(const QString& szFile);
 
 private:
     Ui::CLunarCalendar *ui;
