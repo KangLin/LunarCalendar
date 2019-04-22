@@ -660,7 +660,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 #ifndef QT_NO_WHEELEVENT
     case QEvent::Wheel:
         {
-            QWheelEvent *we = (QWheelEvent*)event;
+            QWheelEvent *we = dynamic_cast<QWheelEvent*>(event);
             const int numDegrees = we->delta() / 8;
             const int numSteps = numDegrees / 15;
             CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
@@ -679,7 +679,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 #endif
     case QEvent::KeyRelease:
         {
-            QKeyEvent* ke = (QKeyEvent*)event;
+            QKeyEvent* ke = dynamic_cast<QKeyEvent*>(event);
             switch (ke->key()) {
             case Qt::Key_Up:
                 if(ui->tvMonth->currentIndex().row() == m_oldRow)
