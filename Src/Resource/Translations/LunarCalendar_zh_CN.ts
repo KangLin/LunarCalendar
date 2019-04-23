@@ -9,29 +9,34 @@
         <translation>日历</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="104"/>
-        <location filename="../../LunarCalendar.ui" line="124"/>
+        <location filename="../../LunarCalendar.ui" line="94"/>
+        <location filename="../../LunarCalendar.ui" line="114"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="147"/>
+        <location filename="../../LunarCalendar.ui" line="137"/>
         <source>ToDay</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.ui" line="54"/>
+        <location filename="../../LunarCalendar.ui" line="146"/>
         <source>Date text</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="737"/>
+        <location filename="../../LunarCalendar.ui" line="159"/>
+        <source>Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../LunarCalendar.cpp" line="789"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="85"/>
-        <location filename="../../LunarCalendar.cpp" line="740"/>
+        <location filename="../../LunarCalendar.cpp" line="97"/>
+        <location filename="../../LunarCalendar.cpp" line="792"/>
         <source>Month</source>
         <translation>月</translation>
     </message>

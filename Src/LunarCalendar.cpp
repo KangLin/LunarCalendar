@@ -47,7 +47,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
-    m_bShowBackgroupImage(true)
+    m_bShowBackgroupImage(false)
 {
     //setLocale(QLocale("zh_CN"));
     ui->setupUi(this);
@@ -215,8 +215,11 @@ int CLunarCalendar::UpdateViewModel()
         if(pModel && m_bShowBackgroupImage)
         {
             QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
-            SetBackgroup(szBackgrpup);
+            if(CalendarTypeLunar & GetCalendarType())
+                szBackgrpup += "_zh_CN";
+            SetBackgroup(szBackgrpup);    
         }
+        
         break;
     }
     case ViewTypeWeek:
@@ -241,6 +244,11 @@ bool CLunarCalendar::ShowGrid()
 void CLunarCalendar::SetShowBackgroupImage(bool show)
 {
     m_bShowBackgroupImage = show;
+    if(m_bShowBackgroupImage)
+        UpdateViewModel();
+    else
+        ui->tvMonth->setStyleSheet("border-image:none");
+        
     return;
 }
 
@@ -339,7 +347,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
     if(row >= 0 && col >= 0)
     {
         CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
-        if(pModel && m_bShowBackgroupImage)
+        if(pModel && m_bShowBackgroupImage && GetViewType() == ViewTypeMonth)
         {
             QString szJiQi = pModel->data(pModel->index(row, col),
                                 CLunarCalendarModel::BackgroupImage).toString();
@@ -789,6 +797,8 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     if(GetViewType() == ViewTypeWeek)
     {
         pModel->GetMinimumDate().weekNumber(&yearMin);
+        if(m_bShowBackgroupImage)
+            ui->tvMonth->setStyleSheet("border-image:none");
     }
     int yearMax = pModel->GetMaximumDate().year();
     if(GetViewType() == ViewTypeWeek)
@@ -829,7 +839,7 @@ int CLunarCalendar::SetCalendarType(_CalendarType type)
     if(!pModel)
         return -1;
     int nRet = pModel->SetCalendarType(type);
-    ShowSelectTitle();
+    UpdateViewModel();
     return nRet;
 }
 
@@ -868,21 +878,10 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
     if(!pModel)
         return -1;
-
-    QPalette palette = ui->tvMonth->palette();
-    ui->tvMonth->setAutoFillBackground(m_bShowBackgroupImage);
-    if(!m_bShowBackgroupImage)
-    {
-        palette.setBrush(QPalette::Window, QBrush());
-        setPalette(palette);
-        return 0;
-    }
-    qDebug() << "File: " << szFile << ui->tvMonth->size();
-    palette.setBrush(QPalette::Background,
-                     QBrush(QPixmap(szFile).scaled(
-                                ui->tvMonth->size(),
-                                Qt::IgnoreAspectRatio,
-                                Qt::SmoothTransformation)));// 使用平滑的缩放方式  
-    ui->tvMonth->setPalette(palette);// 给widget加上背景图  
+    
+    if(m_bShowBackgroupImage)
+        ui->tvMonth->setStyleSheet("border-image:url(" + szFile + ")");
+    else
+        ui->tvMonth->setStyleSheet("border-image:none");
     return 0;
 }

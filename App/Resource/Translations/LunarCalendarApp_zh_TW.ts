@@ -35,16 +35,21 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="41"/>
+        <source>Use backgroup image</source>
+        <translation>使用背景圖</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="48"/>
         <source>Help</source>
         <translation>幫助</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="43"/>
+        <location filename="../../MainWindow.cpp" line="50"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="44"/>
+        <location filename="../../MainWindow.cpp" line="51"/>
         <source>About</source>
         <translation>關於</translation>
     </message>
@@ -52,7 +57,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="31"/>
+        <location filename="../../main.cpp" line="33"/>
         <source>Calendar</source>
         <translation>日歷</translation>
     </message>

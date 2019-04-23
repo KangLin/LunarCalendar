@@ -28,6 +28,7 @@ private Q_SLOTS:
     void slotActionSolar(bool checked);
     void slotViewMonth();
     void slotViewWeek();
+    void slotViewBackgroup(bool checked);
     
 private:
     Ui::MainWindow *ui;

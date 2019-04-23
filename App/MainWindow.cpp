@@ -36,7 +36,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction* pViewWeek = pViewMenu->addAction(tr("Week"), this, SLOT(slotViewWeek()));
     pViewWeek->setCheckable(true);
     pViewTypeGroup->addAction(pViewWeek);
+    pViewMenu->addSeparator();
     
+    QAction* pViewBackgroup = pViewMenu->addAction(tr("Use backgroup image"),
+                                       this, SLOT(slotViewBackgroup(bool)));
+    pViewBackgroup->setCheckable(true);
+    pViewBackgroup->setChecked(true);
+    m_pLunarCalendar->SetShowBackgroupImage(true);
+
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
     m_frmUpdate.SetTitle(QPixmap(":/image/Calendar"));
@@ -50,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
-//    m_pLunarCalendar->SetShowBackgroupImage(false);
 //    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2120, 1, 1));
 //    m_pLunarCalendar->GenerateCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat", 2, false);
 //    m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
@@ -131,4 +137,9 @@ void MainWindow::slotViewMonth()
 void MainWindow::slotViewWeek()
 {
     m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
+}
+
+void MainWindow::slotViewBackgroup(bool checked)
+{
+    m_pLunarCalendar->SetShowBackgroupImage(checked);
 }

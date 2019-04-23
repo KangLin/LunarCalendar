@@ -39,5 +39,17 @@
         <file alias="10">Image/10.png</file>
         <file alias="11">Image/11.png</file>
         <file alias="12">Image/12.png</file>
+        <file alias="1_zh_CN">Image/1_zh_CN.png</file>
+        <file alias="2_zh_CN">Image/2_zh_CN.png</file>
+        <file alias="3_zh_CN">Image/3_zh_CN.png</file>
+        <file alias="4_zh_CN">Image/4_zh_CN.png</file>
+        <file alias="5_zh_CN">Image/5_zh_CN.png</file>
+        <file alias="6_zh_CN">Image/6_zh_CN.png</file>
+        <file alias="7_zh_CN">Image/7_zh_CN.png</file>
+        <file alias="8_zh_CN">Image/8_zh_CN.png</file>
+        <file alias="9_zh_CN">Image/9_zh_CN.png</file>
+        <file alias="10_zh_CN">Image/10_zh_CN.png</file>
+        <file alias="11_zh_CN">Image/11_zh_CN.png</file>
+        <file alias="12_zh_CN">Image/12_zh_CN.png</file>
     </qresource>
 </RCC>
