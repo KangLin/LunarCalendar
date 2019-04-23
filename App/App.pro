@@ -24,7 +24,7 @@ isEmpty(BUILD_VERSION) {
     }
 }
 isEmpty(BUILD_VERSION){
-    BUILD_VERSION="v0.0.3-19-g7a39c7e"
+    BUILD_VERSION="v0.0.3-29-g4d13458"
 }
 message("BUILD_VERSION:$$BUILD_VERSION")
 DEFINES += BUILD_VERSION=\"\\\"$$quote($$BUILD_VERSION)\\\"\"
