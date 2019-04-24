@@ -69,6 +69,12 @@ case ${BUILD_TARGERT} in
         ;;
 esac
 
+if [ "${BUILD_TARGERT}" = "unix" ]; then
+    cd $SOURCE_DIR
+    ././build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
+    exit 0
+fi
+
 if [ -n "$GENERATORS" ]; then
     if [ -n "${STATIC}" ]; then
         CONFIG_PARA="-DBUILD_SHARED_LIBS=${STATIC}"
@@ -88,6 +94,12 @@ else
             "CONFIG+=release" ${CONFIG_PARA}
             
         $MAKE
+
+        ${QT_ROOT}/bin/androiddeployqt \
+                       --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
+                       --output `pwd`/android-build \ 
+                       --jdk ${JAVA_HOME}  --gradle
+                       #--android-platform  ${ANDROID_API} 
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\

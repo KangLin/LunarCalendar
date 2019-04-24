@@ -3,7 +3,6 @@
 # output every command that modifies files on the build system.
 #export DH_VERBOSE = 1
 
-
 # see FEATURE AREAS in dpkg-buildflags(1)
 #export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
@@ -13,13 +12,23 @@
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+#export QT_SELECT=qt5
+
 %:
 	dh $@
 
 # dh_make generated override targets
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
+    ifdef GENERATORS
 	dh_auto_configure --  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/LunarCalendar
+    else
+	$(Qt5_DIR)/../../../bin/qmake PREFIX=/opt/LunarCalendar
+    endif
 
 override_dh_shlibdeps:
+    ifdef GENERATORS
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib/
+    else
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin 
+    endif
