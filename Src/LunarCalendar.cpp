@@ -81,6 +81,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     ui->tvMonth->verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
     ui->tvMonth->setFrameStyle(QFrame::NoFrame);
     ui->tvMonth->installEventFilter(this);
+    //ui->tvMonth->setAutoScroll(false);
     //ui->tvMonth->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
     //ui->tvMonth->setAlternatingRowColors(true); //设置奇偶行颜色  
 //    QFont font = ui->tvMonth->font();
