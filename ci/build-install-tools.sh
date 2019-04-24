@@ -90,7 +90,8 @@ function function_unix()
 
     sudo apt-get update -y -qq
     sudo apt-get install fakeroot -y -qq
-    
+    sudo apt-get install debhelper -y -qq
+ 
     function_common
 
     cd ${SOURCE_DIR}
