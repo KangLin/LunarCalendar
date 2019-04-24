@@ -79,6 +79,9 @@ function function_android()
     sudo apt-get install ant -qq -y
     sudo apt-get install libicu-dev -qq -y
 
+    #Download java
+    
+
     function_common
     cd ${SOURCE_DIR}
 }
