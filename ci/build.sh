@@ -94,6 +94,12 @@ else
             "CONFIG+=release" ${CONFIG_PARA}
             
         $MAKE
+        $MAKE install
+        ${QT_ROOT}/bin/androiddeployqt \
+                       --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
+                       --output `pwd`/android-build \ 
+                       --jdk ${JAVA_HOME}  --gradle
+                       #--android-platform  ${ANDROID_API} 
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
