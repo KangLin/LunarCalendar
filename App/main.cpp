@@ -52,6 +52,9 @@ int main(int argc, char *argv[])
 #if defined (Q_OS_ANDROID)
     w.showMaximized();
 #else
+    #if defined (Q_OS_UNIX)
+        w.resize(500, 500);
+    #endif
     w.show();
 #endif
     return a.exec();

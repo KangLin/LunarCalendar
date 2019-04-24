@@ -45,16 +45,11 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
                 return GetHeight();
         }
         break;
-    case SolarColorRole:
-        if(Qt::Horizontal == orientation)
+    case Qt::BackgroundRole:
         {
-            int day = section + m_FirstDay;
-            if(day > 7)
-                day %= 7;
-            if(Qt::Saturday == day || Qt::Sunday == day)
-                return ColorHighlight;
+            QPalette palette = QApplication::style()->standardPalette();
+            return palette.background();
         }
-        return ColorNormal;
     case Qt::DisplayRole:
         switch (orientation) {
         case Qt::Horizontal:
