@@ -94,6 +94,7 @@ else
             "CONFIG+=release" ${CONFIG_PARA}
             
         $MAKE
+        $MAKE install
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
