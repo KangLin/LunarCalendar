@@ -63,9 +63,9 @@ deploy:
   provider: releases
   api_key: 177ce637a8ec54e66ea8693092caf35059cf95d7
   file: 
-    - ./build_android/android-build/bin/QtApp-debug.apk
+    - $TRAVIS_BUILD_DIR/../lunarcalendar_*_amd64.deb
   skip_cleanup: true
   on:
-    condition: $BUILD_TARGERT = android
+    condition: $BUILD_TARGERT=unix
     repo: KangLin/LunarCalendar
-    tags: true
+    #tags: true

@@ -11,7 +11,7 @@ cd ${SOURCE_DIR}
 if [ "$BUILD_TARGERT" = "android" ]; then
     export ANDROID_SDK_ROOT=${SOURCE_DIR}/Tools/android-sdk
     export ANDROID_NDK_ROOT=${SOURCE_DIR}/Tools/android-ndk
-    if [ -z "$APPVEYOR" ]; then
+    if [ -n "$APPVEYOR" ]; then
         export JAVA_HOME="/C/Program Files (x86)/Java/jdk1.8.0"
     fi
     export QT_ROOT=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}/${QT_VERSION}/android_armv7
@@ -94,12 +94,13 @@ else
             "CONFIG+=release" ${CONFIG_PARA}
             
         $MAKE
-
+        $MAKE install INSTALL_ROOT=`pwd`/android-build
         ${QT_ROOT}/bin/androiddeployqt \
                        --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
                        --output `pwd`/android-build \ 
-                       --jdk ${JAVA_HOME}  --gradle
-                       #--android-platform  ${ANDROID_API} 
+                       --android-platform ${ANDROID_API} \
+                        --gradle
+                        #--jdk ${JAVA_HOME}
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
