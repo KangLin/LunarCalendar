@@ -4,15 +4,23 @@
 #include <QTranslator>
 #include <QDir>
 #include <QScreen>
+#if defined(Q_OS_ANDROID)
+#include <QtAndroid>
+#endif
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
 #endif
 #include <QLocale>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    
+#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+    QtAndroid::hideSplashScreen();
+#endif
+    
     QString szPre;    
 #if defined(Q_OS_ANDROID) || _DEBUG
     szPre = ":/Translations";

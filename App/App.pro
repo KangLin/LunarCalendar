@@ -4,6 +4,10 @@ TEMPLATE = app
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+android{
+    versionAtMost(QT_VERSION, 5.4.0) : error("Android: Qt version must greater than or equal to 5.4.0")
+    QT += androidextras gui
+}
 
 #Get app version use git, please set git path to environment variable PATH
 isEmpty(BUILD_VERSION) {
