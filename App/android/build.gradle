@@ -38,6 +38,15 @@ android {
 
     buildToolsVersion androidBuildToolsVersion
 
+    defaultConfig
+    {
+        applicationId = "org.KangLinStudio.LunarCalendarApp"
+        minSdkVersion 16
+        targetSdkVersion androidCompileSdkVersion.toInteger()
+        versionCode 1
+        versionName "1.0"
+    }
+    
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -54,4 +63,7 @@ android {
     lintOptions {
         abortOnError false
     }
+    
+    /*https://blog.csdn.net/angcyo/article/details/78357512*/
+    
 }

@@ -62,7 +62,7 @@ notifications:
 deploy:
   provider: releases
   #https://github.com/settings/tokens
-  api_key:53dda7f59e469b59646f395f2907a78cbed83bc8
+  api_key: 53dda7f59e469b59646f395f2907a78cbed83bc8
   file: 
     - $TRAVIS_BUILD_DIR/../lunarcalendar_*_amd64.deb
   skip_cleanup: true
