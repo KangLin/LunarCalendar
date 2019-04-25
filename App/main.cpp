@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QTranslator>
 #include <QDir>
+#include <QScreen>
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
@@ -53,6 +54,10 @@ int main(int argc, char *argv[])
     w.showMaximized();
 #else
     #if defined (Q_OS_UNIX)
+        QRect rect = qApp->primaryScreen()->geometry();
+        int left = (rect.width() - 500) >> 1;
+        int top = (rect.height() - 500) >> 1;
+        w.move(left, top);
         w.resize(500, 500);
     #endif
     w.show();
