@@ -1,5 +1,6 @@
 TARGET = LunarCalendarApp
 TEMPLATE = app
+CONFIG(staticlib): CONFIG*=static
 
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -60,6 +61,7 @@ RC_FILE = AppIcon.rc
 android {
     LIBS *= "-L$$OUT_PWD/../Src"
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    !CONFIG(static): ANDROID_EXTRA_LIBS += $$OUT_PWD/../Src/libLunarCalendar.so #libssl.so libcrypto.so 
 } else {
     LIBS *= "-L$$DESTDIR"
 }
@@ -100,8 +102,9 @@ win32 {
 OTHER_FILES += \
     CMakeLists.txt \
     AppIcon.rc \
-   android/* \
-   android/res/*
+    android/* \
+    android/res/* \
+    android/res/values/*
 
 include(../pri/Translations.pri)
 
