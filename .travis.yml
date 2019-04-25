@@ -61,10 +61,12 @@ notifications:
 
 deploy:
   provider: releases
-  api_key: 177ce637a8ec54e66ea8693092caf35059cf95d7
+  #https://github.com/settings/tokens
+  api_key:53dda7f59e469b59646f395f2907a78cbed83bc8
   file: 
     - $TRAVIS_BUILD_DIR/../lunarcalendar_*_amd64.deb
   skip_cleanup: true
+  draft: true
   on:
     condition: $BUILD_TARGERT=unix
     repo: KangLin/LunarCalendar

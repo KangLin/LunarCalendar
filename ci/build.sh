@@ -99,7 +99,7 @@ else
                        --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
                        --output `pwd`/android-build \ 
                        --android-platform ${ANDROID_API} \
-                        --gradle
+                        --gradle --verbose
                         #--jdk ${JAVA_HOME}
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \

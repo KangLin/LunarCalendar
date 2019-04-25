@@ -55,6 +55,7 @@ RC_FILE = AppIcon.rc
 
 android {
     LIBS *= "-L$$OUT_PWD/../Src"
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 } else {
     LIBS *= "-L$$DESTDIR"
 }
@@ -94,7 +95,9 @@ win32 {
 
 OTHER_FILES += \
     CMakeLists.txt \
-    AppIcon.rc
+    AppIcon.rc \
+   android/* \
+   android/res/*
 
 include(../pri/Translations.pri)
 
