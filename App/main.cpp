@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     QString szPre;    
 #if defined(Q_OS_ANDROID) || _DEBUG
     szPre = ":/Translations";
-    Q_INIT_RESOURCE(ResourceAbout);
 #else
     szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
 #endif

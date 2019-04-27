@@ -121,6 +121,15 @@ if("Debug" STREQUAL CMAKE_BUILD_TYPE)
     add_definitions(-D_DEBUG)
 endif()
 
+
+set(OTHER_FILES
+    ${CMAKE_SOURCE_DIR}/License.md
+    ${CMAKE_SOURCE_DIR}/Authors.md
+    ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
+    ${CMAKE_SOURCE_DIR}/ChangeLog.md
+    ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
+    )
+
 add_subdirectory(Src)
 option(BUILD_APP "Set to ON to build applaction" ON)
 if(BUILD_APP)
@@ -128,13 +137,13 @@ if(BUILD_APP)
     if(EXISTS ${RabbitCommon_DIR}/Src)
         add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
     else()
-        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
-        download(FILENAME RabbitCommon
-            HASH acb14d8d5cfd264d5899604281913161
-            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
-            DESTINATION_DIR ${RabbitCommon_DIR}
-            UNPACK
-            )
+#        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
+#        download(FILENAME RabbitCommon
+#            HASH acb14d8d5cfd264d5899604281913161
+#            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
+#            DESTINATION_DIR ${RabbitCommon_DIR}
+#            UNPACK
+#            )
         if(EXISTS ${RabbitCommon_DIR}/Src)
             add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
         else()
@@ -146,18 +155,9 @@ if(BUILD_APP)
             message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
         endif()
     endif()
+    
     add_subdirectory(App)
 endif(BUILD_APP)
-
-set(OTHER_FILES
-    License.md
-    Authors.md
-    Authors_zh_CN.md
-    ChangeLog.md
-    App/AppIcon.ico
-    )
-
-INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
 
 if(WIN32)
     INSTALL(FILES Install/Install.nsi DESTINATION "${CMAKE_BINARY_DIR}")
