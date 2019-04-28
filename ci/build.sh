@@ -71,7 +71,7 @@ esac
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
-    ././build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
+    ./build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
     exit 0
 fi
 
