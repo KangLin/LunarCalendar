@@ -32,7 +32,7 @@ fi
 
 if [ "$BUILD_TARGERT" = "windows_mingw" \
     -a -n "$APPVEYOR" ]; then
-    export PATH=/C/Qt/Tools/mingw${TOOLCHAIN_VERSION}/bin:$PATH    
+    export PATH=/C/Qt/Tools/mingw${TOOLCHAIN_VERSION}/bin:$PATH
 fi
 TARGET_OS=`uname -s`
 case $TARGET_OS in
@@ -113,10 +113,6 @@ else
 fi
 
 if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
-    #cd ${SOURCE_DIR}
-    #cp Install/Install.nsi build_${BUILD_TARGERT}
-    #"/C/Program Files (x86)/NSIS/makensis.exe" "build_${BUILD_TARGERT}/Install.nsi"
-    
     if [ "${AUTOBUILD_ARCH}" = "x86" ]; then
         cp /C/OpenSSL-Win32/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win32/bin/ssleay32.dll install/bin
