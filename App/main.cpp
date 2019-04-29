@@ -10,6 +10,7 @@
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
+    #include "RabbitCommonGlobalDir.h"
 #endif
 #include <QLocale>
 
@@ -21,15 +22,9 @@ int main(int argc, char *argv[])
     QtAndroid::hideSplashScreen();
 #endif
     
-    QString szPre;    
-#if defined(Q_OS_ANDROID) || _DEBUG
-    szPre = ":/Translations";
-#else
-    szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
-#endif
-    
     QTranslator tApp;
-    tApp.load(szPre + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
+    tApp.load(CRabbitCommonGlobalDir::Instance()->GetDirTranslations()
+              + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
     a.installTranslator(&tApp);
     
     CLunarCalendar::InitResource();

@@ -139,6 +139,7 @@ OTHER_FILES += \
 include(../pri/Translations.pri)
 
 isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
+isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$PWD/../../RabbitCommon
 !isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
     DEFINES += RABBITCOMMON
     include("$${RabbitCommon_DIR}/Src/RabbitCommon.pri")
