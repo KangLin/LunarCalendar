@@ -32,7 +32,7 @@ fi
 
 if [ "$BUILD_TARGERT" = "windows_mingw" \
     -a -n "$APPVEYOR" ]; then
-    export PATH=/C/Qt/Tools/mingw${TOOLCHAIN_VERSION}/bin:$PATH    
+    export PATH=/C/Qt/Tools/mingw${TOOLCHAIN_VERSION}/bin:$PATH
 fi
 TARGET_OS=`uname -s`
 case $TARGET_OS in
@@ -71,7 +71,7 @@ esac
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
-    ././build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
+    ./build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
     exit 0
 fi
 
@@ -99,7 +99,7 @@ else
                        --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
                        --output `pwd`/android-build \ 
                        --android-platform ${ANDROID_API} \
-                        --gradle
+                        --gradle --verbose
                         #--jdk ${JAVA_HOME}
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
@@ -113,10 +113,6 @@ else
 fi
 
 if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
-    #cd ${SOURCE_DIR}
-    #cp Install/Install.nsi build_${BUILD_TARGERT}
-    #"/C/Program Files (x86)/NSIS/makensis.exe" "build_${BUILD_TARGERT}/Install.nsi"
-    
     if [ "${AUTOBUILD_ARCH}" = "x86" ]; then
         cp /C/OpenSSL-Win32/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win32/bin/ssleay32.dll install/bin

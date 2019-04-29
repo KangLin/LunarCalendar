@@ -11,11 +11,35 @@ set(SOURCE_UI_FILES
     MainWindow.ui
     )
 
+if(ANDROID)
+    set(RESOURCE_FILE_NAME "${CMAKE_CURRENT_BINARY_DIR}/ResourceAbout.qrc")
+    
+    file(WRITE "${RESOURCE_FILE_NAME}"
+        "<!DOCTYPE RCC>
+        <RCC version=\"1.0\">
+        <qresource prefix=\"/file\">
+        ")
+    foreach(f ${OTHER_FILES})
+        get_filename_component(file_name ${f} NAME)
+        file(APPEND "${RESOURCE_FILE_NAME}"
+            "    <file alias=\"${file_name}\">${f}</file>\n")
+    endforeach(f)
+    file(APPEND "${RESOURCE_FILE_NAME}"
+        "  </qresource>
+        </RCC>
+        ")
+    set(RESOURCE_FILES "${RESOURCE_FILE_NAME}")
+    
+else()
+    INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
+endif()
+
 #翻译
 include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
 include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
 
-set(RESOURCE_FILES Resource/Resource.qrc
+set(RESOURCE_FILES ${RESOURCE_FILES} 
+    Resource/Resource.qrc
     "${TRANSLATIONS_RESOURCE_FILES}")
 
 add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")

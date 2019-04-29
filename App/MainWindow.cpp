@@ -85,14 +85,23 @@ void MainWindow::slotAbout()
     CDlgAbout about(this);
     about.m_AppIcon = QPixmap(":/image/Calendar");
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
-    about.exec();
+    #if defined (Q_OS_ANDROID)
+        about.showMaximized();
+        about.exec();
+    #else
+        about.exec();
+    #endif
 #endif
 }
 
 void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
-    m_frmUpdate.show();
+    #if defined (Q_OS_ANDROID)
+        m_frmUpdate.showMaximized();
+    #else
+        m_frmUpdate.show();
+    #endif
 #endif
 }
 

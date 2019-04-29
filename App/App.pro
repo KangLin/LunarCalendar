@@ -1,9 +1,14 @@
 TARGET = LunarCalendarApp
 TEMPLATE = app
+CONFIG(staticlib): CONFIG*=static
 
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+android{
+    versionAtMost(QT_VERSION, 5.4.0) : error("Android: Qt version must greater than or equal to 5.4.0")
+    QT += androidextras gui
+}
 
 #Get app version use git, please set git path to environment variable PATH
 isEmpty(BUILD_VERSION) {
@@ -49,12 +54,44 @@ FORMS += \
         MainWindow.ui
 
 RESOURCES += \
-    Resource/Resource.qrc
+    Resource/Resource.qrc 
 
 RC_FILE = AppIcon.rc
 
 android {
     LIBS *= "-L$$OUT_PWD/../Src"
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+    isEmpty(THIRDLIBRARY_PATH) message("Please set THIRDLIBRARY_PATH")
+    CONFIG(static){
+        LIBS *= -lssl
+    } else {
+          ANDROID_EXTRA_LIBS += $$OUT_PWD/../Src/libLunarCalendar.so #\
+          #$${THIRDLIBRARY_PATH}/libssl.so \
+          #$${THIRDLIBRARY_PATH}/libcrypto.so 
+    }
+
+    RESOURCE_QRC_FILE = $$OUT_PWD/ResourceAbout.qrc
+
+    RESOURCE_QRC_FILE_CONTENT = \
+                "<!DOCTYPE RCC><RCC version=\"1.0\">" \
+                "<qresource prefix=\"file\">"
+    
+    RESOURCE_QRC_FILE_CONTENT += \
+            "<file alias=\"Authors\">$$PWD/../Authors.md</file>"
+    RESOURCE_QRC_FILE_CONTENT += \
+            "<file alias=\"Authors_zh_CN\">$$PWD/../Authors_zh_CN.md</file>"
+    RESOURCE_QRC_FILE_CONTENT += \
+            "<file alias=\"ChangeLog\">$$PWD/../ChangeLog.md</file>"
+    RESOURCE_QRC_FILE_CONTENT += \
+            "<file alias=\"License\">$$PWD/../License.md</file>"
+
+    RESOURCE_QRC_FILE_CONTENT += \
+            "</qresource>" \
+            "</RCC>"
+    !write_file($$RESOURCE_QRC_FILE, RESOURCE_QRC_FILE_CONTENT): \
+            error()
+    RESOURCES += $$RESOURCE_QRC_FILE
+
 } else {
     LIBS *= "-L$$DESTDIR"
 }
@@ -94,7 +131,10 @@ win32 {
 
 OTHER_FILES += \
     CMakeLists.txt \
-    AppIcon.rc
+    AppIcon.rc \
+    android/* \
+    android/res/* \
+    android/res/values/*
 
 include(../pri/Translations.pri)
 

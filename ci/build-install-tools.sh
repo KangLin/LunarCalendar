@@ -73,7 +73,7 @@ function function_android()
         mv android-sdk-linux android-sdk
         rm android-sdk_r24.4.1-linux.tgz 
         (sleep 5 ; while true ; do sleep 1 ; printf 'y\r\n' ; done ) \
-        | android-sdk/tools/android update sdk -u -t tool,android-18,android-24,extra,platform,platform-tools,build-tools-25.0.2
+        | android-sdk/tools/android update sdk -u -t tool,${ANDROID_API},extra,platform,platform-tools  #,build-tools
     fi
 
     sudo apt-get install ant -qq -y

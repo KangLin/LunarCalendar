@@ -8,6 +8,17 @@
 #    TRANSLATIONS_NAME = 
 #    include(../pri/Translations.pri) 
 
+# Add translation resource in source code
+#     QString szPre;    
+#     #if defined(Q_OS_ANDROID) || _DEBUG
+#         szPre = ":/Translations";
+#     #else
+#         szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
+#     #endif
+#     QTranslator translator;
+#     translator.load(szPre + "/RabbitCommon_" + QLocale::system().name() + ".qm");
+#     qApp->installTranslator(&translator);
+
 # android and debug translate resources as resource file embed programs
 #
 # Other system distribution mode, as a file in the installation directory of
@@ -45,6 +56,17 @@
 #    TRANSLATIONS_DIR =
 #    TRANSLATIONS_NAME = 
 #    include(../pri/Translations.pri) 
+
+# 在代码中加载翻译资源
+#     QString szPre;    
+#     #if defined(Q_OS_ANDROID) || _DEBUG
+#         szPre = ":/Translations";
+#     #else
+#         szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
+#     #endif
+#     QTranslator translator;
+#     translator.load(szPre + "/RabbitCommon_" + QLocale::system().name() + ".qm");
+#     qApp->installTranslator(&translator);
 
 # android 和 debug 翻译资源做为资源文件嵌入程序
 #

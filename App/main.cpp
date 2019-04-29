@@ -3,15 +3,24 @@
 #include <QFile>
 #include <QTranslator>
 #include <QDir>
+#include <QScreen>
+#if defined(Q_OS_ANDROID)
+#include <QtAndroid>
+#endif
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
 #endif
 #include <QLocale>
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+    
+#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+    QtAndroid::hideSplashScreen();
+#endif
+    
     QString szPre;    
 #if defined(Q_OS_ANDROID) || _DEBUG
     szPre = ":/Translations";
@@ -53,6 +62,10 @@ int main(int argc, char *argv[])
     w.showMaximized();
 #else
     #if defined (Q_OS_UNIX)
+        QRect rect = qApp->primaryScreen()->geometry();
+        int left = (rect.width() - 500) >> 1;
+        int top = (rect.height() - 500) >> 1;
+        w.move(left, top);
         w.resize(500, 500);
     #endif
     w.show();
