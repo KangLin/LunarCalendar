@@ -9,8 +9,8 @@
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
       m_Date(QDate::currentDate()),
-      m_MinimumDate(QDate::fromJulianDay(0)), //儒略日数（Julian Day Number，JDN）的计算是从格林威治标准时间的中午开始，包含一个整天的时间，起点的时间（0日）回溯至儒略历的公元前4713年1月1日中午12点（在格里历是公元前4714年11月24日）
-      m_MaximumDate(99999, 12, 31),
+      m_MinimumDate(-2000, 1, 1), //儒略日数（Julian Day Number，JDN）的计算是从格林威治标准时间的中午开始，包含一个整天的时间，起点的时间（0日）回溯至儒略历的公元前4713年1月1日中午12点（在格里历是公元前4714年11月24日）
+      m_MaximumDate(3000, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
       m_ShowWeek(1),
@@ -688,6 +688,7 @@ CLunarCalendarModel::_DAY CLunarCalendarModel::GetDay(int row, int col) const
 int CLunarCalendarModel::SetViewType(CLunarCalendar::_VIEW_TYPE type)
 {
     m_viewType = type;
+    Show();
     return 0;
 }
 

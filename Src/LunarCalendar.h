@@ -5,11 +5,12 @@
 #include <QTimer>
 #include <QMap>
 #include <QDate>
+#include <QTableView>
+#include <QLabel>
+#include <QComboBox>
+#include <QToolButton>
+#include <QPushButton>
 #include "lunarcalendar_export.h"
-
-namespace Ui {
-class CLunarCalendar;
-}
 
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
@@ -83,11 +84,13 @@ Q_SIGNALS:
     void sigSelectionChanged();
 
 private slots:
-    void on_tbNext_clicked();
-    void on_tbPrevious_clicked();
+    void on_tbNextYear_clicked();
+    void on_tbPreviousYear_clicked();
+    void on_tbNextMonth_clicked();
+    void on_tbPreviousMonth_clicked();
     void on_pbToday_clicked();
     void on_cbMonth_currentIndexChanged(int index);
-    void on_spYear_valueChanged(int value);
+    void on_cbYear_currentIndex(int index);
     void on_tvMonth_pressed(const QModelIndex &index);
     
     void slotTimeout();
@@ -102,9 +105,17 @@ private:
     int EnableMonthMenu();
     int UpdateSelect();
     int SetBackgroup(const QString& szFile);
-
+    int SetYearRange(int min, int max);
+    
 private:
-    Ui::CLunarCalendar *ui;
+    QComboBox m_cmbYear;
+    QToolButton m_tbPreYear, m_tbNextYear;
+    QComboBox m_cmbMonth;
+    QToolButton m_tbPreMonth, m_tbNextMonth;
+    QPushButton m_pbToday;
+    QLabel m_lbDate, m_lbTime;
+    QTableView m_View;
+
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
     QTimer m_Timer;

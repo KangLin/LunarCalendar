@@ -38,7 +38,7 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarCalendarDelegate.h \
     $$PWD/LunarTable.h
 
-FORMS += $$PWD/LunarCalendar.ui
+FORMS +=
 
 TRANSLATIONS_DIR=$$PWD
 TRANSLATIONS_NAME=LunarCalendar

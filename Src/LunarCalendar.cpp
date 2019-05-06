@@ -1,9 +1,12 @@
 #include "LunarCalendar.h"
-#include "ui_LunarCalendar.h"
 #include "LunarCalendarModel.h"
 #include <QDate>
 #include <QLocale>
 #include <QDebug>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QHeaderView>
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include <QModelIndex>
@@ -43,71 +46,116 @@ static CLunarCalendarPrivate* g_pLunarCalendarPrivate = nullptr;
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::CLunarCalendar),
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
     m_bShowBackgroupImage(false)
 {
     //setLocale(QLocale("zh_CN"));
-    ui->setupUi(this);
-
-    CLunarCalendarModel* pModel = new CLunarCalendarModel(this);    
-
-    bool check = connect(&m_Timer, SIGNAL(timeout()),
-                         this, SLOT(slotTimeout()));
-    Q_ASSERT(check);
-    SetShowHead(true);
     
+    SetShowHead(true);
+    m_tbPreYear.setArrowType(Qt::UpArrow);
+    m_tbNextYear.setArrowType(Qt::DownArrow);
+    m_tbPreMonth.setArrowType(Qt::UpArrow);
+    m_tbNextMonth.setArrowType(Qt::DownArrow);
+    m_lbDate.setAlignment(Qt::AlignCenter);
+    m_lbTime.setAlignment(Qt::AlignCenter);
+    m_pbToday.setText(tr("Today"));
+        
+    CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     SetShowGrid(false);
-    //ui->tvMonth->setFocusPolicy(Qt::WheelFocus);
-    ui->tvMonth->setSelectionBehavior(QAbstractItemView::SelectItems);
-    ui->tvMonth->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->tvMonth->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tvMonth->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //m_View.setFocusPolicy(Qt::WheelFocus);
+    m_View.setSelectionBehavior(QAbstractItemView::SelectItems);
+    m_View.setSelectionMode(QAbstractItemView::SingleSelection);
+    m_View.setEditTriggers(QAbstractItemView::NoEditTriggers);
+    m_View.horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     
     /*
-    ui->tvMonth->horizontalHeader()->setMinimumSize(cell.size());
-    ui->tvMonth->horizontalHeader()->setMinimumSectionSize(cell.width());
-    ui->tvMonth->verticalHeader()->setMinimumSize(cell.size());
-    ui->tvMonth->verticalHeader()->setMinimumSectionSize(cell.height());
+    m_View.horizontalHeader()->setMinimumSize(cell.size());
+    m_View.horizontalHeader()->setMinimumSectionSize(cell.width());
+    m_View.verticalHeader()->setMinimumSize(cell.size());
+    m_View.verticalHeader()->setMinimumSectionSize(cell.height());
     */
-    ui->tvMonth->horizontalHeader()->setSectionsClickable(false);
-    ui->tvMonth->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tvMonth->verticalHeader()->setSectionsClickable(false);
-    ui->tvMonth->setModel(pModel);
-    ui->tvMonth->setItemDelegate(new CLunarCalendarDelegate(ui->tvMonth));
-    ui->tvMonth->horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
-    ui->tvMonth->verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(ui->tvMonth));
-    ui->tvMonth->setFrameStyle(QFrame::NoFrame);
-    ui->tvMonth->installEventFilter(this);
-    //ui->tvMonth->setAutoScroll(false);
-    //ui->tvMonth->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
-    //ui->tvMonth->setAlternatingRowColors(true); //设置奇偶行颜色  
-//    QFont font = ui->tvMonth->font();
+    m_View.horizontalHeader()->setSectionsClickable(false);
+    m_View.verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    m_View.verticalHeader()->setSectionsClickable(false);
+    m_View.setModel(pModel);
+    m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
+    m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    m_View.setFrameStyle(QFrame::NoFrame);
+    m_View.installEventFilter(this);
+    //m_View.setAutoScroll(false);
+    //m_View.setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+    //m_View.setAlternatingRowColors(true); //设置奇偶行颜色
+//    QFont font = m_View.font();
 //    font.setPointSize(6);
-//    ui->tvMonth->setFont(font);
+//    m_View.setFont(font);
 
-    //ui->tvMonth->setStyleSheet("background-color:rgba(0,0,0,0)"); //设置背景透明
+    //m_View.setStyleSheet("background-color:rgba(0,0,0,0)"); //设置背景透明
     //setStyleSheet("border-image:url(d:/temp/4.jpg)"); //设置背景图片
     
     for(int i = 0; i < 12; i++)
     {
-        ui->cbMonth->addItem(locale().monthName(i + 1), i + 1);
+        m_cmbMonth.addItem(locale().monthName(i + 1), i + 1);
     }
-    ui->cbMonth->setToolTip(tr("Month"));
+    m_cmbMonth.setToolTip(tr("Month"));
     
-    ui->spYear->setRange(pModel->GetMinimumDate().year(), 
-                         pModel->GetMaximumDate().year());
-    ui->spYear->setValue(pModel->GetDate().year());
-    
-    ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(pModel->GetDate().month()));
+    m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(pModel->GetDate().month()));
     SetSelectedDate(pModel->GetDate());
+
+    SetYearRange(pModel->GetMinimumDate().year(),
+                 pModel->GetMaximumDate().year());
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetDate().year()));
+    
+    QHBoxLayout* pToolLayout = new QHBoxLayout();
+    pToolLayout->addWidget(&m_tbPreYear);
+    pToolLayout->addWidget(&m_cmbYear);
+    pToolLayout->addWidget(&m_tbNextYear);
+    pToolLayout->addWidget(&m_tbPreMonth);
+    pToolLayout->addWidget(&m_cmbMonth);
+    pToolLayout->addWidget(&m_tbNextMonth);
+    pToolLayout->addWidget(&m_pbToday);
+    
+    QVBoxLayout* pVLayout = new QVBoxLayout(this);
+    pVLayout->addLayout(pToolLayout);
+    pVLayout->addWidget(&m_lbDate);
+    pVLayout->addWidget(&m_lbTime);
+    pVLayout->addWidget(&m_View);
+    pVLayout->setMargin(0);
+    setLayout(pVLayout);
+    
+    bool check = connect(&m_Timer, SIGNAL(timeout()),
+                         this, SLOT(slotTimeout()));
+    Q_ASSERT(check);
+    check = connect(&m_tbPreYear, SIGNAL(clicked()),
+                    this, SLOT(on_tbPreviousYear_clicked()));
+    Q_ASSERT(check);
+    check = connect(&m_tbNextYear, SIGNAL(clicked()),
+                    this, SLOT(on_tbNextYear_clicked()));
+    Q_ASSERT(check);
+    check = connect(&m_tbPreMonth, SIGNAL(clicked()),
+                    this, SLOT(on_tbPreviousMonth_clicked()));
+    Q_ASSERT(check);
+    check = connect(&m_tbNextMonth, SIGNAL(clicked()),
+                    this, SLOT(on_tbNextMonth_clicked()));
+    Q_ASSERT(check);
+    check = connect(&m_pbToday, SIGNAL(clicked()),
+                    this, SLOT(on_pbToday_clicked()));
+    Q_ASSERT(check);
+//    check = connect(&m_cmbYear, SIGNAL(currentIndexChanged(int)),
+//                    this, SLOT(on_cbYear_currentIndex(int)));
+//    Q_ASSERT(check);
+    check = connect(&m_cmbMonth, SIGNAL(currentIndexChanged(int)),
+                    this, SLOT(on_cbMonth_currentIndexChanged(int)));
+    Q_ASSERT(check);
+    check = connect(&m_View, SIGNAL(pressed(const QModelIndex&)),
+                    this, SLOT(on_tvMonth_pressed(const QModelIndex&)));
+    Q_ASSERT(check);
 }
 
 CLunarCalendar::~CLunarCalendar()
 {
-    delete ui;
 }
 
 void CLunarCalendar::InitResource()
@@ -138,7 +186,7 @@ void CLunarCalendar::CLeanResource()
 int CLunarCalendar::ShowSelectTitle()
 {
     QDate d;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -1;
     d = pModel->GetDate();
@@ -148,45 +196,65 @@ int CLunarCalendar::ShowSelectTitle()
         szDate = d.toString(locale().dateFormat(QLocale::LongFormat));
     if(CalendarTypeLunar & GetCalendarType())
         szDate += " " + SelectedLunar();
-    ui->lbDateText->setText(szDate);
+    m_lbDate.setText(szDate);
     return 0;
 }
 
-void CLunarCalendar::on_spYear_valueChanged(int value)
+void CLunarCalendar::on_cbYear_currentIndex(int index)
 {
-    Q_UNUSED(value);
+    qDebug() << "CLunarCalendar::on_cbYear_currentIndex";
+    Q_UNUSED(index);
     UpdateViewModel();
     UpdateMonthMenu();
 }
 
-void CLunarCalendar::on_tbNext_clicked()
+void CLunarCalendar::on_tbNextYear_clicked()
 {
-    if(!ui->tbNext->isEnabled())
+    int nIndex = m_cmbYear.currentIndex() + 1;
+    if(m_cmbYear.count() <= nIndex)
         return;
-    int i = ui->cbMonth->currentIndex() + 1;
-    if(i > ui->cbMonth->count() - 1)
-    {
-        i = 0;
-        ui->spYear->setValue(ui->spYear->value() + 1);
-    }
-    ui->cbMonth->setCurrentIndex(i);
+    m_cmbYear.setCurrentIndex(nIndex);
 }
 
-void CLunarCalendar::on_tbPrevious_clicked()
+void CLunarCalendar::on_tbPreviousYear_clicked()
 {
-    if(!ui->tbPrevious->isEnabled())
+    int nIndex = m_cmbYear.currentIndex() - 1;
+    if(0 > nIndex)
         return;
-    int i = ui->cbMonth->currentIndex() - 1;
+    m_cmbYear.setCurrentIndex(nIndex);
+}
+
+void CLunarCalendar::on_tbNextMonth_clicked()
+{
+    if(!m_tbNextMonth.isEnabled())
+        return;
+    int i = m_cmbMonth.currentIndex() + 1;
+    if(i > m_cmbMonth.count() - 1)
+    {
+        i = 0;
+        m_cmbYear.setCurrentIndex(
+                    m_cmbYear.findData(m_cmbYear.currentData().toInt() + 1));
+    }
+    m_cmbMonth.setCurrentIndex(i);
+}
+
+void CLunarCalendar::on_tbPreviousMonth_clicked()
+{
+    if(!m_tbPreMonth.isEnabled())
+        return;
+    int i = m_cmbMonth.currentIndex() - 1;
     if(i < 0)
     {
-        ui->spYear->setValue(ui->spYear->value() - 1);
-        i = ui->cbMonth->count() - 1;
+        m_cmbYear.setCurrentIndex(
+                    m_cmbYear.findData(m_cmbYear.currentData().toInt() - 1));
+        i = m_cmbMonth.count() - 1;
     }
-    ui->cbMonth->setCurrentIndex(i);
+    m_cmbMonth.setCurrentIndex(i);
 }
 
 void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 {
+    qDebug() << "CLunarCalendar::on_cbMonth_currentIndexChanged";
     Q_UNUSED(index);
     UpdateViewModel();
     EnableMonthMenu();
@@ -194,25 +262,26 @@ void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 
 void CLunarCalendar::on_pbToday_clicked()
 {
-    ui->spYear->setValue(QDate::currentDate().year());
-    int nIndex = ui->cbMonth->findData(QDate::currentDate().month());
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(QDate::currentDate().year()));
+    int nIndex = m_cmbMonth.findData(QDate::currentDate().month());
     if(nIndex > -1)
-        ui->cbMonth->setCurrentIndex(nIndex);
+        m_cmbMonth.setCurrentIndex(nIndex);
     SetSelectedDate(QDate::currentDate());
 }
 
 int CLunarCalendar::UpdateViewModel()
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -2;
-    //ui->tvMonth->selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
-    ui->tvMonth->selectionModel()->clear();
+    //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
+    m_View.selectionModel()->clear();
     switch (GetViewType())
     {
     case ViewTypeMonth:
     {
-        pModel->showMonth(ui->spYear->value(), ui->cbMonth->currentData().toInt());
+        pModel->showMonth(m_cmbYear.currentData().toInt(),
+                          m_cmbMonth.currentData().toInt());
         if(pModel && m_bShowBackgroupImage)
         {
             QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
@@ -224,7 +293,8 @@ int CLunarCalendar::UpdateViewModel()
         break;
     }
     case ViewTypeWeek:
-        pModel->showWeek(ui->spYear->value(), ui->cbMonth->currentData().toInt());
+        pModel->showWeek(m_cmbYear.currentData().toInt(),
+                         m_cmbMonth.currentData().toInt());
         break;
     }
     
@@ -234,12 +304,12 @@ int CLunarCalendar::UpdateViewModel()
 
 void CLunarCalendar::SetShowGrid(bool show)
 {
-    ui->tvMonth->setShowGrid(show);
+    m_View.setShowGrid(show);
 }
 
 bool CLunarCalendar::ShowGrid()
 {
-    return ui->tvMonth->showGrid();
+    return m_View.showGrid();
 }
 
 void CLunarCalendar::SetShowBackgroupImage(bool show)
@@ -248,7 +318,7 @@ void CLunarCalendar::SetShowBackgroupImage(bool show)
     if(m_bShowBackgroupImage)
         UpdateViewModel();
     else
-        ui->tvMonth->setStyleSheet("border-image:none");
+        m_View.setStyleSheet("border-image:none");
         
     return;
 }
@@ -263,32 +333,34 @@ void CLunarCalendar::SetShowToday(bool bShow)
     if(m_bShowToday == bShow)
         return;
     m_bShowToday = bShow;
-    ui->pbToday->setVisible(m_bShowToday);
+    m_pbToday.setVisible(m_bShowToday);
 }
 
 void CLunarCalendar::SetShowWeeks(bool bShow)
 {
-    ui->tvMonth->verticalHeader()->setVisible(bShow);
+    m_View.verticalHeader()->setVisible(bShow);
 }
 
 void CLunarCalendar::SetShowWeekHead(bool bShow)
 {
-    ui->tvMonth->horizontalHeader()->setVisible(bShow);
+    m_View.horizontalHeader()->setVisible(bShow);
 }
 
 void CLunarCalendar::SetShowHead(bool bShow)
 {
     SetShowTools(bShow);
-    ui->lbDateText->setVisible(bShow);
+    m_lbDate.setVisible(bShow);
     SetShowTime(bShow);
 }
 
 void CLunarCalendar::SetShowTools(bool bShow)
 {
-    ui->spYear->setVisible(bShow);
-    ui->tbNext->setVisible(bShow);
-    ui->tbPrevious->setVisible(bShow);
-    ui->cbMonth->setVisible(bShow);
+    m_tbPreYear.setVisible(bShow);
+    m_tbNextYear.setVisible(bShow);
+    m_cmbYear.setVisible(bShow);
+    m_tbNextMonth.setVisible(bShow);
+    m_tbPreMonth.setVisible(bShow);
+    m_cmbMonth.setVisible(bShow);
     SetShowToday(bShow);
 }
 
@@ -304,7 +376,7 @@ void CLunarCalendar::SetShowTools(bool bShow)
 */
 QDate CLunarCalendar::SelectedDate() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
     return pModel->GetDate();
 }
@@ -314,17 +386,17 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
     if (!date.isValid())
         return;
 
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     if(pModel->GetDate() != date)
     {
         pModel->setDate(date);
         QDate newDate = pModel->GetDate();
         
-        ui->spYear->setValue(newDate.year());
+        m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
         switch (GetViewType()) {
         case ViewTypeMonth:
-            ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(newDate.month()));
+            m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(newDate.month()));
             break;
         case ViewTypeWeek:
             {
@@ -333,9 +405,9 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
                 week = newDate.weekNumber(&year);
                 if(year != newDate.year())
                 {
-                    ui->spYear->setValue(year);
+                    m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
                 }
-                ui->cbMonth->setCurrentIndex(ui->cbMonth->findData(week));
+                m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(week));
             }
             break;
         }
@@ -347,7 +419,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
     pModel->cellForDate(pModel->GetDate(), &row, &col);
     if(row >= 0 && col >= 0)
     {
-        CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+        CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
         if(pModel && m_bShowBackgroupImage && GetViewType() == ViewTypeMonth)
         {
             QString szJiQi = pModel->data(pModel->index(row, col),
@@ -356,13 +428,13 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
                 SetBackgroup(szJiQi);
         }
         
-        ui->tvMonth->selectionModel()->clear();
-        ui->tvMonth->selectionModel()->setCurrentIndex(pModel->index(row, col),
+        m_View.selectionModel()->clear();
+        m_View.selectionModel()->setCurrentIndex(pModel->index(row, col),
                                            QItemSelectionModel::SelectCurrent);
-        //ui->tvMonth->setCurrentIndex(pModel->index(row, col));
-        //ui->tvMonth->selectionModel()->select(pModel->index(row, col),
+        //m_View.setCurrentIndex(pModel->index(row, col));
+        //m_View.selectionModel()->select(pModel->index(row, col),
         //                                    QItemSelectionModel::SelectCurrent);
-        ui->tvMonth->setFocus();
+        m_View.setFocus();
         m_oldCol = col;
         m_oldRow = row;
     }
@@ -371,7 +443,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date)
 
 QString CLunarCalendar::SelectedLunar()
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QString();
     QDate date = pModel->GetDate();
     CCalendarLunar l(date);
@@ -380,21 +452,21 @@ QString CLunarCalendar::SelectedLunar()
 
 int CLunarCalendar::YearShown() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->GetShowYear();
 }
 
 int CLunarCalendar::MonthShown() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->GetShowMonth();
 }
 
 QDate CLunarCalendar::MaximumDate() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
     return pModel->GetMaximumDate();
 }
@@ -405,11 +477,11 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
         return;
     
     if(QDate::currentDate() > date)
-        ui->pbToday->setVisible(false);
+        m_pbToday.setVisible(false);
     else
         SetShowToday(m_bShowToday);
     
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
@@ -418,12 +490,9 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     {
         date.weekNumber(&year);
     }
-    ui->spYear->setMaximum(year);
     
-    if(ui->spYear->value() > year)
-        ui->spYear->setValue(year);
-    else 
-        UpdateMonthMenu();
+    SetYearRange(date.year(), pModel->GetMaximumDate().year());
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetShowYear()));
     
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
@@ -434,7 +503,7 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
 
 QDate CLunarCalendar::MinimumDate() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
     return pModel->GetMinimumDate();
 }
@@ -445,10 +514,10 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
         return;
     
     if(QDate::currentDate() < date)
-        ui->pbToday->setVisible(false);
+        m_pbToday.setVisible(false);
     else
         SetShowToday(m_bShowToday);
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
@@ -457,11 +526,10 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
     {
         date.weekNumber(&year);
     }
-    ui->spYear->setMinimum(year);
-    if(pModel->GetShowYear() < year)
-        ui->spYear->setValue(year);
-    else 
-        UpdateMonthMenu();
+    
+    SetYearRange(date.year(), pModel->GetMaximumDate().year());
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetShowYear()));
+    
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
         UpdateViewModel();
@@ -480,13 +548,13 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
         return;
     }
     
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     if(pModel->GetMaximumDate() == max && pModel->GetMinimumDate() == min)
         return;
     
     if(QDate::currentDate() < min || QDate::currentDate() > max)
-        ui->pbToday->setVisible(false);
+        m_pbToday.setVisible(false);
     else
         SetShowToday(m_bShowToday);
     
@@ -502,13 +570,8 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     if(GetViewType() == ViewTypeWeek)
         max.weekNumber(&yearMax);
     
-    ui->spYear->setRange(yearMin, yearMax);
-    if(ui->spYear->value() < yearMin)
-        ui->spYear->setValue(yearMin);
-    else if (ui->spYear->value() > yearMax) 
-        ui->spYear->setValue(yearMax);
-    else
-        UpdateMonthMenu();
+    SetYearRange(min.year(), max.year());
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetShowYear()));
     
     QDate newDate = pModel->GetDate();
     if (oldDate != newDate) {
@@ -517,12 +580,32 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     }
 }
 
+int CLunarCalendar::SetYearRange(int min, int max)
+{
+    if(min > max)
+        return -1;
+    
+    bool check = m_cmbYear.disconnect();
+    Q_ASSERT(check);
+    m_cmbYear.clear();
+    for(int i = min; i < max; i++)
+    {
+        if(0 == i)
+            continue;
+        m_cmbYear.addItem(QString::number(i), i);
+    }
+    check = connect(&m_cmbYear, SIGNAL(currentIndexChanged(int)),
+                    this, SLOT(on_cbYear_currentIndex(int)));
+    Q_ASSERT(check);
+    return 0;
+}
+
 int CLunarCalendar::EnableMonthMenu()
 {
     bool prevEnabled = true;
     bool nextEnabled = true;
     
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
  
     int minYear = pModel->GetMinimumDate().year();
@@ -559,8 +642,8 @@ int CLunarCalendar::EnableMonthMenu()
         }
     }
     
-    ui->tbPrevious->setEnabled(prevEnabled);
-    ui->tbNext->setEnabled(nextEnabled);
+    m_tbPreMonth.setEnabled(prevEnabled);
+    m_tbNextMonth.setEnabled(nextEnabled);
     return 0;
 }
 
@@ -568,7 +651,7 @@ int CLunarCalendar::UpdateMonthMenu()
 {
     int beg = 1, end = 12;
 
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     
     EnableMonthMenu();
@@ -577,7 +660,7 @@ int CLunarCalendar::UpdateMonthMenu()
     int maxYear = pModel->GetMaximumDate().year();
     
     if (GetViewType() == ViewTypeWeek) {
-        end = pModel->GetWeeksOfYear(ui->spYear->value());
+        end = pModel->GetWeeksOfYear(m_cmbYear.currentData().toInt());
         pModel->GetMinimumDate().weekNumber(&minYear);
         pModel->GetMaximumDate().weekNumber(&maxYear);
     }
@@ -605,37 +688,42 @@ int CLunarCalendar::UpdateMonthMenu()
         }
     }
     
-    int index = ui->cbMonth->currentIndex();
-    ui->cbMonth->clear();
+    int index = m_cmbMonth.currentIndex();
+    bool check = m_cmbMonth.disconnect();
+    Q_ASSERT(check);
+    m_cmbMonth.clear();
     for (int i = beg; i <= end; i++) {
         switch (GetViewType()) {
         case ViewTypeMonth:
-            ui->cbMonth->addItem(locale().monthName(i), i);
+            m_cmbMonth.addItem(locale().monthName(i), i);
             break;
         case ViewTypeWeek:
-            ui->cbMonth->addItem(QString::number(i), i);
+            m_cmbMonth.addItem(QString::number(i), i);
             break;
         }
     }
-    if(index >= ui->cbMonth->count())
-        index = ui->cbMonth->count() - 1;
+    check = connect(&m_cmbMonth, SIGNAL(currentIndexChanged(int)),
+                    this, SLOT(on_cbMonth_currentIndexChanged(int)));
+    Q_ASSERT(check);
+    if(index >= m_cmbMonth.count())
+        index = m_cmbMonth.count() - 1;
     if(index < 0)
         index = 0;
-    ui->cbMonth->setCurrentIndex(index);
+    m_cmbMonth.setCurrentIndex(index);
 
     return 0;
 }
 
 Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return locale().firstDayOfWeek();
     return pModel->firstDayOfWeek();
 }
 
 void CLunarCalendar::SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     pModel->setFirstDayOfWeek(dayOfWeek);
 }
@@ -645,7 +733,7 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
     if(!index.isValid())
         return;
     
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     QDate d = pModel->dateForCell(index.row(), index.column());
     if(d.isValid())
@@ -672,10 +760,10 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             QWheelEvent *we = dynamic_cast<QWheelEvent*>(event);
             const int numDegrees = we->delta() / 8;
             const int numSteps = numDegrees / 15;
-            CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+            CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
             if(pModel)
             {
-                const QModelIndex index = ui->tvMonth->currentIndex();
+                const QModelIndex index = m_View.currentIndex();
                 if(index.isValid())
                 {
                     QDate currentDate = pModel->dateForCell(index.row(), index.column());
@@ -691,35 +779,35 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             QKeyEvent* ke = dynamic_cast<QKeyEvent*>(event);
             switch (ke->key()) {
             case Qt::Key_Up:
-                if(ui->tvMonth->currentIndex().row() == m_oldRow)
+                if(m_View.currentIndex().row() == m_oldRow)
                 {
-                    on_tbPrevious_clicked();
+                    on_tbPreviousMonth_clicked();
                 }
-                m_oldRow = ui->tvMonth->currentIndex().row();
+                m_oldRow = m_View.currentIndex().row();
                 UpdateSelect();
                 break;
             case Qt::Key_Down:
-                if(ui->tvMonth->currentIndex().row() == m_oldRow)
+                if(m_View.currentIndex().row() == m_oldRow)
                 {
-                    on_tbNext_clicked();
+                    on_tbNextMonth_clicked();
                 }
-                m_oldRow = ui->tvMonth->currentIndex().row();
+                m_oldRow = m_View.currentIndex().row();
                 UpdateSelect();
                 break;
             case Qt::Key_Left:
-                if(ui->tvMonth->currentIndex().column() == m_oldCol)
+                if(m_View.currentIndex().column() == m_oldCol)
                 {  
-                    on_tbPrevious_clicked();
+                    on_tbPreviousMonth_clicked();
                 }
-                m_oldCol = ui->tvMonth->currentIndex().column();
+                m_oldCol = m_View.currentIndex().column();
                 UpdateSelect();
                 break;
             case Qt::Key_Right:
-                if(ui->tvMonth->currentIndex().column() == m_oldCol)
+                if(m_View.currentIndex().column() == m_oldCol)
                 {
-                    on_tbNext_clicked();                   
+                    on_tbNextMonth_clicked();                   
                 }
-                m_oldCol = ui->tvMonth->currentIndex().column();
+                m_oldCol = m_View.currentIndex().column();
                 UpdateSelect();
                 break;
             };
@@ -734,7 +822,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 
 int CLunarCalendar::UpdateSelect()
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     if(m_oldRow >= pModel->rowCount())
         m_oldRow = pModel->rowCount() - 1;
@@ -745,7 +833,7 @@ int CLunarCalendar::UpdateSelect()
     if(m_oldCol < 0)
         m_oldCol = 0;
     QModelIndex index = pModel->index(m_oldRow, m_oldCol);
-    //ui->tvMonth->setCurrentIndex(index);
+    //m_View.setCurrentIndex(index);
     QDate d = pModel->dateForCell(index.row(), index.column());
     if(d.isValid())
     {
@@ -756,7 +844,7 @@ int CLunarCalendar::UpdateSelect()
 
 int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->AddHoliday(month, day, szName);
 }
@@ -765,7 +853,7 @@ int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
 {
     if(szName.isEmpty())
         return -1;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->AddAnniversary(month, day, szName);
 }
@@ -774,23 +862,23 @@ int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szNam
 {
     if(szName.isEmpty())
         return -1;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->AddLunarAnniversary(month, day, szName);
 }
 
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -1;
     int nRet = pModel->SetViewType(type);
     switch (GetViewType()) {
     case ViewTypeWeek:
-        ui->cbMonth->setToolTip(tr("Week"));
+        m_cmbMonth.setToolTip(tr("Week"));
         break;
     case ViewTypeMonth:
-        ui->cbMonth->setToolTip(tr("Month"));
+        m_cmbMonth.setToolTip(tr("Month"));
         break;
     }
     
@@ -799,19 +887,14 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     {
         pModel->GetMinimumDate().weekNumber(&yearMin);
         if(m_bShowBackgroupImage)
-            ui->tvMonth->setStyleSheet("border-image:none");
+            m_View.setStyleSheet("border-image:none");
     }
     int yearMax = pModel->GetMaximumDate().year();
     if(GetViewType() == ViewTypeWeek)
         pModel->GetMaximumDate().weekNumber(&yearMax);
     
-    ui->spYear->setRange(yearMin, yearMax);
-    if(ui->spYear->value() < yearMin)
-        ui->spYear->setValue(yearMin);
-    else if (ui->spYear->value() > yearMax) 
-        ui->spYear->setValue(yearMax);
-    else
-        UpdateMonthMenu();
+    SetYearRange(yearMin, yearMax);
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetShowYear()));
     
     UpdateViewModel();
     UpdateMonthMenu();
@@ -820,7 +903,7 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 
 CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return ViewTypeMonth;
     return pModel->GetViewType();
@@ -828,7 +911,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
 
 CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return static_cast<_CalendarType>(CalendarTypeLunar | CalendarTypeSolar);
     return pModel->GetCalendarType();
@@ -836,7 +919,7 @@ CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
 
 int CLunarCalendar::SetCalendarType(_CalendarType type)
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -1;
     int nRet = pModel->SetCalendarType(type);
@@ -862,12 +945,12 @@ int CLunarCalendar::GenerateCalendarTable(const QString &szFile,
 
 void CLunarCalendar::slotTimeout()
 {
-    ui->lbTime->setText(QTime::currentTime().toString(locale().timeFormat())); // + " " + QString::number(QTime::currentTime().msec()));
+    m_lbTime.setText(QTime::currentTime().toString(locale().timeFormat())); // + " " + QString::number(QTime::currentTime().msec()));
 }
 
 void CLunarCalendar::SetShowTime(bool bShow)
 {
-    ui->lbTime->setVisible(bShow);
+    m_lbTime.setVisible(bShow);
     if(bShow)
         m_Timer.start(1000);
     else
@@ -876,13 +959,13 @@ void CLunarCalendar::SetShowTime(bool bShow)
 
 int CLunarCalendar::SetBackgroup(const QString &szFile)
 {
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(ui->tvMonth->model());
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -1;
     
     if(m_bShowBackgroupImage)
-        ui->tvMonth->setStyleSheet("border-image:url(" + szFile + ")");
+        m_View.setStyleSheet("border-image:url(" + szFile + ")");
     else
-        ui->tvMonth->setStyleSheet("border-image:none");
+        m_View.setStyleSheet("border-image:none");
     return 0;
 }
