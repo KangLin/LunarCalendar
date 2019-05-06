@@ -102,19 +102,21 @@ IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
         DESTINATION "${CMAKE_INSTALL_BINDIR}")
 ENDIF()
 
-#IF(ANDROID)
-#    GENERATED_DEPLOYMENT_SETTINGS()
-#    find_program(ANT NAMES ant) # PATHS  "/usr/bin")
-#    MESSAGE("ant:${ANT}\n")
-
-#    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/libRabbitIm.so ${CMAKE_BINARY_DIR}/android-build/libs/${ANDROID_ABI}/libRabbitIm.so
-#        #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中
-#        COMMAND "${QT_INSTALL_DIR}/bin/androiddeployqt"
-#            --input ${CMAKE_BINARY_DIR}/android-libRabbitIm.so-deployment-settings.json
-#            --output ${CMAKE_BINARY_DIR}/android-build
-#            --verbose
-#            #--ant /usr/bin/ant
-#            #--jdk $ENV{JAVA_HOME}
-#    )
-#ENDIF(ANDROID)
+IF(ANDROID)
+    include(${CMAKE_SOURCE_DIR}/cmake/Android.cmake)
+    GENERATED_DEPLOYMENT_SETTINGS()
+    find_program(ANT NAMES ant) # PATHS  "/usr/bin")
+    MESSAGE("ant:${ANT}\n")
+    find_program(GRADLE NAMES gradle)
+    MESSAGE("GRADLE:${GRADLE}\n")
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中
+        COMMAND "${QT_INSTALL_DIR}/bin/androiddeployqt"
+            --input "${PROJECT_BINARY_DIR}/android-${PROJECT_NAME}-deployment-settings.json"
+            --output ${CMAKE_BINARY_DIR}/android-build
+            --verbose
+            --gradle
+            #--ant /usr/bin/ant
+            #--jdk $ENV{JAVA_HOME}
+    )
+ENDIF(ANDROID)
