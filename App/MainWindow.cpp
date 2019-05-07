@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
+    //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
             this, SLOT(slotUpdateCalendar()));

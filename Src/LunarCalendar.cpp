@@ -74,6 +74,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
         
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     SetShowGrid(false);
+    
     //m_View.setFocusPolicy(Qt::WheelFocus);
     m_View.setSelectionBehavior(QAbstractItemView::SelectItems);
     m_View.setSelectionMode(QAbstractItemView::SingleSelection);
@@ -276,6 +277,14 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         break;
     }
     return 0;
+}
+
+void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
+{
+    m_View.setSizePolicy(hor, ver);
+    m_lbDate.setSizePolicy(hor, ver);
+    m_lbTime.setSizePolicy(hor, ver);
+    QWidget::setSizePolicy(hor, ver);
 }
 
 int CLunarCalendar::ShowSelectTitle()

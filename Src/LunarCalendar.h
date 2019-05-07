@@ -72,6 +72,8 @@ public:
     void SetMaximumDate(const QDate &date);
     void SetDateRange(const QDate &min, const QDate &max);
 
+    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
+    
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
