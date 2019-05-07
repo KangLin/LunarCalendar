@@ -44,6 +44,25 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewBackgroup->setChecked(true);
     m_pLunarCalendar->SetShowBackgroupImage(true);
 
+    QActionGroup* pViewHeadPostion = new QActionGroup(this);
+    QMenu* pViewHeadPostionMenu = pViewMenu->addMenu(tr("Head postion"));
+    QAction* pHeadNot = pViewHeadPostionMenu->addAction(tr("Not"), this, SLOT(slotHeadPostionNot()));
+    pHeadNot->setCheckable(true);
+    QAction* pHeadTop = pViewHeadPostionMenu->addAction(tr("Top"), this, SLOT(slotHeadPostionTop()));
+    pHeadTop->setCheckable(true);
+    pHeadTop->setChecked(true);
+    QAction* pHeadDown = pViewHeadPostionMenu->addAction(tr("Down"), this, SLOT(slotHeadPostionDown()));
+    pHeadDown->setCheckable(true);
+    QAction* pHeadLeft = pViewHeadPostionMenu->addAction(tr("Left"), this, SLOT(slotHeadPostionLeft()));
+    pHeadLeft->setCheckable(true);
+    QAction* pHeadRight = pViewHeadPostionMenu->addAction(tr("Right"), this, SLOT(slotHeadPostionRight()));
+    pHeadRight->setCheckable(true);
+    pViewHeadPostion->addAction(pHeadNot);
+    pViewHeadPostion->addAction(pHeadTop);
+    pViewHeadPostion->addAction(pHeadDown);
+    pViewHeadPostion->addAction(pHeadLeft);
+    pViewHeadPostion->addAction(pHeadRight);
+    
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
     m_frmUpdate.SetTitle(QPixmap(":/image/Calendar"));
@@ -151,4 +170,29 @@ void MainWindow::slotViewWeek()
 void MainWindow::slotViewBackgroup(bool checked)
 {
     m_pLunarCalendar->SetShowBackgroupImage(checked);
+}
+
+void MainWindow::slotHeadPostionNot()
+{
+    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Not);
+}
+
+void MainWindow::slotHeadPostionTop()
+{
+    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Top);
+}
+
+void MainWindow::slotHeadPostionDown()
+{
+    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Down);
+}
+
+void MainWindow::slotHeadPostionLeft()
+{
+    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Left);
+}
+
+void MainWindow::slotHeadPostionRight()
+{
+    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Right);
 }

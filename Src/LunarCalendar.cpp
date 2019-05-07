@@ -3,9 +3,6 @@
 #include <QDate>
 #include <QLocale>
 #include <QDebug>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGridLayout>
 #include <QHeaderView>
 #include <QKeyEvent>
 #include <QWheelEvent>
@@ -46,14 +43,27 @@ static CLunarCalendarPrivate* g_pLunarCalendarPrivate = nullptr;
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
+    m_cmbYear(this),
+    m_tbPreYear(this),
+    m_tbNextYear(this),
+    m_cmbMonth(this),
+    m_tbPreMonth(this),
+    m_tbNextMonth(this),
+    m_pbToday(this),
+    m_lbDate(this),
+    m_lbTime(this),
+    m_View(this),
+    m_pToolLayout(nullptr),
+    m_pHeadLayout(nullptr),
+    m_pMainLayout(nullptr),
     m_oldRow(0),
-    m_oldCol(0),
+    m_oldCol(0),    
     m_bShowToday(true),
     m_bShowBackgroupImage(false)
+    
 {
     //setLocale(QLocale("zh_CN"));
-    
-    SetShowHead(true);
+
     m_tbPreYear.setArrowType(Qt::UpArrow);
     m_tbNextYear.setArrowType(Qt::DownArrow);
     m_tbPreMonth.setArrowType(Qt::UpArrow);
@@ -107,23 +117,23 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     SetYearRange(pModel->GetMinimumDate().year(),
                  pModel->GetMaximumDate().year());
     m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetDate().year()));
+    m_cmbYear.setEditable(true);
     
-    QHBoxLayout* pToolLayout = new QHBoxLayout();
-    pToolLayout->addWidget(&m_tbPreYear);
-    pToolLayout->addWidget(&m_cmbYear);
-    pToolLayout->addWidget(&m_tbNextYear);
-    pToolLayout->addWidget(&m_tbPreMonth);
-    pToolLayout->addWidget(&m_cmbMonth);
-    pToolLayout->addWidget(&m_tbNextMonth);
-    pToolLayout->addWidget(&m_pbToday);
+//    m_View.sizePolicy().setVerticalPolicy(QSizePolicy::Preferred);
+//    m_View.sizePolicy().setHorizontalPolicy(QSizePolicy::Preferred);
     
-    QVBoxLayout* pVLayout = new QVBoxLayout(this);
-    pVLayout->addLayout(pToolLayout);
-    pVLayout->addWidget(&m_lbDate);
-    pVLayout->addWidget(&m_lbTime);
-    pVLayout->addWidget(&m_View);
-    pVLayout->setMargin(0);
-    setLayout(pVLayout);
+    m_pToolLayout = new QHBoxLayout();
+    m_pToolLayout->addWidget(&m_tbPreYear);
+    m_pToolLayout->addWidget(&m_cmbYear);
+    m_pToolLayout->addWidget(&m_tbNextYear);
+    m_pToolLayout->addWidget(&m_tbPreMonth);
+    m_pToolLayout->addWidget(&m_cmbMonth);
+    m_pToolLayout->addWidget(&m_tbNextMonth);
+    m_pToolLayout->addWidget(&m_pbToday);
+    m_pToolLayout->setMargin(0);
+    //m_pToolLayout->setSpacing(0);
+    
+    SetHeadPostion();
     
     bool check = connect(&m_Timer, SIGNAL(timeout()),
                          this, SLOT(slotTimeout()));
@@ -181,6 +191,91 @@ void CLunarCalendar::CLeanResource()
 #if defined(Q_OS_ANDROID) || _DEBUG
     Q_CLEANUP_RESOURCE(translations_LunarCalendar);
 #endif
+}
+
+int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
+{
+    if(m_pMainLayout)
+    {
+        m_pMainLayout->removeWidget(&m_View);
+        m_pMainLayout->removeItem(m_pHeadLayout);
+        delete m_pMainLayout;
+        m_pMainLayout = nullptr;
+    }
+    if(m_pHeadLayout)
+    {
+        m_pHeadLayout->removeItem(m_pToolLayout);
+        m_pHeadLayout->removeWidget(&m_lbDate);
+        m_pHeadLayout->removeWidget(&m_lbTime);
+        delete m_pHeadLayout;
+        m_pHeadLayout = nullptr;
+    }
+    
+    m_pMainLayout = new QGridLayout(this);
+    m_pMainLayout->setMargin(0);
+    m_pMainLayout->setSpacing(0);
+    setLayout(m_pMainLayout);
+    
+    switch (pos) {
+    case Not:
+        SetShowHead(false);
+        m_pMainLayout->addWidget(&m_View);
+        break;
+    case Top:
+        SetShowHead(true);
+        m_pHeadLayout = new QVBoxLayout();
+        m_pHeadLayout->addLayout(m_pToolLayout);
+        m_pHeadLayout->addWidget(&m_lbDate);
+        m_pHeadLayout->addWidget(&m_lbTime);
+        m_pHeadLayout->setMargin(0);
+        m_pHeadLayout->setSpacing(0);
+        
+        m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
+        m_pMainLayout->addWidget(&m_View);
+        break;
+    case Down:
+        SetShowHead(true);
+        m_pMainLayout->addWidget(&m_View);
+        
+        m_pHeadLayout = new QVBoxLayout();
+        m_pHeadLayout->addLayout(m_pToolLayout);
+        m_pHeadLayout->addWidget(&m_lbDate);
+        m_pHeadLayout->addWidget(&m_lbTime);
+        m_pHeadLayout->setMargin(0);
+        m_pHeadLayout->setSpacing(0);
+        
+        m_pMainLayout->addLayout(m_pHeadLayout, 1, 0);
+        break;
+    case Left:
+        SetShowHead(true);
+        m_pHeadLayout = new QVBoxLayout();
+        m_pHeadLayout->addStretch();
+        m_pHeadLayout->addLayout(m_pToolLayout);
+        m_pHeadLayout->addWidget(&m_lbDate);
+        m_pHeadLayout->addWidget(&m_lbTime);
+        m_pHeadLayout->addStretch();
+        m_pHeadLayout->setMargin(0);
+        m_pHeadLayout->setSpacing(0);
+        
+        m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
+        m_pMainLayout->addWidget(&m_View, 0, 1);
+        break;
+    case Right:
+        SetShowHead(true);
+        m_pMainLayout->addWidget(&m_View);
+        m_pHeadLayout = new QVBoxLayout();
+        m_pHeadLayout->addStretch();
+        m_pHeadLayout->addLayout(m_pToolLayout);
+        m_pHeadLayout->addWidget(&m_lbDate);
+        m_pHeadLayout->addWidget(&m_lbTime);
+        m_pHeadLayout->addStretch();
+        m_pHeadLayout->setMargin(0);
+        m_pHeadLayout->setSpacing(0);
+        
+        m_pMainLayout->addLayout(m_pHeadLayout, 0, 1);
+        break;
+    }
+    return 0;
 }
 
 int CLunarCalendar::ShowSelectTitle()
@@ -586,7 +681,7 @@ int CLunarCalendar::SetYearRange(int min, int max)
         return -1;
     
     bool check = m_cmbYear.disconnect();
-    Q_ASSERT(check);
+
     m_cmbYear.clear();
     for(int i = min; i < max; i++)
     {

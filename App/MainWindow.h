@@ -29,6 +29,11 @@ private Q_SLOTS:
     void slotViewMonth();
     void slotViewWeek();
     void slotViewBackgroup(bool checked);
+    void slotHeadPostionNot();
+    void slotHeadPostionTop();
+    void slotHeadPostionDown();
+    void slotHeadPostionLeft();
+    void slotHeadPostionRight();
     
 private:
     Ui::MainWindow *ui;

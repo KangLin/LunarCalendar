@@ -44,7 +44,6 @@ set(SOURCE_FILES
     LunarTable.cpp
     )
 set(SOURCE_UI_FILES
-    LunarCalendar.ui 
     )
 
 #翻译

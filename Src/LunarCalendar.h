@@ -10,6 +10,9 @@
 #include <QComboBox>
 #include <QToolButton>
 #include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QGridLayout>
 #include "lunarcalendar_export.h"
 
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
@@ -53,6 +56,15 @@ public:
     void SetShowHead(bool bShow);
     void SetShowTime(bool bShow);
     void SetShowTools(bool bShow);
+    enum _HEAD_POSTION
+    {
+        Not,
+        Top,
+        Down,
+        Left,
+        Right
+    };
+    int SetHeadPostion(_HEAD_POSTION pos = Top);
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
@@ -116,6 +128,10 @@ private:
     QLabel m_lbDate, m_lbTime;
     QTableView m_View;
 
+    QHBoxLayout* m_pToolLayout;
+    QVBoxLayout* m_pHeadLayout;
+    QGridLayout* m_pMainLayout;
+    
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
     QTimer m_Timer;

@@ -40,16 +40,46 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="48"/>
+        <source>Head postion</source>
+        <translation>頭位置</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="49"/>
+        <source>Not</source>
+        <translation>隱藏</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="51"/>
+        <source>Top</source>
+        <translation>上</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="54"/>
+        <source>Down</source>
+        <translation>下</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="56"/>
+        <source>Left</source>
+        <translation>左</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="58"/>
+        <source>Right</source>
+        <translation>右</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="67"/>
         <source>Help</source>
         <translation>幫助</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="50"/>
+        <location filename="../../MainWindow.cpp" line="69"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="51"/>
+        <location filename="../../MainWindow.cpp" line="70"/>
         <source>About</source>
         <translation>關於</translation>
     </message>
