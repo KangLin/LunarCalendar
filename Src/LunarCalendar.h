@@ -48,14 +48,13 @@ public:
     
     void SetShowGrid(bool show);
     bool ShowGrid();
+    
     void SetShowBackgroupImage(bool show);
     bool ShowBackgroupImage();
-    void SetShowToday(bool bShow);
-    void SetShowWeekHead(bool bShow);
-    void SetShowWeeks(bool bShow);
-    void SetShowHead(bool bShow);
-    void SetShowTime(bool bShow);
-    void SetShowTools(bool bShow);
+    
+    void ShowHead(bool bShow);
+    void ShowWeekHead(bool bShow);
+    void ShowWeeks(bool bShow);
     enum _HEAD_POSTION
     {
         Not,
@@ -65,6 +64,9 @@ public:
         Right
     };
     int SetHeadPostion(_HEAD_POSTION pos = Top);
+    void ShowToday(bool bShow);
+    void ShowTime(bool bShow);
+    void ShowTools(bool bShow);
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
@@ -72,8 +74,6 @@ public:
     void SetMaximumDate(const QDate &date);
     void SetDateRange(const QDate &min, const QDate &max);
 
-    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
-    
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
@@ -93,6 +93,10 @@ public:
     
     int LoadCalendarTable(const QString& szFile);
     int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
+    
+    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
+    virtual QSize sizeHint() const override;
+    virtual QSize minimumSizeHint() const override;
     
 Q_SIGNALS:
     void sigSelectionChanged();
@@ -133,11 +137,16 @@ private:
     QHBoxLayout* m_pToolLayout;
     QVBoxLayout* m_pHeadLayout;
     QGridLayout* m_pMainLayout;
+    _HEAD_POSTION m_HeadPostion;
     
     int m_oldRow, m_oldCol;
     bool m_bShowToday;
     QTimer m_Timer;
     bool m_bShowBackgroupImage;
+    
+    // QWidget interface
+protected:
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // LUNARCALENDAR_H

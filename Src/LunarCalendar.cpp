@@ -4,6 +4,7 @@
 #include <QLocale>
 #include <QDebug>
 #include <QHeaderView>
+#include <QScrollBar>
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include <QModelIndex>
@@ -56,6 +57,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout(nullptr),
     m_pHeadLayout(nullptr),
     m_pMainLayout(nullptr),
+    m_HeadPostion(Top),
     m_oldRow(0),
     m_oldCol(0),    
     m_bShowToday(true),
@@ -71,7 +73,17 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_lbDate.setAlignment(Qt::AlignCenter);
     m_lbTime.setAlignment(Qt::AlignCenter);
     m_pbToday.setText(tr("Today"));
-        
+    
+//    m_tbPreYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_cmbYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_tbNextYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_tbPreMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_cmbMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_tbNextMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_pbToday.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_lbDate.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+//    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     SetShowGrid(false);
     
@@ -96,6 +108,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.setFrameStyle(QFrame::NoFrame);
     m_View.installEventFilter(this);
+    m_View.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    m_View.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //m_View.setAutoScroll(false);
     //m_View.setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
     //m_View.setAlternatingRowColors(true); //设置奇偶行颜色
@@ -163,6 +177,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     check = connect(&m_View, SIGNAL(pressed(const QModelIndex&)),
                     this, SLOT(on_tvMonth_pressed(const QModelIndex&)));
     Q_ASSERT(check);
+    this->resize(minimumSizeHint());
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -196,6 +211,7 @@ void CLunarCalendar::CLeanResource()
 
 int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
 {
+    m_HeadPostion = pos;
     if(m_pMainLayout)
     {
         m_pMainLayout->removeWidget(&m_View);
@@ -219,11 +235,11 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
     
     switch (pos) {
     case Not:
-        SetShowHead(false);
+        ShowHead(false);
         m_pMainLayout->addWidget(&m_View);
         break;
     case Top:
-        SetShowHead(true);
+        ShowHead(true);
         m_pHeadLayout = new QVBoxLayout();
         m_pHeadLayout->addLayout(m_pToolLayout);
         m_pHeadLayout->addWidget(&m_lbDate);
@@ -235,7 +251,7 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pMainLayout->addWidget(&m_View);
         break;
     case Down:
-        SetShowHead(true);
+        ShowHead(true);
         m_pMainLayout->addWidget(&m_View);
         
         m_pHeadLayout = new QVBoxLayout();
@@ -248,7 +264,7 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pMainLayout->addLayout(m_pHeadLayout, 1, 0);
         break;
     case Left:
-        SetShowHead(true);
+        ShowHead(true);
         m_pHeadLayout = new QVBoxLayout();
         m_pHeadLayout->addStretch();
         m_pHeadLayout->addLayout(m_pToolLayout);
@@ -262,7 +278,7 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pMainLayout->addWidget(&m_View, 0, 1);
         break;
     case Right:
-        SetShowHead(true);
+        ShowHead(true);
         m_pMainLayout->addWidget(&m_View);
         m_pHeadLayout = new QVBoxLayout();
         m_pHeadLayout->addStretch();
@@ -277,14 +293,6 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         break;
     }
     return 0;
-}
-
-void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
-{
-    m_View.setSizePolicy(hor, ver);
-    m_lbDate.setSizePolicy(hor, ver);
-    m_lbTime.setSizePolicy(hor, ver);
-    QWidget::setSizePolicy(hor, ver);
 }
 
 int CLunarCalendar::ShowSelectTitle()
@@ -432,7 +440,7 @@ bool CLunarCalendar::ShowBackgroupImage()
     return m_bShowBackgroupImage;
 }
 
-void CLunarCalendar::SetShowToday(bool bShow)
+void CLunarCalendar::ShowToday(bool bShow)
 {
     if(m_bShowToday == bShow)
         return;
@@ -440,24 +448,24 @@ void CLunarCalendar::SetShowToday(bool bShow)
     m_pbToday.setVisible(m_bShowToday);
 }
 
-void CLunarCalendar::SetShowWeeks(bool bShow)
+void CLunarCalendar::ShowWeeks(bool bShow)
 {
     m_View.verticalHeader()->setVisible(bShow);
 }
 
-void CLunarCalendar::SetShowWeekHead(bool bShow)
+void CLunarCalendar::ShowWeekHead(bool bShow)
 {
     m_View.horizontalHeader()->setVisible(bShow);
 }
 
-void CLunarCalendar::SetShowHead(bool bShow)
+void CLunarCalendar::ShowHead(bool bShow)
 {
-    SetShowTools(bShow);
+    ShowTools(bShow);
     m_lbDate.setVisible(bShow);
-    SetShowTime(bShow);
+    ShowTime(bShow);
 }
 
-void CLunarCalendar::SetShowTools(bool bShow)
+void CLunarCalendar::ShowTools(bool bShow)
 {
     m_tbPreYear.setVisible(bShow);
     m_tbNextYear.setVisible(bShow);
@@ -465,7 +473,7 @@ void CLunarCalendar::SetShowTools(bool bShow)
     m_tbNextMonth.setVisible(bShow);
     m_tbPreMonth.setVisible(bShow);
     m_cmbMonth.setVisible(bShow);
-    SetShowToday(bShow);
+    ShowToday(bShow);
 }
 
 /*!
@@ -583,7 +591,7 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     if(QDate::currentDate() > date)
         m_pbToday.setVisible(false);
     else
-        SetShowToday(m_bShowToday);
+        ShowToday(m_bShowToday);
     
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
@@ -620,7 +628,7 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
     if(QDate::currentDate() < date)
         m_pbToday.setVisible(false);
     else
-        SetShowToday(m_bShowToday);
+        ShowToday(m_bShowToday);
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
     QDate oldDate = pModel->GetDate();
@@ -660,7 +668,7 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     if(QDate::currentDate() < min || QDate::currentDate() > max)
         m_pbToday.setVisible(false);
     else
-        SetShowToday(m_bShowToday);
+        ShowToday(m_bShowToday);
     
     QDate oldDate = pModel->GetDate();
     pModel->setRange(min, max);
@@ -1052,7 +1060,7 @@ void CLunarCalendar::slotTimeout()
     m_lbTime.setText(QTime::currentTime().toString(locale().timeFormat())); // + " " + QString::number(QTime::currentTime().msec()));
 }
 
-void CLunarCalendar::SetShowTime(bool bShow)
+void CLunarCalendar::ShowTime(bool bShow)
 {
     m_lbTime.setVisible(bShow);
     if(bShow)
@@ -1072,4 +1080,119 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     else
         m_View.setStyleSheet("border-image:none");
     return 0;
+}
+
+void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
+{
+    m_View.setSizePolicy(hor, ver);
+    QWidget::setSizePolicy(hor, ver);
+}
+
+QSize CLunarCalendar::sizeHint() const
+{
+    return minimumSizeHint();
+}
+
+QSize CLunarCalendar::minimumSizeHint() const
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel)
+        return QSize();
+    
+    ensurePolished();
+    int w = 0;
+    int h = 0;
+
+    int rows = pModel->rowCount();
+    int cols = pModel->columnCount();
+
+    QMargins cm = m_View.horizontalHeader()->contentsMargins();
+    w = (m_View.horizontalHeader()->minimumSectionSize() + 2) * cols
+            + m_View.horizontalHeader()->minimumWidth()
+            + cm.left() + cm.right();
+    cm = m_View.verticalHeader()->contentsMargins();
+    h = (m_View.verticalHeader()->minimumSectionSize() + 2) * rows
+            + m_View.verticalHeader()->minimumHeight()
+            + cm.left() + cm.right();
+   
+    //add the size of the header.
+    int headerH = 0;
+    int headerW = 0;
+    if(m_tbPreYear.isVisible())
+    {
+        QSize s = m_tbPreYear.minimumSizeHint();
+        headerH = s.height();
+        headerW = s.width();
+    }
+    if(m_cmbYear.isVisible())
+    {
+        QSize s = m_cmbYear.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_tbNextYear.isVisible())
+    {
+        QSize s = m_tbNextYear.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_tbPreMonth.isVisible())
+    {
+        QSize s = m_tbPreMonth.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_cmbMonth.isVisible())
+    {
+        QSize s = m_cmbMonth.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_tbNextMonth.isVisible())
+    {
+        QSize s = m_tbNextMonth.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_pbToday.isVisible())
+    {
+        QSize s = m_pbToday.minimumSizeHint();
+        headerH = qMax(headerH, s.height());
+        headerW += s.width();
+    }
+    if(m_lbDate.isVisible())
+    {
+        QSize s = m_lbDate.minimumSizeHint();
+        headerH += s.height();
+        headerW = qMax(headerW, s.width());
+    }
+    if(m_lbTime.isVisible())
+    {
+        QSize s = m_lbTime.minimumSizeHint();
+        headerH += s.height();
+        headerW = qMax(headerW, s.width());
+    }
+    headerH += 5;
+    headerW += 2;
+    switch (m_HeadPostion) {
+    case Top:
+    case Down:
+        w = qMax(w, headerW);
+        h += headerH;
+        break;
+    case Left:
+    case Right:
+        w += headerW;
+        h = qMax(h, headerH);
+        break;
+    default:
+        break;
+    }
+    
+    return QSize(w, h);
+}
+
+void CLunarCalendar::resizeEvent(QResizeEvent *event)
+{
+    qDebug() << event->size();
 }
