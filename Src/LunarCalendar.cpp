@@ -1106,74 +1106,85 @@ QSize CLunarCalendar::minimumSizeHint() const
     int rows = pModel->rowCount();
     int cols = pModel->columnCount();
 
+    int marginW = m_View.horizontalHeader()->style()->pixelMetric(
+                             QStyle::PM_FocusFrameHMargin) << 1;
+    int marginH = m_View.verticalHeader()->style()->pixelMetric(
+                       QStyle::PM_FocusFrameVMargin) << 1;
     QMargins cm = m_View.horizontalHeader()->contentsMargins();
-    w = (m_View.horizontalHeader()->minimumSectionSize() + 2) * cols
-            + m_View.horizontalHeader()->minimumWidth()
-            + cm.left() + cm.right();
+    w = (m_View.horizontalHeader()->minimumSectionSize() + marginW) * cols
+            + marginW + cm.left() + cm.right();
+    if(m_View.verticalHeader()->isVisible())
+        w += m_View.verticalHeader()->sizeHint().width();
+    
     cm = m_View.verticalHeader()->contentsMargins();
-    h = (m_View.verticalHeader()->minimumSectionSize() + 2) * rows
-            + m_View.verticalHeader()->minimumHeight()
-            + cm.left() + cm.right();
-   
+    h = (m_View.verticalHeader()->minimumSectionSize() + marginH) * rows
+            + marginH + cm.top() + cm.bottom();
+    if(m_View.horizontalHeader()->isVisible())
+        h += m_View.horizontalHeader()->sizeHint().height();
+    
+    qDebug() << "w:" << w << "h:" << h << "marginW:" << marginW
+             << "marginH:" << marginH << cm
+             << "ver height:" << m_View.verticalHeader()->minimumHeight()
+             << "hor width:" << m_View.horizontalHeader()->minimumWidth();
+    
     //add the size of the header.
     int headerH = 0;
     int headerW = 0;
     if(m_tbPreYear.isVisible())
     {
-        QSize s = m_tbPreYear.minimumSizeHint();
+        QSize s = m_tbPreYear.sizeHint();
         headerH = s.height();
         headerW = s.width();
     }
     if(m_cmbYear.isVisible())
     {
-        QSize s = m_cmbYear.minimumSizeHint();
+        QSize s = m_cmbYear.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_tbNextYear.isVisible())
     {
-        QSize s = m_tbNextYear.minimumSizeHint();
+        QSize s = m_tbNextYear.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_tbPreMonth.isVisible())
     {
-        QSize s = m_tbPreMonth.minimumSizeHint();
+        QSize s = m_tbPreMonth.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_cmbMonth.isVisible())
     {
-        QSize s = m_cmbMonth.minimumSizeHint();
+        QSize s = m_cmbMonth.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_tbNextMonth.isVisible())
     {
-        QSize s = m_tbNextMonth.minimumSizeHint();
+        QSize s = m_tbNextMonth.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_pbToday.isVisible())
     {
-        QSize s = m_pbToday.minimumSizeHint();
+        QSize s = m_pbToday.sizeHint();
         headerH = qMax(headerH, s.height());
         headerW += s.width();
     }
     if(m_lbDate.isVisible())
     {
-        QSize s = m_lbDate.minimumSizeHint();
+        QSize s = m_lbDate.sizeHint();
         headerH += s.height();
         headerW = qMax(headerW, s.width());
     }
     if(m_lbTime.isVisible())
     {
-        QSize s = m_lbTime.minimumSizeHint();
+        QSize s = m_lbTime.sizeHint();
         headerH += s.height();
         headerW = qMax(headerW, s.width());
     }
-    headerH += 5;
-    headerW += 2;
+
     switch (m_HeadPostion) {
     case Top:
     case Down:
@@ -1189,10 +1200,9 @@ QSize CLunarCalendar::minimumSizeHint() const
         break;
     }
     
+    cm = contentsMargins();
+    w += cm.left() + cm.right();
+    h += cm.top() + cm.bottom();
+    
     return QSize(w, h);
-}
-
-void CLunarCalendar::resizeEvent(QResizeEvent *event)
-{
-    qDebug() << event->size();
 }

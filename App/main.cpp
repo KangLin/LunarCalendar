@@ -61,7 +61,6 @@ int main(int argc, char *argv[])
         int left = (rect.width() - 500) >> 1;
         int top = (rect.height() - 500) >> 1;
         w.move(left, top);
-        w.resize(500, 500);
     #endif
     w.show();
 #endif

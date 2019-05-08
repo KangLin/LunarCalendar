@@ -143,10 +143,6 @@ private:
     bool m_bShowToday;
     QTimer m_Timer;
     bool m_bShowBackgroupImage;
-    
-    // QWidget interface
-protected:
-    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // LUNARCALENDAR_H
