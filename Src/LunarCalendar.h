@@ -36,7 +36,7 @@ public:
     static void CLeanResource();
     
     QDate SelectedDate() const;
-    void SetSelectedDate(const QDate &date);
+    void SetSelectedDate(const QDate &date, bool bForce = false);
     
     QString SelectedLunar();
     
@@ -64,9 +64,11 @@ public:
         Right
     };
     int SetHeadPostion(_HEAD_POSTION pos = Top);
-    void ShowToday(bool bShow);
-    void ShowTime(bool bShow);
     void ShowTools(bool bShow);
+    void ShowToday(bool bShow);
+    void ShowDate(bool bShow);
+    void ShowTime(bool bShow);
+    
     
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);

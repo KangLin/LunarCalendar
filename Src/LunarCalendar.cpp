@@ -374,10 +374,10 @@ void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 
 void CLunarCalendar::on_pbToday_clicked()
 {
-    m_cmbYear.setCurrentIndex(m_cmbYear.findData(QDate::currentDate().year()));
-    int nIndex = m_cmbMonth.findData(QDate::currentDate().month());
-    if(nIndex > -1)
-        m_cmbMonth.setCurrentIndex(nIndex);
+//    m_cmbYear.setCurrentIndex(m_cmbYear.findData(QDate::currentDate().year()));
+//    int nIndex = m_cmbMonth.findData(QDate::currentDate().month());
+//    if(nIndex > -1)
+//        m_cmbMonth.setCurrentIndex(nIndex);
     SetSelectedDate(QDate::currentDate());
 }
 
@@ -461,7 +461,7 @@ void CLunarCalendar::ShowWeekHead(bool bShow)
 void CLunarCalendar::ShowHead(bool bShow)
 {
     ShowTools(bShow);
-    m_lbDate.setVisible(bShow);
+    ShowDate(bShow);
     ShowTime(bShow);
 }
 
@@ -474,6 +474,11 @@ void CLunarCalendar::ShowTools(bool bShow)
     m_tbPreMonth.setVisible(bShow);
     m_cmbMonth.setVisible(bShow);
     ShowToday(bShow);
+}
+
+void CLunarCalendar::ShowDate(bool bShow)
+{
+    m_lbDate.setVisible(bShow);
 }
 
 /*!
@@ -493,14 +498,14 @@ QDate CLunarCalendar::SelectedDate() const
     return pModel->GetDate();
 }
 
-void CLunarCalendar::SetSelectedDate(const QDate &date)
+void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
 {
     if (!date.isValid())
         return;
 
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
-    if(pModel->GetDate() != date)
+    if(bForce || pModel->GetDate() != date)
     {
         pModel->setDate(date);
         QDate newDate = pModel->GetDate();
@@ -872,6 +877,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             QWheelEvent *we = dynamic_cast<QWheelEvent*>(event);
             const int numDegrees = we->delta() / 8;
             const int numSteps = numDegrees / 15;
+            //qDebug() << "step:" << numSteps;
             CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
             if(pModel)
             {
@@ -985,14 +991,6 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     if(!pModel)
         return -1;
     int nRet = pModel->SetViewType(type);
-    switch (GetViewType()) {
-    case ViewTypeWeek:
-        m_cmbMonth.setToolTip(tr("Week"));
-        break;
-    case ViewTypeMonth:
-        m_cmbMonth.setToolTip(tr("Month"));
-        break;
-    }
     
     int yearMin = pModel->GetMinimumDate().year();
     if(GetViewType() == ViewTypeWeek)
@@ -1008,8 +1006,17 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     SetYearRange(yearMin, yearMax);
     m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetShowYear()));
     
-    UpdateViewModel();
-    UpdateMonthMenu();
+    SetSelectedDate(QDate::currentDate(), true);
+
+    switch (GetViewType()) {
+    case ViewTypeWeek:
+        m_cmbMonth.setToolTip(tr("Week"));
+        break;
+    case ViewTypeMonth:
+        m_cmbMonth.setToolTip(tr("Month"));
+        break;
+    }
+
     return nRet;
 }
 
@@ -1122,10 +1129,10 @@ QSize CLunarCalendar::minimumSizeHint() const
     if(m_View.horizontalHeader()->isVisible())
         h += m_View.horizontalHeader()->sizeHint().height();
     
-    qDebug() << "w:" << w << "h:" << h << "marginW:" << marginW
-             << "marginH:" << marginH << cm
-             << "ver height:" << m_View.verticalHeader()->minimumHeight()
-             << "hor width:" << m_View.horizontalHeader()->minimumWidth();
+//    qDebug() << "w:" << w << "h:" << h << "marginW:" << marginW
+//             << "marginH:" << marginH << cm
+//             << "ver height:" << m_View.verticalHeader()->minimumHeight()
+//             << "hor width:" << m_View.horizontalHeader()->minimumWidth();
     
     //add the size of the header.
     int headerH = 0;
