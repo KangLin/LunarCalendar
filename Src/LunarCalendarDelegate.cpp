@@ -107,9 +107,15 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
     
     if(pView->horizontalHeader()->minimumSectionSize() < width)
+    {
+//        qDebug() << "pView->horizontalHeader()->minimumSectionSize():" << width;
         pView->horizontalHeader()->setMinimumSectionSize(width);
+    }
     if(pView->verticalHeader()->minimumSectionSize() < nRow * height)
+    {
+        qDebug() << "pView->verticalHeader()->minimumSectionSize() :" << nRow * height;
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
+    }
 
     if(option.rect.width() > width)
         width = option.rect.width();

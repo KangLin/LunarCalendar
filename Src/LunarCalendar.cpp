@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QStyleOption>
 #include <QPainter>
+#include <QLineEdit>
 #include "CalendarLunar.h"
 #include "LunarTable.h"
 
@@ -70,21 +71,35 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_tbNextYear.setArrowType(Qt::DownArrow);
     m_tbPreMonth.setArrowType(Qt::UpArrow);
     m_tbNextMonth.setArrowType(Qt::DownArrow);
+    
+//    QLineEdit *yearEdit = new QLineEdit;
+//    yearEdit->setAlignment(Qt::AlignCenter);
+//    m_cmbYear.setLineEdit(yearEdit);
+//    QLineEdit *monthEdit = new QLineEdit;
+//    monthEdit->setReadOnly(true);
+//    monthEdit->setAlignment(Qt::AlignCenter);
+//    m_cmbMonth.setLineEdit(monthEdit);
+    
     m_lbDate.setAlignment(Qt::AlignCenter);
     m_lbTime.setAlignment(Qt::AlignCenter);
     m_pbToday.setText(tr("Today"));
     
-//    m_tbPreYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+//    m_tbPreYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 //    m_cmbYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_tbNextYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_tbPreMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_cmbMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_tbNextMonth.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_pbToday.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_lbDate.setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
-//    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+//    m_tbNextYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+//    m_tbPreMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+//    m_cmbMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+//    m_tbNextMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+//    m_pbToday.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    m_lbDate.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
+    m_View.setModel(pModel);
+    m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
+    m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    
     SetShowGrid(false);
 
     //m_View.setFocusPolicy(Qt::WheelFocus);
@@ -102,10 +117,6 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.horizontalHeader()->setSectionsClickable(false);
     m_View.verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_View.verticalHeader()->setSectionsClickable(false);
-    m_View.setModel(pModel);
-    m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
-    m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
-    m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.setFrameStyle(QFrame::NoFrame);
     m_View.installEventFilter(this);
     m_View.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -862,6 +873,7 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
+//    qDebug() << event;
     switch(event->type()){
     
     case QEvent::TouchBegin:
@@ -928,9 +940,15 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                 m_oldCol = m_View.currentIndex().column();
                 UpdateSelect();
                 break;
+            default:
+                break;
             };
             break;
         }
+//    case QEvent::WindowActivate:
+//        qDebug() << "windowsActivate";
+//        update();
+//        break;
     default:
         break;
     }
@@ -1129,18 +1147,27 @@ QSize CLunarCalendar::minimumSizeHint() const
     w = (m_View.horizontalHeader()->minimumSectionSize() + marginW) * cols
             + marginW + cm.left() + cm.right();
     if(m_View.verticalHeader()->isVisible())
+    {
+//        qDebug() << "m_View.verticalHeader()->isVisible()";
         w += m_View.verticalHeader()->sizeHint().width();
-    
+    }
     cm = m_View.verticalHeader()->contentsMargins();
     h = (m_View.verticalHeader()->minimumSectionSize() + marginH) * rows
             + marginH + cm.top() + cm.bottom();
     if(m_View.horizontalHeader()->isVisible())
+    {
+//        qDebug() << "m_View.horizontalHeader()->isVisible()";
         h += m_View.horizontalHeader()->sizeHint().height();
+    }
     
 //    qDebug() << "w:" << w << "h:" << h << "marginW:" << marginW
+//             << "m_View.horizontalHeader()->minimumSectionSize():"
+//             << m_View.horizontalHeader()->minimumSectionSize() 
+//             << "m_View.verticalHeader()->minimumSectionSize():"
+//             << m_View.verticalHeader()->minimumSectionSize() 
 //             << "marginH:" << marginH << cm
-//             << "ver height:" << m_View.verticalHeader()->minimumHeight()
-//             << "hor width:" << m_View.horizontalHeader()->minimumWidth();
+//             << "ver height:" << m_View.verticalHeader()->sizeHint()
+//             << "hor width:" << m_View.horizontalHeader()->sizeHint();
     
     //add the size of the header.
     int headerH = 0;
@@ -1219,5 +1246,6 @@ QSize CLunarCalendar::minimumSizeHint() const
     w += cm.left() + cm.right();
     h += cm.top() + cm.bottom();
     
+//    qDebug() << "w:" << w << "h:" << h;
     return QSize(w, h);
 }
