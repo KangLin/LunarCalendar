@@ -113,7 +113,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     }
     if(pView->verticalHeader()->minimumSectionSize() < nRow * height)
     {
-        qDebug() << "pView->verticalHeader()->minimumSectionSize() :" << nRow * height;
+//        qDebug() << "pView->verticalHeader()->minimumSectionSize() :" << nRow * height;
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
     }
 
