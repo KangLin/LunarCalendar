@@ -14,7 +14,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
       m_ShowWeek(1),
-      m_FirstDay(QLocale().firstDayOfWeek())      
+      m_FirstDay(QLocale().firstDayOfWeek())
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
                         CLunarCalendar::CalendarTypeLunar
@@ -141,6 +141,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return GetDay(row, column).szImageBackgroup;
     case Anniversary:
         return GetDay(row, column).szAnniversary;
+    case Tasks:
+        return GetDay(row, column).nTasks;
     case SolarColorRole:
     {
         if(d.month() != m_ShownMonth
@@ -253,6 +255,11 @@ int CLunarCalendarModel::Show()
             }
             if(day.szAnniversary.isEmpty())
                 day.szAnniversary = m_Anniversary[d.month()][d.day()];
+            
+            if(m_GetTaskHandler)
+                day.nTasks = m_GetTaskHandler->onHandle(d);
+            else
+                day.nTasks = 0;
             
             m_Day.push_back(day);
             
@@ -667,6 +674,12 @@ int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &
 
     CCalendarLunar l;
     return l.AddAnniversary(month, day, szName);
+}
+
+int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler)
+{
+    m_GetTaskHandler = handler;
+    return 0;
 }
 
 int CLunarCalendarModel::InitHoliday()

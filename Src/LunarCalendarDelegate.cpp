@@ -51,7 +51,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
     QColor solarColor, lunarColor, anniversaryColor;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(pView->model());
+    CLunarCalendarModel* pModel
+            = dynamic_cast<CLunarCalendarModel*>(pView->model());
     
     bool bSolar = pModel->GetCalendarType() & CLunarCalendar::CalendarTypeSolar;
     bool bLunar = pModel->GetCalendarType() & CLunarCalendar::CalendarTypeLunar;
@@ -74,7 +75,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     if(bSolar)
     {
         fontSolar = GetFontRole(fontSolar,
-                          index.data(CLunarCalendarModel::SolarFontRole).toInt());
+                        index.data(CLunarCalendarModel::SolarFontRole).toInt());
         szSolar = index.data(CLunarCalendarModel::SolarRole).toString();
         
         painter->setFont(fontSolar);
@@ -89,7 +90,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     if(bLunar)
     {
         fontLunar = GetFontRole(fontLunar,
-                          index.data(CLunarCalendarModel::LunarFontRole).toInt());
+                        index.data(CLunarCalendarModel::LunarFontRole).toInt());
         szLunar = index.data(CLunarCalendarModel::LunarRole).toString();  
         
         painter->setFont(fontLunar);
@@ -102,9 +103,9 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         nRow++;
     }
     
-    szAnniversary
-            = index.data(CLunarCalendarModel::Anniversary).toString();
-
+    szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
+    int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
+    
     if(pView->horizontalHeader()->minimumSectionSize() < width)
         pView->horizontalHeader()->setMinimumSectionSize(width);
     if(pView->verticalHeader()->minimumSectionSize() < nRow * height)
@@ -128,14 +129,14 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         if(bSolar)
             solarColor = GetColorRole(palette,
-                           index.data(CLunarCalendarModel::SolarColorRole).toInt());    
+                       index.data(CLunarCalendarModel::SolarColorRole).toInt());    
         if(bLunar)
             lunarColor = GetColorRole(palette,
                        index.data(CLunarCalendarModel::LunarColorRole).toInt());
     }
     anniversaryColor = solarColor;
   
-    if(!szAnniversary.isEmpty())
+    if(!szAnniversary.isEmpty() || nTasks)
     {
         painter->setBrush(anniversaryColor);
         painter->setPen(anniversaryColor);

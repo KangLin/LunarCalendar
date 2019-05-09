@@ -13,6 +13,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGridLayout>
+#include <QSharedPointer>
 #include "lunarcalendar_export.h"
 
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
@@ -79,6 +80,15 @@ public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
+    
+    class CGetTaskHandler
+    {
+    public:
+        CGetTaskHandler() {}
+        virtual ~CGetTaskHandler(){}
+        virtual int onHandle(QDate date) = 0;
+    };
+    int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
     
     enum _CalendarType{
         CalendarTypeSolar = 0x01,

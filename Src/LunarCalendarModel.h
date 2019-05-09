@@ -44,7 +44,8 @@ public:
         LunarColorRole,
         LunarFontRole,
         BackgroupImage,
-        Anniversary
+        Anniversary,
+        Tasks
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -76,6 +77,7 @@ public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
+    int SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler);
     
     int SetCalendarType(CLunarCalendar::_CalendarType type);
     CLunarCalendar::_CalendarType GetCalendarType();
@@ -116,6 +118,7 @@ private:
         QString szLunarHoliday;
         QString szAnniversary;
         QString szImageBackgroup;
+        int nTasks;
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
@@ -125,6 +128,8 @@ private:
     
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;
+    
+    QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
 };
 
 #endif // CCALENDARMODEL_H

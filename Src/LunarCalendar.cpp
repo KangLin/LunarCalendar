@@ -86,7 +86,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     SetShowGrid(false);
-    
+
     //m_View.setFocusPolicy(Qt::WheelFocus);
     m_View.setSelectionBehavior(QAbstractItemView::SelectItems);
     m_View.setSelectionMode(QAbstractItemView::SingleSelection);
@@ -983,6 +983,14 @@ int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szNam
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->AddLunarAnniversary(month, day, szName);
+}
+
+int CLunarCalendar::SetTaskHandle(QSharedPointer<CGetTaskHandler> handler)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return -1;
+    pModel->SetTaskHandle(handler);
+    return 0;
 }
 
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
