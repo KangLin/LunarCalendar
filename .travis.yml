@@ -1,8 +1,6 @@
 sudo: required
 dist: trusty
-
 language: cpp
-
 cache:
   - apt
   - directories:
@@ -18,56 +16,55 @@ os:
 addons:
   ssh_known_hosts:
     - github.com
-
 env:
   global:
     - SOURCE_DIR=$TRAVIS_BUILD_DIR
     - RABBITIM_USE_REPOSITORIES="TRUE"
     - QMAKE=qmake
-    - RABBITIM_BUILD_THIRDLIBRARY="TRUE" 
-
+    - RABBITIM_BUILD_THIRDLIBRARY="TRUE"
   matrix:
-     - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.12 QT_VERSION=5.12.2
-     - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.10 QT_VERSION=5.10.1 GENERATORS="Unix Makefiles" STATIC=ON
-     - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.9 QT_VERSION=5.9.7 
-     - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3
-
-     - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.12 QT_VERSION=5.12.2 ANDROID_API=android-24
-     - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.9 QT_VERSION=5.9.7 ANDROID_API=android-24
-     - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3 ANDROID_API=android-18
+    - BUILD_TARGERT="unix"
+    - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.12 QT_VERSION=5.12.2
+    - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.10 QT_VERSION=5.10.1 GENERATORS="Unix Makefiles" STATIC=ON
+    - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.9 QT_VERSION=5.9.7
+    - BUILD_TARGERT="unix" BUILD_ARCH="unix" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3
+    - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.12 QT_VERSION=5.12.2 ANDROID_API=android-24
+    - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.9 QT_VERSION=5.9.7 ANDROID_API=android-24
+    - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3 ANDROID_API=android-18
 
 before_install:
   - echo "TRAVIS_OS_NAME=${TRAVIS_OS_NAME}"
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - mkdir ${SOURCE_DIR}/Tools
-  
+
 install:
   - cd ${SOURCE_DIR}
   - git clone https://github.com/KangLin/RabbitCommon.git
   - export RabbitCommon_DIR="`pwd`/RabbitCommon"
-  - bash ci/build-install-tools.sh > /dev/null
+  - bash ci/build-install-tools.sh #> /dev/null
 
 before_script:
   - cd ${SOURCE_DIR}
 
-script: 
+script:
   - bash ${SOURCE_DIR}/ci/build.sh ${SOURCE_DIR}
+
+after_script:
+  - "xpra stop :99"
 
 notifications:
   email: kl222@126.com
-  on_success: never  # [always|never|change]
+  on_success: never
   on_failure: always
 
-deploy:
-  provider: releases
-  #https://github.com/settings/tokens
-  api_key: 53dda7f59e469b59646f395f2907a78cbed83bc8
-  file: 
-    - $TRAVIS_BUILD_DIR/../lunarcalendar_*_amd64.deb
-  skip_cleanup: true
-  draft: true
-  on:
-    condition: $BUILD_TARGERT=unix
-    repo: KangLin/LunarCalendar
-    #tags: true
+#deploy:
+#  provider: releases
+#  api_key:
+#    secure: Ay7qSOP76v3aEYH8MDmVcgpB5zM6X8h5+0ewcYeEzpzhPNq+W7Wsny8TAv1ZUrZraJnpeh46z1hqlE+Be3sm4/MRGK0XrEdv681zexvVnAcQwfU79TuMCxpRMX7Yh1OhDKd0PfPo3NHGv5tJbLAJCy32f7lCMH8K3Dgiqw2zb5OOqrHHXJYjtntX4FhlEDu9r3X4i/jJsPsiXQBPjb5697pj/xxg4K1w3HC/X9OVDoPAyiEJWHWmcvdNDehq7hQNT/AYGlNNnbs7M8zrLgrUjQYxjumtn1pDbpkVYqXVFnB3rjjlqk4WFuMrq3lEg83OmNWdpX4xvA+lo2Nid8VpFMSbbgO3BPe4Sqq5uWDMbvhH7Tnpr+y31OllFOsEU2uu6GbtSFvsllNDrJbgETsL/eIPdoIHQqcV0nZNPylEd+KHh0fFJ+i/etGwZGigsXgGKLBDbnQ6b2BndbPCafEbF3hotEjNySrKxnmSCTQQ++5OtkjhhLMeYyIpEI1+7VMXynH0fuSgO8z5nKi1z4y0qS5Vm+VPSjuKgcdcpXEOwomL4jarF/nQATv9b2M9o7yzW0awAMtBqxX3WLO64P1q8wfAOYo/oYZbd6ag30WGxmsHIgC9///tLY+lg4xfN+J6u9RB5VQuXt8Q7yWiSkMGSqQF1FS8t2LOV1uV9JqBF5w=
+#  file: $TRAVIS_BUILD_DIR/../lunarcalendar_*_amd64.deb
+#  skip_cleanup: true
+#  draft: true
+#  on:
+#    tags: true
+#    condition: "$BUILD_TARGERT=unix && $QT_VERSION=5.12.2"

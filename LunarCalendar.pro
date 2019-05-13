@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+versionAtMost(QT_VERSION, 5.6) : error("Qt version must greater 5.6")
+
 TARGET = LunarCalendar
 TEMPLATE = subdirs
 CONFIG *= ordered

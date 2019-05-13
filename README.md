@@ -65,7 +65,7 @@ please compile and test the students with the corresponding equipment.
 ```
   |-App                  application source code
   |-Src                  calendar library source code
-  |- LunarCalendar.h  calendar interface header file
+     |- LunarCalendar.h  calendar interface header file
 ```
 
 ------------------------------------------------

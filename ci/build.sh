@@ -70,8 +70,33 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
-    cd $SOURCE_DIR
-    ./build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
+    if [ -z "${QT_VERSION}" ]; then
+        qmake -v
+        bash build_debpackage.sh
+        if [ "$TRAVIS_TAG" != "" ]; then
+            bash upload.sh ../lunarcalendar*_amd64.deb
+        fi
+    else
+        cd $SOURCE_DIR
+        bash build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
+        if [ "$TRAVIS_TAG" != "" ]; then
+            bash upload.sh ../lunarcalendar*_amd64.deb
+        fi
+        cd debian/lunarcalendar/opt/LunarCalendar
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/bin
+    fi
+    #if [ "$TRAVIS_TAG" != "" ]; then
+#        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib
+#        wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+#        chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+#                        export VERSION="v0.0.4"
+#        ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
+#            -qmake=${QT_ROOT}/bin/qmake -appimage
+
+#        wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+
+#        bash upload.sh Lunar*.AppImage*
+    #fi
     exit 0
 fi
 
@@ -104,7 +129,7 @@ else
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
-                PREFIX=`pwd`/install 
+                PREFIX=`pwd`/install
                 
         $MAKE
         echo "$MAKE install ...."

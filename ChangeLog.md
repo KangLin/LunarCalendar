@@ -1,6 +1,9 @@
-- v0.0.4
+- 0.0.4
   + 增月历背景图
   + 增加DEB打包
+  + 增加 SetTaskHandle 接口
+  + 增加工具位置设置
+  + 增加 minimumSizeHint 
   
 - v0.0.3
   + 增加周视图

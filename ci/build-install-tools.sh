@@ -80,7 +80,6 @@ function function_android()
     sudo apt-get install libicu-dev -qq -y
 
     #Download java
-    
 
     function_common
     cd ${SOURCE_DIR}
@@ -91,10 +90,18 @@ function function_unix()
     #汇编工具yasm
     #function_install_yasm
 
+    if [ -z "${QT_VERSION}" ]; then
+        #See: https://launchpad.net/~beineri
+        sudo add-apt-repository ppa:beineri/opt-qt58-trusty
+    fi
+
     sudo apt-get update -y -qq
-    sudo apt-get install fakeroot -y -qq
-    sudo apt-get install debhelper -y -qq
- 
+    sudo apt-get install debhelper fakeroot -y -qq
+    sudo apt-get install -y -qq libglu1-mesa-dev
+
+    if [ -z "${QT_VERSION}" ]; then
+        sudo apt-get install -y -qq qt5*-default qttools5*-dev-tools qtbase5*-dev qttools5*-dev qt*5*-dev libqt5*-dev
+    fi
     function_common
 
     cd ${SOURCE_DIR}
