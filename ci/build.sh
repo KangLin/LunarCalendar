@@ -19,8 +19,16 @@ if [ "$BUILD_TARGERT" = "android" ]; then
 fi
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
-    QT_DIR=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}
-    export QT_ROOT=${QT_DIR}/${QT_VERSION}/gcc_64
+    if [ "$BUILD_DOWNLOAD" = "TRUE" ]; then
+        QT_DIR=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}
+        export QT_ROOT=${QT_DIR}/${QT_VERSION}/gcc_64
+    else
+        #source /opt/qt${QT_VERSION_DIR}/bin/qt${QT_VERSION_DIR}-env.sh
+        export QT_ROOT=/opt/qt${QT_VERSION_DIR}
+    fi
+    export PATH=$QT_ROOT/bin:$PATH
+    export LD_LIBRARY_PATH=$QT_ROOT/lib/i386-linux-gnu:$QT_ROOT/lib:$LD_LIBRARY_PATH
+    export PKG_CONFIG_PATH=$QT_ROOT/lib/pkgconfig:$PKG_CONFIG_PATH
 fi
 
 if [ "$BUILD_TARGERT" != "windows_msvc" ]; then
@@ -70,33 +78,25 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
-    if [ -z "${QT_VERSION}" ]; then
-        qmake -v
-        bash build_debpackage.sh
-        if [ "$TRAVIS_TAG" != "" ]; then
-            bash upload.sh ../lunarcalendar*_amd64.deb
-        fi
+    cd $SOURCE_DIR
+    if [ "$BUILD_DOWNLOAD" = "TRUE" ]; then
+        bash build_debpackage.sh ${QT_ROOT}
     else
-        cd $SOURCE_DIR
-        bash build_debpackage.sh ${QT_ROOT}/lib/cmake/Qt5
-        if [ "$TRAVIS_TAG" != "" ]; then
-            bash upload.sh ../lunarcalendar*_amd64.deb
+        bash build_debpackage.sh ${QT_ROOT} 
+        
+        if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "59" ]; then
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
+            MD5=`md5sum ../lunarcalendar*_amd64.deb|awk '{print $1}'`
+            echo "MD5:${MD5}"
+            ./debian/lunarcalendar/opt/LunarCalendar/bin/LunarCalendarApp \
+                -f "`pwd`/update_linux.xml" \
+                --md5 ${MD5} 
+            export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
+            #export UPLOADTOOL_PR_BODY=
+            wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+            bash upload.sh ../lunarcalendar*_amd64.deb update_linux.xml
         fi
-        cd debian/lunarcalendar/opt/LunarCalendar
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/bin
     fi
-    #if [ "$TRAVIS_TAG" != "" ]; then
-#        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib
-#        wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-#        chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-#                        export VERSION="v0.0.4"
-#        ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
-#            -qmake=${QT_ROOT}/bin/qmake -appimage
-
-#        wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-
-#        bash upload.sh Lunar*.AppImage*
-    #fi
     exit 0
 fi
 
@@ -117,7 +117,7 @@ else
     if [ "${BUILD_TARGERT}" = "android" ]; then
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
             "CONFIG+=release" ${CONFIG_PARA}
-            
+        
         $MAKE
         $MAKE install INSTALL_ROOT=`pwd`/android-build
         ${QT_ROOT}/bin/androiddeployqt \

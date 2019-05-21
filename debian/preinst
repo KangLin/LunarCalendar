@@ -16,6 +16,8 @@ set -e
 
 case "$1" in
     install|upgrade)
+        sudo add-apt-repository -y ppa:beineri/opt-qt597-`lsb_release -c|awk '{print $2}'`
+        sudo apt-get update
     ;;
 
     abort-upgrade)

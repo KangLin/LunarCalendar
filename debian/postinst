@@ -24,7 +24,8 @@ case "$1" in
             ln -s /opt/LunarCalendar/share/applications/LunarCalendar.desktop /usr/share/applications/LunarCalendar.desktop
         fi
         echo "/opt/LunarCalendar/lib" > /etc/ld.so.conf.d/LunarCalendar.conf
-        echo "/opt/LunarCalendar/bin" > /etc/ld.so.conf.d/LunarCalendar.conf
+        echo "/opt/LunarCalendar/bin" >> /etc/ld.so.conf.d/LunarCalendar.conf
+	echo "/opt/qt59/lib" >> /etc/ld.so.conf.d/LunarCalendar.conf
         ldconfig
     ;;
 
