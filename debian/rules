@@ -23,7 +23,7 @@ override_dh_auto_configure:
     ifdef GENERATORS
 	dh_auto_configure --  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/LunarCalendar
     else
-	qmake PREFIX=/opt/LunarCalendar
+	$(Qt_ROOT)/bin/ PREFIX=/opt/LunarCalendar
     endif
 
 override_dh_shlibdeps:

@@ -73,7 +73,7 @@ function function_android()
         mv android-sdk-linux android-sdk
         rm android-sdk_r24.4.1-linux.tgz 
         (sleep 5 ; while true ; do sleep 1 ; printf 'y\r\n' ; done ) \
-        | android-sdk/tools/android update sdk -u -t tool,${ANDROID_API},extra,platform,platform-tools  #,build-tools
+        | android-sdk/tools/android update sdk -u -t tool,android-18,android-24,extra,platform,platform-tools,build-tools-25.2.5
     fi
 
     sudo apt-get install ant -qq -y
@@ -113,12 +113,12 @@ function function_mingw()
 {
     #汇编工具yasm
     #function_install_yasm
-    
+
     cd ${SOURCE_DIR}
     if [ "true" == "$RABBITIM_BUILD_THIRDLIBRARY" ]; then
         export RABBITIM_BUILD_CROSS_HOST=i686-w64-mingw32 #i586-mingw32msvc
     fi
-    
+
     function_common
     cd ${SOURCE_DIR}
 }
