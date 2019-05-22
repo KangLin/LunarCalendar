@@ -181,8 +181,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout->addWidget(&m_tbNextMonth);
     m_pToolLayout->addWidget(&m_pbToday);
     m_pToolLayout->setMargin(0);
-    //m_pToolLayout->setSpacing(0);
-    
+    m_pToolLayout->setSpacing(0);
+        
     SetHeadPostion();
     
     bool check = connect(&m_Timer, SIGNAL(timeout()),
@@ -212,7 +212,6 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     check = connect(&m_View, SIGNAL(pressed(const QModelIndex&)),
                     this, SLOT(on_tvMonth_pressed(const QModelIndex&)));
     Q_ASSERT(check);
-    this->resize(minimumSizeHint());
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -1139,11 +1138,11 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     return 0;
 }
 
-void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
-{
-    m_View.setSizePolicy(hor, ver);
-    QWidget::setSizePolicy(hor, ver);
-}
+//void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
+//{
+//    m_View.setSizePolicy(hor, ver);
+//    QWidget::setSizePolicy(hor, ver);
+//}
 
 QSize CLunarCalendar::sizeHint() const
 {

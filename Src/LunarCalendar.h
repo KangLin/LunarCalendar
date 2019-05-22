@@ -69,8 +69,7 @@ public:
     void ShowToday(bool bShow);
     void ShowDate(bool bShow);
     void ShowTime(bool bShow);
-    
-    
+        
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
     QDate MaximumDate() const;
@@ -106,7 +105,7 @@ public:
     int LoadCalendarTable(const QString& szFile);
     int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
     
-    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
+//    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
     
