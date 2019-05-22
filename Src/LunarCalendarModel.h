@@ -69,7 +69,7 @@ public:
     QDate GetMaximumDate();
     int setRange(const QDate &min, const QDate &max);
     Qt::DayOfWeek firstDayOfWeek() const;
-    void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
+    //void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
 
     QDate dateForCell(int row, int column) const;
     void cellForDate(const QDate &date, int *row, int *column) const;

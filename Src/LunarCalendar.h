@@ -23,7 +23,7 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     Q_PROPERTY(QString selectLunar READ SelectedLunar)
     Q_PROPERTY(int yearShow READ YearShown)
     Q_PROPERTY(int monthShow READ MonthShown)
-    Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
+    //Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
     Q_PROPERTY(bool showGrid READ ShowGrid WRITE SetShowGrid)
@@ -45,7 +45,7 @@ public:
     int MonthShown() const;
     
     Qt::DayOfWeek FirstDayOfWeek() const;
-    void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
+    //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
     void SetShowGrid(bool show);
     bool ShowGrid();

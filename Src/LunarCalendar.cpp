@@ -849,12 +849,12 @@ Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
     return pModel->firstDayOfWeek();
 }
 
-void CLunarCalendar::SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
-{
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return;
-    pModel->setFirstDayOfWeek(dayOfWeek);
-}
+//void CLunarCalendar::SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
+//{
+//    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+//    if(!pModel) return;
+//    pModel->setFirstDayOfWeek(dayOfWeek);
+//}
 
 void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 {

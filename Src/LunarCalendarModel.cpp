@@ -13,8 +13,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_MaximumDate(3000, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
-      m_ShowWeek(1),
-      m_FirstDay(QLocale().firstDayOfWeek())
+      m_ShowWeek(1)
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
                         CLunarCalendar::CalendarTypeLunar
@@ -25,7 +24,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_RowCount = 5;
     m_ColumnCount = 7;
     m_Locale = QLocale::system();
-    m_FirstDay = m_Locale.firstDayOfWeek();
+    m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
     Show();
 }
@@ -344,10 +343,10 @@ Qt::DayOfWeek CLunarCalendarModel::firstDayOfWeek() const
     return m_FirstDay;
 }
 
-void CLunarCalendarModel::setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
-{
-    m_FirstDay = dayOfWeek;
-}
+//void CLunarCalendarModel::setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek)
+//{
+//    m_FirstDay = dayOfWeek;
+//}
 
 int CLunarCalendarModel::setRange(const QDate &min, const QDate &max)
 {
