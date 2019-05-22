@@ -124,9 +124,33 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     //m_View.setAutoScroll(false);
     //m_View.setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
     //m_View.setAlternatingRowColors(true); //设置奇偶行颜色
-//    QFont font = m_View.font();
-//    font.setPointSize(6);
-//    m_View.setFont(font);
+    
+    /*
+    int nFontSize = 5;
+    QFont font = m_View.font();
+    font.setPointSize(nFontSize);
+    m_View.setFont(font);
+    
+    font = m_lbDate.font();
+    font.setPointSize(nFontSize);
+    m_lbDate.setFont(font);
+    
+    font = m_lbTime.font();
+    font.setPointSize(nFontSize);
+    m_lbTime.setFont(font);
+    
+    font = m_pbToday.font();
+    font.setPointSize(nFontSize);
+    m_pbToday.setFont(font);
+    
+    font = m_cmbYear.font();
+    font.setPointSize(nFontSize);
+    m_cmbYear.setFont(font);
+    
+    font = m_cmbMonth.font();
+    font.setPointSize(nFontSize);
+    m_cmbMonth.setFont(font);
+    //*/
 
     //m_View.setStyleSheet("background-color:rgba(0,0,0,0)"); //设置背景透明
     //setStyleSheet("border-image:url(d:/temp/4.jpg)"); //设置背景图片
