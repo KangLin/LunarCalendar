@@ -94,18 +94,17 @@ public:
         CalendarTypeLunar = 0x02
     };
     int SetCalendarType(_CalendarType type);
-    _CalendarType GetCalendarType();
+    _CalendarType GetCalendarType() const;
     enum _VIEW_TYPE{
         ViewTypeMonth,
         ViewTypeWeek
     };
     int SetViewType(_VIEW_TYPE type);
-    _VIEW_TYPE GetViewType();
+    _VIEW_TYPE GetViewType() const;
     
     int LoadCalendarTable(const QString& szFile);
     int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
-    
-//    void setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver);
+
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
     

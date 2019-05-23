@@ -212,6 +212,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     check = connect(&m_View, SIGNAL(pressed(const QModelIndex&)),
                     this, SLOT(on_tvMonth_pressed(const QModelIndex&)));
     Q_ASSERT(check);
+    
+    updateGeometry();
 }
 
 CLunarCalendar::~CLunarCalendar()
@@ -280,9 +282,10 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pHeadLayout->addWidget(&m_lbTime);
         m_pHeadLayout->setMargin(0);
         m_pHeadLayout->setSpacing(0);
-        
+
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
         m_pMainLayout->addWidget(&m_View);
+
         break;
     case Down:
         ShowHead(true);
@@ -445,6 +448,8 @@ int CLunarCalendar::UpdateViewModel()
     }
     
     ShowSelectTitle();
+    
+    updateGeometry();
     return 0;
 }
 
@@ -1066,10 +1071,11 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
         break;
     }
 
+    updateGeometry();
     return nRet;
 }
 
-CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
+CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
@@ -1077,7 +1083,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType()
     return pModel->GetViewType();
 }
 
-CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType()
+CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
@@ -1092,6 +1098,7 @@ int CLunarCalendar::SetCalendarType(_CalendarType type)
         return -1;
     int nRet = pModel->SetCalendarType(type);
     UpdateViewModel();
+    
     return nRet;
 }
 
@@ -1138,12 +1145,6 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     return 0;
 }
 
-//void CLunarCalendar::setSizePolicy(QSizePolicy::Policy hor, QSizePolicy::Policy ver)
-//{
-//    m_View.setSizePolicy(hor, ver);
-//    QWidget::setSizePolicy(hor, ver);
-//}
-
 QSize CLunarCalendar::sizeHint() const
 {
     return minimumSizeHint();
@@ -1175,8 +1176,11 @@ QSize CLunarCalendar::minimumSizeHint() const
         w += m_View.verticalHeader()->sizeHint().width();
     }
     cm = m_View.verticalHeader()->contentsMargins();
-    h = (m_View.verticalHeader()->minimumSectionSize() + marginH) * rows
-            + marginH + cm.top() + cm.bottom();
+    if(ViewTypeMonth == GetViewType())
+        h = (m_View.verticalHeader()->minimumSectionSize() + marginH) * rows;
+    else
+        h = (m_View.verticalHeader()->minimumSectionSize() + marginH);
+    h = h + marginH + cm.top() + cm.bottom();
     if(m_View.horizontalHeader()->isVisible())
     {
 //        qDebug() << "m_View.horizontalHeader()->isVisible()";
@@ -1270,5 +1274,6 @@ QSize CLunarCalendar::minimumSizeHint() const
     h += cm.top() + cm.bottom();
     
 //    qDebug() << "w:" << w << "h:" << h;
+
     return QSize(w, h);
 }
