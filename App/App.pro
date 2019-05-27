@@ -126,7 +126,13 @@ win32 {
     DESKTOP_FILE.files = $$PWD/../debian/LunarCalendar.desktop
     DESKTOP_FILE.path = $$system_path($${PREFIX})/share/applications
     DESKTOP_FILE.CONFIG += directory no_check_exist
-    INSTALLS += DESKTOP_FILE
+
+    # install icons
+    icon128.target = icon128
+    icon128.files = Resource/image/calendar.png
+    icon128.path = $${PREFIX}/share/icons/hicolor/128x128/apps
+    icon128.CONFIG = directory no_check_exist
+    INSTALLS += DESKTOP_FILE icon128
 }
 
 OTHER_FILES += \
