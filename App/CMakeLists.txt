@@ -80,6 +80,7 @@ INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
 
 if(UNIX)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop DESTINATION "share/applications")
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/Resource/image/calendar.png DESTINATION "share/pixmaps")
 endif()
 
 IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)

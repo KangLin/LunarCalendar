@@ -100,8 +100,8 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     fi
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
         cd debian/lunarcalendar/opt/LunarCalendar
-        sed -i "s/^\Icon=.*/Icon=calendar/g" share/applications/LunarCalendar.desktop
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib
+        
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
         wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
         chmod a+x linuxdeployqt-continuous-x86_64.AppImage
         export VERSION="0.0.4"
@@ -110,7 +110,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
 
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
 
-        bash upload.sh lunarcalendar*.AppImage*
+        bash upload.sh Lunar*.AppImage
     fi
     exit 0
 fi

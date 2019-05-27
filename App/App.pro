@@ -128,11 +128,11 @@ win32 {
     DESKTOP_FILE.CONFIG += directory no_check_exist
 
     # install icons
-    icon128.target = icon128
-    icon128.files = Resource/image/calendar.png
-    icon128.path = $${PREFIX}/share/icons/hicolor/128x128/apps
-    icon128.CONFIG = directory no_check_exist
-    INSTALLS += DESKTOP_FILE icon128
+    icon.target = icon
+    icon.files = Resource/image/calendar.png
+    icon.path = $${PREFIX}/share/pixmaps
+    icon.CONFIG = directory no_check_exist
+    INSTALLS += DESKTOP_FILE icon
 }
 
 OTHER_FILES += \
