@@ -40,6 +40,7 @@ public:
     void SetSelectedDate(const QDate &date, bool bForce = false);
     
     QString SelectedLunar();
+    //TODO:int SelectedLunar(int &year, int &month, int &day);
     
     int YearShown() const;
     int MonthShown() const;
@@ -108,6 +109,8 @@ public:
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
     
+    int Update();
+    
 Q_SIGNALS:
     void sigSelectionChanged();
 
@@ -128,7 +131,7 @@ protected:
 
 private:
     int ShowSelectTitle();
-    int UpdateViewModel();
+    int UpdateViewModel(bool bForce = false);
     int UpdateMonthMenu();
     int EnableMonthMenu();
     int UpdateSelect();

@@ -418,7 +418,7 @@ void CLunarCalendar::on_pbToday_clicked()
     SetSelectedDate(QDate::currentDate());
 }
 
-int CLunarCalendar::UpdateViewModel()
+int CLunarCalendar::UpdateViewModel(bool bForce)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
@@ -430,7 +430,8 @@ int CLunarCalendar::UpdateViewModel()
     case ViewTypeMonth:
     {
         pModel->showMonth(m_cmbYear.currentData().toInt(),
-                          m_cmbMonth.currentData().toInt());
+                          m_cmbMonth.currentData().toInt(),
+                          bForce);
         if(pModel && m_bShowBackgroupImage)
         {
             QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
@@ -443,7 +444,8 @@ int CLunarCalendar::UpdateViewModel()
     }
     case ViewTypeWeek:
         pModel->showWeek(m_cmbYear.currentData().toInt(),
-                         m_cmbMonth.currentData().toInt());
+                         m_cmbMonth.currentData().toInt(),
+                         bForce);
         break;
     }
     
@@ -1143,6 +1145,11 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     else
         m_View.setStyleSheet("border-image:none");
     return 0;
+}
+
+int CLunarCalendar::Update()
+{
+    return UpdateViewModel(true);
 }
 
 QSize CLunarCalendar::sizeHint() const

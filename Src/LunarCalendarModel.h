@@ -55,8 +55,8 @@ public:
     
     Qt::ItemFlags flags(const QModelIndex& index) const override;
     
-    int showMonth(int year, int month);
-    int showWeek(int year, int week);
+    int showMonth(int year, int month, bool bForce = false);
+    int showWeek(int year, int week, bool bForce = false);
     int GetShowWeek();
     int GetShowMonth();
     int GetShowYear();
@@ -84,8 +84,10 @@ public:
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
     CLunarCalendar::_VIEW_TYPE GetViewType();
     
+private Q_SLOTS:
+    int slotUpdate();
+    
 private:
-    int Show();
     void internalUpdate();
     QDate firstDateMonth() const;
     QDate endDateMonth() const;

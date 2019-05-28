@@ -26,7 +26,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_Locale = QLocale::system();
     m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
-    Show();
+    slotUpdate();
 }
 
 QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -191,26 +191,26 @@ Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const
     return QAbstractTableModel::flags(index);
 }
 
-int CLunarCalendarModel::showWeek(int year, int week)
+int CLunarCalendarModel::showWeek(int year, int week, bool bForce)
 {
-    if (m_ShownYear == year && m_ShowWeek == week)
+    if (m_ShownYear == year && m_ShowWeek == week && !bForce)
         return 0;
     m_ShownYear = year;
     m_ShowWeek = week;
-    return Show();
+    return slotUpdate();
 }
 
-int CLunarCalendarModel::showMonth(int year, int month)
+int CLunarCalendarModel::showMonth(int year, int month, bool bForce)
 {
-    if (m_ShownYear == year && m_ShownMonth == month)
+    if (m_ShownYear == year && m_ShownMonth == month && !bForce)
         return 0;
     
     m_ShownYear = year;
     m_ShownMonth = month;
-    return Show();
+    return slotUpdate();
 }
 
-int CLunarCalendarModel::Show()
+int CLunarCalendarModel::slotUpdate()
 {
     switch(m_viewType)
     {
@@ -702,7 +702,7 @@ CLunarCalendarModel::_DAY CLunarCalendarModel::GetDay(int row, int col) const
 int CLunarCalendarModel::SetViewType(CLunarCalendar::_VIEW_TYPE type)
 {
     m_viewType = type;
-    Show();
+    slotUpdate();
     return 0;
 }
 
@@ -714,7 +714,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendarModel::GetViewType()
 int CLunarCalendarModel::SetCalendarType(CLunarCalendar::_CalendarType type)
 {
     m_calendarType = type;
-    Show();
+    slotUpdate();
     return 0;
 }
 
