@@ -296,6 +296,8 @@ int CLunarCalendarModel::setDate(const QDate &d)
         m_Date = m_MinimumDate;
     else if (m_Date > m_MaximumDate)
         m_Date = m_MaximumDate;
+    
+    m_GetTaskHandler->onHandle(m_Date);
     return 0;
 }
 
