@@ -549,29 +549,29 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
     if(bForce || pModel->GetDate() != date)
     {
         pModel->setDate(date);
-        QDate newDate = pModel->GetDate();
-        
-        m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
-        switch (GetViewType()) {
-        case ViewTypeMonth:
-            m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(newDate.month()));
-            break;
-        case ViewTypeWeek:
-            {
-                int week = 1;
-                int year = 0;
-                week = newDate.weekNumber(&year);
-                if(year != newDate.year())
-                {
-                    m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
-                }
-                m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(week));
-            }
-            break;
+    }
+    
+    QDate newDate = pModel->GetDate();
+    m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
+    switch (GetViewType()) {
+    case ViewTypeMonth:
+        m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(newDate.month()));
+        break;
+    case ViewTypeWeek:
+    {
+        int week = 1;
+        int year = 0;
+        week = newDate.weekNumber(&year);
+        if(year != newDate.year())
+        {
+            m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
         }
-        
-        UpdateViewModel();
-    }   
+        m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(week));
+    }
+        break;
+    }
+    
+    UpdateViewModel();
 
     int row, col;
     pModel->cellForDate(pModel->GetDate(), &row, &col);
