@@ -197,6 +197,15 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 ### 下载
 https://github.com/KangLin/LunarCalendar/releases/latest
 
+- Lunar_calendar-*-x86_64.AppImage  
+  AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
+
+- lunarcalendar_*_amd64.deb  
+  deb 安装包,可用于　Ubuntu
+  
+- LunarCalendar-Setup-*.exe  
+  Windows安装包，支持 Windows xp 以上系统 
+
 ------------------------------------------------
 
 ### 贡献
