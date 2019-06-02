@@ -12,18 +12,18 @@
         <translation type="vanished">今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="64"/>
+        <location filename="../../LunarCalendar.cpp" line="85"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="963"/>
+        <location filename="../../LunarCalendar.cpp" line="1069"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="103"/>
-        <location filename="../../LunarCalendar.cpp" line="966"/>
+        <location filename="../../LunarCalendar.cpp" line="162"/>
+        <location filename="../../LunarCalendar.cpp" line="1072"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
