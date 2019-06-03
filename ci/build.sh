@@ -84,32 +84,35 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     sudo dpkg -i ../lunarcalendar*_amd64.deb
     $SOURCE_DIR/test/test_linux.sh 
     
+    cd debian/lunarcalendar/opt/LunarCalendar
+        
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
+    wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+    chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+    export VERSION="0.0.5"
+    ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
+            -qmake=${QT_ROOT}/bin/qmake -appimage
+
+    cp $SOURCE_DIR/Install/install.sh .
+    ln -s Lunar_calendar-${VERSION}-x86_64.AppImage Lunar_calendar-x86_64.AppImage
+    tar -czf LunarCalendar_${VERSION}.tar.gz \
+        Lunar_calendar-x86_64.AppImage \
+        Lunar_calendar-${VERSION}-x86_64.AppImage \
+        Lunar_calendar-x86_64.AppImage \
+        install.sh share
+    
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
-        MD5=`md5sum ../lunarcalendar*_amd64.deb|awk '{print $1}'`
+        MD5=`md5sum $SOURCE_DIR/../lunarcalendar*_amd64.deb|awk '{print $1}'`
         echo "MD5:${MD5}"
-        ./debian/lunarcalendar/opt/LunarCalendar/bin/LunarCalendarApp \
+        ./bin/LunarCalendarApp \
                 -f "`pwd`/update_linux.xml" \
                 --md5 ${MD5} 
         export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
         #export UPLOADTOOL_PR_BODY=
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-        bash upload.sh ../lunarcalendar*_amd64.deb update_linux.xml
-    fi
+        bash upload.sh $SOURCE_DIR/../lunarcalendar*_amd64.deb update_linux.xml
         
-    if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
-        cd debian/lunarcalendar/opt/LunarCalendar
-        
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
-        wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
-        chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-        export VERSION="0.0.4"
-        ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
-            -qmake=${QT_ROOT}/bin/qmake -appimage
-
-        wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-
-        bash upload.sh Lunar*.AppImage
+        bash upload.sh LunarCalendar_${VERSION}.tar.gz
     fi
     exit 0
 fi

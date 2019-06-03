@@ -31,7 +31,7 @@ case "$1" in
         fi
         echo "/opt/LunarCalendar/lib" > /etc/ld.so.conf.d/LunarCalendar.conf
         echo "/opt/LunarCalendar/bin" >> /etc/ld.so.conf.d/LunarCalendar.conf
-	echo "/opt/qt59/lib" >> /etc/ld.so.conf.d/LunarCalendar.conf
+	    echo "/opt/qt59/lib" >> /etc/ld.so.conf.d/LunarCalendar.conf
         ldconfig
     ;;
 

@@ -42,13 +42,15 @@ EOF
 
 sed -i "s/^\SET(BUILD_VERSION.*/\SET(BUILD_VERSION \"${VERSION}\")/g" ${SOURCE_DIR}/CMakeLists.txt
 sed -i "s/^\!define PRODUCT_VERSION.*/\!define PRODUCT_VERSION \"${VERSION}\"/g" ${SOURCE_DIR}/Install/Install.nsi
-APPVERYOR_VERSION="version: '${VERSION}.{build}'"
-sed -i "s/^version: '.*{build}'/${APPVERYOR_VERSION}/g" ${SOURCE_DIR}/appveyor.yml
+sed -i "s/^version: '.*{build}'/version: '${VERSION}.{build}'/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/^\  - export VERSION=.*/\  - export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/.travis.yml
 sed -i "s/^\    BUILD_VERSION=.*/\    BUILD_VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/App/App.pro
 sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_DIR}/debian/control
 sed -i "s/lunarcalendar (.*)/lunarcalendar (${VERSION})/g" ${SOURCE_DIR}/debian/changelog
 sed -i "s/export VERSION=.*/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
+sed -i "s/LunarCalendar_.*tar.gz/LunarCalendar_${VERSION}.tar.gz/g" ${SOURCE_DIR}/README*.md
+sed -i "s/lunarcalendar_.*_amd64.deb/lunarcalendar_${VERSION}_amd64.deb/g" ${SOURCE_DIR}/README*.md
+sed -i "s/LunarCalendar-Setup-.*exe/LunarCalendar-Setup-${VERSION}.exe/g" ${SOURCE_DIR}/README*.md
 
 if [ -n "$1" ]; then
     git add .

@@ -219,13 +219,34 @@ If you build app. Qt does not provide openssl dynamic library for copyright reas
 ### Download
 https://github.com/KangLin/LunarCalendar/releases/latest
 
-- Lunar_calendar-*-x86_64.AppImag  
+- LunarCalendar_0.0.5.tar.gz  
    The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/
+   usage:
+  
+      1. Decompress
+      
+            ```
+            mkdir LunarCalendar
+            cd LunarCalendar
+            tar xvfz LunarCalendar_0.0.5.tar.gz
+            ```
+            
+      2. install
+      
+            ```
+            install.sh install
+            ```
+            
+      3. If you want to uninstall
+      
+            ```
+            install.sh remove
+            ```
 
-- lunarcalendar_*_amd64.deb   
+- lunarcalendar_0.0.5_amd64.deb   
    Deb installation package for Ubuntu
   
-- LunarCalendar-Setup-*.exe  
+- LunarCalendar-Setup-0.0.5.exe  
    Windows installation package, support for Windows xp and above
    
 ------------------------------------------------

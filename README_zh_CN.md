@@ -197,13 +197,33 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 ### 下载
 https://github.com/KangLin/LunarCalendar/releases/latest
 
-- Lunar_calendar-*-x86_64.AppImage  
+- LunarCalendar_0.0.5.tar.gz  
   AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
-
-- lunarcalendar_*_amd64.deb  
-  deb 安装包,可用于　Ubuntu
+  用法：
+     1. 解压
+     
+        ```
+        mkdir LunarCalendar
+        cd LunarCalendar
+        tar xvfz LunarCalendar_0.0.5.tar.gz
+        ```
+        
+     2. 运行 install.sh install 安装
+     
+        ```
+        install.sh install
+        ```
+        
+     3. 如果要卸载，运行 install.sh remove
   
-- LunarCalendar-Setup-*.exe  
+        ```
+        install.sh remove
+        ```
+        
+- lunarcalendar_0.0.5_amd64.deb  
+  deb 安装包,可用于 Ubuntu
+  
+- LunarCalendar-Setup-0.0.5.exe  
   Windows安装包，支持 Windows xp 以上系统 
 
 ------------------------------------------------
