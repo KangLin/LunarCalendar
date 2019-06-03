@@ -59,4 +59,5 @@ OTHER_FILES += appveyor.yml \
     Install/* \
     Update/* \
     debian/* \
+    test/* \
     build_debpackage.sh

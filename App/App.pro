@@ -129,7 +129,7 @@ win32 {
 
     # install icons
     icon.target = icon
-    icon.files = Resource/image/calendar.png
+    icon.files = Resource/image/LunarCalendar.png
     icon.path = $${PREFIX}/share/pixmaps
     icon.CONFIG = directory no_check_exist
     INSTALLS += DESKTOP_FILE icon

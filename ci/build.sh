@@ -79,25 +79,24 @@ esac
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
-    if [ "$BUILD_DOWNLOAD" = "TRUE" ]; then
-        bash build_debpackage.sh ${QT_ROOT}
-    else
-        bash build_debpackage.sh ${QT_ROOT} 
-        
-        if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
-            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
-            MD5=`md5sum ../lunarcalendar*_amd64.deb|awk '{print $1}'`
-            echo "MD5:${MD5}"
-            ./debian/lunarcalendar/opt/LunarCalendar/bin/LunarCalendarApp \
+    bash build_debpackage.sh ${QT_ROOT} 
+    
+    sudo dpkg -i ../lunarcalendar*_amd64.deb
+    $SOURCE_DIR/test/test_linux.sh 
+    
+    if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
+        MD5=`md5sum ../lunarcalendar*_amd64.deb|awk '{print $1}'`
+        echo "MD5:${MD5}"
+        ./debian/lunarcalendar/opt/LunarCalendar/bin/LunarCalendarApp \
                 -f "`pwd`/update_linux.xml" \
                 --md5 ${MD5} 
-            export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
-            #export UPLOADTOOL_PR_BODY=
-            wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
-            bash upload.sh ../lunarcalendar*_amd64.deb update_linux.xml
-        fi
-        
+        export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
+        #export UPLOADTOOL_PR_BODY=
+        wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+        bash upload.sh ../lunarcalendar*_amd64.deb update_linux.xml
     fi
+        
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
         cd debian/lunarcalendar/opt/LunarCalendar
         
