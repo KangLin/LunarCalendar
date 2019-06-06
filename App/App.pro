@@ -39,9 +39,9 @@ msvc {
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
 }
 
+isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin
 INCLUDEPATH = ../Src ../Src/export
-
-!android: DESTDIR = $$OUT_PWD/../bin
+LIBS *= "-L$$DESTDIR" -lLunarCalendar
 
 SOURCES += \
         main.cpp \
@@ -59,13 +59,12 @@ RESOURCES += \
 RC_FILE = AppIcon.rc
 
 android {
-    LIBS *= "-L$$OUT_PWD/../Src"
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     isEmpty(THIRDLIBRARY_PATH) message("Please set THIRDLIBRARY_PATH")
     CONFIG(static){
         LIBS *= -lssl
     } else {
-          ANDROID_EXTRA_LIBS += $$OUT_PWD/../Src/libLunarCalendar.so #\
+        #ANDROID_EXTRA_LIBS += #\
           #$${THIRDLIBRARY_PATH}/libssl.so \
           #$${THIRDLIBRARY_PATH}/libcrypto.so 
     }
@@ -92,10 +91,7 @@ android {
             error()
     RESOURCES += $$RESOURCE_QRC_FILE
 
-} else {
-    LIBS *= "-L$$DESTDIR"
 }
-LIBS *= -lLunarCalendar
 
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp

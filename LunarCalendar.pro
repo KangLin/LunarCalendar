@@ -10,7 +10,7 @@ TARGET = LunarCalendar
 TEMPLATE = subdirs
 CONFIG *= ordered
 Src.file = Src/LunarCalendar.pro
-App.depends = Src
+#App.depends = Src
 SUBDIRS = Src App
 
 # The following define makes your compiler emit warnings if you use
