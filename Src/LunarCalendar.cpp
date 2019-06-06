@@ -60,10 +60,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pMainLayout(nullptr),
     m_HeadPostion(Top),
     m_oldRow(0),
-    m_oldCol(0),    
+    m_oldCol(0),
     m_bShowToday(true),
     m_bShowBackgroupImage(false)
-    
 {
     //setLocale(QLocale("zh_CN"));
 

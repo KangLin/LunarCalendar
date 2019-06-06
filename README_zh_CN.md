@@ -80,52 +80,31 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
   + 用 qmake 
 
         cd build
-        qmake ../LunarCalendar.pro LunarCalendar_DIR=
+        qmake ../LunarCalendar.pro RabbitCommon_DIR=
         make install
     
   + 用 cmake
   
         cd build
-        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DLunarCalendar_DIR=
+        cmake .. -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 -DRabbitCommon_DIR=
         cmake --build .
 
 - 安装注意  
 Qt因为版权原因，没有提供openssl动态库，所以必须自己复制openssl的动态库到安装目录下。
-    - 如果是32的，可以在Qt安装程序Tools\QtCreator\bin目录下，找到openssl的动态库（libeay32.dll、ssleay32.dll）
-    - 如果是64位，则需要自己下载openssl的二进制安装包。
+    + windows
+        - 如果是32的，可以在Qt安装程序Tools\QtCreator\bin目录下，找到openssl的动态库（libeay32.dll、ssleay32.dll）
+        - 如果是64位，则需要自己下载openssl的二进制安装包。
+    + linux
+
+    
+        ```
+        sudo apt-get install libssl1.1
+        ```
+
 ------------------------------------------------
 
 ### 其它应用使用本项目
-- 直接用本项目源码
-  + 是QT工程
-    - 子模块方式：
-      + 增加子模块：
-      
-            git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
-            git submodule update --init --recursive
-      
-      + 在工程文件(.pro)中直接引入 LunarCalendar.pri
-
-            include(3th_lib/LunarCalendar/LunarCalendar.pri)
-
-    - 非子模块方式：
-      + 下载源码：https://github.com/KangLin/LunarCalendar
-      
-            git clone --recursive https://github.com/KangLin/LunarCalendar.git
-            
-      + 在环境变量（LunarCalendar_DIR） 或 QMAKE参数 （LunarCalendar_DIR） 
-        中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
-    
-            isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
-            !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/Src/LunarCalendar.pri"){
-                DEFINES += LunarCalendar
-                include($${LunarCalendar_DIR}/Src/LunarCalendar.pri)
-            } else{
-                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
-                message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                error("2. Then set value LunarCalendar_DIR to download root dirctory")
-            }
-    
+- 直接用本项目源码   
   + cmake工程
     - 子模块方式
       + 增加子模块：
@@ -152,7 +131,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
                     message("   ag:")
                     message("       git clone https://github.com/KangLin/LunarCalendar.git")
                     message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root dirctory.")
-                    message("    ag:")
+                    message("   ag:")
                     message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
                 endif()
                 
@@ -171,21 +150,35 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
 - 以库方式使用使用
   + Qt 工程文件
+     + 在环境变量（LunarCalendar_DIR）或 QMAKE参数 （LunarCalendar_DIR） 
+        中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
+    
+            isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
+            !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/include/LunarCalendar.h"){
+                DEFINES += LunarCalendar
+                INCLUDEPATH *= $${LunarCalendar_DIR}/include $${LunarCalendar_DIR}/include/export
+                LIBS *= -L$${LunarCalendar_DIR}/lib -lLunarCalendar
+            } else{
+                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
+                message("   git clone https://github.com/KangLin/LunarCalendar.git")
+                message("2. Build and make install the project")
+                error("3. Then set value LunarCalendar_DIR to install dirctory")
+            }
+
   + cmake
     cmake 参数 LunarCalendar_DIR 指定安装根目录
-    
-        find_package(LunarCalendar)
 
-        SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
-        if(LunarCalendar_FOUND)
-            target_compile_definitions(${PROJECT_NAME}
-                                PRIVATE -DLunarCalendar)
-            target_include_directories(${PROJECT_NAME}
-                                PRIVATE "${LunarCalendar_INCLUDE_DIRS}/Src"
-                                        "${LunarCalendar_INCLUDE_DIRS}/Src/export")
-            set(APP_LIBS ${APP_LIBS} ${LunarCalendar_LIBRARIES})
-        endif()
-        target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
+          find_package(LunarCalendar)
+          SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+          if(LunarCalendar_FOUND)
+              target_compile_definitions(${PROJECT_NAME}
+                                    PRIVATE -DLunarCalendar)
+              target_include_directories(${PROJECT_NAME}
+                                    PRIVATE "${LunarCalendar_INCLUDE_DIRS}/Src"
+                                            "${LunarCalendar_INCLUDE_DIRS}/Src/export")
+                set(APP_LIBS ${APP_LIBS} ${LunarCalendar_LIBRARIES})
+          endif()
+          target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - 加载翻译资源
   + 用库中提供的函数
