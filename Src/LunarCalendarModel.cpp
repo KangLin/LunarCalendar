@@ -243,6 +243,8 @@ int CLunarCalendarModel::slotUpdate()
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
                 CCalendarLunar lunar(d);
+                day.nLunarMonth = lunar.GetMonth();
+                day.nLunarDay = lunar.GetDay();
                 day.szLunar = lunar.GetLunarDay();
                 
                 day.szLunarHoliday = lunar.GetHoliday();
@@ -296,9 +298,12 @@ int CLunarCalendarModel::setDate(const QDate &d)
         m_Date = m_MinimumDate;
     else if (m_Date > m_MaximumDate)
         m_Date = m_MaximumDate;
-    
-    if(m_GetTaskHandler)
+    //TODO:这里可以不必要，因为会触发信号void sigSelectionChanged();
+    /*if(m_GetTaskHandler)
+    {
+        CCalendarLunar l(m_Date);
         m_GetTaskHandler->onHandle(m_Date);
+    }//*/
     return 0;
 }
 

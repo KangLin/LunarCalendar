@@ -41,6 +41,7 @@ public:
     
     QString SelectedLunar();
     //TODO:int SelectedLunar(int &year, int &month, int &day);
+    static int GetLunar(const QDate date, int &year, int &month, int &day);
     
     int YearShown() const;
     int MonthShown() const;

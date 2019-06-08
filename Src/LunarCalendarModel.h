@@ -116,6 +116,9 @@ private:
     {
         int Solar;
         QString szSolarHoliday;
+        int nLunarYear;
+        int nLunarMonth;
+        int nLunarDay;
         QString szLunar;
         QString szLunarHoliday;
         QString szAnniversary;

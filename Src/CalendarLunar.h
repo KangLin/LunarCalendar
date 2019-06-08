@@ -11,8 +11,11 @@ class CCalendarLunar : public QObject
 public:
     explicit CCalendarLunar(QDate date, QObject *parent = nullptr);
     explicit CCalendarLunar(QObject *parent = nullptr);
-    
+
     int GetLunar(const QDate &date);
+    int GetYear(){return 0;} //TODO: Not implemented
+    int GetMonth();
+    int GetDay();
     QString GetLunar();
     QString GetLunarDay();
     QString GetHoliday();
@@ -32,6 +35,9 @@ private:
     QString m_szAnniversary;
     QString m_szJieQi;
     QString m_szImageJieQi;
+    int m_Year;
+    int m_Month;
+    int m_Day;
 };
 
 #endif // LUNAR_H

@@ -41,6 +41,16 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
     }
 }
 
+int CCalendarLunar::GetMonth()
+{
+    return m_Month;
+}
+
+int CCalendarLunar::GetDay()
+{
+    return m_Day;
+}
+
 int CCalendarLunar::GetLunar(const QDate &date)
 {
     if(!date.isValid())
@@ -50,6 +60,11 @@ int CCalendarLunar::GetLunar(const QDate &date)
     int nRet = CLunarTable::Instance()->GetLunar(date, day);
     if(nRet)
         return -2;
+    
+    m_Month = day.nMonth + 11;
+    if(m_Month >= 13)
+        m_Month -= 12;
+    m_Day = day.nDay + 1;
     
     m_szLunar = g_Gan[day.nTg] + g_Zhi[day.nDz] + "年";
     if (day.bLeap)
