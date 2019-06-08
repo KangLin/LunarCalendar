@@ -93,12 +93,12 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
             -qmake=${QT_ROOT}/bin/qmake -appimage
 
+    # Create appimage install package
     cp $SOURCE_DIR/Install/install.sh .
     ln -s Lunar_calendar-${VERSION}-x86_64.AppImage Lunar_calendar-x86_64.AppImage
     tar -czf LunarCalendar_${VERSION}.tar.gz \
         Lunar_calendar-x86_64.AppImage \
         Lunar_calendar-${VERSION}-x86_64.AppImage \
-        Lunar_calendar-x86_64.AppImage \
         install.sh share
     
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
@@ -139,7 +139,7 @@ else
         $MAKE install INSTALL_ROOT=`pwd`/android-build
         ${QT_ROOT}/bin/androiddeployqt \
                        --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
-                       --output `pwd`/android-build \ 
+                       --output `pwd`/android-build \
                        --android-platform ${ANDROID_API} \
                         --gradle --verbose
                         #--jdk ${JAVA_HOME}

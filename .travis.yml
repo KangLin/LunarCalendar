@@ -8,7 +8,7 @@ cache:
 compiler:
   - g++
 
-jdk: oraclejdk7
+jdk: openjdk11
 
 os:
   - unix
