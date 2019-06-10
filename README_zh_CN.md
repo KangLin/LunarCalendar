@@ -190,35 +190,37 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 ### 下载
 https://github.com/KangLin/LunarCalendar/releases/latest
 
-- LunarCalendar_0.0.5.tar.gz  
-  AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
-  用法：
-     1. 解压
-     
-        ```
-        mkdir LunarCalendar
-        cd LunarCalendar
-        tar xvfz LunarCalendar_0.0.5.tar.gz
-        ```
-        
-     2. 运行 install.sh install 安装
-     
-        ```
-        install.sh install
-        ```
-        
-     3. 如果要卸载，运行 install.sh remove
-  
-        ```
-        install.sh remove
-        ```
-        
-- lunarcalendar_0.0.5_amd64.deb  
-  deb 安装包,可用于 Ubuntu
-  
-- LunarCalendar-Setup-0.0.5.exe  
-  Windows安装包，支持 Windows xp 以上系统 
+- linux
+    + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
+    AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
+    用法：
+       1. 解压
 
+            mkdir LunarCalendar
+            cd LunarCalendar
+            tar xvfz LunarCalendar_0.0.6.tar.gz
+
+       2. 运行 install.sh install 安装
+
+            install.sh install
+
+
+       3. 如果要卸载，运行 install.sh remove
+
+            install.sh remove
+
+- ubuntu
+    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
+    deb 安装包,可用于 Ubuntu
+  
+- windows
+    + [LunarCalendar-Setup-0.0.6.exe](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar-Setup-0.0.6.exe)  
+    Windows安装包，支持 Windows xp 以上系统 
+
+- android
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)
+    Android 安装包
+    
 ------------------------------------------------
 
 ### 贡献

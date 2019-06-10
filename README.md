@@ -213,15 +213,16 @@ please compile and test the students with the corresponding equipment.
 ### Download
 https://github.com/KangLin/LunarCalendar/releases/latest
 
-- LunarCalendar_0.0.5.tar.gz  
-   The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/
-   usage:
+- linux
+    + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
+      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/
+      usage:
   
       1. Decompress
       
             mkdir LunarCalendar
             cd LunarCalendar
-            tar xvfz LunarCalendar_0.0.5.tar.gz
+            tar xvfz LunarCalendar_0.0.6.tar.gz
 
       2. install
       
@@ -230,13 +231,20 @@ https://github.com/KangLin/LunarCalendar/releases/latest
       3. If you want to uninstall
 
             install.sh remove
- 
-- lunarcalendar_0.0.5_amd64.deb   
-   Deb installation package for Ubuntu
-  
-- LunarCalendar-Setup-0.0.5.exe  
-   Windows installation package, support for Windows xp and above
-   
+
+- ubuntu
+    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
+      Deb installation package for Ubuntu
+
+- windows
+    + [LunarCalendar-Setup-0.0.6.exe](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar-Setup-0.0.6.exe)  
+      Windows installation package, support for Windows xp and above
+
+
+- android
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)
+    Android installation package
+    
 ------------------------------------------------
 
 ### Contribution

@@ -48,9 +48,7 @@ sed -i "s/^\    BUILD_VERSION=.*/\    BUILD_VERSION=\"${VERSION}\"/g" ${SOURCE_D
 sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_DIR}/debian/control
 sed -i "s/lunarcalendar (.*)/lunarcalendar (${VERSION})/g" ${SOURCE_DIR}/debian/changelog
 sed -i "s/export VERSION=.*/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
-sed -i "s/LunarCalendar_.*tar.gz/LunarCalendar_${VERSION}.tar.gz/g" ${SOURCE_DIR}/README*.md
-sed -i "s/lunarcalendar_.*_amd64.deb/lunarcalendar_${VERSION}_amd64.deb/g" ${SOURCE_DIR}/README*.md
-sed -i "s/LunarCalendar-Setup-.*exe/LunarCalendar-Setup-${VERSION}.exe/g" ${SOURCE_DIR}/README*.md
+sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/README*.md
 
 if [ -n "$1" ]; then
     git add .

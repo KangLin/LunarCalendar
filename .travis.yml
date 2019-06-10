@@ -8,14 +8,13 @@ cache:
 compiler:
   - g++
 
-jdk: openjdk11
-
 os:
   - unix
 
 addons:
   ssh_known_hosts:
     - github.com
+
 env:
   global:
     - SOURCE_DIR=$TRAVIS_BUILD_DIR
@@ -33,7 +32,7 @@ env:
     
     - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.12 QT_VERSION=5.12.2 ANDROID_API=android-24 BUILD_DOWNLOAD=TRUE
     - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.9 QT_VERSION=5.9.7 ANDROID_API=android-18 BUILD_DOWNLOAD=TRUE
-    - BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3 ANDROID_API=android-18 BUILD_DOWNLOAD=TRUE
+    #- BUILD_TARGERT="android" BUILD_ARCH="armv7" QT_VERSION_DIR=5.6 QT_VERSION=5.6.3 ANDROID_API=android-18 BUILD_DOWNLOAD=TRUE
 
 before_install:
   - echo "TRAVIS_OS_NAME=${TRAVIS_OS_NAME}"
@@ -41,7 +40,7 @@ before_install:
   - sudo Xvfb :99 -ac &
   - export DISPLAY=:99.0
   - mkdir ${SOURCE_DIR}/Tools
-  - export VERSION="0.0.5"
+  - export VERSION="0.0.6"
 
 install:
   - cd ${SOURCE_DIR}

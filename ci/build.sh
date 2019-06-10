@@ -14,6 +14,9 @@ if [ "$BUILD_TARGERT" = "android" ]; then
     if [ -n "$APPVEYOR" ]; then
         export JAVA_HOME="/C/Program Files (x86)/Java/jdk1.8.0"
     fi
+    if [ "$TRAVIS" = "true" ]; then
+        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+    fi
     export QT_ROOT=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}/${QT_VERSION}/android_armv7
     export PATH=${SOURCE_DIR}/Tools/apache-ant/bin:$JAVA_HOME:$PATH
 fi
@@ -77,6 +80,7 @@ case ${BUILD_TARGERT} in
         ;;
 esac
 
+export VERSION="0.0.6"
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
     bash build_debpackage.sh ${QT_ROOT} 
@@ -89,7 +93,6 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-    export VERSION="0.0.5"
     ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
             -qmake=${QT_ROOT}/bin/qmake -appimage
 
@@ -143,6 +146,24 @@ else
                        --android-platform ${ANDROID_API} \
                         --gradle --verbose
                         #--jdk ${JAVA_HOME}
+        cp $SOURCE_DIR/Update/update_android.xml .
+        APK_FILE=`find . -name "android-build-debug.apk"`
+        MD5=`md5sum ${APK_FILE} | awk '{print $1}'`
+        echo "MD5:${MD5}"
+        sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" update_android.xml
+        sed -i "s/<INFO>.*</<INFO>Release LunarCalendar-${VERSION}</g" update_android.xml
+        sed -i "s/<TIME>.*</<TIME>`date`</g" update_android.xml
+        sed -i "s/<ARCHITECTURE>.*</<ARCHITECTURE>${BUILD_ARCH}</g" update_android.xml
+        sed -i "s/<MD5SUM>.*</<MD5SUM>${MD5}</g" update_android.xml
+        sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/android-build-debug.apk<:g" update_android.xml
+        if [ "$TRAVIS_TAG" != "" ]; then
+            export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
+            #export UPLOADTOOL_PR_BODY=
+            wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+            chmod u+x upload.sh
+            ./upload.sh ${APK_FILE}
+            ./upload.sh update_android.xml
+        fi
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
@@ -155,10 +176,10 @@ else
 fi
 
 if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
-    if [ "${AUTOBUILD_ARCH}" = "x86" ]; then
+    if [ "${BUILD_ARCH}" = "x86" ]; then
         cp /C/OpenSSL-Win32/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win32/bin/ssleay32.dll install/bin
-    elif [ "${AUTOBUILD_ARCH}" = "x64" ]; then
+    elif [ "${BUILD_ARCH}" = "x64" ]; then
         cp /C/OpenSSL-Win64/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win64/bin/ssleay32.dll install/bin
     fi
