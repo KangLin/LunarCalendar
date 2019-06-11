@@ -49,6 +49,7 @@ sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_D
 sed -i "s/lunarcalendar (.*)/lunarcalendar (${VERSION})/g" ${SOURCE_DIR}/debian/changelog
 sed -i "s/export VERSION=.*/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
 sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/README*.md
+sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/Update/update.xml
 
 if [ -n "$1" ]; then
     git add .

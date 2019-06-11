@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <UPDATE>
-    <VERSION>v0.0.3</VERSION>
-    <TIME>2019-04-18 11:10:03</TIME>
-    <INFO>Calendar v0.0.3</INFO>
+    <VERSION>0.0.6</VERSION>
+    <TIME>2019-06-11 05:48:25</TIME>
+    <INFO>Calendar 0.0.6</INFO>
     <FORCE>0</FORCE>
     <SYSTEM>Windows</SYSTEM>
-    <PLATFORM>v0.0.3</PLATFORM>
+    <PLATFORM>x86</PLATFORM>
     <ARCHITECTURE>x86</ARCHITECTURE>
-    <MD5SUM>755b3cca892fceb111007e332eece434</MD5SUM>
-    <URL>https://github.com/KangLin/LunarCalendar/releases/download/v0.0.3/LunarCalendar-Setup-v0.0.3.exe</URL>
-    <MIN_UPDATE_VERSION>v0.0.1</MIN_UPDATE_VERSION>
+    <MD5SUM>366f1493eee153a0394d214db0bd1223</MD5SUM>
+    <URL>https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar-Setup-0.0.6.exe</URL>
+    <MIN_UPDATE_VERSION>0.0.1</MIN_UPDATE_VERSION>
 </UPDATE>
