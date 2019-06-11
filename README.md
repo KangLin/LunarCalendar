@@ -153,14 +153,14 @@ please compile and test the students with the corresponding equipment.
 										  PRIVATE -DLunarCalendar)
 						target_include_directories(${PROJECT_NAME}
 										  PRIVATE "${LunarCalendar_DIR}/Src"
-												  "${LunarCalendar_DIR}/Src/export")
+									      "${LunarCalendar_DIR}/Src/export")
 						set(APP_LIBS ${APP_LIBS} LunarCalendar)
 					endif()
 					target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - Use in library mode
     + Qt project file
-        + Environment variable（LunarCalendar_DIR）or QMAKE parameters LunarCalendar_DIR Specify the location of the LunarCalendar source root directory, then add the following to the main project file (.pro):
+        + Environment variable（LunarCalendar_DIR）or QMAKE parameters LunarCalendar_DIR Specify the location of the LunarCalendar install root directory, then add the following to the main project file (.pro):
  
                 isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
                 !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/include/LunarCalendar.h"){
@@ -215,25 +215,26 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 - linux
     + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
-      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/
+      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
       usage:
   
-      1. Decompress
+      1. Decompress. Copy LunarCalendar_0.0.6.tar.gz to install dirctory, then decompress it:
       
                 mkdir LunarCalendar
                 cd LunarCalendar
+                cp $DOWNLOAD/LunarCalendar_0.0.6.tar.gz .
                 tar xvfz LunarCalendar_0.0.6.tar.gz
 
       2. install
       
-                install.sh install
+                ./install.sh install
             
       3. If you want to uninstall
 
-                install.sh remove
+                ./install.sh remove
 
 - ubuntu
-    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
+    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)  
       Deb installation package for Ubuntu
 
 - windows

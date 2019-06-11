@@ -151,7 +151,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 - 以库方式使用使用
   + Qt 工程文件
      + 在环境变量（LunarCalendar_DIR）或 QMAKE参数 （LunarCalendar_DIR） 
-        中指定 LunarCalendar 源码根目录的位置，然后在主工程文件（.pro）中加入下列：
+        中指定 LunarCalendar 库安装根目录的位置，然后在主工程文件（.pro）中加入下列：
     
             isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
             !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/include/LunarCalendar.h"){
@@ -194,20 +194,21 @@ https://github.com/KangLin/LunarCalendar/releases/latest
     + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
     AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
     用法：
-       1. 解压
+       1. 解压。把 LunarCalendar_0.0.6.tar.gz 复制到你想安装的位置，并解压：
 
                 mkdir LunarCalendar
                 cd LunarCalendar
+                cp $DOWNLOAD/LunarCalendar_0.0.6.tar.gz .
                 tar xvfz LunarCalendar_0.0.6.tar.gz
 
        2. 运行 install.sh install 安装
 
-                install.sh install
+                ./install.sh install
 
 
        3. 如果要卸载，运行 install.sh remove
 
-                install.sh remove
+                ./install.sh remove
 
 - ubuntu
     + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
