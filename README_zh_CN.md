@@ -196,18 +196,18 @@ https://github.com/KangLin/LunarCalendar/releases/latest
     用法：
        1. 解压
 
-            mkdir LunarCalendar
-            cd LunarCalendar
-            tar xvfz LunarCalendar_0.0.6.tar.gz
+                mkdir LunarCalendar
+                cd LunarCalendar
+                tar xvfz LunarCalendar_0.0.6.tar.gz
 
        2. 运行 install.sh install 安装
 
-            install.sh install
+                install.sh install
 
 
        3. 如果要卸载，运行 install.sh remove
 
-            install.sh remove
+                install.sh remove
 
 - ubuntu
     + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
@@ -218,7 +218,7 @@ https://github.com/KangLin/LunarCalendar/releases/latest
     Windows安装包，支持 Windows xp 以上系统 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)  
     Android 安装包
     
 ------------------------------------------------

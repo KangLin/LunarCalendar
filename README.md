@@ -220,17 +220,17 @@ https://github.com/KangLin/LunarCalendar/releases/latest
   
       1. Decompress
       
-            mkdir LunarCalendar
-            cd LunarCalendar
-            tar xvfz LunarCalendar_0.0.6.tar.gz
+                mkdir LunarCalendar
+                cd LunarCalendar
+                tar xvfz LunarCalendar_0.0.6.tar.gz
 
       2. install
       
-            install.sh install
+                install.sh install
             
       3. If you want to uninstall
 
-            install.sh remove
+                install.sh remove
 
 - ubuntu
     + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)
@@ -242,7 +242,7 @@ https://github.com/KangLin/LunarCalendar/releases/latest
 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)  
     Android installation package
     
 ------------------------------------------------

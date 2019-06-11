@@ -115,10 +115,8 @@ void MainWindow::slotAbout()
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     #if defined (Q_OS_ANDROID)
         about.showMaximized();
-        about.exec();
-    #else
-        about.exec();
     #endif
+        about.exec();
 #endif
 }
 
