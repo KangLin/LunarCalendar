@@ -60,6 +60,45 @@ please compile and test the students with the corresponding equipment.
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ------------------------------------------------
+
+### Download setup package
+https://github.com/KangLin/LunarCalendar/releases/latest
+
+- linux
+    + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
+      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
+      usage:
+  
+      1. Decompress. Copy LunarCalendar_0.0.6.tar.gz to install dirctory, then decompress it:
+      
+                mkdir LunarCalendar
+                cd LunarCalendar
+                cp $DOWNLOAD/LunarCalendar_0.0.6.tar.gz .
+                tar xvfz LunarCalendar_0.0.6.tar.gz
+
+      2. install
+      
+                ./install.sh install
+            
+      3. If you want to uninstall
+
+                ./install.sh remove
+
+- ubuntu
+    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)  
+      Deb installation package for Ubuntu
+
+- windows
+    + [LunarCalendar-Setup-0.0.6.exe](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar-Setup-0.0.6.exe)  
+      Windows installation package, support for Windows xp and above
+
+
+- android
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)  
+    Android installation package
+    
+------------------------------------------------
+
 - Directory
 
 ```
@@ -208,44 +247,6 @@ please compile and test the students with the corresponding equipment.
             m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
             qApp->installTranslator(&m_Translator);
 
-------------------------------------------------
-
-### Download
-https://github.com/KangLin/LunarCalendar/releases/latest
-
-- linux
-    + [LunarCalendar_0.0.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar_0.0.6.tar.gz)  
-      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
-      usage:
-  
-      1. Decompress. Copy LunarCalendar_0.0.6.tar.gz to install dirctory, then decompress it:
-      
-                mkdir LunarCalendar
-                cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_0.0.6.tar.gz .
-                tar xvfz LunarCalendar_0.0.6.tar.gz
-
-      2. install
-      
-                ./install.sh install
-            
-      3. If you want to uninstall
-
-                ./install.sh remove
-
-- ubuntu
-    + [lunarcalendar_0.0.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb)  
-      Deb installation package for Ubuntu
-
-- windows
-    + [LunarCalendar-Setup-0.0.6.exe](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/LunarCalendar-Setup-0.0.6.exe)  
-      Windows installation package, support for Windows xp and above
-
-
-- android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/android-build-debug.apk)  
-    Android installation package
-    
 ------------------------------------------------
 
 ### Contribution
