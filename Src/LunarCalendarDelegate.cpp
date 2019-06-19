@@ -10,7 +10,6 @@
 #include <QFont>
 #include <QFontInfo>
 #include <QFontMetrics>
-#include <algorithm> 
 
 QColor GetColorRole(const QPalette &palette, int role)
 {
@@ -59,18 +58,36 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
    
     QFont fontSolar = option.font;
     QFont fontLunar = fontSolar;
-    
+    QFont fontTasks = fontSolar;
+    fontTasks.setPointSize(fontTasks.pointSize() / 2);
+        
     QString szSolar, szLunar, szAnniversary;
-    
+    szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
+    int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
+
     int solarHeight = 0;
     int solarWidth = 0;
-    int firstHeight = 6;
+    int tasksHeight = 0;
+    int tasksWidth = 0;
     int lunarHeight = 0;
     int lunarWidth = 0;
     int width = 0;
     int height = 0;
-    int nRow = 1;
+    int nRow = 0;
+    int nHadRow = 0;
+    
     painter->save();
+        
+    if(!szAnniversary.isEmpty() || nTasks)
+    {
+        painter->setFont(fontTasks);
+        QFontMetrics m = painter->fontMetrics();
+        tasksHeight = m.height();
+        tasksWidth = m.width(QString::number(nTasks));
+        width = tasksWidth;
+        height = tasksHeight;
+        nRow++;
+    }
     
     if(bSolar)
     {
@@ -82,8 +99,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         QFontMetrics m = painter->fontMetrics();
         solarHeight = m.height();
         solarWidth = m.width(szSolar);
-        width = std::max(firstHeight, solarWidth);
-        height = std::max(firstHeight, solarHeight);
+        width = qMax(width, solarWidth);
+        height = qMax(height, solarHeight);
         nRow++;
     }
     
@@ -98,14 +115,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         lunarHeight = m.height();
         lunarWidth = m.width(szLunar); 
         
-        width = std::max(width, lunarWidth);
-        height = std::max(height, lunarHeight);
+        width = qMax(width, lunarWidth);
+        height = qMax(height, lunarHeight);
         nRow++;
     }
-    
-    szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
-    int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
-    
+        
     if(pView->horizontalHeader()->minimumSectionSize() < width)
     {
 //        qDebug() << "pView->horizontalHeader()->minimumSectionSize():" << width;
@@ -118,10 +132,10 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
         pView->updateGeometry();
     }
-
+    
     if(option.rect.width() > width)
         width = option.rect.width();
-    if(option.rect.height() > nRow * height)
+    if(option.rect.height() > height * nRow)
         height = option.rect.height() / nRow;
 
     if(pView->currentIndex() == index)
@@ -143,36 +157,63 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                        index.data(CLunarCalendarModel::LunarColorRole).toInt());
     }
     anniversaryColor = solarColor;
-  
+
     if(!szAnniversary.isEmpty() || nTasks)
     {
-        painter->setBrush(anniversaryColor);
+        painter->setFont(fontTasks);
+        int h = qMax(tasksWidth, tasksHeight);
+        painter->setBrush(QBrush(anniversaryColor, Qt::SolidPattern));
         painter->setPen(anniversaryColor);
-        painter->drawEllipse(option.rect.left()
-                             + (option.rect.width() >> 1) - 2,
-                             option.rect.top() + (height >> 1) - 6,
-                             4, 4);
+        
+        QRect rect(option.rect.left() + (width - h) / 2,
+                   option.rect.top() + (height - h) / 2,
+                   h, h);
+        /*painter->drawArc(rect, 0, 5760);//*/
+        
+        painter->drawEllipse(rect);//*/
+
+        if(nTasks > 0 && nTasks < 10)
+        {
+            unsigned char r = ~(unsigned char)anniversaryColor.red();
+            unsigned char g = ~(unsigned char)anniversaryColor.green();
+            unsigned char b = ~(unsigned char)anniversaryColor.blue();
+            QColor clr(r, g, b, anniversaryColor.alpha());            
+            painter->setBrush(clr);
+            painter->setPen(clr);
+            painter->drawText(option.rect.left(),
+                          option.rect.top(),
+                          width,
+                          height,
+                          Qt::AlignHCenter | Qt::AlignVCenter,
+                          QString::number(nTasks));//*/
+        }
+        
+        nHadRow++;
     }
-    
+
     if(bSolar)
     {
         painter->setFont(fontSolar);
         painter->setPen(solarColor);
-        QPoint pos;
-        pos.setX(option.rect.left() + ((option.rect.width() - solarWidth) >> 1));
-        pos.setY(option.rect.top() + (height << 1) - ((height + solarHeight) >> 1));
-        painter->drawText(pos, szSolar);    
+        painter->drawText(option.rect.left(),
+                          option.rect.top() + height * nHadRow,
+                          width,
+                          height,
+                          Qt::AlignHCenter | Qt::AlignVCenter,
+                          szSolar);
+        nHadRow++;
     }
     
     if(bLunar)
     {
         painter->setFont(fontLunar);
         painter->setPen(lunarColor);
-        QPoint pos;
-        pos.setX(option.rect.left() + ((option.rect.width() - lunarWidth) >> 1));
-        
-        pos.setY(option.rect.top() + height * nRow - ((height + solarHeight) >> 1));
-        painter->drawText(pos, szLunar);
+        painter->drawText(option.rect.left(),
+                          option.rect.top() + height * nHadRow,
+                          width,
+                          height,
+                          Qt::AlignHCenter | Qt::AlignVCenter,
+                          szLunar);
     }
 
     painter->restore();

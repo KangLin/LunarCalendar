@@ -16,6 +16,7 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QLineEdit>
+#include <algorithm>
 #include "CalendarLunar.h"
 #include "LunarTable.h"
 
@@ -98,7 +99,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
     m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
-    
+    m_View.setAttribute(Qt::WA_AcceptTouchEvents);
     SetShowGrid(false);
 
     //m_View.setFocusPolicy(Qt::WheelFocus);
@@ -915,12 +916,43 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     switch(event->type()){
     
     case QEvent::TouchBegin:
-        
-        qDebug() << "QEvent::TouchBegin";
-        break;
+    case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
-        qDebug() << "QEvent::TouchEnd";
-        break;
+        {
+            QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+            QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
+            qDebug() << "touch points:" << touchPoints.length();
+            /*if(touchPoints.length() == 1)
+            {
+                int days = 0;
+                QTouchEvent::TouchPoint t = touchPoints.first();
+                QLineF line(QLineF(t.startPos(), t.lastPos()));
+                if(qAbs(line.dx()) > qAbs(line.dy()))
+                {
+                    if(line.dx() > 0)
+                        days = 31;
+                    else
+                        days = -31;
+                }else {
+                    if(line.dy() > 0)
+                        days = -7;
+                    else
+                        days = 7;
+                }
+                CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+                if(pModel)
+                {
+                    const QModelIndex index = m_View.currentIndex();
+                    if(index.isValid())
+                    {
+                        QDate currentDate = pModel->dateForCell(index.row(), index.column());
+                        currentDate = currentDate.addDays(days);
+                        this->SetSelectedDate(currentDate);
+                    }
+                }
+            }*/
+            break;
+        }
 #ifndef QT_NO_WHEELEVENT
     case QEvent::Wheel:
         {
@@ -942,6 +974,12 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             break;
         }
 #endif
+    case QEvent::MouseMove:
+        {
+            QMouseEvent* e = dynamic_cast<QMouseEvent*>(event);
+            qDebug() << e;
+            break;
+        }
     case QEvent::KeyRelease:
         {
             QKeyEvent* ke = dynamic_cast<QKeyEvent*>(event);
