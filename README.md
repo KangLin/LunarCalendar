@@ -42,10 +42,10 @@ please compile and test the students with the corresponding equipment.
 
 ## Donation
 - Donation (greater than ¥20):  
-![donation (greater than ¥20)](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute.png "donation (greater than ¥20)")
+![donation (greater than ¥20)](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation (greater than ¥20)")
 
 - Donate ¥20  
-![donation ¥20](https://raw.githubusercontent.com/KangLin/Tasks/master/Src/Resource/image/Contribute20.png "donation ¥20")
+![donation ¥20](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute20.png "donation ¥20")
 
 ------------------------------------------------
 
