@@ -20,13 +20,12 @@ Qt 写的农历。它提供：
   + 周视图
 - 一个简单的日历应用程序。用于示例如何使用此农历日历库。
 - 此库的一个完整应用 [任务](https://github.com/KangLin/Tasks)
-
-#### 支持以下平台
-- [x] Windows
-- [x] Linux、Unix
-- [x] Android
-- [ ] Mac os
-- [ ] IOS
+- 跨平台，支持多操作系统
+  + [x] Windows
+  + [x] Linux、Unix
+  + [x] Android
+  + [ ] Mac os
+  + [ ] IOS
 
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
 
@@ -58,8 +57,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ------------------------------------------------
 
-### 下载安装包
-https://github.com/KangLin/LunarCalendar/releases/latest
+### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
     + [LunarCalendar_0.0.7.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.7/LunarCalendar_0.0.7.tar.gz)  

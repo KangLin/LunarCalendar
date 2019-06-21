@@ -20,15 +20,12 @@ The lunar calendar written by Qt. It provides:
    + Week view
 - A simple calendar app. Used to illustrate how to use this lunar calendar library.
 - A complete application of this library [Tasks](https://github.com/KangLin/Tasks)
-
-------------------------------------------------
-### Support system
-
-- [x] Windows
-- [x] Linux、Unix
-- [x] Android
-- [ ] Mac os
-- [ ] IOS
+- Cross-platform, support multiple operating systems
+   + [x] Windows
+   + [x] Linux、Unix
+   + [x] Android
+   + [ ] Mac os
+   + [ ] IOS
 
 Mac os and IOS, I don't have the corresponding equipment,
 please compile and test the students with the corresponding equipment.
@@ -61,8 +58,7 @@ please compile and test the students with the corresponding equipment.
 
 ------------------------------------------------
 
-### Download setup package
-https://github.com/KangLin/LunarCalendar/releases/latest
+### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
     + [LunarCalendar_0.0.7.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/0.0.7/LunarCalendar_0.0.7.tar.gz)  
