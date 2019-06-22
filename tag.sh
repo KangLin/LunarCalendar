@@ -46,10 +46,12 @@ sed -i "s/^version: '.*{build}'/version: '${VERSION}.{build}'/g" ${SOURCE_DIR}/a
 sed -i "s/^\  - export VERSION=.*/\  - export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/.travis.yml
 sed -i "s/^\    BUILD_VERSION=.*/\    BUILD_VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/App/App.pro
 sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_DIR}/debian/control
-sed -i "s/lunarcalendar (.*)/lunarcalendar (${VERSION})/g" ${SOURCE_DIR}/debian/changelog
 sed -i "s/export VERSION=.*/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
-sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/README*.md
-sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/Update/update.xml
+sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
+
+DEBIAN_VERSION=`echo ${VERSION}|cut -d "v" -f 2`
+sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${DEBIAN_VERSION}/g" ${SOURCE_DIR}/README*.md
+sed -i "s/lunarcalendar (.*)/lunarcalendar (${DEBIAN_VERSION})/g" ${SOURCE_DIR}/debian/changelog
 
 if [ -n "$1" ]; then
     git add .
