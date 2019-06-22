@@ -26,6 +26,9 @@ override_dh_auto_configure:
 	$(QT_ROOT)/bin/qmake PREFIX=/opt/LunarCalendar
     endif
 
+override_dh_auto_build:
+	dh_auto_build -- -j`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`
+
 override_dh_shlibdeps:
     ifdef GENERATORS
 	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib/
