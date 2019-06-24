@@ -98,24 +98,35 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
 
     # Create appimage install package
     cp $SOURCE_DIR/Install/install.sh .
-    ln -s Lunar_calendar-${VERSION}-x86_64.AppImage Lunar_calendar-x86_64.AppImage
+    ln -s Lunar_calendar-${VERSION}-x86_64.AppImage LunarCalendar-x86_64.AppImage
     tar -czf LunarCalendar_${VERSION}.tar.gz \
-        Lunar_calendar-x86_64.AppImage \
+        LunarCalendar-x86_64.AppImage \
         Lunar_calendar-${VERSION}-x86_64.AppImage \
         install.sh share
     
+    # Create update.xml
+    MD5=`md5sum $SOURCE_DIR/../lunarcalendar*_amd64.deb|awk '{print $1}'`
+    echo "MD5:${MD5}"
+    ./bin/LunarCalendarApp \
+            -f "`pwd`/update_linux.xml" \
+            --md5 ${MD5}
+    cat update_linux.xml
+    
+    MD5=`md5sum LunarCalendar_${VERSION}.tar.gz|awk '{print $1}'`
+    echo "MD5:${MD5}"
+    ./LunarCalendar-x86_64.AppImage \
+            -f "`pwd`/update_linux_appimage.xml" \
+            --md5 ${MD5} \
+            --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz"
+    cat update_linux_appimage.xml
+    
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
-        MD5=`md5sum $SOURCE_DIR/../lunarcalendar*_amd64.deb|awk '{print $1}'`
-        echo "MD5:${MD5}"
-        ./bin/LunarCalendarApp \
-                -f "`pwd`/update_linux.xml" \
-                --md5 ${MD5} 
+        
         export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
         #export UPLOADTOOL_PR_BODY=
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
         bash upload.sh $SOURCE_DIR/../lunarcalendar*_amd64.deb update_linux.xml
-        
-        bash upload.sh LunarCalendar_${VERSION}.tar.gz
+        bash upload.sh LunarCalendar_${VERSION}.tar.gz update_linux_appimage.xml
     fi
     exit 0
 fi

@@ -14,7 +14,7 @@ case "$1" in
         if [ ! -f /usr/share/applications/LunarCalendar.desktop ]; then
             ln -s `pwd`/share/applications/LunarCalendar.desktop /usr/share/applications/LunarCalendar.desktop
             sed -i "s/Exec=.*//g" /usr/share/applications/LunarCalendar.desktop
-            echo "Exec=`pwd`/Lunar_calendar-x86_64.AppImage" >> /usr/share/applications/LunarCalendar.desktop            
+            echo "Exec=`pwd`/LunarCalendar-x86_64.AppImage" >> /usr/share/applications/LunarCalendar.desktop            
         fi
         if [ ! -f /usr/share/pixmaps/calendar.png ]; then
             if [ ! -d /usr/share/pixmaps ]; then
