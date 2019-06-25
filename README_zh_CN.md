@@ -60,15 +60,15 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
-    + [LunarCalendar_v0.0.9.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.9/LunarCalendar_v0.0.9.tar.gz)  
+    + [LunarCalendar_v0.0.10.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/LunarCalendar_v0.0.10.tar.gz)  
     AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
     用法：
-       1. 解压。把 LunarCalendar_v0.0.9.tar.gz 复制到你想安装的位置，并解压：
+       1. 解压。把 LunarCalendar_v0.0.10.tar.gz 复制到你想安装的位置，并解压：
 
                 mkdir LunarCalendar
                 cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_v0.0.9.tar.gz .
-                tar xvfz LunarCalendar_v0.0.9.tar.gz
+                cp $DOWNLOAD/LunarCalendar_v0.0.10.tar.gz .
+                tar xvfz LunarCalendar_v0.0.10.tar.gz
 
        2. 运行 install.sh install 安装
 
@@ -80,15 +80,15 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                 ./install.sh remove
 
 - ubuntu
-    + [lunarcalendar_0.0.9_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.9/lunarcalendar_0.0.9_amd64.deb)
+    + [lunarcalendar_0.0.10_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/lunarcalendar_0.0.10_amd64.deb)
     deb 安装包,可用于 Ubuntu
   
 - windows
-    + [LunarCalendar-Setup-v0.0.9.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.9/LunarCalendar-Setup-v0.0.9.exe)  
+    + [LunarCalendar-Setup-v0.0.10.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/LunarCalendar-Setup-v0.0.10.exe)  
     Windows安装包，支持 Windows xp 以上系统 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.9/android-build-debug.apk)  
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/android-build-debug.apk)  
     Android 安装包
     
 ------------------------------------------------
