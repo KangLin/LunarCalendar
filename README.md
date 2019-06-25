@@ -61,16 +61,16 @@ please compile and test the students with the corresponding equipment.
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
-    + [LunarCalendar_v0.0.10.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/LunarCalendar_v0.0.10.tar.gz)  
+    + [LunarCalendar_v0.0.11.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.11/LunarCalendar_v0.0.11.tar.gz)  
       The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
       usage:
   
-      1. Decompress. Copy LunarCalendar_v0.0.10.tar.gz to install dirctory, then decompress it:
+      1. Decompress. Copy LunarCalendar_v0.0.11.tar.gz to install dirctory, then decompress it:
       
                 mkdir LunarCalendar
                 cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_v0.0.10.tar.gz .
-                tar xvfz LunarCalendar_v0.0.10.tar.gz
+                cp $DOWNLOAD/LunarCalendar_v0.0.11.tar.gz .
+                tar xvfz LunarCalendar_v0.0.11.tar.gz
 
       2. install
       
@@ -81,16 +81,16 @@ please compile and test the students with the corresponding equipment.
                 ./install.sh remove
 
 - ubuntu
-    + [lunarcalendar_0.0.10_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/lunarcalendar_0.0.10_amd64.deb)  
+    + [lunarcalendar_0.0.11_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.11/lunarcalendar_0.0.11_amd64.deb)  
       Deb installation package for Ubuntu
 
 - windows
-    + [LunarCalendar-Setup-v0.0.10.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/LunarCalendar-Setup-v0.0.10.exe)  
+    + [LunarCalendar-Setup-v0.0.11.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.11/LunarCalendar-Setup-v0.0.11.exe)  
       Windows installation package, support for Windows xp and above
 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.10/android-build-debug.apk)  
+    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.0.11/android-build-debug.apk)  
     Android installation package
     
 ------------------------------------------------
