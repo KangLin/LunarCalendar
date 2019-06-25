@@ -88,15 +88,17 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     sudo dpkg -i ../lunarcalendar*_amd64.deb
     $SOURCE_DIR/test/test_linux.sh 
     
-    cd debian/lunarcalendar/opt/LunarCalendar
+    cd debian/lunarcalendar/opt
         
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-    ./linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
+    ./linuxdeployqt-continuous-x86_64.AppImage LunarCalendar/share/applications/*.desktop \
             -qmake=${QT_ROOT}/bin/qmake -appimage
 
+    cd LunarCalendar
     # Create appimage install package
+    cp ../Lunar_calendar-${VERSION}-x86_64.AppImage .
     cp $SOURCE_DIR/Install/install.sh .
     ln -s Lunar_calendar-${VERSION}-x86_64.AppImage LunarCalendar-x86_64.AppImage
     tar -czf LunarCalendar_${VERSION}.tar.gz \

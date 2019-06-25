@@ -1,3 +1,6 @@
+- v0.0.10
+  + 修改tar打包内容
+  
 - v0.0.9
   + 增加 update_linux_appimage.xml
 
