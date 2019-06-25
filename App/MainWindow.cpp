@@ -7,6 +7,7 @@
 #include <QApplication>
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
+    #include "FrmUpdater/FrmUpdater.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -72,8 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
     
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
-    m_frmUpdate.SetTitle(QPixmap(":/image/Calendar"));
-    pHelp->addAction(m_frmUpdate.windowIcon(), tr("Update"),
+    pHelp->addAction(QIcon(":/image/Calendar"), tr("Update"),
                      this, SLOT(slotUpdate()));
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
 #endif
@@ -123,10 +123,12 @@ void MainWindow::slotAbout()
 void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
+    CFrmUpdater* pUpdate = new CFrmUpdater();
+    pUpdate->SetTitle(QPixmap(":/image/Calendar"));
     #if defined (Q_OS_ANDROID)
-        m_frmUpdate.showMaximized();
+        pUpdate->showMaximized();
     #else
-        m_frmUpdate.show();
+        pUpdate->show();
     #endif
 #endif
 }
