@@ -5,6 +5,25 @@
 
 [<img src="https://raw.githubusercontent.com/KangLin/Tasks/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
 
+- [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
+- [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
+
+------------------------------------------------
+
+- [功能](#功能)
+- [捐赠](#捐赠)
+- [屏幕截图](#屏幕截图)
+- [下载安装包](#下载安装包)
+    + [linux](#linux)
+    + [ubuntu](#ubuntu)
+    + [windows](#windows)
+    + [android](#android)
+- [编译](#编译)
+- [其它应用使用本项目](#其它应用使用本项目)
+- [贡献](#贡献)
+- [许可协议](#许可协议)
+    + [第三方库](#第三方库)
+
 ------------------------------------------------
 
 ### 功能
@@ -28,13 +47,6 @@ Qt 写的农历。它提供：
   + [ ] IOS
 
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
-
-------------------------------------------------
-
-- [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
-- [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
-
-------------------------------------------------
 
 ## 捐赠
 - 捐赠(大于￥20)：  

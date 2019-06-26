@@ -7,6 +7,10 @@ Author: KangLin (kl222@126.com)
 
 ------------------------------------------------
 
+@[toc]
+
+------------------------------------------------
+
 ### Features
 
 The lunar calendar written by Qt. It provides:
@@ -32,12 +36,14 @@ please compile and test the students with the corresponding equipment.
 
 ------------------------------------------------
 
+### Build status
+
 - [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 - [![Linux Build Status](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 ------------------------------------------------
 
-## Donation
+### Donation
 - Donation (greater than ¥20):  
 ![donation (greater than ¥20)](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation (greater than ¥20)")
 
