@@ -10,7 +10,7 @@
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
     #include "FrmUpdater/FrmUpdater.h"
-    #include "RabbitCommonGlobalDir.h"
+    #include "RabbitCommonDir.h"
 #endif
 #include <QLocale>
 
@@ -23,14 +23,14 @@ int main(int argc, char *argv[])
 #endif
     
     QTranslator tApp;
-    tApp.load(CRabbitCommonGlobalDir::Instance()->GetDirTranslations()
+    tApp.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
               + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
     a.installTranslator(&tApp);
     
     CLunarCalendar::InitResource();
     
 #ifdef RABBITCOMMON
-    CRabbitCommonTools::Instance()->Init();
+    RabbitCommon::CTools::Instance()->Init();
 #endif
     
     a.setApplicationName("LunarCalendar");
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 //    }
     
 #ifdef RABBITCOMMON 
-    CFrmUpdater *pUpdate = new CFrmUpdater(); 
+    CFrmUpdater *pUpdate = new CFrmUpdater();
     pUpdate->SetTitle(QPixmap(":/image/Calendar")); 
     if(!pUpdate->GenerateUpdateXml()) 
         return 0; 

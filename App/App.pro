@@ -1,7 +1,7 @@
 TARGET = LunarCalendarApp
 TEMPLATE = app
 CONFIG(staticlib): CONFIG*=static
-
+CONFIG *= c++11
 QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
