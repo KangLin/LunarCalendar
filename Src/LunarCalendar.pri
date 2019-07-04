@@ -11,6 +11,13 @@ msvc {
 CONFIG(static): DEFINES *= LUNARCALENDAR_STATIC_DEFINE
 else: DEFINES *= LunarCalendar_EXPORTS
 
+isEmpty(BUILD_VERSION): error("Please set BUILD_VERSION")
+VERSION=$$replace(BUILD_VERSION, v,)
+win32{
+    VERSION=$$split(VERSION, -)
+    VERSION=$$first(VERSION)
+}
+
 SOURCES += $$PWD/LunarCalendar.cpp \
     $$PWD/LunarCalendarModel.cpp \
     $$PWD/CalendarLunar.cpp \

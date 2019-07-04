@@ -10,14 +10,12 @@
 
 ------------------------------------------------
 
+### 目录：
+
 - [功能](#功能)
 - [捐赠](#捐赠)
 - [屏幕截图](#屏幕截图)
 - [下载安装包](#下载安装包)
-    + [linux](#linux)
-    + [ubuntu](#ubuntu)
-    + [windows](#windows)
-    + [android](#android)
 - [编译](#编译)
 - [其它应用使用本项目](#其它应用使用本项目)
 - [贡献](#贡献)
@@ -238,8 +236,8 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
 ### 贡献
 
-问题：https://github.com/KangLin/LunarCalendar/issues  
-项目位置：https://github.com/KangLin/LunarCalendar
+- 问题：https://github.com/KangLin/LunarCalendar/issues  
+- 项目位置：https://github.com/KangLin/LunarCalendar
 
 ------------------------------------------------
 
