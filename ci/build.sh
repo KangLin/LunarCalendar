@@ -80,7 +80,7 @@ case ${BUILD_TARGERT} in
         ;;
 esac
 
-export VERSION="v0.0.13"
+export VERSION="v0.1.0"
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
     bash build_debpackage.sh ${QT_ROOT} 
@@ -93,12 +93,13 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${QT_ROOT}/bin:${QT_ROOT}/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin:`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib
     wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
     chmod a+x linuxdeployqt-continuous-x86_64.AppImage
-    ./linuxdeployqt-continuous-x86_64.AppImage LunarCalendar/share/applications/*.desktop \
-            -qmake=${QT_ROOT}/bin/qmake -appimage
-
+    
     cd LunarCalendar
+    ./../linuxdeployqt-continuous-x86_64.AppImage share/applications/*.desktop \
+            -qmake=${QT_ROOT}/bin/qmake -appimage -no-copy-copyright-files
+    
     # Create appimage install package
-    cp ../Lunar_calendar-${VERSION}-x86_64.AppImage .
+    #cp ../Lunar_calendar-${VERSION}-x86_64.AppImage .
     cp $SOURCE_DIR/Install/install.sh .
     ln -s Lunar_calendar-${VERSION}-x86_64.AppImage LunarCalendar-x86_64.AppImage
     tar -czf LunarCalendar_${VERSION}.tar.gz \
