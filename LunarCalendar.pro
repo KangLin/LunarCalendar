@@ -27,8 +27,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Default rules for deployment.
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp
-    else : android : PREFIX = /.
-    else : unnix : PREFIX = /usr/local
+    else : ios: PREFIX=/
+    else : android : PREFIX = /
+    else : unix : PREFIX = /opt/RabbitCommon
     else : PREFIX = $$OUT_PWD/install
 }
 
@@ -39,13 +40,14 @@ DISTFILES += Authors.md \
     App/AppIcon.ico
 
 other.files = $$DISTFILES
-other.path = $$PREFIX
+android: other.path = $$PREFIX/assets
+else: other.path = $$PREFIX
 other.CONFIG += directory no_check_exist 
 
 install.files = Install/Install.nsi
 install.path = $$OUT_PWD
 install.CONFIG += directory no_check_exist 
-!android : INSTALLS += other
+INSTALLS += other
 win32:  INSTALLS += install
 
 OTHER_FILES += appveyor.yml \
