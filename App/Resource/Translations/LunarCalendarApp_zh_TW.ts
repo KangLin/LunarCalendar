@@ -9,67 +9,67 @@
         <translation>日歷</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="19"/>
+        <location filename="../../MainWindow.cpp" line="20"/>
         <source>View</source>
         <translation>視圖</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="20"/>
+        <location filename="../../MainWindow.cpp" line="21"/>
         <source>Lunar</source>
         <translation>農歷</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="25"/>
+        <location filename="../../MainWindow.cpp" line="26"/>
         <source>Solar</source>
         <translation>陽歷</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="32"/>
+        <location filename="../../MainWindow.cpp" line="33"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="37"/>
+        <location filename="../../MainWindow.cpp" line="38"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="43"/>
+        <location filename="../../MainWindow.cpp" line="44"/>
         <source>Use backgroup image</source>
         <translation>使用背景圖</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="50"/>
+        <location filename="../../MainWindow.cpp" line="51"/>
         <source>Head postion</source>
         <translation>頭位置</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="51"/>
+        <location filename="../../MainWindow.cpp" line="52"/>
         <source>Not</source>
         <translation>隱藏</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="54"/>
+        <location filename="../../MainWindow.cpp" line="55"/>
         <source>Top</source>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="58"/>
+        <location filename="../../MainWindow.cpp" line="59"/>
         <source>Down</source>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="61"/>
+        <location filename="../../MainWindow.cpp" line="62"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="64"/>
+        <location filename="../../MainWindow.cpp" line="65"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="74"/>
+        <location filename="../../MainWindow.cpp" line="75"/>
         <source>Help</source>
         <translation>幫助</translation>
     </message>

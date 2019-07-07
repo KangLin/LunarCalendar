@@ -19,19 +19,14 @@
 #include <algorithm>
 #include "CalendarLunar.h"
 #include "LunarTable.h"
+#include "RabbitCommonDir.h"
 
 class CLunarCalendarPrivate
 {
 public:
     CLunarCalendarPrivate() 
     {
-        QString szPre;    
-    #if defined(Q_OS_ANDROID) || _DEBUG
-        szPre = ":/Translations";
-    #else
-        szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
-    #endif
-        m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
+        m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations() + "/LunarCalendar_" + QLocale::system().name() + ".qm");
         qApp->installTranslator(&m_Translator);
     }
     ~CLunarCalendarPrivate()
@@ -226,7 +221,7 @@ void CLunarCalendar::InitResource()
         g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
 
     Q_INIT_RESOURCE(ResourceLunarCalendar);
-#if defined(Q_OS_ANDROID) || _DEBUG
+#if _DEBUG
     Q_INIT_RESOURCE(translations_LunarCalendar);
 #endif
 }
@@ -240,7 +235,7 @@ void CLunarCalendar::CLeanResource()
     }
 
     Q_CLEANUP_RESOURCE(ResourceLunarCalendar);
-#if defined(Q_OS_ANDROID) || _DEBUG
+#if _DEBUG
     Q_CLEANUP_RESOURCE(translations_LunarCalendar);
 #endif
 }

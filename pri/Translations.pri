@@ -13,7 +13,7 @@
 #     translator.load(CRabbitCommonGlobalDir::Instance()->GetDirTranslations()
 #                   + "/" + qApp->applicationName() + "_" + QLocale::system().name() + ".qm");
 #     qApp->installTranslator(&translator);
-# android and debug translate resources as resource file embed programs
+# debug translate resources as resource file embed programs
 
 #
 # Other system distribution mode, as a file in the installation directory of
@@ -27,6 +27,14 @@
 #       |- translations
 #              |- ${TRANSLATIONS_NAME}_zh_CN.qm
 #              |- ${TRANSLATIONS_NAME}_zh_TW.qm
+#
+#
+# Android install directory:
+#    assets
+#       |- translations
+#              |- ${TRANSLATIONS_NAME}_zh_CN.qm
+#              |- ${TRANSLATIONS_NAME}_zh_TW.qm
+#
 #
 # Source directory:
 #   SourceRoot 
@@ -57,7 +65,7 @@
 #     translator.load(CRabbitCommonGlobalDir::Instance()->GetDirTranslations()
 #                   + "/" + qApp->applicationName() + "_" + QLocale::system().name() + ".qm");
 #     qApp->installTranslator(&translator);
-# android 和 debug 翻译资源做为资源文件嵌入程序
+# debug 翻译资源做为资源文件嵌入程序
 #
 # 其它系统发行模式下，做为文件放在程序的安装目录 Translations 目录下
 # 程序的安装目录：
@@ -69,6 +77,14 @@
 #       |- translations
 #              |- ${TRANSLATIONS_NAME}_zh_CN.qm
 #              |- ${TRANSLATIONS_NAME}_zh_TW.qm
+#
+#
+# Android 翻译安装目录:
+#    assets
+#       |- translations
+#              |- ${TRANSLATIONS_NAME}_zh_CN.qm
+#              |- ${TRANSLATIONS_NAME}_zh_TW.qm
+#
 #
 # 源码目录：
 #   SourceRoot 
@@ -95,10 +111,12 @@ TRANSLATIONS_TS_FILES = \
 
 TRANSLATIONS *= $$TRANSLATIONS_TS_FILES
 
-QM_FILES_RESOURCE_PREFIX = Translations
-QM_FILES_INSTALL_PATH = $$PREFIX/translations
+QM_FILES_RESOURCE_PREFIX = translations
 
-android : CONFIG *= embed_translations
+#android : CONFIG *= embed_translations
+android: QM_FILES_INSTALL_PATH = $$PREFIX/assets/translations
+else: QM_FILES_INSTALL_PATH = $$PREFIX/translations
+
 CONFIG(debug, debug|release) {
     CONFIG *= embed_translations
     DEFINES *= _DEBUG

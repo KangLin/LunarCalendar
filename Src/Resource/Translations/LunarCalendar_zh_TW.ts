@@ -17,13 +17,13 @@
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1069"/>
+        <location filename="../../LunarCalendar.cpp" line="1115"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
         <location filename="../../LunarCalendar.cpp" line="162"/>
-        <location filename="../../LunarCalendar.cpp" line="1072"/>
+        <location filename="../../LunarCalendar.cpp" line="1118"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
