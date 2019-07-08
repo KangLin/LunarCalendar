@@ -43,12 +43,17 @@ other.files = $$DISTFILES
 android: other.path = $$PREFIX/assets
 else: other.path = $$PREFIX
 other.CONFIG += directory no_check_exist 
-
-install.files = Install/Install.nsi
-install.path = $$OUT_PWD
-install.CONFIG += directory no_check_exist 
 INSTALLS += other
-win32:  INSTALLS += install
+
+install_win.files = Install/Install.nsi
+install_win.path = $$OUT_PWD
+install_win.CONFIG += directory no_check_exist 
+win32:  INSTALLS += install_win
+
+install_unix.files = Install/install.sh
+install_unix.path = $$PREFIX
+install_unix.CONFIG += directory no_check_exist 
+unix: !android: INSTALLS += install_unix
 
 OTHER_FILES += appveyor.yml \
     .travis.yml \
