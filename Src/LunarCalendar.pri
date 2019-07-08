@@ -2,7 +2,23 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
-INCLUDEPATH += $$PWD $$PWD/export $$PWD/../3th_lib/sxtwl/src
+isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
+isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$_PRO_FILE_PWD_/../../RabbitCommon
+!isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
+    INCLUDEPATH *= $${RabbitCommon_DIR}/Src $${RabbitCommon_DIR}/Src/export
+    
+} else{
+    message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
+    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
+    message("   git clone https://github.com/KangLin/RabbitCommon.git")
+    error  ("2. Then set value RabbitCommon_DIR to download dirctory")
+}
+
+INCLUDEPATH *= $$PWD $$PWD/export $$PWD/../3th_lib/sxtwl/src
+LIBS *= "-L$$DESTDIR" -lRabbitCommon
+
+include($$PWD/../pri/Translations.pri)
+
 msvc {
     QMAKE_CXXFLAGS += "/utf-8"
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
@@ -46,22 +62,6 @@ HEADERS += $$INSTALL_HEADERS \
     $$PWD/LunarTable.h
 
 FORMS +=
-
-isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
-isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$PWD/../../RabbitCommon
-!isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
-    DEFINES += RABBITCOMMON
-    include("$${RabbitCommon_DIR}/Src/RabbitCommon.pri")
-} else{
-    message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
-    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
-    message("   git clone https://github.com/KangLin/RabbitCommon.git")
-    error  ("2. Then set value RabbitCommon_DIR to download dirctory")
-}
-
-TRANSLATIONS_DIR=$$PWD
-TRANSLATIONS_NAME=LunarCalendar
-include($${RabbitCommon_DIR}/pri/Translations.pri)
 
 RESOURCES += \
     $$PWD/Resource/ResourceLunarCalendar.qrc

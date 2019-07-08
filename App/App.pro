@@ -2,13 +2,15 @@ TARGET = LunarCalendarApp
 TEMPLATE = app
 CONFIG(staticlib): CONFIG*=static
 CONFIG *= c++11
-QT += core gui
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT += core gui xml
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 android {
     versionAtMost(QT_VERSION, 5.4.0) : error("Android: Qt version must greater than or equal to 5.4.0")
     QT += androidextras gui
 }
+
+isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin
 
 #Get app version use git, please set git path to environment variable PATH
 isEmpty(BUILD_VERSION) {
@@ -39,9 +41,21 @@ msvc {
     QMAKE_LFLAGS *= /SUBSYSTEM:WINDOWS",5.01"
 }
 
-isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin
-INCLUDEPATH = ../Src ../Src/export
-LIBS *= "-L$$DESTDIR" -lLunarCalendar
+isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
+isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$PWD/../../RabbitCommon
+!isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
+    INCLUDEPATH *= $${RabbitCommon_DIR}/Src $${RabbitCommon_DIR}/Src/export
+    DEFINES *= RABBITCOMMON
+} else{
+    message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
+    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
+    message("   git clone https://github.com/KangLin/RabbitCommon.git")
+    error  ("2. Then set value RabbitCommon_DIR to download dirctory")
+}
+INCLUDEPATH *= $$PWD/../Src $$PWD/../Src/export
+LIBS *= "-L$$DESTDIR" -lLunarCalendar -lRabbitCommon
+
+include(../pri/Translations.pri)
 
 SOURCES += \
         main.cpp \
@@ -114,17 +128,3 @@ OTHER_FILES += \
     android/* \
     android/res/* \
     android/res/values/*
-
-isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
-isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$PWD/../../RabbitCommon
-!isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
-    DEFINES += RABBITCOMMON
-    include("$${RabbitCommon_DIR}/Src/RabbitCommon.pri")
-} else{
-    message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
-    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
-    message("   git clone https://github.com/KangLin/RabbitCommon.git")
-    error  ("2. Then set value RabbitCommon_DIR to download dirctory")
-}
-
-include($${RabbitCommon_DIR}/pri/Translations.pri)

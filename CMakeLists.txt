@@ -121,14 +121,15 @@ if("Debug" STREQUAL CMAKE_BUILD_TYPE)
     add_definitions(-D_DEBUG)
 endif()
 
-
 set(OTHER_FILES
     ${CMAKE_SOURCE_DIR}/License.md
     ${CMAKE_SOURCE_DIR}/Authors.md
     ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
     ${CMAKE_SOURCE_DIR}/ChangeLog.md
-    ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
     )
+if(WIN32)
+    set(OTHER_FILES ${OTHER_FILES} ${CMAKE_SOURCE_DIR}/App/AppIcon.ico)
+endif()
 
 add_subdirectory(Src)
 option(BUILD_APP "Set to ON to build applaction" ON)
