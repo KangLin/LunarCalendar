@@ -6,7 +6,7 @@ isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
 isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$_PRO_FILE_PWD_/../../RabbitCommon
 !isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
     INCLUDEPATH *= $${RabbitCommon_DIR}/Src $${RabbitCommon_DIR}/Src/export
-    
+    CONFIG(static): DEFINES *= RABBITCOMMON_STATIC_DEFINE
 } else{
     message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
     message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
