@@ -12,7 +12,7 @@
         <translation type="vanished">今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="80"/>
+        <location filename="../../LunarCalendar.cpp" line="81"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
@@ -22,7 +22,7 @@
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="157"/>
+        <location filename="../../LunarCalendar.cpp" line="158"/>
         <location filename="../../LunarCalendar.cpp" line="1113"/>
         <source>Month</source>
         <translation>月</translation>

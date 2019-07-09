@@ -24,9 +24,10 @@
 class CLunarCalendarPrivate
 {
 public:
-    CLunarCalendarPrivate() 
+    CLunarCalendarPrivate()
     {
-        m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations() + "/LunarCalendar_" + QLocale::system().name() + ".qm");
+        m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
+                        + "/LunarCalendar_" + QLocale::system().name() + ".qm");
         qApp->installTranslator(&m_Translator);
     }
     ~CLunarCalendarPrivate()
@@ -280,7 +281,6 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
 
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
         m_pMainLayout->addWidget(&m_View);
-
         break;
     case Down:
         ShowHead(true);
