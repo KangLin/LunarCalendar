@@ -17,7 +17,14 @@ if [ "$BUILD_TARGERT" = "android" ]; then
     if [ "$TRAVIS" = "true" ]; then
         export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     fi
-    export QT_ROOT=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}/${QT_VERSION}/android_armv7
+    case $BUILD_ARCH in
+        arm*)
+            export QT_ROOT=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}/${QT_VERSION}/android_armv7
+            ;;
+        x86)
+        export QT_ROOT=${SOURCE_DIR}/Tools/Qt/${QT_VERSION}/${QT_VERSION}/android_x86
+        ;;
+    esac
     export PATH=${SOURCE_DIR}/Tools/apache-ant/bin:$JAVA_HOME:$PATH
 fi
 

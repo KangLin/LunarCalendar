@@ -17,6 +17,7 @@ isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$_PRO_FILE_PWD_/../../RabbitCommon
 INCLUDEPATH *= $$PWD $$PWD/export $$PWD/../3th_lib/sxtwl/src
 LIBS *= "-L$$DESTDIR" -lRabbitCommon
 
+TRANSLATIONS_DIR=$$PWD
 include($$PWD/../pri/Translations.pri)
 
 msvc {
