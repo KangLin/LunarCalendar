@@ -167,17 +167,18 @@ else
                        --android-platform ${ANDROID_API} \
                         --gradle --verbose
                         #--jdk ${JAVA_HOME}
-        cp $SOURCE_DIR/Update/update_android.xml .
-        APK_FILE=`find . -name "android-build-debug.apk"`
-        MD5=`md5sum ${APK_FILE} | awk '{print $1}'`
-        echo "MD5:${MD5}"
-        sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" update_android.xml
-        sed -i "s/<INFO>.*</<INFO>Release LunarCalendar-${VERSION}</g" update_android.xml
-        sed -i "s/<TIME>.*</<TIME>`date`</g" update_android.xml
-        sed -i "s/<ARCHITECTURE>.*</<ARCHITECTURE>${BUILD_ARCH}</g" update_android.xml
-        sed -i "s/<MD5SUM>.*</<MD5SUM>${MD5}</g" update_android.xml
-        sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/android-build-debug.apk<:g" update_android.xml
-        if [ "$TRAVIS_TAG" != "" ]; then
+        if [ "$TRAVIS_TAG" != "" -a "$BUILD_ARCH"="armeabi-v7a" -a "$QT_VERSION_DIR"="5.12" ]; then
+            cp $SOURCE_DIR/Update/update_android.xml .
+            APK_FILE=`find . -name "android-build-debug.apk"`
+            MD5=`md5sum ${APK_FILE} | awk '{print $1}'`
+            echo "MD5:${MD5}"
+            sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" update_android.xml
+            sed -i "s/<INFO>.*</<INFO>Release LunarCalendar-${VERSION}</g" update_android.xml
+            sed -i "s/<TIME>.*</<TIME>`date`</g" update_android.xml
+            sed -i "s/<ARCHITECTURE>.*</<ARCHITECTURE>${BUILD_ARCH}</g" update_android.xml
+            sed -i "s/<MD5SUM>.*</<MD5SUM>${MD5}</g" update_android.xml
+            sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/android-build-debug.apk<:g" update_android.xml
+            
             export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
             #export UPLOADTOOL_PR_BODY=
             wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
