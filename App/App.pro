@@ -76,13 +76,13 @@ RC_FILE = AppIcon.rc
 android {
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
     isEmpty(THIRDLIBRARY_PATH) message("Please set THIRDLIBRARY_PATH")
-    CONFIG(static){
-        LIBS *= -lssl
-    } else {
+    #CONFIG(static){
+    #    LIBS *= -lssl
+    #} else {
         #ANDROID_EXTRA_LIBS += #\
           #$${THIRDLIBRARY_PATH}/libssl.so \
           #$${THIRDLIBRARY_PATH}/libcrypto.so 
-    }
+    #}
 }
 
 isEmpty(PREFIX) {
