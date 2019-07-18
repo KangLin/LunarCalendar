@@ -14,7 +14,7 @@ isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$(RabbitCommon_DIR)
 isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$PWD/../RabbitCommon
 !isEmpty(RabbitCommon_DIR): exists("$${RabbitCommon_DIR}/Src/RabbitCommon.pri"){
     RabbitCommon.file = 3th_lib/RabbitCommon.pro
-    SUBDIRS += RabbitCommon    
+    SUBDIRS += RabbitCommon
 } else{
     message("Don't find RabbitCommon, in RabbitCommon_DIR:$$RabbitCommon_DIR")
     message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon ag:")
@@ -55,17 +55,17 @@ win32: DISTFILES += App/AppIcon.ico
 other.files = $$DISTFILES
 android: other.path = $$PREFIX/assets
 else: other.path = $$PREFIX
-other.CONFIG += directory no_check_exist 
+other.CONFIG += directory no_check_exist
 INSTALLS += other
 
 install_win.files = Install/Install.nsi
 install_win.path = $$OUT_PWD
-install_win.CONFIG += directory no_check_exist 
-win32:  INSTALLS += install_win
+install_win.CONFIG += directory no_check_exist
+win32: INSTALLS += install_win
 
 install_unix.files = Install/install.sh
 install_unix.path = $$PREFIX
-install_unix.CONFIG += directory no_check_exist 
+install_unix.CONFIG += directory no_check_exist
 unix: !android: INSTALLS += install_unix
 
 OTHER_FILES += appveyor.yml \

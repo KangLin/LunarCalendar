@@ -77,8 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
                      this, SLOT(slotUpdate()));
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
 #endif
-    
-    setCentralWidget(m_pLunarCalendar);
+
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
 //    m_pLunarCalendar->ShowToday(false);
 //    m_pLunarCalendar->ShowTools(false);
@@ -95,8 +94,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
 //    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
 //    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-//    m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-
+    m_pLunarCalendar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    setCentralWidget(m_pLunarCalendar);
+    
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
             this, SLOT(slotUpdateCalendar()));
     Q_ASSERT(check);

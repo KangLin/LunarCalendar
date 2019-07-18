@@ -17,6 +17,8 @@
 #include <QPainter>
 #include <QLineEdit>
 #include <algorithm>
+#include <QGestureEvent>
+#include <QSwipeGesture>
 #include "CalendarLunar.h"
 #include "LunarTable.h"
 #include "RabbitCommonDir.h"
@@ -114,6 +116,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     m_View.verticalHeader()->setSectionsClickable(false);
     m_View.setFrameStyle(QFrame::NoFrame);
+    //m_View.grabGesture(Qt::PanGesture);
+    m_View.grabGesture(Qt::SwipeGesture);
     m_View.installEventFilter(this);
     m_View.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_View.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -178,9 +182,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout->addWidget(&m_pbToday);
     m_pToolLayout->setMargin(0);
     m_pToolLayout->setSpacing(0);
-        
+
     SetHeadPostion();
-    
+
     bool check = connect(&m_Timer, SIGNAL(timeout()),
                          this, SLOT(slotTimeout()));
     Q_ASSERT(check);
@@ -909,14 +913,29 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
 //    qDebug() << event;
     switch(event->type()){
-    
+    case QEvent::Gesture:
+        {
+            qDebug() << "QEvent::Gesture";
+            QGestureEvent *gestureEvent = static_cast<QGestureEvent*>(event);
+            if (QGesture *swipe = gestureEvent->gesture(Qt::SwipeGesture))
+                if (swipe->state() == Qt::GestureFinished) {
+                    QSwipeGesture *gesture = static_cast<QSwipeGesture *>(swipe);
+                    if (gesture->horizontalDirection() == QSwipeGesture::Left
+                        || gesture->verticalDirection() == QSwipeGesture::Up) {
+                        qDebug() << "swipeTriggered(): swipe to previous";
+                    } else {
+                        qDebug() << "swipeTriggered(): swipe to next";
+                    }
+                }
+        }
+        break;
     case QEvent::TouchBegin:
     case QEvent::TouchUpdate:
     case QEvent::TouchEnd:
         {
             QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
             QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-            qDebug() << "touch points:" << touchPoints.length();
+//            qDebug() << "touch points:" << touchPoints.length();
             /*if(touchPoints.length() == 1)
             {
                 int days = 0;

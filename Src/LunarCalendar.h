@@ -48,13 +48,13 @@ public:
     
     Qt::DayOfWeek FirstDayOfWeek() const;
     //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
-    
+
     void SetShowGrid(bool show);
     bool ShowGrid();
-    
+
     void SetShowBackgroupImage(bool show);
     bool ShowBackgroupImage();
-    
+
     void ShowHead(bool bShow);
     void ShowWeekHead(bool bShow);
     void ShowWeeks(bool bShow);
@@ -71,7 +71,7 @@ public:
     void ShowToday(bool bShow);
     void ShowDate(bool bShow);
     void ShowTime(bool bShow);
-        
+
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
     QDate MaximumDate() const;
@@ -81,7 +81,7 @@ public:
     int AddHoliday(int month, int day, const QString &szName);
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
-    
+
     class CGetTaskHandler
     {
     public:
@@ -90,7 +90,7 @@ public:
         virtual int onHandle(QDate date) = 0;
     };
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
-    
+
     enum _CalendarType{
         CalendarTypeSolar = 0x01,
         CalendarTypeLunar = 0x02

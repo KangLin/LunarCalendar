@@ -37,7 +37,7 @@ CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : QObject(parent)
     
     if(date.isValid())
     {
-        GetLunar(date);        
+        GetLunar(date);
     }
 }
 
