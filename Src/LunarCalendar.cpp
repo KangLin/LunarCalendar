@@ -115,6 +115,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.verticalHeader()->setSectionsClickable(false);
     m_View.setFrameStyle(QFrame::NoFrame);
     m_View.installEventFilter(this);
+    m_View.setAttribute(Qt::WA_AcceptTouchEvents, true);
     m_View.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     m_View.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //m_View.setAutoScroll(false);
@@ -907,45 +908,63 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
-//    qDebug() << event;
     switch(event->type()){
     
     case QEvent::TouchBegin:
+    {
+//        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+//        QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
+//        qDebug() << "touch begin points:" << touchPoints.length() << touchPoints;
+        event->accept();
+        return true;
+    }
     case QEvent::TouchUpdate:
+    {
+//        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+//        QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
+//        qDebug() << "touch update points:" << touchPoints.length() << touchPoints;
+        event->accept();
+        break;
+    }
     case QEvent::TouchEnd:
         {
             QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
             QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-            qDebug() << "touch points:" << touchPoints.length();
-            /*if(touchPoints.length() == 1)
+            qDebug() << "touch end points:" << touchPoints.length() << touchPoints;
+            event->accept();
+            if(touchPoints.length() == 1)
             {
                 int days = 0;
                 QTouchEvent::TouchPoint t = touchPoints.first();
                 QLineF line(QLineF(t.startPos(), t.lastPos()));
+                qDebug() << "line:" << line;
                 if(qAbs(line.dx()) > qAbs(line.dy()))
                 {
+                    qDebug() << "dx:" << line.dx();
                     if(line.dx() > 0)
-                        days = 31;
+                        on_tbPreviousMonth_clicked();
                     else
-                        days = -31;
+                        on_tbNextMonth_clicked();
                 }else {
+                    qDebug() << "dy:" << line.dy();
                     if(line.dy() > 0)
                         days = -7;
                     else
                         days = 7;
                 }
-                CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-                if(pModel)
-                {
-                    const QModelIndex index = m_View.currentIndex();
-                    if(index.isValid())
-                    {
-                        QDate currentDate = pModel->dateForCell(index.row(), index.column());
-                        currentDate = currentDate.addDays(days);
-                        this->SetSelectedDate(currentDate);
-                    }
-                }
-            }*/
+//                CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+//                if(pModel)
+//                {
+//                    const QModelIndex index = m_View.currentIndex();
+//                    if(index.isValid())
+//                    {
+//                        QDate currentDate = pModel->dateForCell(index.row(), index.column());
+//                        currentDate = currentDate.addDays(days);
+//                        qDebug() << "days:" << days << currentDate;
+//                        this->SetSelectedDate(currentDate);
+//                    }
+//                }
+            }
             break;
         }
 #ifndef QT_NO_WHEELEVENT
@@ -966,13 +985,18 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                     this->SetSelectedDate(currentDate);
                 }
             }
+            //event->accept();
             break;
         }
 #endif
+    case QEvent::MouseButtonPress:
+        break;
+    case QEvent::MouseButtonRelease:
+        break;
     case QEvent::MouseMove:
         {
-            QMouseEvent* e = dynamic_cast<QMouseEvent*>(event);
-            qDebug() << e;
+            //QMouseEvent* e = dynamic_cast<QMouseEvent*>(event);
+            //qDebug() << e;
             break;
         }
     case QEvent::KeyRelease:
