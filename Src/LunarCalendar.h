@@ -104,6 +104,12 @@ public:
     int SetViewType(_VIEW_TYPE type);
     _VIEW_TYPE GetViewType() const;
     
+    enum _TOUCH_UP_DOWN_FUNCTION{
+        TouchChangeView,
+        TouchChangeMounth
+    };
+    int SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f);
+    
     int LoadCalendarTable(const QString& szFile);
     int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
 
@@ -157,6 +163,8 @@ private:
     bool m_bShowToday;
     QTimer m_Timer;
     bool m_bShowBackgroupImage;
+    
+    _TOUCH_UP_DOWN_FUNCTION m_TouchFunction;
 
 };
 

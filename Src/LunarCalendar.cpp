@@ -64,7 +64,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
-    m_bShowBackgroupImage(false)
+    m_bShowBackgroupImage(false),
+    m_TouchFunction(TouchChangeMounth)
 {
     //setLocale(QLocale("zh_CN"));
     
@@ -954,6 +955,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     }
     case QEvent::TouchEnd:
         {
+            event->accept();
             QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
             QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
             //qDebug() << "touch end points:" << touchPoints.length() << touchPoints;
@@ -970,17 +972,27 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                             on_tbPreviousMonth_clicked();
                         else
                             on_tbNextMonth_clicked();
-                        event->accept();
                     }
                 }else {
                     //qDebug() << "dy:" << line.dy();
                     if(qAbs(line.dy()) > m_View.verticalHeader()->minimumSectionSize())
                     {
-                        event->accept();
                         if(line.dy() > 0)
-                            on_tbPreviousMonth_clicked();
+                        {
+                            if(GetViewType() != ViewTypeMonth
+                                    && m_TouchFunction == TouchChangeView)
+                                SetViewType(ViewTypeMonth);
+                            else
+                                on_tbPreviousMonth_clicked();
+                        }
                         else
-                            on_tbNextMonth_clicked();
+                        {
+                            if(GetViewType() != ViewTypeWeek
+                                    && m_TouchFunction == TouchChangeView)
+                                SetViewType(ViewTypeWeek);
+                            else
+                                on_tbNextMonth_clicked();
+                        }
                     } 
                 }
 
@@ -1155,6 +1167,12 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType() const
     if(!pModel)
         return ViewTypeMonth;
     return pModel->GetViewType();
+}
+
+int CLunarCalendar::SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f)
+{
+    m_TouchFunction = f;
+    return 0;
 }
 
 CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const

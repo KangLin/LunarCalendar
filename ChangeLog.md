@@ -1,5 +1,6 @@
 - v0.1.1
   + 增加 ANDOIRD 翻译资源
+  + 增加触屏事件
   
 - v0.1.0
   + 使用 RabbitCommon v1.0.0
