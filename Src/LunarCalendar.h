@@ -126,10 +126,10 @@ private slots:
     void on_tvMonth_pressed(const QModelIndex &index);
     
     void slotTimeout();
-    
+
 protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
-
+    
 private:
     int ShowSelectTitle();
     int UpdateViewModel(bool bForce = false);
@@ -157,6 +157,7 @@ private:
     bool m_bShowToday;
     QTimer m_Timer;
     bool m_bShowBackgroupImage;
+
 };
 
 #endif // LUNARCALENDAR_H

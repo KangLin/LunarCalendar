@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
 //    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
 //    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-    m_pLunarCalendar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    //m_pLunarCalendar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
     setCentralWidget(m_pLunarCalendar);
     
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
@@ -204,4 +204,9 @@ void MainWindow::slotHeadPostionLeft()
 void MainWindow::slotHeadPostionRight()
 {
     m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Right);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    m_pLunarCalendar->resize(event->size());
 }

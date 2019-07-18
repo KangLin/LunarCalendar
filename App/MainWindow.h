@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QResizeEvent>
 #include "LunarCalendar.h"
 
 namespace Ui {
@@ -34,6 +35,9 @@ private Q_SLOTS:
 private:
     Ui::MainWindow *ui;
     CLunarCalendar* m_pLunarCalendar;
+
+protected:
+    void resizeEvent(QResizeEvent *event);
 };
 
 #endif // MAINWINDOW_H
