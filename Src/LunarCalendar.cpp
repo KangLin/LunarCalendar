@@ -84,7 +84,11 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     
     m_lbDate.setAlignment(Qt::AlignCenter);
     m_lbTime.setAlignment(Qt::AlignCenter);
-    m_pbToday.setText(tr("Today"));
+    //m_pbToday.setText(tr("Today"));
+    m_pbToday.setIcon(QIcon(":/image/Today"));
+    m_pbToday.setToolTip(tr("Today"));
+    m_pbToday.setStatusTip(tr("Today"));
+    //m_pbToday.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     
 //    m_tbPreYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 //    m_cmbYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -208,7 +212,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
                     this, SLOT(on_tbNextMonth_clicked()));
     Q_ASSERT(check);
     check = connect(&m_pbToday, SIGNAL(clicked()),
-                    this, SLOT(on_pbToday_clicked()));
+                    this, SLOT(soltShowToday()));
     Q_ASSERT(check);
 //    check = connect(&m_cmbYear, SIGNAL(currentIndexChanged(int)),
 //                    this, SLOT(on_cbYear_currentIndex(int)));
@@ -415,7 +419,7 @@ void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
     EnableMonthMenu();
 }
 
-void CLunarCalendar::on_pbToday_clicked()
+void CLunarCalendar::soltShowToday()
 {
 //    m_cmbYear.setCurrentIndex(m_cmbYear.findData(QDate::currentDate().year()));
 //    int nIndex = m_cmbMonth.findData(QDate::currentDate().month());
@@ -498,11 +502,13 @@ void CLunarCalendar::ShowToday(bool bShow)
 void CLunarCalendar::ShowWeeks(bool bShow)
 {
     m_View.verticalHeader()->setVisible(bShow);
+    updateGeometry();
 }
 
 void CLunarCalendar::ShowWeekHead(bool bShow)
 {
     m_View.horizontalHeader()->setVisible(bShow);
+    updateGeometry();
 }
 
 void CLunarCalendar::ShowHead(bool bShow)
@@ -521,11 +527,13 @@ void CLunarCalendar::ShowTools(bool bShow)
     m_tbPreMonth.setVisible(bShow);
     m_cmbMonth.setVisible(bShow);
     ShowToday(bShow);
+    updateGeometry();
 }
 
 void CLunarCalendar::ShowDate(bool bShow)
 {
     m_lbDate.setVisible(bShow);
+    updateGeometry();
 }
 
 /*!
@@ -1222,6 +1230,7 @@ void CLunarCalendar::ShowTime(bool bShow)
         m_Timer.start(1000);
     else
         m_Timer.stop();
+    updateGeometry();
 }
 
 int CLunarCalendar::SetBackgroup(const QString &szFile)

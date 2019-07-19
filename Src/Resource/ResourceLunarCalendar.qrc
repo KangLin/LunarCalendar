@@ -51,5 +51,6 @@
         <file alias="10_zh_CN">Image/10_zh_CN.png</file>
         <file alias="11_zh_CN">Image/11_zh_CN.png</file>
         <file alias="12_zh_CN">Image/12_zh_CN.png</file>
+        <file alias="Today">Image/today.png</file>
     </qresource>
 </RCC>

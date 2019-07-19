@@ -48,16 +48,13 @@ public:
     
     Qt::DayOfWeek FirstDayOfWeek() const;
     //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
-
+    
     void SetShowGrid(bool show);
     bool ShowGrid();
 
     void SetShowBackgroupImage(bool show);
     bool ShowBackgroupImage();
 
-    void ShowHead(bool bShow);
-    void ShowWeekHead(bool bShow);
-    void ShowWeeks(bool bShow);
     enum _HEAD_POSTION
     {
         Not,
@@ -67,11 +64,15 @@ public:
         Right
     };
     int SetHeadPostion(_HEAD_POSTION pos = Top);
+    void ShowHead(bool bShow);
     void ShowTools(bool bShow);
     void ShowToday(bool bShow);
     void ShowDate(bool bShow);
     void ShowTime(bool bShow);
 
+    void ShowWeekHead(bool bShow);
+    void ShowWeeks(bool bShow);
+    
     QDate MinimumDate() const;
     void SetMinimumDate(const QDate &date);
     QDate MaximumDate() const;
@@ -120,13 +121,15 @@ public:
     
 Q_SIGNALS:
     void sigSelectionChanged();
-
+    
+public Q_SLOTS:
+    void soltShowToday();
+    
 private slots:
     void on_tbNextYear_clicked();
     void on_tbPreviousYear_clicked();
     void on_tbNextMonth_clicked();
     void on_tbPreviousMonth_clicked();
-    void on_pbToday_clicked();
     void on_cbMonth_currentIndexChanged(int index);
     void on_cbYear_currentIndex(int index);
     void on_tvMonth_pressed(const QModelIndex &index);
