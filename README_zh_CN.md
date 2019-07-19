@@ -71,7 +71,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 - linux
     + [LunarCalendar_v0.1.0.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.0/LunarCalendar_v0.1.0.tar.gz)  
-    AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/
+    AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/  
     用法：
        1. 解压。把 LunarCalendar_v0.1.0.tar.gz 复制到你想安装的位置，并解压：
 

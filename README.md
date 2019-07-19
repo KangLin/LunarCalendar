@@ -68,7 +68,7 @@ please compile and test the students with the corresponding equipment.
 
 - linux
     + [LunarCalendar_v0.1.0.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.0/LunarCalendar_v0.1.0.tar.gz)
-      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/
+      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
       usage:
 
       1. Decompress. Copy LunarCalendar_v0.1.0.tar.gz to install dirctory, then decompress it:
