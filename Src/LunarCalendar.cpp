@@ -215,7 +215,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
                     this, SLOT(soltShowToday()));
     Q_ASSERT(check);
 //    check = connect(&m_cmbYear, SIGNAL(currentIndexChanged(int)),
-//                    this, SLOT(on_cbYear_currentIndex(int)));
+//                    this, SLOT(on_cbYear_currentIndexChanged(int)));
 //    Q_ASSERT(check);
     check = connect(&m_cmbMonth, SIGNAL(currentIndexChanged(int)),
                     this, SLOT(on_cbMonth_currentIndexChanged(int)));
@@ -359,9 +359,9 @@ int CLunarCalendar::ShowSelectTitle()
     return 0;
 }
 
-void CLunarCalendar::on_cbYear_currentIndex(int index)
+void CLunarCalendar::on_cbYear_currentIndexChanged(int index)
 {
-    qDebug() << "CLunarCalendar::on_cbYear_currentIndex";
+    qDebug() << "CLunarCalendar::on_cbYear_currentIndexChanged";
     Q_UNUSED(index);
     UpdateViewModel();
     UpdateMonthMenu();
@@ -433,6 +433,7 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -2;
+
     //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
     m_View.selectionModel()->clear();
     switch (GetViewType())
@@ -776,7 +777,7 @@ int CLunarCalendar::SetYearRange(int min, int max)
         m_cmbYear.addItem(QString::number(i), i);
     }
     check = connect(&m_cmbYear, SIGNAL(currentIndexChanged(int)),
-                    this, SLOT(on_cbYear_currentIndex(int)));
+                    this, SLOT(on_cbYear_currentIndexChanged(int)));
     Q_ASSERT(check);
     return 0;
 }
@@ -911,7 +912,7 @@ Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 
 void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 {
-    //qDebug() << "CLunarCalendar::on_tvMonth_pressed" << index;
+    qDebug() << "CLunarCalendar::on_tvMonth_pressed" << index;
     if(!index.isValid())
         return;
     
@@ -929,22 +930,22 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
     //qDebug() << event->type();
     switch(event->type()){
-    case QEvent::Gesture:
-        {
-            qDebug() << "QEvent::Gesture";
-            QGestureEvent *gestureEvent = static_cast<QGestureEvent*>(event);
-            if (QGesture *swipe = gestureEvent->gesture(Qt::SwipeGesture))
-                if (swipe->state() == Qt::GestureFinished) {
-                    QSwipeGesture *gesture = static_cast<QSwipeGesture *>(swipe);
-                    if (gesture->horizontalDirection() == QSwipeGesture::Left
-                        || gesture->verticalDirection() == QSwipeGesture::Up) {
-                        qDebug() << "swipeTriggered(): swipe to previous";
-                    } else {
-                        qDebug() << "swipeTriggered(): swipe to next";
-                    }
-                }
-        }
-        break;
+//    case QEvent::Gesture:
+//        {
+//            qDebug() << "QEvent::Gesture";
+//            QGestureEvent *gestureEvent = static_cast<QGestureEvent*>(event);
+//            if (QGesture *swipe = gestureEvent->gesture(Qt::SwipeGesture))
+//                if (swipe->state() == Qt::GestureFinished) {
+//                    QSwipeGesture *gesture = static_cast<QSwipeGesture *>(swipe);
+//                    if (gesture->horizontalDirection() == QSwipeGesture::Left
+//                        || gesture->verticalDirection() == QSwipeGesture::Up) {
+//                        qDebug() << "swipeTriggered(): swipe to previous";
+//                    } else {
+//                        qDebug() << "swipeTriggered(): swipe to next";
+//                    }
+//                }
+//        }
+//        break;
     case QEvent::TouchBegin:
     {
 //        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
@@ -1032,8 +1033,12 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 #endif
     case QEvent::KeyRelease:
         {
-            QKeyEvent* ke = dynamic_cast<QKeyEvent*>(event);
-            switch (ke->key()) {
+            CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+            if(!pModel)
+                break;
+            QKeyEvent* key = dynamic_cast<QKeyEvent*>(event);
+            qDebug() << "CLunarCalendar::eventFilter key:" << key << m_oldRow << m_oldCol;
+            switch (key->key()) {
             case Qt::Key_Up:
                 if(m_View.currentIndex().row() == m_oldRow)
                 {
@@ -1043,7 +1048,8 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                 UpdateSelect();
                 break;
             case Qt::Key_Down:
-                if(m_View.currentIndex().row() >= m_oldRow)
+                if(m_View.currentIndex().row() >= m_oldRow
+                        && m_View.currentIndex().row() == pModel->rowCount() - 1)
                 {
                     on_tbNextMonth_clicked();
                 }

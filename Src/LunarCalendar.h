@@ -118,27 +118,27 @@ public:
     virtual QSize minimumSizeHint() const override;
     
     int Update();
-    
+
 Q_SIGNALS:
     void sigSelectionChanged();
-    
+
 public Q_SLOTS:
     void soltShowToday();
-    
+
 private slots:
     void on_tbNextYear_clicked();
     void on_tbPreviousYear_clicked();
     void on_tbNextMonth_clicked();
     void on_tbPreviousMonth_clicked();
     void on_cbMonth_currentIndexChanged(int index);
-    void on_cbYear_currentIndex(int index);
+    void on_cbYear_currentIndexChanged(int index);
     void on_tvMonth_pressed(const QModelIndex &index);
-    
+
     void slotTimeout();
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
-    
+
 private:
     int ShowSelectTitle();
     int UpdateViewModel(bool bForce = false);
@@ -147,7 +147,7 @@ private:
     int UpdateSelect();
     int SetBackgroup(const QString& szFile);
     int SetYearRange(int min, int max);
-    
+
 private:
     QComboBox m_cmbYear;
     QToolButton m_tbPreYear, m_tbNextYear;
