@@ -1032,51 +1032,83 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
         }
 #endif
     case QEvent::KeyRelease:
-        {
-            CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-            if(!pModel)
-                break;
-            QKeyEvent* key = dynamic_cast<QKeyEvent*>(event);
-            qDebug() << "CLunarCalendar::eventFilter key:" << key << m_oldRow << m_oldCol;
-            switch (key->key()) {
-            case Qt::Key_Up:
-                if(m_View.currentIndex().row() == m_oldRow)
-                {
-                    on_tbPreviousMonth_clicked();
-                }
-                m_oldRow = m_View.currentIndex().row();
-                UpdateSelect();
-                break;
-            case Qt::Key_Down:
-                if(m_View.currentIndex().row() >= m_oldRow
-                        && m_View.currentIndex().row() == pModel->rowCount() - 1)
-                {
-                    on_tbNextMonth_clicked();
-                }
-                m_oldRow = m_View.currentIndex().row();
-                UpdateSelect();
-                break;
-            case Qt::Key_Left:
-                if(m_View.currentIndex().column() == m_oldCol)
-                {  
-                    on_tbPreviousMonth_clicked();
-                }
-                m_oldCol = m_View.currentIndex().column();
-                UpdateSelect();
-                break;
-            case Qt::Key_Right:
-                if(m_View.currentIndex().column() == m_oldCol)
-                {
-                    on_tbNextMonth_clicked();                   
-                }
-                m_oldCol = m_View.currentIndex().column();
-                UpdateSelect();
-                break;
-            default:
-                break;
-            };
+    {
+        CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+        if(!pModel)
             break;
-        }
+        QKeyEvent* key = dynamic_cast<QKeyEvent*>(event);
+        qDebug() << "CLunarCalendar::eventFilter key:" << key
+                 << "old:" << m_oldRow << m_oldCol
+                 << "current:" << m_View.currentIndex().row()
+                 << m_View.currentIndex().column();
+        switch (key->key()) {
+        case Qt::Key_Up:
+            {
+                QModelIndex index = m_View.currentIndex();
+                if(index.isValid())
+                {
+                    QDate d = pModel->dateForCell(index.row(), index.column());
+                    if(index.row() == 0 && m_oldRow == 0)
+                    {
+                        if(GetViewType() == ViewTypeMonth
+                                && d.month() == m_cmbMonth.currentData())
+                            d = d.addDays(-7);
+                        if(GetViewType() == ViewTypeWeek)
+                            d = d.addDays(-7);
+                    }
+                    SetSelectedDate(d);
+                }                
+            }
+            break;
+        case Qt::Key_Down:
+            {
+                QModelIndex index = m_View.currentIndex();
+                if(index.isValid())
+                {
+                    QDate d = pModel->dateForCell(index.row(), index.column());
+                    if(index.row() >= pModel->rowCount() -1
+                            && m_oldRow == index.row())
+                    {
+                        if(GetViewType() == ViewTypeMonth
+                                && d.month() == m_cmbMonth.currentData())
+                            d = d.addDays(7);
+                        
+                        if(GetViewType() == ViewTypeWeek)
+                            d = d.addDays(7);
+                    }
+                    SetSelectedDate(d);
+                }                
+            }
+            break;
+        case Qt::Key_Left:
+            {
+                QModelIndex index = m_View.currentIndex();
+                if(index.isValid())
+                {
+                    QDate d = pModel->dateForCell(index.row(), index.column());
+                    if(index.column() == m_oldCol)
+                        d = d.addDays(-1);
+                    SetSelectedDate(d);
+                }
+            }
+            break;
+        case Qt::Key_Right:
+            {
+                QModelIndex index = m_View.currentIndex();
+                if(index.isValid())
+                {
+                    QDate d = pModel->dateForCell(index.row(), index.column());
+                    if(index.column() == m_oldCol)
+                        d = d.addDays(1);
+                    SetSelectedDate(d);
+                }
+            }
+            break;
+        default:
+            break;
+        };
+        break;
+    }
     default:
         break;
     }
