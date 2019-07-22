@@ -144,7 +144,6 @@ private:
     int UpdateViewModel(bool bForce = false);
     int UpdateMonthMenu();
     int EnableMonthMenu();
-    int UpdateSelect();
     int SetBackgroup(const QString& szFile);
     int SetYearRange(int min, int max);
 

@@ -1116,28 +1116,6 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched, event);
 }
 
-int CLunarCalendar::UpdateSelect()
-{
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return -1;
-    if(m_oldRow >= pModel->rowCount())
-        m_oldRow = pModel->rowCount() - 1;
-    if(m_oldRow < 0)
-        m_oldRow = 0;
-    if(m_oldCol >= pModel->columnCount())
-        m_oldCol = pModel->columnCount() - 1;
-    if(m_oldCol < 0)
-        m_oldCol = 0;
-    QModelIndex index = pModel->index(m_oldRow, m_oldCol);
-    //m_View.setCurrentIndex(index);
-    QDate d = pModel->dateForCell(index.row(), index.column());
-    if(d.isValid())
-    {
-        SetSelectedDate(d);
-    }
-    return 0;
-}
-
 int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
