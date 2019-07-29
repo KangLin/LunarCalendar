@@ -88,7 +88,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pbToday.setIcon(QIcon(":/image/Today"));
     m_pbToday.setToolTip(tr("Today"));
     m_pbToday.setStatusTip(tr("Today"));
-    //m_pbToday.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    m_pbToday.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
     
 //    m_tbPreYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 //    m_cmbYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
