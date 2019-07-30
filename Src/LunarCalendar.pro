@@ -42,11 +42,16 @@ include(LunarCalendar.pri)
 OTHER_FILES += \
     CMakeLists.txt
 
+# Default rules for deployment.
+!android: target.path = $${PREFIX}/bin
+INSTALLS += target
+
 header_files.target = header_files
 header_files.files = $$INSTALL_HEADERS
-!CONFIG(static): win32 {
-    header_files.path = $$system_path($${PREFIX})/include
+header_files.path = $$system_path($${PREFIX}/include/LunarCalendar)
+!android: INSTALLS += header_files
 
+!CONFIG(static): win32 {
     INSTALL_TARGET = $$system_path($${DESTDIR}/$(TARGET))
 
     Deployment_qtlib.target = Deployment_qtlib
@@ -57,11 +62,4 @@ header_files.files = $$INSTALL_HEADERS
                     --verbose 7 \
                     "$${INSTALL_TARGET}"
     INSTALLS += Deployment_qtlib
-} else {
-    header_files.path = $${PREFIX}/include
-    # Default rules for deployment.
-    !android: target.path = $${PREFIX}/bin
 }
-
-INSTALLS += target
-!android: INSTALLS += header_files
