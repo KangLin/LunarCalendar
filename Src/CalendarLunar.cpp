@@ -155,16 +155,19 @@ int CCalendarLunar::InitHoliday()
         return 0;
     
     AddHoliday(1, 1, "春节");
-    AddHoliday(1, 15, "元宵");
+    AddHoliday(1, 15, "上元");
+    AddHoliday(1, 15, "元宵");    
     AddHoliday(2, 2, "社日");
     AddHoliday(3, 3, "上巳");
     AddHoliday(5, 5, "端午");
     AddHoliday(7, 7, "七夕");
+    AddHoliday(7, 15, "中元");
     AddHoliday(8, 15, "中秋");
     AddHoliday(9, 9, "重阳");
     AddHoliday(10, 1, "寒衣");
     AddHoliday(10, 15, "下元");
     AddHoliday(12, 8, "腊八");
+    AddHoliday(12, 24, "祭灶");
     AddHoliday(12, 24, "小年");
     return 0;
 }
