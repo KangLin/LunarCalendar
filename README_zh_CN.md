@@ -113,7 +113,8 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ------------------------------------------------
 ### 编译
 - 依赖  
-  [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
+  + [Qt (LGPL v2.1)](http://qt.io/)
+  + [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
   
         git clone https://github.com/KangLin/RabbitCommon.git
 

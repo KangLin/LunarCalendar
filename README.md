@@ -114,7 +114,8 @@ please compile and test the students with the corresponding equipment.
 ### Compile
 
 - Depend
-  [RabbitCommon](https://github.com/KangLin/RabbitCommon)
+  + [Qt (LGPL v2.1)](http://qt.io/)
+  + [RabbitCommon](https://github.com/KangLin/RabbitCommon)
 
   ```
   git clone https://github.com/KangLin/RabbitCommon.git
