@@ -132,12 +132,19 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
         pView->updateGeometry();
     }
-    
+
     if(option.rect.width() > width)
         width = option.rect.width();
-    if(option.rect.height() > height * nRow)
+    if(option.rect.height() > height * nRow && nRow)
         height = option.rect.height() / nRow;
 
+    if(index.data(CLunarCalendarModel::TodayRole).toBool())
+    {
+        painter->setPen(palette.brush(QPalette::Active, QPalette::Highlight).color());
+        //painter->drawEllipse(option.rect);
+        painter->drawRect(option.rect);
+    }
+    
     if(pView->currentIndex() == index)
     {
         painter->setPen(QPen(Qt::NoPen));
@@ -215,7 +222,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           Qt::AlignHCenter | Qt::AlignVCenter,
                           szLunar);
     }
-
+    
     painter->restore();
 }
 

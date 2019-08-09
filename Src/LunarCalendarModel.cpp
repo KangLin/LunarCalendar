@@ -106,6 +106,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return QVariant();
     
     switch (role) {
+    case TodayRole:
+        return d == QDate::currentDate();
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
@@ -150,7 +152,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 
         if(d.dayOfWeek() == Qt::Saturday
                 || Qt::Sunday == d.dayOfWeek()
-                || d == QDate::currentDate()
+                //|| d == QDate::currentDate()
                 || !GetDay(row, column).szSolarHoliday.isEmpty())
             return ColorHighlight;
         

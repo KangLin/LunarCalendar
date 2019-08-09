@@ -45,7 +45,8 @@ public:
         LunarFontRole,
         BackgroupImage,
         Anniversary,
-        Tasks
+        Tasks,
+        TodayRole,
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
