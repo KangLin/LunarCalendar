@@ -40,7 +40,8 @@ isEmpty(PREFIX) {
 include(LunarCalendar.pri)
 
 OTHER_FILES += \
-    CMakeLists.txt
+    CMakeLists.txt \
+    database/*
 
 # Default rules for deployment.
 !android: target.path = $${PREFIX}/bin
