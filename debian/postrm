@@ -24,6 +24,7 @@ case "$1" in
         rm -f /usr/share/applications/LunarCalendar.desktop
         rm -f /usr/share/pixmaps/calendar.png
         rm -f /etc/ld.so.conf.d/LunarCalendar.conf
+        ldconfig
     ;;
 
     *)
