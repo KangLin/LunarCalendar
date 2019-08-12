@@ -1,10 +1,14 @@
 #include "LunarCalendarModel.h"
+#include "CalendarLunar.h"
+#include "RabbitCommonDir.h"
+
 #include <QTextCharFormat>
 #include <QDebug>
 #include <QPalette>
 #include <QApplication>
 #include <QStyle>
-#include "CalendarLunar.h"
+#include <QDir>
+#include <QtSql/QSqlQuery>
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -26,7 +30,14 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_Locale = QLocale::system();
     m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
+    InitDatabase();
     slotUpdate();
+}
+
+CLunarCalendarModel::~CLunarCalendarModel()
+{
+    if(m_Database.isOpen())
+        m_Database.close();
 }
 
 QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientation, int role) const
@@ -106,8 +117,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return QVariant();
     
     switch (role) {
-    case TodayRole:
-        return d == QDate::currentDate();
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
@@ -163,6 +172,23 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             return FontNormal;
         
         return FontBold;
+    case TodayRole:
+        return d == QDate::currentDate();
+    case WorkDayRole:
+    {
+        switch(GetDay(row, column).WorkDay)
+        {
+        case WORK:
+             return "班";
+        case REST:
+             return "休";
+        }
+        return "";
+    }
+    case WorkDayColorRole:
+        if(WORK == GetDay(row, column).WorkDay)
+            return ColorHighlight;
+        return ColorDisable;
     default:
         break;
     };
@@ -263,6 +289,26 @@ int CLunarCalendarModel::slotUpdate()
                 day.nTasks = m_GetTaskHandler->onHandle(d);
             else
                 day.nTasks = 0;
+            
+            day.WorkDay = NO;
+            QSqlQuery query(m_Database);
+            QString szSql = "select * from chines_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
+            qDebug() << "Sql:" << szSql;
+            if(query.exec(szSql))
+            {
+                while(query.next())
+                {
+                    QVariant v = query.value("iswork");
+                    qDebug() << query.value("date") << "isWork:" << v;
+                    if(v.isValid())
+                    {
+                        if(v.toInt() == 1)
+                            day.WorkDay = WORK;
+                        else
+                            day.WorkDay = REST;
+                    }
+                }
+            }
             
             m_Day.push_back(day);
             
@@ -699,6 +745,21 @@ int CLunarCalendarModel::InitHoliday()
     AddHoliday(6, 1, "儿童节");
     AddHoliday(8, 1, "建军节");
     AddHoliday(10, 1, "国庆节");
+    return 0;
+}
+
+int CLunarCalendarModel::InitDatabase()
+{
+    QString szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
+            + QDir::separator() + "db.sqlite";
+    m_Database = QSqlDatabase::addDatabase("QSQLITE");
+    m_Database.setDatabaseName(szFile);
+    if(!m_Database.open())
+    {
+        qCritical() << "Open datebase fail";
+        return -1;
+    }
+
     return 0;
 }
 

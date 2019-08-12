@@ -90,11 +90,11 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->ShowWeeks(false);
 //    m_pLunarCalendar->ShowHead(false);
 //    m_pLunarCalendar->ShowTime(false);
-//    m_pLunarCalendar->AddAnniversary(6, 19, "my birth");
+    m_pLunarCalendar->AddAnniversary(8, 19, "my birth");
 //    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
 //    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
 //    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-    //m_pLunarCalendar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     setCentralWidget(m_pLunarCalendar);
     
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),

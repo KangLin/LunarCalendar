@@ -49,7 +49,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
-    QColor solarColor, lunarColor, anniversaryColor;
+    QColor solarColor, lunarColor, anniversaryColor, workColor;
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
     
@@ -59,11 +59,14 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QFont fontSolar = option.font;
     QFont fontLunar = fontSolar;
     QFont fontTasks = fontSolar;
-    fontTasks.setPointSize(fontTasks.pointSize() / 2);
+    QFont fontWork = fontSolar;
+    fontWork.setPointSizeF(fontWork.pointSizeF() * 2 / 3);
+    fontTasks.setPointSizeF(fontTasks.pointSizeF() / 3);
         
-    QString szSolar, szLunar, szAnniversary;
+    QString szSolar, szLunar, szAnniversary, szWork;
     szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
     int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
+    szWork = index.data(CLunarCalendarModel::WorkDayRole).toString();
 
     int solarHeight = 0;
     int solarWidth = 0;
@@ -165,6 +168,21 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     }
     anniversaryColor = solarColor;
 
+    if(!szWork.isEmpty())
+    {
+        workColor =  GetColorRole(palette,
+                     index.data(CLunarCalendarModel::WorkDayColorRole).toInt());   
+        
+        painter->setFont(fontWork);
+        painter->setPen(workColor);
+        painter->drawText(option.rect.left(),
+                          option.rect.top(),
+                          width,
+                          height,
+                          Qt::AlignLeft| Qt::AlignTop,
+                          szWork);
+    }
+    
     if(!szAnniversary.isEmpty() || nTasks)
     {
         painter->setFont(fontTasks);

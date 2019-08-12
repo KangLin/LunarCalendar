@@ -10,6 +10,12 @@
     <height>379</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>Calendar</string>
   </property>
@@ -26,7 +32,7 @@
      <x>0</x>
      <y>0</y>
      <width>199</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
   </widget>

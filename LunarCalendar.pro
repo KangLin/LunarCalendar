@@ -42,7 +42,6 @@ isEmpty(PREFIX) {
     qnx : PREFIX = /tmp
     else : ios: PREFIX=/
     else : android : PREFIX = /
-    else : unix : PREFIX = /opt/RabbitCommon
     else : PREFIX = $$OUT_PWD/install
 }
 

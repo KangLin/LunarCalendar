@@ -6,6 +6,8 @@
 #include <QLocale>
 #include <QTextCharFormat>
 #include <QVector>
+#include <QtSql/QSqlDatabase>
+
 #include "LunarCalendar.h"
 
 class CLunarCalendarModel : public QAbstractTableModel
@@ -14,6 +16,7 @@ class CLunarCalendarModel : public QAbstractTableModel
     
 public:
     explicit CLunarCalendarModel(QObject *parent = nullptr);
+    virtual ~CLunarCalendarModel();
     
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
@@ -47,6 +50,8 @@ public:
         Anniversary,
         Tasks,
         TodayRole,
+        WorkDayRole,
+        WorkDayColorRole
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -102,6 +107,7 @@ private:
     QTextCharFormat formatForCell(QDate d, int row, int col) const;
     QColor GetHeight() const;
     int InitHoliday();
+    int InitDatabase();
     
 private:
     QDate m_Date;
@@ -113,6 +119,12 @@ private:
     int m_ColumnCount, m_RowCount;
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;
+    enum __WORK_DAY{
+        NO,
+        WORK,
+        REST
+    };
+    // cached day
     struct _DAY
     {
         int Solar;
@@ -125,6 +137,7 @@ private:
         QString szAnniversary;
         QString szImageBackgroup;
         int nTasks;
+        __WORK_DAY WorkDay;
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
@@ -136,6 +149,8 @@ private:
     CLunarCalendar::_CalendarType m_calendarType;
     
     QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
+    
+    QSqlDatabase m_Database;   
 };
 
 #endif // CCALENDARMODEL_H

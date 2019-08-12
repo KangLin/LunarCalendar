@@ -98,6 +98,7 @@ function function_unix()
     sudo apt-get update -y -qq
     sudo apt-get install debhelper fakeroot -y -qq
     sudo apt-get install -y -qq libglu1-mesa-dev libxkbcommon-x11-dev libpulse-mainloop-glib0
+    sudo apt-get install -y -qq libodbc1 libmysqlclient-dev libmysqlcppconn-dev
 
     if [ "$BUILD_DOWNLOAD" != "TRUE" ]; then
         sudo apt-get install -y -qq qt${QT_VERSION_DIR}base qt${QT_VERSION_DIR}tools

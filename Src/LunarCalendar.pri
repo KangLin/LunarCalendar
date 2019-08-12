@@ -1,4 +1,4 @@
-QT += core gui
+QT += core gui sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 CONFIG += c++11
 
@@ -66,3 +66,10 @@ FORMS +=
 
 RESOURCES += \
     $$PWD/Resource/ResourceLunarCalendar.qrc
+
+db.target = db
+db.files = $$PWD/database/db.sqlite
+android: db.path = $$PREFIX/assets/data/db
+else: db.path = $$PREFIX/data/db
+db.CONFIG += directory no_check_exist
+INSTALLS += db

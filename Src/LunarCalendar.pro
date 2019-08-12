@@ -33,7 +33,6 @@ DEFINES += BUILD_VERSION=\"\\\"$$quote($$BUILD_VERSION)\\\"\"
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp
     else : android : PREFIX = /.
-    else : unnix : PREFIX = /usr/local
     else : PREFIX = $$OUT_PWD/../install
 }
 
