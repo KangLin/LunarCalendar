@@ -2,7 +2,7 @@ TARGET = LunarCalendarApp
 TEMPLATE = app
 CONFIG(staticlib): CONFIG*=static
 CONFIG *= c++11
-QT += core gui xml
+QT += core gui xml sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 android {
@@ -11,6 +11,11 @@ android {
 }
 
 isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin
+isEmpty(PREFIX) {
+    qnx : PREFIX = /tmp
+    else : android : PREFIX = /.
+    else : PREFIX = $$OUT_PWD/../install
+}
 
 #Get app version use git, please set git path to environment variable PATH
 isEmpty(BUILD_VERSION) {
@@ -83,13 +88,6 @@ android {
           #$${THIRDLIBRARY_PATH}/libssl.so \
           #$${THIRDLIBRARY_PATH}/libcrypto.so 
     #}
-}
-
-isEmpty(PREFIX) {
-    qnx : PREFIX = /tmp
-    else : android : PREFIX = /
-    else : unnix : PREFIX = /usr/local
-    else : PREFIX = $$OUT_PWD/../install
 }
 
 win32 {    

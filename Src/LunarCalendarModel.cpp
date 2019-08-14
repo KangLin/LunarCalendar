@@ -291,25 +291,27 @@ int CLunarCalendarModel::slotUpdate()
                 day.nTasks = 0;
             
             day.WorkDay = NO;
-            QSqlQuery query(m_Database);
-            QString szSql = "select * from chines_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
-            qDebug() << "Sql:" << szSql;
-            if(query.exec(szSql))
+            if(m_Database.isOpen())
             {
-                while(query.next())
+                QSqlQuery query(m_Database);
+                QString szSql = "select * from chines_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
+                //qDebug() << "Sql:" << szSql;
+                if(query.exec(szSql))
                 {
-                    QVariant v = query.value("iswork");
-                    qDebug() << query.value("date") << "isWork:" << v;
-                    if(v.isValid())
+                    while(query.next())
                     {
-                        if(v.toInt() == 1)
-                            day.WorkDay = WORK;
-                        else
-                            day.WorkDay = REST;
+                        QVariant v = query.value("iswork");
+                        //qDebug() << query.value("date") << "isWork:" << v;
+                        if(v.isValid())
+                        {
+                            if(v.toInt() == 1)
+                                day.WorkDay = WORK;
+                            else
+                                day.WorkDay = REST;
+                        }
                     }
                 }
             }
-            
             m_Day.push_back(day);
             
             //qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
@@ -750,14 +752,31 @@ int CLunarCalendarModel::InitHoliday()
 
 int CLunarCalendarModel::InitDatabase()
 {
-    QString szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
-            + QDir::separator() + "db.sqlite";
+    QString szFile;
+#if defined (Q_OS_ANDROID)
+    szFile = RabbitCommon::CDir::Instance()->GetDirDatabase()
+                                       + QDir::separator() + "db.sqlite";    
+#else
+    szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
+                                       + QDir::separator() + "db.sqlite";
+    QDir d;
+    if(!d.exists(szFile))
+    {
+        QString szDb = RabbitCommon::CDir::Instance()->GetDirDatabase()
+                + QDir::separator() + "db.sqlite";
+        if(!QFile::copy(szDb, szFile))
+        {
+            qCritical() << "Copy file fail" << szFile << szDb;
+            return -1;
+        }
+    }
+#endif
     m_Database = QSqlDatabase::addDatabase("QSQLITE");
     m_Database.setDatabaseName(szFile);
     if(!m_Database.open())
     {
         qCritical() << "Open datebase fail";
-        return -1;
+        return -2;
     }
 
     return 0;
