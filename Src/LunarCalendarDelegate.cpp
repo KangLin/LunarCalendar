@@ -145,7 +145,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         painter->setPen(palette.brush(QPalette::Active, QPalette::Highlight).color());
         //painter->drawEllipse(option.rect);
-        painter->drawRect(option.rect);
+        painter->drawRect(option.rect.adjusted(1, 1, -1, -1));
     }
     
     if(pView->currentIndex() == index)
