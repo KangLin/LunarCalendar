@@ -60,9 +60,16 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QFont fontLunar = fontSolar;
     QFont fontTasks = fontSolar;
     QFont fontWork = fontSolar;
-    fontWork.setPointSizeF(fontWork.pointSizeF() * 2 / 3);
-    fontTasks.setPointSizeF(fontTasks.pointSizeF() / 3);
-        
+    
+    if(-1 == fontWork.pointSize())
+        fontWork.setPixelSize(fontWork.pixelSize() / 2);
+    else
+        fontWork.setPointSizeF(fontWork.pointSizeF() / 2);
+    if(-1 == fontTasks.pointSize())
+        fontTasks.setPixelSize(fontTasks.pixelSize() / 3);
+    else
+        fontTasks.setPointSizeF(fontTasks.pointSizeF() / 3);
+
     QString szSolar, szLunar, szAnniversary, szWork;
     szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
     int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
@@ -165,6 +172,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         if(bLunar)
             lunarColor = GetColorRole(palette,
                        index.data(CLunarCalendarModel::LunarColorRole).toInt());
+//        qDebug() << "Color:" << solarColor << index.data(CLunarCalendarModel::SolarColorRole).toInt()
+//                 << lunarColor << index.data(CLunarCalendarModel::LunarColorRole).toInt();
     }
     anniversaryColor = solarColor;
 
