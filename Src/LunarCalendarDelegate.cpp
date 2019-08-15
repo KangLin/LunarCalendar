@@ -43,9 +43,11 @@ CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent)
 }
 
 void CLunarCalendarDelegate::paint(QPainter *painter,
-                                   const QStyleOptionViewItem &option,
+                                   const QStyleOptionViewItem &o,
                                    const QModelIndex &index) const
 {
+    QStyleOptionViewItem option = o;
+    initStyleOption(&option, index);
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;

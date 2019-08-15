@@ -12,7 +12,7 @@ public:
 
 public:
     virtual void paint(QPainter *painter,
-                       const QStyleOptionViewItem &option,
+                       const QStyleOptionViewItem &o,
                        const QModelIndex &index) const override;
 };
 

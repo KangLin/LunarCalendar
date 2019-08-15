@@ -169,7 +169,7 @@ else
                        --android-platform ${ANDROID_API} \
                         --gradle --verbose
                         #--jdk ${JAVA_HOME}
-        if [ "$TRAVIS_TAG" != "" -a "$BUILD_ARCH"="armeabi-v7a" -a "$QT_VERSION_DIR"="5.9" ]; then
+        if [ "$TRAVIS_TAG" != "" -a "$BUILD_ARCH"="armeabi-v7a" -a "$QT_VERSION_DIR"="5.12" ]; then
             cp $SOURCE_DIR/Update/update_android.xml .
             APK_FILE=`find . -name "android-build-debug.apk"`
             MD5=`md5sum ${APK_FILE} | awk '{print $1}'`
