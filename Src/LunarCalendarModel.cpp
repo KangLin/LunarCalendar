@@ -752,25 +752,22 @@ int CLunarCalendarModel::InitHoliday()
 
 int CLunarCalendarModel::InitDatabase()
 {
+    //TODO: update holidays
     QString szFile;
-#if defined (Q_OS_ANDROID)
     szFile = RabbitCommon::CDir::Instance()->GetDirDatabase()
-                                       + QDir::separator() + "db.sqlite";    
-#else
-    szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                                        + QDir::separator() + "db.sqlite";
     QDir d;
     if(!d.exists(szFile))
     {
-        QString szDb = RabbitCommon::CDir::Instance()->GetDirDatabase()
+        QString szDb = RabbitCommon::CDir::Instance()->GetDirDatabase(true)
                 + QDir::separator() + "db.sqlite";
         if(!QFile::copy(szDb, szFile))
         {
-            qCritical() << "Copy file fail" << szFile << szDb;
+            qCritical() << "Copy file fail" << szDb << "to" << szFile ;
             return -1;
         }
     }
-#endif
+
     m_Database = QSqlDatabase::addDatabase("QSQLITE");
     m_Database.setDatabaseName(szFile);
     if(!m_Database.open())
