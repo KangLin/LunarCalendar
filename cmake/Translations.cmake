@@ -16,7 +16,7 @@
 #
 # 2. 在源码 main 函数中加入, 如果是 DEBUG，需要加入宏定义 _DEBUG
 #     QTranslator translator;
-#     translator.load(RabbitCommonCDir::Instance()->GetDirTranslations()
+#     translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
 #                   + "/" + qApp->applicationName() + "_" + QLocale::system().name() + ".qm");
 #     qApp->installTranslator(&translator);
 
