@@ -163,11 +163,13 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
                -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
                -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe \
-               -DANDROID_ABI=arm64-v8a -DANDROID_ARM_NEON=ON \
+               -DANDROID_PLATFORM=android-18 \
+               -DANDROID_ABI=arm64-v8a \
+               -DANDROID_ARM_NEON=ON \
                -DQt5_DIR= \
                -DRabbitCommon_DIR= 
-           cmake --build . --config Release --target install
-           cmake --build . --target ANDROID_DEPLOY
+            cmake --build . --config Release --target install
+            cmake --build . --target ANDROID_DEPLOY
     
       - 参数说明：https://developer.android.google.cn/ndk/guides/cmake
         + ANDROID_ABI: 可取下列值：
