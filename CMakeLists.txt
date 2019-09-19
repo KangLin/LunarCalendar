@@ -47,13 +47,16 @@ SET(CMAKE_INCLUDE_CURRENT_DIR ON)
 SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 #需要的QT组件
-SET(QT_COMPONENTS  ${QT_COMPONENTS} Core Gui Widgets Sql)
+SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets Sql)
+if(ANDROID)
+    SET(QT_COMPONENTS ${QT_COMPONENTS} AndroidExtras)
+endif()
 find_package(Qt5 COMPONENTS ${QT_COMPONENTS})
 FOREACH(_COMPONENT ${QT_COMPONENTS})
     SET(QT_LIBRARIES ${QT_LIBRARIES} ${Qt5${_COMPONENT}_LIBRARIES})
 ENDFOREACH()
 
-SET(QT_INSTALL_DIR "${Qt5_DIR}/../../..")
+get_filename_component(QT_INSTALL_DIR "${Qt5_DIR}/../../.." ABSOLUTE)
 
 IF(MSVC)
     # This option is to enable the /MP switch for Visual Studio 2005 and above compilers
@@ -131,27 +134,29 @@ if(WIN32)
     set(OTHER_FILES ${OTHER_FILES} ${CMAKE_SOURCE_DIR}/App/AppIcon.ico)
 endif()
 
-set(RabbitCommon_DIR $ENV{RabbitCommon_DIR} CACHE PATH "Set RabbitCommon source code root directory.")
-if(EXISTS ${RabbitCommon_DIR}/Src)
+if( "${RabbitCommon_DIR}" STREQUAL "" )
+    set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
+    if( "${RabbitCommon_DIR}" STREQUAL "" )
+        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
+    endif()
+endif()
+
+if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
     add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
 else()
-#        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
-#        download(FILENAME RabbitCommon
-#            HASH acb14d8d5cfd264d5899604281913161
-#            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
-#            DESTINATION_DIR ${RabbitCommon_DIR}
-#            UNPACK
-#            )
-    if(EXISTS ${RabbitCommon_DIR}/Src)
-        add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
-    else()
-        message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
-        message("   ag:")
-        message("       git clone https://github.com/KangLin/RabbitCommon.git")
-        message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root dirctory.")
-        message("    ag:")
-        message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
-    endif()
+    #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
+    #        download(FILENAME RabbitCommon
+    #            HASH acb14d8d5cfd264d5899604281913161
+    #            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
+    #            DESTINATION_DIR ${RabbitCommon_DIR}
+    #            UNPACK
+    #            )
+    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
+    message("   ag:")
+    message("       git clone https://github.com/KangLin/RabbitCommon.git")
+    message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root dirctory.")
+    message("   ag:")
+    message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
 endif()
 
 add_subdirectory(Src)
@@ -165,7 +170,11 @@ if(WIN32)
 endif(WIN32)
 
 # 设置安装前缀
-SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/install CACHE STRING "Install path prefix.") 
+if(ANDROID)
+    set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/android-build CACHE STRING "Install path prefix" FORCE)
+else()
+    SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/install CACHE STRING "Install path prefix.")
+endif()
 
 message("Build app:${BUILD_APP}")
 message("Build shared library:${BUILD_SHARED_LIBS}")

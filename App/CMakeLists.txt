@@ -11,32 +11,10 @@ set(SOURCE_UI_FILES
     MainWindow.ui
     )
 
-if(ANDROID)
-    set(RESOURCE_FILE_NAME "${CMAKE_CURRENT_BINARY_DIR}/ResourceAbout.qrc")
-    
-    file(WRITE "${RESOURCE_FILE_NAME}"
-        "<!DOCTYPE RCC>
-        <RCC version=\"1.0\">
-        <qresource prefix=\"/file\">
-        ")
-    foreach(f ${OTHER_FILES})
-        get_filename_component(file_name ${f} NAME)
-        file(APPEND "${RESOURCE_FILE_NAME}"
-            "    <file alias=\"${file_name}\">${f}</file>\n")
-    endforeach(f)
-    file(APPEND "${RESOURCE_FILE_NAME}"
-        "  </qresource>
-        </RCC>
-        ")
-    set(RESOURCE_FILES "${RESOURCE_FILE_NAME}")
-    
-else()
-    INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
-endif()
-
 #翻译
 include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
 include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
+include(${CMAKE_SOURCE_DIR}/cmake/Utils.cmake)
 
 set(RESOURCE_FILES ${RESOURCE_FILES} 
     Resource/Resource.qrc
@@ -46,11 +24,13 @@ add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")
 add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
 add_definitions(-DBUILD_PLATFORM="${BUILD_PLATFORM}")
 
-if(WIN32)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+if(ANDROID)
+    add_library(${PROJECT_NAME} ${SOURCE_FILES}
+        ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES})
+else()
+    add_executable(${PROJECT_NAME} ${SOURCE_FILES}
+        ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
 endif()
-add_executable(${PROJECT_NAME} ${SOURCE_FILES}
-    ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 if(MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "-mwindows")
@@ -68,15 +48,26 @@ endif()
 target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")
+
+set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set_target_properties(${PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${BUILD_VERSION})
+
 # Install target
 INSTALL(TARGETS ${PROJECT_NAME}
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
         )
     
-# Install other files
-INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
+if(ANDROID)
+    # Install other files
+    INSTALL(FILES ${OTHER_FILES} DESTINATION "assets")    
+else()
+    # Install other files
+    INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
+endif()
 
 if(UNIX)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop DESTINATION "share/applications")
@@ -104,20 +95,29 @@ IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
 ENDIF()
 
 IF(ANDROID)
-    include(${CMAKE_SOURCE_DIR}/cmake/Android.cmake)
-    GENERATED_DEPLOYMENT_SETTINGS()
-    find_program(ANT NAMES ant) # PATHS  "/usr/bin")
-    MESSAGE("ant:${ANT}\n")
-    find_program(GRADLE NAMES gradle)
-    MESSAGE("GRADLE:${GRADLE}\n")
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    Set(JSON_FILE ${CMAKE_BINARY_DIR}/android_deployment_settings.json)
+    GENERATED_DEPLOYMENT_SETTINGS(NAME ${JSON_FILE}
+        APPLACTION "${CMAKE_BINARY_DIR}/bin/lib${PROJECT_NAME}.so")
+
+    set(ANDROID_DELOP_PARA --gradle)
+    if(Qt5_VERSION VERSION_LESS 5.8.0)
+        find_program(ANT NAMES ant) # PATHS  "/usr/bin")
+        MESSAGE("ant:${ANT}\n")
+        if(ANT_FOUND)
+            set(ANDROID_DELOP_PARA --ant ${ANT})
+        endif()
+    endif()
+    
+    add_custom_target(ANDROID_DEPLOY #TARGET ${PROJECT_NAME} POST_BUILD
+        #COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:${PROJECT_NAME}>" ${CMAKE_BINARY_DIR}/android-build/libs/${ANDROID_ABI}/$<TARGET_FILE_NAME:${PROJECT_NAME}>
+        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/android-build/libs/${ANDROID_ABI}
+        COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE_DIR:${PROJECT_NAME}>/*" ${CMAKE_BINARY_DIR}/android-build/libs/${ANDROID_ABI}
         #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中
         COMMAND "${QT_INSTALL_DIR}/bin/androiddeployqt"
-            --input "${PROJECT_BINARY_DIR}/android-${PROJECT_NAME}-deployment-settings.json"
             --output ${CMAKE_BINARY_DIR}/android-build
+            --input ${JSON_FILE}
             --verbose
-            --gradle
-            #--ant /usr/bin/ant
+            ${ANDROID_DELOP_PARA}
             #--jdk $ENV{JAVA_HOME}
     )
 ENDIF(ANDROID)
