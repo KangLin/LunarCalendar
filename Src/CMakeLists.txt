@@ -137,5 +137,10 @@ IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32 AND BUILD_SHARED_LIBS)
     #INSTALL(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/" DESTINATION "${CMAKE_INSTALL_BINDIR}")
 ENDIF()
 
-#Install dababase file
-INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/database/db.sqlite DESTINATION "./data/db")
+if(ANDROID)
+    # Install dababase files
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/database/db.sqlite DESTINATION "assets/data/db")
+else()
+    #Install dababase file
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/database/db.sqlite DESTINATION "./data/db")
+endif()
