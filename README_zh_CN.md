@@ -153,7 +153,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                  -DQt5_DIR= \
                  -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
-            cmake --build . --target ANDROID_DEPLOY         
+            cmake --build . --target APK         
     
       + 主机是windows
     
@@ -169,7 +169,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                -DQt5_DIR= \
                -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
-            cmake --build . --target ANDROID_DEPLOY
+            cmake --build . --target APK
     
       - 参数说明：https://developer.android.google.cn/ndk/guides/cmake
         + ANDROID_ABI: 可取下列值：

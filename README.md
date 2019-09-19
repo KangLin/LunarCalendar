@@ -145,7 +145,7 @@ please compile and test the students with the corresponding equipment.
                  -DQt5_DIR= \
                  -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
-            cmake --build . --target ANDROID_DEPLOY   
+            cmake --build . --target APK   
     
     - The host is windows
     
@@ -161,7 +161,7 @@ please compile and test the students with the corresponding equipment.
                -DQt5_DIR= \
                -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
-            cmake --build . --target ANDROID_DEPLOY     
+            cmake --build . --target APK     
       
     - Parameter Description: https://developer.android.google.cn/ndk/guides/cmake
       + ANDROID_ABI: The following values can be taken:

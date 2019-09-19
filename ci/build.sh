@@ -157,7 +157,7 @@ if [ -n "$GENERATORS" ]; then
         -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5
     cmake --build . --target install --config Release -- ${RABBIT_MAKE_JOB_PARA}
     if [ "${BUILD_TARGERT}" = "android" ]; then
-        cmake --build . --target ANDROID_DEPLOY  
+        cmake --build . --target APK  
     fi
 else
     if [ "ON" = "${STATIC}" ]; then
