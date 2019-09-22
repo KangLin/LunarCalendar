@@ -47,11 +47,8 @@ Qt 写的农历。它提供：
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
 
 ## 捐赠
-- 捐赠(大于￥20)：  
-![捐赠( 大于 ￥20 )](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠(大于￥20)")
 
-- 捐赠￥20  
-![捐赠￥20](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute20.png "捐赠￥20")
+![捐赠](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")
 
 ------------------------------------------------
 
