@@ -63,7 +63,7 @@ ENDIF()
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
-target_link_libraries(${PROJECT_NAME} ${QT_LIBRARIES} RabbitCommon)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
 target_include_directories(${PROJECT_NAME} PRIVATE 
     ${CMAKE_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}
