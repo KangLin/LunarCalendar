@@ -11,6 +11,8 @@ cd ${SOURCE_DIR}
 if [ "$BUILD_TARGERT" = "android" ]; then
     export ANDROID_SDK_ROOT=${SOURCE_DIR}/Tools/android-sdk
     export ANDROID_NDK_ROOT=${SOURCE_DIR}/Tools/android-ndk
+    export ANDROID_SDK=${ANDROID_SDK_ROOT}
+    export ANDROID_NDK=${ANDROID_NDK_ROOT}
     if [ -n "$APPVEYOR" ]; then
         export JAVA_HOME="/C/Program Files (x86)/Java/jdk1.8.0"
     fi
