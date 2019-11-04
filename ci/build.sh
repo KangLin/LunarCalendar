@@ -5,19 +5,19 @@ SOURCE_DIR=`pwd`
 if [ -n "$1" ]; then
     SOURCE_DIR=$1
 fi
-echo "SOURCE_DIR:${SOURCE_DIR}"
+
 cd ${SOURCE_DIR}
 
 if [ "$BUILD_TARGERT" = "android" ]; then
     export ANDROID_SDK_ROOT=${SOURCE_DIR}/Tools/android-sdk
     export ANDROID_NDK_ROOT=${SOURCE_DIR}/Tools/android-ndk
-    export ANDROID_SDK=${ANDROID_SDK_ROOT}
-    export ANDROID_NDK=${ANDROID_NDK_ROOT}
     if [ -n "$APPVEYOR" ]; then
         export JAVA_HOME="/C/Program Files (x86)/Java/jdk1.8.0"
+        export ANDROID_NDK_ROOT=${SOURCE_DIR}/Tools/android-sdk/ndk-bundle
     fi
     if [ "$TRAVIS" = "true" ]; then
-        export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+        export JAVA_HOME=${SOURCE_DIR}/Tools/android-studio/jre
+        #export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     fi
     case $BUILD_ARCH in
         arm*)
@@ -28,6 +28,8 @@ if [ "$BUILD_TARGERT" = "android" ]; then
         ;;
     esac
     export PATH=${SOURCE_DIR}/Tools/apache-ant/bin:$JAVA_HOME:$PATH
+    export ANDROID_SDK=${ANDROID_SDK_ROOT}
+    export ANDROID_NDK=${ANDROID_NDK_ROOT}
 fi
 
 if [ "${BUILD_TARGERT}" = "unix" ]; then
@@ -92,6 +94,12 @@ esac
 export VERSION="v0.1.3"
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
+    if [ "${BUILD_DOWNLOAD}" != "TRUE" ]; then
+        sed -i "s/export QT_VERSION_DIR=.*/export QT_VERSION_DIR=${QT_VERSION_DIR}/g" ${SOURCE_DIR}/debian/postinst
+        sed -i "s/export QT_VERSION=.*/export QT_VERSION=${QT_VERSION}/g" ${SOURCE_DIR}/debian/preinst
+        cat ${SOURCE_DIR}/debian/postinst
+        cat ${SOURCE_DIR}/debian/preinst
+    fi
     bash build_debpackage.sh ${QT_ROOT} 
     
     sudo dpkg -i ../lunarcalendar*_amd64.deb
@@ -148,6 +156,9 @@ fi
 if [ -n "$GENERATORS" ]; then
     if [ -n "${STATIC}" ]; then
         CONFIG_PARA="-DBUILD_SHARED_LIBS=${STATIC}"
+    fi
+    if [ -n "${ANDROID_ARM_NEON}" ]; then
+        CONFIG_PARA="${CONFIG_PARA} -DANDROID_ARM_NEON=${ANDROID_ARM_NEON}"
     fi
     if [ "${BUILD_TARGERT}" = "android" ]; then
         cmake -G"${GENERATORS}" ${SOURCE_DIR} ${CONFIG_PARA} \

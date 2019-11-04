@@ -44,7 +44,7 @@ environment:
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     #GENERATORS: "Visual Studio 14 2015"
     BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
+    TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.12\msvc2017
     BUILD_ARCH: x86
     STATIC: ON
@@ -52,7 +52,7 @@ environment:
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     GENERATORS: "Visual Studio 14 2015 Win64"
     BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
+    TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.12\msvc2017_64
     BUILD_ARCH: x64
     STATIC: ON
@@ -60,14 +60,14 @@ environment:
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     GENERATORS: "Visual Studio 14 2015 Win64"
     BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
+    TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.10\msvc2017_64
     BUILD_ARCH: x64
   
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
     GENERATORS: "Visual Studio 14 2015 Win64"
     BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
+    TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.9\msvc2017_64
     BUILD_ARCH: x64
   

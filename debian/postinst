@@ -31,11 +31,17 @@ case "$1" in
         fi
         echo "/opt/LunarCalendar/lib" > /etc/ld.so.conf.d/LunarCalendar.conf
         echo "/opt/LunarCalendar/bin" >> /etc/ld.so.conf.d/LunarCalendar.conf
-	    echo "/opt/qt59/lib" >> /etc/ld.so.conf.d/LunarCalendar.conf
+	export QT_VERSION_DIR=
+        if [ -n "${QT_VERSION_DIR}" ]; then
+            echo "/opt/qt${QT_VERSION_DIR}/lib" >> /etc/ld.so.conf.d/FaceRecognizer.conf
+        fi
         ldconfig
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
+        rm -fr /usr/share/applications/LunarCalendar.desktop
+        rm -fr /etc/ld.so.conf.d/LunarCalendar.conf
+        rm -fr /usr/share/pixmaps/LunarCalendar.png
     ;;
 
     *)
