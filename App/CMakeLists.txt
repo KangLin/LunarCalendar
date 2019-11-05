@@ -12,11 +12,11 @@ set(SOURCE_UI_FILES
     )
 
 #翻译
-include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
+include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/Utils.cmake)
 
-set(RESOURCE_FILES ${RESOURCE_FILES} 
+set(RESOURCE_FILES ${RESOURCE_FILES}
     Resource/Resource.qrc
     "${TRANSLATIONS_RESOURCE_FILES}")
 

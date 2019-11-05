@@ -64,7 +64,7 @@ function install_android()
         echo "Install sdk and ndk ......"
         cd tools
         (sleep 5 ; while true ; do sleep 1 ; printf 'y\r\n' ; done ) \
-        | ./bin/sdkmanager "platform-tools" "build-tools;28.0.3" "platforms;${ANDROID_API}" "ndk-bundle"
+        | ./bin/sdkmanager "platform-tools" "build-tools;28.0.3" "build-tools;28.0.2" "platforms;${ANDROID_API}" "ndk-bundle"
         if [ ! -d ${SOURCE_DIR}/Tools/android-ndk ]; then
             ln -s ${SOURCE_DIR}/Tools/android-sdk/ndk-bundle ${SOURCE_DIR}/Tools/android-ndk
         fi

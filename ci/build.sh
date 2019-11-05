@@ -166,8 +166,18 @@ if [ -n "$GENERATORS" ]; then
             -DCMAKE_VERBOSE=ON \
             -DCMAKE_BUILD_TYPE=Release \
             -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
+            -DQt5Core_DIR=${QT_ROOT}/lib/cmake/Qt5Core \
+            -DQt5Gui_DIR=${QT_ROOT}/lib/cmake/Qt5Gui \
+            -DQt5Widgets_DIR=${QT_ROOT}/lib/cmake/Qt5Widgets \
+            -DQt5Xml_DIR=${QT_ROOT}/lib/cmake/Qt5Xml \
+            -DQt5Sql_DIR=${QT_ROOT}/lib/cmake/Qt5Sql \
+            -DQt5Network_DIR=${QT_ROOT}/lib/cmake/Qt5Network \
+            -DQt5Multimedia_DIR=${QT_ROOT}/lib/cmake/Qt5Multimedia \
+            -DQt5LinguistTools_DIR=${QT_ROOT}/lib/cmake/Qt5LinguistTools \
+            -DQt5AndroidExtras_DIR=${QT_ROOT}/lib/cmake/Qt5AndroidExtras \
             -DANDROID_PLATFORM=${ANDROID_API} \
             -DANDROID_ABI="${BUILD_ARCH}" \
+            -DCMAKE_MAKE_PROGRAM=make \
             -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake 
     else
 	    cmake -G"${GENERATORS}" ${SOURCE_DIR} ${CONFIG_PARA} \
