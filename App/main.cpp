@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
 #ifdef RABBITCOMMON
     CFrmUpdater *pUpdate = new CFrmUpdater();
-    pUpdate->SetTitle(QPixmap(":/image/Calendar"));
+    pUpdate->SetTitle(QImage(":/image/Calendar"));
     if(!pUpdate->GenerateUpdateXml())
         return 0;
 #endif

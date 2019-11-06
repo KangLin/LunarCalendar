@@ -73,7 +73,8 @@ MainWindow::MainWindow(QWidget *parent) :
     
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
-    pHelp->addAction(QIcon(":/image/Calendar"), tr("Update"),
+    CFrmUpdater updater;
+    pHelp->addAction(updater.windowIcon(), tr("Update"),
                      this, SLOT(slotUpdate()));
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
 #endif
@@ -111,7 +112,7 @@ void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
     CDlgAbout about(this);
-    about.m_AppIcon = QPixmap(":/image/Calendar");
+    about.m_AppIcon = QImage(":/image/Calendar");
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     #if defined (Q_OS_ANDROID)
         about.showMaximized();
@@ -124,7 +125,7 @@ void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
     CFrmUpdater* pUpdate = new CFrmUpdater();
-    pUpdate->SetTitle(QPixmap(":/image/Calendar"));
+    pUpdate->SetTitle(QImage(":/image/Calendar"));
     #if defined (Q_OS_ANDROID)
         pUpdate->showMaximized();
     #else
