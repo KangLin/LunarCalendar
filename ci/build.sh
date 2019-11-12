@@ -60,6 +60,13 @@ TARGET_OS=`uname -s`
 case $TARGET_OS in
     MINGW* | CYGWIN* | MSYS*)
         export PKG_CONFIG=/c/msys64/mingw32/bin/pkg-config.exe
+        if [ "$BUILD_TARGERT" = "android" ]; then
+            ANDROID_NDK_HOST=windows-x86_64
+            if [ ! -d $ANDROID_NDK/prebuilt/${ANDROID_NDK_HOST} ]; then
+                ANDROID_NDK_HOST=windows
+            fi
+            CONFIG_PARA="${CONFIG_PARA} -DCMAKE_MAKE_PROGRAM=make" #${ANDROID_NDK}/prebuilt/${ANDROID_NDK_HOST}/bin/make.exe"
+        fi
         ;;
     Linux* | Unix*)
     ;;
@@ -206,9 +213,11 @@ else
                        --android-platform ${ANDROID_API} \
                         --gradle --verbose
                         #--jdk ${JAVA_HOME}
+        APK_FILE=`find . -name "android-build-debug.apk"`
+        cp ${APK_FILE} $SOURCE_DIR/
         if [ "$TRAVIS_TAG" != "" -a "$BUILD_ARCH"="armeabi-v7a" -a "$QT_VERSION_DIR"="5.12" ]; then
             cp $SOURCE_DIR/Update/update_android.xml .
-            APK_FILE=`find . -name "android-build-debug.apk"`
+            
             MD5=`md5sum ${APK_FILE} | awk '{print $1}'`
             echo "MD5:${MD5}"
             sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" update_android.xml

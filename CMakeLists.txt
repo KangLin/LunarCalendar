@@ -52,11 +52,15 @@ if(ANDROID)
     SET(QT_COMPONENTS ${QT_COMPONENTS} AndroidExtras)
 endif()
 find_package(Qt5 COMPONENTS ${QT_COMPONENTS})
+message("QT_VERSION:${Qt5_VERSION}")
+if(Qt5_VERSION VERSION_LESS 5.10.0 AND ANDROID)
+    message(FATAL_ERROR "Qt must great 5.10.0")
+endif()
 FOREACH(_COMPONENT ${QT_COMPONENTS})
     SET(QT_LIBRARIES ${QT_LIBRARIES} Qt5::${_COMPONENT})
 ENDFOREACH()
-
 get_filename_component(QT_INSTALL_DIR "${Qt5_DIR}/../../.." ABSOLUTE)
+message("QT_INSTALL_DIR:${QT_INSTALL_DIR}")
 
 IF(MSVC)
     # This option is to enable the /MP switch for Visual Studio 2005 and above compilers

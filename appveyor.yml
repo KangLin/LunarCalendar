@@ -88,6 +88,16 @@ environment:
     QT_ROOT: C:\Qt\5.12\mingw73_64
     BUILD_ARCH: x64
 
+  ##### android ########
+  - BUILD_TARGERT: android
+    GENERATORS: "MSYS Makefiles"
+    BUILD_ARCH: "armeabi-v7a"
+    ANDROID_ARM_NEON: ON
+    QT_VERSION_DIR: 5.12
+    QT_VERSION: 5.12.4
+    ANDROID_API: android-24
+    TOOLCHAIN_VERSION: 4.9
+    
 matrix:
   fast_finish: false
 
@@ -105,6 +115,7 @@ init:
   
 install:
   - C:\msys64\autorebase.bat
+  - C:\msys64\usr\bin\pacman.exe -S --noconfirm unzip
   #- if "%BUILD_TARGERT%"=="windows_mingw" set PATH=C:\Qt\Tools\mingw%TOOLCHAIN_VERSION%_32\bin;%PATH%
   - if "%BUILD_TARGERT%" == "windows_mingw" set MSYSTEM=MINGW32  #设置编译系统为MINGW32
 
@@ -125,6 +136,7 @@ artifacts:
     type: zip
 
   - path: build_${BUILD_TARGERT}/update_windows.xml
+  - path: android-build-debug.apk
   
 test: off
 
