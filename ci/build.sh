@@ -195,7 +195,9 @@ if [ -n "$GENERATORS" ]; then
     fi
     cmake --build . --target install --config Release -- ${RABBIT_MAKE_JOB_PARA}
     if [ "${BUILD_TARGERT}" = "android" ]; then
-        cmake --build . --target APK  
+        cmake --build . --target APK
+        APK_FILE=`find . -name "android-build-debug.apk"`
+        cp ${APK_FILE} $SOURCE_DIR/
     fi
 else
     if [ "ON" = "${STATIC}" ]; then
