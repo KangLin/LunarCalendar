@@ -170,15 +170,19 @@ if(BUILD_APP)
 endif(BUILD_APP)
 
 if(WIN32)
-    INSTALL(FILES Install/Install.nsi DESTINATION "${CMAKE_BINARY_DIR}")
+    INSTALL(FILES Install/Install.nsi DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
 endif(WIN32)
 
 # 设置安装前缀
 if(ANDROID)
     set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR}/android-build CACHE STRING "Install path prefix" FORCE)
-else()
-    SET(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/${PROJECT_NAME}/install CACHE STRING "Install path prefix.")
 endif()
+
+add_custom_target(install-runtime
+  COMMAND
+     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=Runtime 
+     -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake"
+)
 
 message("Build arch:${BUILD_ARCH}")
 message("Build app:${BUILD_APP}")

@@ -49,10 +49,11 @@ target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")
 
-set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set_target_properties(${PROJECT_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${BUILD_VERSION})
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
+    VERSION ${BUILD_VERSION})
 if(UNIX AND NOT ANDROID)
     set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_NAME ${PROJECT_NAME})
 endif()
@@ -61,28 +62,34 @@ if(ANDROID)
     # Install target
     INSTALL(TARGETS ${PROJECT_NAME}
             RUNTIME DESTINATION "libs/${ANDROID_ABI}"
-            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+                COMPONENT Runtime
             LIBRARY DESTINATION "libs/${ANDROID_ABI}"
-           )
+                COMPONENT Runtime
+            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            )
 else()
     # Install target
     INSTALL(TARGETS ${PROJECT_NAME}
             RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+                COMPONENT Runtime
             LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
-           )
+                COMPONENT Runtime
+            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            )
 endif()
 if(ANDROID)
     # Install other files
-    INSTALL(FILES ${OTHER_FILES} DESTINATION "assets")    
+    INSTALL(FILES ${OTHER_FILES} DESTINATION "assets" COMPONENT Runtime)    
 else()
     # Install other files
-    INSTALL(FILES ${OTHER_FILES} DESTINATION ".")
+    INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
 endif()
 
 if(UNIX)
-    INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop DESTINATION "share/applications")
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png DESTINATION "share/pixmaps")
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop
+        DESTINATION "share/applications" COMPONENT Runtime)
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png
+        DESTINATION "share/pixmaps" COMPONENT Runtime)
 endif()
 
 IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
@@ -102,7 +109,8 @@ IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
         "$<TARGET_FILE:${PROJECT_NAME}>"
         )
     INSTALL(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/"
-        DESTINATION "${CMAKE_INSTALL_BINDIR}")
+        DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        COMPONENT Runtime)
 ENDIF()
 
 IF(ANDROID)
