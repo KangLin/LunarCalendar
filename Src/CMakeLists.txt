@@ -39,6 +39,12 @@ SET(RCC_FILES
     Resource/ResourceLunarCalendar.qrc
     ${TRANSLATIONS_RESOURCE_FILES}
     )
+if("Debug" STREQUAL CMAKE_BUILD_TYPE)
+    SET(RCC_FILES
+        Resource/ResourceSql.qrc
+        ${TRANSLATIONS_RESOURCE_FILES}
+        )
+endif()
 
 IF(MSVC)
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
@@ -135,8 +141,8 @@ ENDIF()
 
 if(ANDROID)
     # Install dababase files
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/database/db.sqlite DESTINATION "assets/data/db")
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chines_holidays.sql DESTINATION "assets/data/db")
 else()
     #Install dababase file
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/database/db.sqlite DESTINATION "./data/db")
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chines_holidays.sql DESTINATION "./data/db")
 endif()

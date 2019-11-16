@@ -8,7 +8,10 @@
 #include <QApplication>
 #include <QStyle>
 #include <QDir>
-#include <QtSql/QSqlQuery>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlRecord>
+#include <QFile>
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -756,20 +759,46 @@ int CLunarCalendarModel::InitDatabase()
     QString szFile;
     szFile = RabbitCommon::CDir::Instance()->GetDirDatabase()
                                        + QDir::separator() + "db.sqlite";
+    m_Database = QSqlDatabase::addDatabase("QSQLITE");
+    m_Database.setDatabaseName(szFile);
     QDir d;
     if(!d.exists(szFile))
     {
-        QString szDb = RabbitCommon::CDir::Instance()->GetDirDatabase(true)
-                + QDir::separator() + "db.sqlite";
-        if(!QFile::copy(szDb, szFile))
+        if(!m_Database.open())
         {
-            qCritical() << "Copy file fail" << szDb << "to" << szFile ;
-            return -1;
+            qCritical() << "Open database fail: %s"
+                        << m_Database.lastError().text().toStdString().c_str();
+            return m_Database.lastError().number();
         }
+#if defined (_DEBUG) || defined(DEBUG)
+        QFile file(":/database/database");
+#else
+        QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase()
+                   + QDir::separator() + "chines_holidays.sql");
+#endif
+        if(file.open(QFile::ReadOnly))
+        {
+            QSqlQuery query(m_Database);
+            QString szSql(file.readAll());
+            QStringList sql = szSql.split(";");
+            for(int i = 0; i < sql.size(); i++)
+            {
+                qDebug() << sql[i];
+                if(!query.exec(sql[i]) && m_Database.lastError().type() != QSqlError::NoError)
+                {
+                    qCritical() << "Create database fail: " << m_Database.lastError();
+                    file.close();
+                    m_Database.close();
+                    QDir d;
+                    d.remove(szFile);
+                    return -1;
+                }
+            }
+            file.close();
+        }
+        m_Database.close();
     }
-
-    m_Database = QSqlDatabase::addDatabase("QSQLITE");
-    m_Database.setDatabaseName(szFile);
+    
     if(!m_Database.open())
     {
         qCritical() << "Open datebase fail";
