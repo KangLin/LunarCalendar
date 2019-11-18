@@ -236,8 +236,9 @@ void CLunarCalendar::InitResource()
     if(nullptr == g_pLunarCalendarPrivate)
         g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
 
-    Q_INIT_RESOURCE(ResourceLunarCalendar);
+    Q_INIT_RESOURCE(ResourceLunarCalendar);    
 #if _DEBUG
+    Q_INIT_RESOURCE(ResourceSql);
     Q_INIT_RESOURCE(translations_LunarCalendar);
 #endif
 }
@@ -250,8 +251,9 @@ void CLunarCalendar::CLeanResource()
         g_pLunarCalendarPrivate = nullptr;
     }
 
-    Q_CLEANUP_RESOURCE(ResourceLunarCalendar);
+    Q_CLEANUP_RESOURCE(ResourceLunarCalendar);    
 #if _DEBUG
+    Q_CLEANUP_RESOURCE(ResourceSql);
     Q_CLEANUP_RESOURCE(translations_LunarCalendar);
 #endif
 }
