@@ -58,24 +58,31 @@ if(UNIX AND NOT ANDROID)
     set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_NAME ${PROJECT_NAME})
 endif()
 
+# Install target
 if(ANDROID)
-    # Install target
     INSTALL(TARGETS ${PROJECT_NAME}
-            RUNTIME DESTINATION "libs/${ANDROID_ABI}"
-                COMPONENT Runtime
-            LIBRARY DESTINATION "libs/${ANDROID_ABI}"
-                COMPONENT Runtime
-            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            )
+        RUNTIME DESTINATION "libs/${ANDROID_ABI}"
+            COMPONENT Runtime
+        LIBRARY DESTINATION "libs/${ANDROID_ABI}"
+            COMPONENT Runtime
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        )
+elseif(WIN32)
+    INSTALL(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+            COMPONENT Runtime
+        LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
+            COMPONENT Runtime
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        )
 else()
-    # Install target
     INSTALL(TARGETS ${PROJECT_NAME}
-            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-                COMPONENT Runtime
-            LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
-                COMPONENT Runtime
-            ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            )
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+            COMPONENT Runtime
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+            COMPONENT Runtime
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        )
 endif()
 if(ANDROID)
     # Install other files

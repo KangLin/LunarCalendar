@@ -31,7 +31,7 @@ override_dh_auto_build:
 
 override_dh_shlibdeps:
     ifdef GENERATORS
-	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
     else
-	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin 
+	dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info -l`pwd`/debian/lunarcalendar/opt/LunarCalendar/lib:`pwd`/debian/lunarcalendar/opt/LunarCalendar/bin
     endif
