@@ -766,8 +766,10 @@ int CLunarCalendarModel::InitDatabase()
     {
         if(!m_Database.open())
         {
-            qCritical() << "Open database fail: %s"
-                        << m_Database.lastError().text().toStdString().c_str();
+            qCritical() << "Open database fail:"
+                        << m_Database.lastError().text()
+                        << "database file:" << szFile;
+            
             return m_Database.lastError().number();
         }
 #if defined (_DEBUG) || defined(DEBUG)
