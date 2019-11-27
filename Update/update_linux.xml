@@ -9,5 +9,6 @@
     <ARCHITECTURE>x86</ARCHITECTURE>
     <MD5SUM>9664642791ab07e094f831f4edf03aef</MD5SUM>
     <URL>https://github.com/KangLin/LunarCalendar/releases/download/0.0.6/lunarcalendar_0.0.6_amd64.deb</URL>
+    <HOME>https://github.com/KangLin/LunarCalendar</HOME>
     <MIN_UPDATE_VERSION>0.0.1</MIN_UPDATE_VERSION>
 </UPDATE>

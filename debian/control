@@ -3,7 +3,7 @@ Section: main
 Priority: optional
 Maintainer: Kang Lin <kl222@126.com>
 Build-Depends: debhelper (>= 6)
-Standards-Version:"v0.1.4"
+Standards-Version:"v0.1.5"
 Homepage: https://github.com/KangLin/LunarCalendar
 Vcs-Git: https://github.com/KangLin/LunarCalendar.git
 #Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lunarcalendar.git

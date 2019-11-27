@@ -98,7 +98,7 @@ case ${BUILD_TARGERT} in
         ;;
 esac
 
-export VERSION="v0.1.4"
+export VERSION="v0.1.5"
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
     if [ "${DOWNLOAD_QT}" != "TRUE" ]; then
@@ -131,7 +131,9 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     tar -czf LunarCalendar_${VERSION}.tar.gz \
         LunarCalendar-x86_64.AppImage \
         Lunar_calendar-${VERSION}-x86_64.AppImage \
-        install.sh share
+        share \
+        install.sh \
+        install1.sh
     
     # Create update.xml
     MD5=`md5sum $SOURCE_DIR/../lunarcalendar*_amd64.deb|awk '{print $1}'`
