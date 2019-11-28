@@ -127,6 +127,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
 
     # Create appimage install package
     cp $SOURCE_DIR/Install/install.sh .
+    cp $RabbitCommon_DIR/Install/install1.sh .
     ln -s Lunar_calendar-${VERSION}-x86_64.AppImage LunarCalendar-x86_64.AppImage
     tar -czf LunarCalendar_${VERSION}.tar.gz \
         LunarCalendar-x86_64.AppImage \
@@ -217,8 +218,10 @@ else
                        --input `pwd`/App/android-libLunarCalendarApp.so-deployment-settings.json \
                        --output `pwd`/android-build \
                        --android-platform ${ANDROID_API} \
-                        --gradle --verbose
-                        #--jdk ${JAVA_HOME}
+                        --gradle \
+                        --sign ${SOURCE_DIR}/SerialPortAssistant.keystore \
+                        --storepass ${STOREPASS}
+                        #--verbose --jdk ${JAVA_HOME}
         APK_FILE=`find . -name "android-build-debug.apk"`
         cp ${APK_FILE} $SOURCE_DIR/
         if [ "$TRAVIS_TAG" != "" -a "$BUILD_ARCH"="armeabi-v7a" -a "$QT_VERSION_DIR"="5.12" ]; then
