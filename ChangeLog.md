@@ -1,5 +1,6 @@
 - v0.1.5
   + 修改更新
+  + 增加 android 签名
 
 - v0.1.4
   + 修改 cmake 编译 Android 版本

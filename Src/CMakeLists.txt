@@ -41,8 +41,8 @@ SET(RCC_FILES
     )
 if("Debug" STREQUAL CMAKE_BUILD_TYPE)
     SET(RCC_FILES
+        ${RCC_FILES}
         Resource/ResourceSql.qrc
-        ${TRANSLATIONS_RESOURCE_FILES}
         )
 endif()
 
