@@ -141,7 +141,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     ./bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
             --md5 ${MD5} \
-            --min "v0.1.4"
+            --min "v0.1.5"
     cat update_linux.xml
     
     MD5=`md5sum LunarCalendar_${VERSION}.tar.gz|awk '{print $1}'`
@@ -150,7 +150,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
             -f "`pwd`/update_linux_appimage.xml" \
             --md5 ${MD5} \
             --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz" \
-            --min "v0.1.4"
+            --min "v0.1.5"
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
@@ -210,7 +210,7 @@ else
     if [ "${BUILD_TARGERT}" = "android" ]; then
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
             "CONFIG+=release" ${CONFIG_PARA}
-        
+
         $MAKE
         $MAKE install INSTALL_ROOT=`pwd`/android-build
         ${QT_ROOT}/bin/androiddeployqt \
@@ -232,7 +232,7 @@ else
             sed -i "s/<ARCHITECTURE>.*</<ARCHITECTURE>${BUILD_ARCH}</g" update_android.xml
             sed -i "s/<MD5SUM>.*</<MD5SUM>${MD5}</g" update_android.xml
             sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/android-build-debug.apk<:g" update_android.xml
-            
+
             export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
             #export UPLOADTOOL_PR_BODY=
             wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
@@ -244,7 +244,7 @@ else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
                 "CONFIG+=release" ${CONFIG_PARA}\
                 PREFIX=`pwd`/install
-                
+
         $MAKE
         echo "$MAKE install ...."
         $MAKE install
@@ -259,15 +259,13 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         cp /C/OpenSSL-Win64/bin/libeay32.dll install/bin
         cp /C/OpenSSL-Win64/bin/ssleay32.dll install/bin
     fi
-    
+
     if [ -z "${STATIC}" ]; then
         "/C/Program Files (x86)/NSIS/makensis.exe" "Install.nsi"
         MD5=`md5sum LunarCalendar-Setup-*.exe|awk '{print $1}'`
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
             --md5 ${MD5} \
-            --min "v0.1.4"
-        
-        cat update_windows.xml
+            --min "v0.1.5"
     fi
 fi
