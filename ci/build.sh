@@ -17,6 +17,7 @@ if [ "$BUILD_TARGERT" = "android" ]; then
         export ANDROID_NDK_ROOT=${TOOLS_DIR}/android-sdk/ndk-bundle
     fi
     #if [ "$TRAVIS" = "true" ]; then
+        #export JAVA_HOME=${SOURCE_DIR}/Tools/android-studio/jre
         #export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
     #fi
     export JAVA_HOME=${TOOLS_DIR}/android-studio/jre
@@ -52,7 +53,7 @@ fi
 if [ "$BUILD_TARGERT" != "windows_msvc" ]; then
     RABBIT_MAKE_JOB_PARA="-j`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`"  #make 同时工作进程参数
     if [ "$RABBIT_MAKE_JOB_PARA" = "-j1" ];then
-        RABBIT_MAKE_JOB_PARA="-j2"
+        RABBIT_MAKE_JOB_PARA=""
     fi
 fi
 
@@ -82,9 +83,6 @@ export PATH=${QT_ROOT}/bin:$PATH
 echo "PATH:$PATH"
 echo "PKG_CONFIG:$PKG_CONFIG"
 cd ${SOURCE_DIR}
-if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
-    ./tag.sh
-fi
 mkdir -p build_${BUILD_TARGERT}
 cd build_${BUILD_TARGERT}
 

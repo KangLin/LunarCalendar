@@ -38,7 +38,7 @@ before_install:
   - sudo apt-get install -y -qq xvfb xpra
   - sudo Xvfb :99 -ac &
   - export DISPLAY=:99.0
-  - mkdir ${SOURCE_DIR}/Tools
+  - mkdir -p ${SOURCE_DIR}/Tools
   - export VERSION="v0.1.5"
 
 install:

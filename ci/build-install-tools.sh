@@ -49,7 +49,7 @@ function function_common()
 
 function install_android()
 {
-    cd ${SOURCE_DIR}/Tools
+    cd ${TOOLS_DIR}
     if [ ! -d "`pwd`/android-sdk" ]; then
         ANDROID_STUDIO_VERSION=191.5900203
         wget -c -nv https://dl.google.com/dl/android/studio/ide-zips/3.5.1.0/android-studio-ide-${ANDROID_STUDIO_VERSION}-linux.tar.gz
@@ -99,7 +99,7 @@ function install_android_sdk_and_ndk()
         fi
     fi
 
-    cd ${SOURCE_DIR}/Tools
+    cd ${TOOLS_DIR}
 
     #Download android sdk  
     if [ ! -d "`pwd`/android-sdk" ]; then
@@ -115,7 +115,7 @@ function install_android_sdk_and_ndk()
 
 function function_android()
 {
-    cd ${SOURCE_DIR}/Tools
+    cd ${TOOLS_DIR}
     
     sudo apt-get update -y -qq
     #sudo apt-get install -qq -y openjdk-11-jdk

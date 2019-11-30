@@ -1,6 +1,8 @@
 version: 'v0.1.5.{build}'
 
 environment:
+  BUILD_VERSION: v0.1.5
+  
   matrix:
   ##### msvc 2013 ########
   - BUILD_TARGERT: windows_msvc
@@ -102,13 +104,12 @@ matrix:
   fast_finish: false
 
 init:
-  - set BUILD_VERSION=%APPVEYOR_BUILD_VERSION%
   - set varch=%BUILD_ARCH%
   - if "%BUILD_ARCH%" == "x64" set varch=amd64
   - if "%BUILD_TARGERT%" == "windows_msvc" if %TOOLCHAIN_VERSION% LSS 15 (call "C:\Program Files (x86)\Microsoft Visual Studio %TOOLCHAIN_VERSION%.0\VC\vcvarsall.bat" %varch%) else (call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %varch%)  
   - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
   - echo PROCESSOR_IDENTIFIER=%PROCESSOR_IDENTIFIER%
-  - if NOT "%QT_ROOT%" == "NO" for /f "delims=" %%i in ('%QT_ROOT%/bin/qmake -query QT_VERSION') do (set QT_VERSION=%%i) 
+  - if NOT "%QT_ROOT%" == "NO" for /f "delims=" %%i in ('%QT_ROOT%/bin/qmake -query QT_VERSION') do (set QT_VERSION=%%i)
   - echo QT_ROOT=%QT_ROOT%
   - echo QT_VERSION=%QT_VERSION%
   - del C:\msys64\usr\bin\link.exe
@@ -136,7 +137,7 @@ artifacts:
     type: zip
 
   - path: build_${BUILD_TARGERT}/update_windows.xml
-  - path: LunarCalendar_$(appveyor_build_version).apk
+  - path: LunarCalendar_$(BUILD_VERSION).apk
   
 test: off
 
