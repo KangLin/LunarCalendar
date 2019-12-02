@@ -64,16 +64,16 @@ please compile and test the students with the corresponding equipment.
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
-    + [LunarCalendar_v0.1.5.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/LunarCalendar_v0.1.5.tar.gz)
+    + [LunarCalendar_v0.1.6.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/LunarCalendar_v0.1.6.tar.gz)
       The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
       usage:
 
-      1. Decompress. Copy LunarCalendar_v0.1.5.tar.gz to install dirctory, then decompress it:
+      1. Decompress. Copy LunarCalendar_v0.1.6.tar.gz to install dirctory, then decompress it:
 
                 mkdir LunarCalendar
                 cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_v0.1.5.tar.gz .
-                tar xvfz LunarCalendar_v0.1.5.tar.gz
+                cp $DOWNLOAD/LunarCalendar_v0.1.6.tar.gz .
+                tar xvfz LunarCalendar_v0.1.6.tar.gz
 
       2. install
 
@@ -84,16 +84,16 @@ please compile and test the students with the corresponding equipment.
                 ./install.sh remove
 
 - ubuntu
-    + [lunarcalendar_0.1.5_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/lunarcalendar_0.1.5_amd64.deb)
+    + [lunarcalendar_0.1.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/lunarcalendar_0.1.6_amd64.deb)
       Deb installation package for Ubuntu
 
 - windows
-    + [LunarCalendar-Setup-v0.1.5.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/LunarCalendar-Setup-v0.1.5.exe)
+    + [LunarCalendar-Setup-v0.1.6.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/LunarCalendar-Setup-v0.1.6.exe)
       Windows installation package, support for Windows xp and above
 
 
 - android
-    + [LunarCalendar_v0.1.5.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/LunarCalendar_v0.1.5.apk)
+    + [LunarCalendar_v0.1.6.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/LunarCalendar_v0.1.6.apk)
     Android installation package
 
 ------------------------------------------------

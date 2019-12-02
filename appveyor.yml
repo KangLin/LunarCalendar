@@ -1,7 +1,7 @@
-version: 'v0.1.5.{build}'
+version: 'v0.1.6.{build}'
 
 environment:
-  BUILD_VERSION: v0.1.5
+  BUILD_VERSION: "v0.1.6"
   
   matrix:
   ##### msvc 2013 ########
