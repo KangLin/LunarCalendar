@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction* pViewBackgroup = pViewMenu->addAction(tr("Use backgroup image"),
                                        this, SLOT(slotViewBackgroup(bool)));
     pViewBackgroup->setCheckable(true);
-    pViewBackgroup->setChecked(true);
-    m_pLunarCalendar->SetShowBackgroupImage(true);
+    pViewBackgroup->setChecked(false);
+    m_pLunarCalendar->SetShowBackgroupImage(false);
 
     QActionGroup* pViewHeadPostion = new QActionGroup(this);
     QMenu* pViewHeadPostionMenu = pViewMenu->addMenu(tr("Head postion"));
