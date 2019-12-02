@@ -95,7 +95,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
     Windows安装包，支持 Windows xp 以上系统 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/android-build-debug.apk)  
+    + [LunarCalendar_v0.1.5.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/LunarCalendar_v0.1.5.apk)  
     Android 安装包
     
 ------------------------------------------------

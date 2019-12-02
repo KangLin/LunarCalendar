@@ -93,7 +93,7 @@ please compile and test the students with the corresponding equipment.
 
 
 - android
-    + [android-build-debug.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/android-build-debug.apk)
+    + [LunarCalendar_v0.1.5.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.5/LunarCalendar_v0.1.5.apk)
     Android installation package
 
 ------------------------------------------------
