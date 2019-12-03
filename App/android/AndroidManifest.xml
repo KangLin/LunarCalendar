@@ -1,5 +1,5 @@
-<?xml version="1.0"?>
-<manifest package="org.KangLinStudio.LunarCalendarApp" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1.6" android:versionCode="0" android:installLocation="auto">
+<?xml version='1.0' encoding='utf-8'?>
+<manifest package="org.KangLinStudio.LunarCalendar" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1.6" android:versionCode="0" android:installLocation="auto">
 <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
 
     <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="@string/app_name" android:icon="@drawable/icon">
@@ -24,11 +24,11 @@
             <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
             <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
             <!-- Run with local libs -->
-            <meta-data android:name="android.app.use_local_qt_libs" android:value="1"/>
+            <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
             <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
-            <meta-data android:name="android.app.load_local_libs" android:value="plugins/platforms/android/libqtforandroid.so:plugins/bearer/libqandroidbearer.so"/>
-            <meta-data android:name="android.app.load_local_jars" android:value="jar/QtAndroid.jar:jar/QtAndroidExtras.jar:jar/QtAndroidBearer.jar"/>
-            <meta-data android:name="android.app.static_init_classes" android:value=""/>
+            <meta-data android:name="android.app.load_local_libs" android:value="-- %%INSERT_LOCAL_LIBS%% --"/>
+            <meta-data android:name="android.app.load_local_jars" android:value="-- %%INSERT_LOCAL_JARS%% --"/>
+            <meta-data android:name="android.app.static_init_classes" android:value="-- %%INSERT_INIT_CLASSES%% --"/>
             <!-- Used to specify custom system library path to run with local system libs -->
             <meta-data android:name="android.app.system_libs_prefix" android:value="/system/lib/"/>
             <!--  Messages maps -->
