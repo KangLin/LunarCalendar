@@ -77,14 +77,14 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                 cp $DOWNLOAD/LunarCalendar_v0.1.6.tar.gz .
                 tar xvfz LunarCalendar_v0.1.6.tar.gz
 
-       2. 运行 install.sh install 安装
+       2. 安装
 
-                ./install.sh install
+                ./install1.sh install LunarCalendar
 
 
-       3. 如果要卸载，运行 install.sh remove
+       3. 如果要卸载，运行:
 
-                ./install.sh remove
+                ./install1.sh remove LunarCalendar
 
 - ubuntu
     + [lunarcalendar_0.1.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/lunarcalendar_0.1.6_amd64.deb)

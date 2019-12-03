@@ -78,11 +78,11 @@ please compile and test the students with the corresponding equipment.
 
       2. install
 
-                ./install.sh install
+                ./install1.sh install LunarCalendar
 
       3. If you want to uninstall
 
-                ./install.sh remove
+                ./install1.sh remove LunarCalendar
 
 - ubuntu
     + [lunarcalendar_0.1.6_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/lunarcalendar_0.1.6_amd64.deb)
