@@ -773,8 +773,16 @@ int CLunarCalendarModel::InitDatabase()
             return m_Database.lastError().number();
         }
 #if defined (_DEBUG) || defined(DEBUG)
-        QFile file(":/database/database");
+        QFile file(":/database/ChinesHolidays");
 #else
+        if(!QFile::exists(RabbitCommon::CDir::Instance()->GetDirDatabase()
+                        + QDir::separator() + "chines_holidays.sql"))
+        {
+            QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
+                       + QDir::separator() + "chines_holidays.sql");
+            file.copy(RabbitCommon::CDir::Instance()->GetDirDatabase()
+                      + QDir::separator() + "chines_holidays.sql");
+        }
         QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase()
                    + QDir::separator() + "chines_holidays.sql");
 #endif

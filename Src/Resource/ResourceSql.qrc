@@ -1,5 +1,5 @@
 <RCC>
     <qresource prefix="/database">
-        <file alias="database">database/chines_holidays.sql</file>
+        <file alias="ChinesHolidays">database/chines_holidays.sql</file>
     </qresource>
 </RCC>
