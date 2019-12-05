@@ -438,6 +438,7 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
 
     //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
     m_View.selectionModel()->clear();
+    m_View.horizontalHeader()->setMinimumSectionSize(0);
     switch (GetViewType())
     {
     case ViewTypeMonth:
