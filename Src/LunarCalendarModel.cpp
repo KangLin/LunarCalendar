@@ -74,7 +74,11 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
     case Qt::BackgroundRole:
         {
             QPalette palette = QApplication::style()->standardPalette();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 13, 0)
+            return palette.window();
+#else
             return palette.background();
+#endif
         }
     case Qt::DisplayRole:
         switch (orientation) {

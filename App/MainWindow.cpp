@@ -96,6 +96,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
 //    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
     
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
@@ -205,10 +206,4 @@ void MainWindow::slotHeadPostionLeft()
 void MainWindow::slotHeadPostionRight()
 {
     m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Right);
-}
-
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    //qDebug() << "MainWindow::resizeEvent:" << event->size();
-    m_pLunarCalendar->resize(event->size());
 }

@@ -101,10 +101,10 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.1.6"
+    export VERSION="v0.1.7"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.1.6"
+    export VERSION="v0.1.7"
 fi
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
@@ -148,17 +148,17 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     echo "MD5:${MD5}"
     ./bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
-            --md5 ${MD5} \
-            --min "v0.1.5"
+            --md5 ${MD5} #\
+            #--min "v0.1.5"
     cat update_linux.xml
     
     MD5=`md5sum LunarCalendar_${VERSION}.tar.gz|awk '{print $1}'`
     echo "MD5:${MD5}"
     ./LunarCalendar-x86_64.AppImage \
             -f "`pwd`/update_linux_appimage.xml" \
-            --md5 ${MD5} \
             --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz" \
-            --min "v0.1.5"
+            --md5 ${MD5} #\
+            #--min "v0.1.5"
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
@@ -242,8 +242,8 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         MD5=`md5sum LunarCalendar-Setup-*.exe|awk '{print $1}'`
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
-            --md5 ${MD5} \
-            --min "v0.1.5"
+            --md5 ${MD5} #\
+            #--min "v0.1.5"
     fi
 fi
 
