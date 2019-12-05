@@ -7,6 +7,9 @@
 #include <QTextCharFormat>
 #include <QVector>
 #include <QtSql/QSqlDatabase>
+#include <QNetworkReply>
+#include <QSslError>
+#include <QFile>
 
 #include "LunarCalendar.h"
 
@@ -92,7 +95,13 @@ public:
     
 private Q_SLOTS:
     int slotUpdate();
-    
+
+    void slotReadyRead();
+    void slotError(QNetworkReply::NetworkError e);
+    void slotSslError(const QList<QSslError> e);
+    void slotDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+    void slotFinished();
+
 private:
     void internalUpdate();
     QDate firstDateMonth() const;
@@ -108,6 +117,7 @@ private:
     QColor GetHeight() const;
     int InitHoliday();
     int InitDatabase();
+    void CheckUpdateDatabase();
     
 private:
     QDate m_Date;
@@ -150,7 +160,16 @@ private:
     
     QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
     
-    QSqlDatabase m_Database;   
+    QSqlDatabase m_Database;
+    QNetworkAccessManager m_NetManager;
+    QNetworkReply *m_pReply;
+    /**
+     * @brief DownloadFile
+     * @param url: Download url
+     * @return 
+     */
+    int DownloadFile(const QUrl &url);
+    QFile m_UpdateSqlFile;
 };
 
 #endif // CCALENDARMODEL_H

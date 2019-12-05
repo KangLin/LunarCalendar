@@ -28,7 +28,7 @@ The lunar calendar written by Qt. It provides:
 - A lunar calendar library of Qt GUI, support QSS.
    + Solar calendar
    + Lunar calendar
-   + Solar and Lunar holiday
+   + Solar and Lunar holiday(include chinese holidays)
    + Solar and Lunar Day (eg birthday, wedding anniversary, etc.)
    + Month view
    + Week view
@@ -96,16 +96,8 @@ please compile and test the students with the corresponding equipment.
 - android
     + [LunarCalendar_v0.1.6.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.1.6/LunarCalendar_v0.1.6.apk)
     Android installation package
-
-------------------------------------------------
-
-- Directory
-
-```
-  |-App                  application source code
-  |-Src                  calendar library source code
-     |- LunarCalendar.h  calendar interface header file
-```
+    
+            adb install LunarCalendar_v0.1.6.apk
 
 ------------------------------------------------
 
@@ -196,6 +188,19 @@ please compile and test the students with the corresponding equipment.
      ```
      sudo apt-get install libssl1.1
      ```
+
+------------------------------------------------
+### Develop 
+- Directory
+
+```
+  |-App                                        application source code
+  |-Src                                        calendar library source code
+     |- LunarCalendar.h                        calendar interface header file
+         |- Resource
+               |- database
+                     |- chinese_holidays.sql   chinese holidays sql
+```
 
 ------------------------------------------------
 ### Other application use the libary
