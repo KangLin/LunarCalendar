@@ -149,9 +149,9 @@ ENDIF()
 
 # Install dababase files
 if(ANDROID)
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chines_holidays.sql
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
         DESTINATION "assets/data/db" COMPONENT Runtime)
 else()
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chines_holidays.sql
+    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
         DESTINATION "./data/db" COMPONENT Runtime)
 endif()

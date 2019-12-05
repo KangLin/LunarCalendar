@@ -297,7 +297,7 @@ int CLunarCalendarModel::slotUpdate()
             if(m_Database.isOpen())
             {
                 QSqlQuery query(m_Database);
-                QString szSql = "select * from chines_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
+                QString szSql = "select * from chinese_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
                 //qDebug() << "Sql:" << szSql;
                 if(query.exec(szSql))
                 {
@@ -773,18 +773,18 @@ int CLunarCalendarModel::InitDatabase()
             return m_Database.lastError().number();
         }
 #if defined (_DEBUG) || defined(DEBUG)
-        QFile file(":/database/ChinesHolidays");
+        QFile file(":/database/ChineseHolidays");
 #else
         if(!QFile::exists(RabbitCommon::CDir::Instance()->GetDirDatabase()
-                        + QDir::separator() + "chines_holidays.sql"))
+                        + QDir::separator() + "chinese_holidays.sql"))
         {
             QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
-                       + QDir::separator() + "chines_holidays.sql");
+                       + QDir::separator() + "chinese_holidays.sql");
             file.copy(RabbitCommon::CDir::Instance()->GetDirDatabase()
-                      + QDir::separator() + "chines_holidays.sql");
+                      + QDir::separator() + "chinese_holidays.sql");
         }
         QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase()
-                   + QDir::separator() + "chines_holidays.sql");
+                   + QDir::separator() + "chinese_holidays.sql");
 #endif
         if(file.open(QFile::ReadOnly))
         {

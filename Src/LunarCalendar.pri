@@ -69,7 +69,7 @@ RESOURCES += \
 CONFIG(debug, debug|release) :RESOURCES += $$PWD/Resource/ResourceSql.qrc
 
 db.target = db
-db.files = $$PWD/Resource/database/chines_holidays.sql
+db.files = $$PWD/Resource/database/chinese_holidays.sql
 android: db.path = $$PREFIX/assets/data/db
 else: db.path = $$PREFIX/data/db
 db.CONFIG += directory no_check_exist
