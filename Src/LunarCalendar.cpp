@@ -1256,7 +1256,7 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -1;
-    
+
     if(m_bShowBackgroupImage)
         m_View.setStyleSheet("border-image:url(" + szFile + ")");
     else
@@ -1288,9 +1288,9 @@ QSize CLunarCalendar::minimumSizeHint() const
     int cols = pModel->columnCount();
 
     int marginW = m_View.horizontalHeader()->style()->pixelMetric(
-                             QStyle::PM_FocusFrameHMargin) << 1;
+                                QStyle::PM_FocusFrameHMargin) << 1;
     int marginH = m_View.verticalHeader()->style()->pixelMetric(
-                       QStyle::PM_FocusFrameVMargin) << 1;
+                                QStyle::PM_FocusFrameVMargin) << 1;
     QMargins cm = m_View.horizontalHeader()->contentsMargins();
     w = (m_View.horizontalHeader()->minimumSectionSize() + marginW) * cols
             + marginW + cm.left() + cm.right();

@@ -925,6 +925,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
     QFile::remove(RabbitCommon::CDir::Instance()->GetDirDatabase()
                                + QDir::separator() + "db.sqlite");
     InitDatabase();
+    
 }
 
 void CLunarCalendarModel::slotReadyRead()
@@ -1005,7 +1006,8 @@ void CLunarCalendarModel::slotFinished()
     
     m_UpdateSqlFile.close();
     
-    CheckUpdateDatabase();    
+    CheckUpdateDatabase();
+    internalUpdate();
 }
 
 int CLunarCalendarModel::DownloadFile(const QUrl &url)
