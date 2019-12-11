@@ -149,7 +149,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     ./bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
             --md5 ${MD5} #\
-            #--min "v0.1.5"
+            --min "v0.1.8"
     cat update_linux.xml
     
     MD5=`md5sum LunarCalendar_${VERSION}.tar.gz|awk '{print $1}'`
@@ -158,7 +158,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
             -f "`pwd`/update_linux_appimage.xml" \
             --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz" \
             --md5 ${MD5} #\
-            #--min "v0.1.5"
+            --min "v0.1.8"
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
@@ -243,7 +243,7 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
             --md5 ${MD5} #\
-            #--min "v0.1.5"
+            --min "v0.1.8"
     fi
 fi
 
