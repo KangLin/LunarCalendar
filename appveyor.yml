@@ -4,6 +4,9 @@ cache:
     - Package
     
 environment:
+  STOREPASS:
+    secure: l9BZEU39F1a4vSkhwl0CHR+yh6CD1c7byGzMv+1NUa4=
+
   matrix:
   ##### msvc 2013 ########
   - BUILD_TARGERT: windows_msvc
