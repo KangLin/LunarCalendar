@@ -1,5 +1,8 @@
 version: 'v0.1.8.{build}'
 
+cache:
+    - Package
+    
 environment:
   matrix:
   ##### msvc 2013 ########

@@ -6,6 +6,7 @@ set -ev
 SOURCE_DIR="`pwd`"
 echo $SOURCE_DIR
 TOOLS_DIR=${SOURCE_DIR}/Tools
+PACKAGE_DIR=${SOURCE_DIR}/Package
 echo ${TOOLS_DIR}
 
 if [ "$BUILD_TARGERT" = "android" ]; then
@@ -20,15 +21,20 @@ fi
 if [ ! -d "${TOOLS_DIR}" ]; then
     mkdir ${TOOLS_DIR}
 fi
+if [ ! -d "$PACKAGE_DIR" ]; then
+    mkdir -p $PACKAGE_DIR
+fi
 cd ${TOOLS_DIR}
 
 # Qt qt安装参见：https://github.com/benlau/qtci  
 if [ -n "${QT_VERSION}" ]; then
     QT_DIR=C:/projects/${APPVEYOR_PROJECT_NAME}/Tools/Qt/${QT_VERSION}
     if [ ! -d "${QT_DIR}" ]; then
-        wget -c --no-check-certificate -nv http://download.qt.io/official_releases/qt/${QT_VERSION_DIR}/${QT_VERSION}/qt-opensource-windows-x86-${QT_VERSION}.exe
+        cd $PACKAGE_DIR
+        if [ ! -f qt-opensource-windows-x86-${QT_VERSION}.exe ]; then
+            wget -c --no-check-certificate -nv http://download.qt.io/official_releases/qt/${QT_VERSION_DIR}/${QT_VERSION}/qt-opensource-windows-x86-${QT_VERSION}.exe
+        fi
         bash ${SOURCE_DIR}/ci/qt-installer.sh qt-opensource-windows-x86-${QT_VERSION}.exe ${QT_DIR}
-        rm qt-opensource-windows-x86-${QT_VERSION}.exe
     fi
 fi
 
@@ -44,22 +50,32 @@ cd ${TOOLS_DIR}
 
 #Download android sdk  
 if [ ! -d "${TOOLS_DIR}/android-sdk" ]; then
-    cd ${TOOLS_DIR}
+    
 
+    cd ${PACKAGE_DIR}
     ANDROID_STUDIO_VERSION=191.5900203
-    wget -c -nv https://dl.google.com/dl/android/studio/ide-zips/3.5.1.0/android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip
+    if [ ! -f android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip ]; then
+        wget -c -nv https://dl.google.com/dl/android/studio/ide-zips/3.5.1.0/android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip
+    fi
+    cp android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip ${TOOLS_DIR}/.
+    cd ${TOOLS_DIR}
     unzip -q android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip
-    rm android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip
+    #rm android-studio-ide-${ANDROID_STUDIO_VERSION}-windows.zip
     export JAVA_HOME=${TOOLS_DIR}/android-studio/jre
     export PATH=${JAVA_HOME}/bin:$PATH
     
+    cd ${PACKAGE_DIR}
     ANDROID_SDK_VERSION=4333796
-    wget -c -nv https://dl.google.com/android/repository/sdk-tools-windows-${ANDROID_SDK_VERSION}.zip
+    if [ ! -f sdk-tools-windows-${ANDROID_SDK_VERSION}.zip ]; then
+        wget -c -nv https://dl.google.com/android/repository/sdk-tools-windows-${ANDROID_SDK_VERSION}.zip
+    fi
+    cp sdk-tools-windows-${ANDROID_SDK_VERSION}.zip ${TOOLS_DIR}/.
+    cd ${TOOLS_DIR}
     mkdir android-sdk
     cd android-sdk
     mv ../sdk-tools-windows-${ANDROID_SDK_VERSION}.zip .
     unzip -q sdk-tools-windows-${ANDROID_SDK_VERSION}.zip
-    rm sdk-tools-windows-${ANDROID_SDK_VERSION}.zip
+    #rm sdk-tools-windows-${ANDROID_SDK_VERSION}.zip
 
     echo "Install sdk and ndk ......"
     if [ -n "${ANDROID_API}" ]; then

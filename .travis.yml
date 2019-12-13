@@ -4,6 +4,7 @@ language: cpp
 cache:
   - apt
   - directories:
+    - Package
 
 compiler:
   - g++
