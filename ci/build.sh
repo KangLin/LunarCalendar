@@ -101,10 +101,10 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.1.7"
+    export VERSION="v0.1.8"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.1.7"
+    export VERSION="v0.1.8"
 fi
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
@@ -149,7 +149,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     ./bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
             --md5 ${MD5} #\
-            --min "v0.1.8"
+            #--min "v0.1.8"
     cat update_linux.xml
     
     MD5=`md5sum LunarCalendar_${VERSION}.tar.gz|awk '{print $1}'`
@@ -158,7 +158,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
             -f "`pwd`/update_linux_appimage.xml" \
             --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz" \
             --md5 ${MD5} #\
-            --min "v0.1.8"
+            #--min "v0.1.8"
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${QT_VERSION_DIR}" = "512" ]; then
@@ -243,7 +243,7 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
             --md5 ${MD5} #\
-            --min "v0.1.8"
+            #--min "v0.1.8"
     fi
 fi
 
@@ -269,7 +269,8 @@ if [ "${BUILD_TARGERT}" = "android" ]; then
         sed -i "s/<ARCHITECTURE>.*</<ARCHITECTURE>${BUILD_ARCH}</g" update_android.xml
         sed -i "s/<MD5SUM>.*</<MD5SUM>${MD5}</g" update_android.xml
         sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.apk<:g" update_android.xml
-    
+        #sed -i "s/<MIN_UPDATE_VERSION>.*</<MIN_UPDATE_VERSION>${VERSION}</g" update_android.xml
+        
         export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
         #export UPLOADTOOL_PR_BODY=
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh

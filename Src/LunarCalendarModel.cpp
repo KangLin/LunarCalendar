@@ -802,7 +802,7 @@ int CLunarCalendarModel::InitHoliday()
 int CLunarCalendarModel::InitDatabase()
 {
     QString szFile;
-    szFile = RabbitCommon::CDir::Instance()->GetDirDatabase()
+    szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                            + QDir::separator() + "db.sqlite";
     m_Database = QSqlDatabase::addDatabase("QSQLITE");
     m_Database.setDatabaseName(szFile);
@@ -820,19 +820,15 @@ int CLunarCalendarModel::InitDatabase()
 #if defined (_DEBUG) || defined(DEBUG)
         QFile file(":/database/ChineseHolidays");
 #else
-    #ifdef ANDROID
-        QString szUserSql = RabbitCommon::CDir::Instance()->GetDirDatabase()
+        QString szUserSql = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                 + QDir::separator() + "chinese_holidays.sql";
-        
         if(!QFile::exists(szUserSql))
         {
             QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
                        + QDir::separator() + "chinese_holidays.sql");
             file.copy(szUserSql);
         }
-    #endif
-        QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase()
-                     + QDir::separator() + "chinese_holidays.sql");
+        QFile file(szUserSql);
 #endif
         if(file.open(QFile::ReadOnly))
         {
@@ -869,7 +865,7 @@ int CLunarCalendarModel::InitDatabase()
 void CLunarCalendarModel::CheckUpdateDatabase()
 {
     bool bRet = false;
-    QString szFile = RabbitCommon::CDir::Instance()->GetDirDatabase()
+    QString szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                         + QDir::separator() + "chinese_holidays.sql"; 
 
     QFile sql(szFile);
@@ -922,7 +918,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
     if(m_Database.isOpen())
         m_Database.close();
 
-    QFile::remove(RabbitCommon::CDir::Instance()->GetDirDatabase()
+    QFile::remove(RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                                + QDir::separator() + "db.sqlite");
     InitDatabase();
     
