@@ -15,7 +15,13 @@ isEmpty(RabbitCommon_DIR): RabbitCommon_DIR=$$_PRO_FILE_PWD_/../../RabbitCommon
 }
 
 INCLUDEPATH *= $$PWD $$PWD/export $$PWD/../3th_lib/sxtwl/src
-LIBS *= "-L$$DESTDIR" -lRabbitCommon
+LIBS *= "-L$$DESTDIR"
+android{
+    versionAtLeast(QT_VERSION, 5.14.0) : LIBS *= -lRabbitCommon_$${ANDROID_TARGET_ARCH}
+    else: LIBS *= -lRabbitCommon
+} else{
+    LIBS *= -lRabbitCommon
+}
 
 TRANSLATIONS_DIR=$$PWD
 include($$PWD/../pri/Translations.pri)

@@ -29,6 +29,15 @@ isEmpty(BUILD_VERSION){
 }
 message("LunarCalendar BUILD_VERSION:$$BUILD_VERSION")
 DEFINES += BUILD_VERSION=\"\\\"$$quote($$BUILD_VERSION)\\\"\"
+android{
+    DEFINES += BUILD_ARCH=\"\\\"$${ANDROID_TARGET_ARCH}\\\"\"
+} else {
+    contains(QMAKE_TARGET.arch, x86_64) {
+        DEFINES += BUILD_ARCH=\"\\\"x86_64\\\"\"
+    } else {
+        DEFINES += BUILD_ARCH=\"\\\"x86\\\"\"
+    }
+}
 
 isEmpty(PREFIX) {
     qnx : PREFIX = /tmp
