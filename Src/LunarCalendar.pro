@@ -52,7 +52,8 @@ OTHER_FILES += \
     database/*
 
 # Default rules for deployment.
-!android: target.path = $${PREFIX}/bin
+!android: unix: target.path = $${PREFIX}/lib
+else: target.path = $${PREFIX}/bin
 INSTALLS += target
 
 header_files.target = header_files
