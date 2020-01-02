@@ -115,7 +115,7 @@ function function_unix()
     #汇编工具yasm
     #function_install_yasm
 
-    if [ "$DOWNLOAD_QT" != "TRUE"  ]; then
+    if [ "$DOWNLOAD_QT" != "TRUE" -a "$DOWNLOAD_QT" != "APT" ]; then
         #See: https://launchpad.net/~beineri
         sudo add-apt-repository ppa:beineri/opt-qt-${QT_VERSION}-`lsb_release -c|awk '{print $2}'` -y
     fi
@@ -130,7 +130,11 @@ function function_unix()
         libmysqlclient-dev \
         libodbc1 
 
-    if [ "$DOWNLOAD_QT" != "TRUE" ]; then
+    if [ "$DOWNLOAD_QT" = "APT" ]; then
+        sudo apt-get install -y -qq qttools5-dev qttools5-dev-tools \
+             qtbase5-dev qtbase5-dev-tools
+        sudo ln -s /usr/lib/`uname -m`-linux-gnu/cmake /usr/lib/`uname -m`-linux-gnu/qt5/cmake 
+    elif [ "$DOWNLOAD_QT" != "TRUE" ]; then
         sudo apt-get install -y -qq qt${QT_VERSION_DIR}base \
             qt${QT_VERSION_DIR}tools \
             qt${QT_VERSION_DIR}multimedia

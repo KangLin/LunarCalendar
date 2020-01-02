@@ -31,6 +31,7 @@ else()
     add_executable(${PROJECT_NAME} ${SOURCE_FILES}
         ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
 endif()
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_11)
 add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 if(MINGW)
     set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "-mwindows")
