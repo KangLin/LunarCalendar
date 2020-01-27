@@ -109,10 +109,10 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.1.8"
+    export VERSION="v0.1.9"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.1.8"
+    export VERSION="v0.1.9"
 fi
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR

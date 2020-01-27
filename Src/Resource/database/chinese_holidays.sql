@@ -287,7 +287,9 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-01-27',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-01-28',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-01-29',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-01-30',0,NULL);
-INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-02-01',1,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-01-31',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-02-01',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-02-02',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-04',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-05',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-06',0,NULL);
