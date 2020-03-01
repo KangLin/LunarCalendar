@@ -109,11 +109,13 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.1.9"
+    export VERSION="v0.2.0"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.1.9"
+    export VERSION="v0.2.0"
 fi
+export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}.<br> The change see [ChangeLog.md](ChangeLog.md)"
+#export UPLOADTOOL_PR_BODY=
 if [ "${BUILD_TARGERT}" = "unix" ]; then
     cd $SOURCE_DIR
     if [ "${DOWNLOAD_QT}" != "TRUE" -a "${DOWNLOAD_QT}" != "APT" ]; then
@@ -170,9 +172,6 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${DOWNLOAD_QT}" = "APT" ]; then
-        
-        export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
-        #export UPLOADTOOL_PR_BODY=
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
         bash upload.sh $SOURCE_DIR/../lunarcalendar*_amd64.deb update_linux.xml
         bash upload.sh LunarCalendar_${VERSION}.tar.gz update_linux_appimage.xml
@@ -279,8 +278,6 @@ if [ "${BUILD_TARGERT}" = "android" ]; then
         sed -i "s:<URL>.*<:<URL>https\://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.apk<:g" update_android.xml
         #sed -i "s/<MIN_UPDATE_VERSION>.*</<MIN_UPDATE_VERSION>${VERSION}</g" update_android.xml
         
-        export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}"
-        #export UPLOADTOOL_PR_BODY=
         wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
         chmod u+x upload.sh
         ./upload.sh ${APK_FILE}
