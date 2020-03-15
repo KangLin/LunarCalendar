@@ -293,13 +293,18 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-02-02',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-04',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-05',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-06',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-04-26',1,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-01',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-02',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-03',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-04',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-05',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-05-09',1,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-06-25',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-06-26',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-06-27',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-06-28',1,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-09-27',1,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-01',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-02',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-03',0,NULL);
@@ -307,5 +312,6 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-04',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-05',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-06',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-07',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-08',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-10',1,NULL);
 COMMIT;
