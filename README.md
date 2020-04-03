@@ -1,7 +1,8 @@
 LunarCalendar
 ==============
 
-Author: KangLin (kl222@126.com)
+- Author: KangLin (kl222@126.com)
+- Project: https://github.com/KangLin/LunarCalendar
 
 [<img src="https://github.com/KangLin/Tasks/blob/master/Resource/Image/china.png" alt="Chinese" title="Chinese" width="16" height="16"/>Chinese](README_zh_CN.md)
 
