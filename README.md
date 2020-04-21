@@ -308,6 +308,7 @@ please compile and test the students with the corresponding equipment.
 
 - Question: https://github.com/KangLin/LunarCalendar/issues
 - Project location: https://github.com/KangLin/LunarCalendar
+- Contributors: https://github.com/KangLin/LunarCalendar/graphs/contributors
 
 ------------------------------------------------
 

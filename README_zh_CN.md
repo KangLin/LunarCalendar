@@ -308,7 +308,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
 - 问题：https://github.com/KangLin/LunarCalendar/issues  
 - 项目位置：https://github.com/KangLin/LunarCalendar
-
+- 贡献者： https://github.com/KangLin/LunarCalendar/graphs/contributors
 ------------------------------------------------
 
 ### [许可协议](License.md "License.md")
