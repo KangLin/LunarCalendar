@@ -49,7 +49,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ## 捐赠
 
-![捐赠](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")
+[![捐赠](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")
 
 ------------------------------------------------
 
