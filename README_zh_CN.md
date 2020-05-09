@@ -1,8 +1,9 @@
-农历
-================================================
+## 农历
 
-- 作者：康林（kl222@126.com)
-- 项目位置: https://github.com/KangLin/LunarCalendar
+作者：康林（kl222@126.com)
+
+- [项目位置](https://github.com/KangLin/LunarCalendar)
+- [项目主页](https://kanglin.github.io/LunarCalendar/)
 
 [<img src="https://raw.githubusercontent.com/KangLin/Tasks/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
 
@@ -51,8 +52,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 [![捐赠](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")
 
-------------------------------------------------
-
 ### 屏幕截图
 - Windows
 
@@ -62,10 +61,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 - Android
 
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
-
-------------------------------------------------
-
-### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - linux
     + [LunarCalendar_v0.2.0.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar_v0.2.0.tar.gz)  
@@ -100,9 +95,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
     Android 安装包
     
              adb install LunarCalendar_v0.2.0.apk
-
-
-------------------------------------------------
 
 ### 编译
 - 依赖  
@@ -199,8 +191,6 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
         sudo apt-get install libssl1.1
         ```
 
-------------------------------------------------
-
 ### 开发
 
 - 目录结构
@@ -217,8 +207,6 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
   1. 从中国政府网 “首页 > 信息公开 > 国务院文件 > 综合政务 > 其他” 找到假期文件  
 例如： 2020年假期 http://www.gov.cn/zhengce/content/2019-11/21/content_5454164.htm
   2. 修改中国假期 SQL 文件：Src/Resource/database/chinese_holidays.sql
-
-------------------------------------------------
 
 ### 其它应用使用本项目
 - 直接用本项目源码   
@@ -302,14 +290,11 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
         CLunarCalendar::InitResource();
 
-------------------------------------------------
-
 ### 贡献
 
-- 问题：https://github.com/KangLin/LunarCalendar/issues  
-- 项目位置：https://github.com/KangLin/LunarCalendar
-- 贡献者： https://github.com/KangLin/LunarCalendar/graphs/contributors
-------------------------------------------------
+- [问题](https://github.com/KangLin/LunarCalendar/issues)
+- [项目位置](https://github.com/KangLin/LunarCalendar)
+- [贡献者](https://github.com/KangLin/LunarCalendar/graphs/contributors)
 
 ### [许可协议](License.md "License.md")
 

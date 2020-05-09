@@ -1,8 +1,9 @@
-LunarCalendar
-==============
+## LunarCalendar
 
-- Author: KangLin (kl222@126.com)
-- Project: https://github.com/KangLin/LunarCalendar
+Author: KangLin (kl222@126.com)
+
+- [Project position](https://github.com/KangLin/LunarCalendar)
+- [Project home](https://kanglin.github.io/LunarCalendar/)
 
 [<img src="https://github.com/KangLin/Tasks/blob/master/Resource/Image/china.png" alt="Chinese" title="Chinese" width="16" height="16"/>Chinese](README_zh_CN.md)
 
@@ -21,6 +22,8 @@ LunarCalendar
 - [Contribution](#Contribution)
 - [License Agreement](#License-Agreement)
     - [The third-party libraries](#The-third-party-libraries)
+
+------------------------------------------------
 
 ### Features
 
@@ -49,8 +52,6 @@ please compile and test the students with the corresponding equipment.
 
 [![donation](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation")](https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation")
 
-------------------------------------------------
-
 ### Screenshots
 - Windows
 
@@ -60,8 +61,6 @@ please compile and test the students with the corresponding equipment.
 - Android
 
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
-
-------------------------------------------------
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
@@ -99,8 +98,6 @@ please compile and test the students with the corresponding equipment.
     Android installation package
     
             adb install LunarCalendar_v0.2.0.apk
-
-------------------------------------------------
 
 ### Compile
 
@@ -190,7 +187,6 @@ please compile and test the students with the corresponding equipment.
      sudo apt-get install libssl1.1
      ```
 
-------------------------------------------------
 ### Develop 
 - Directory
 
@@ -203,7 +199,6 @@ please compile and test the students with the corresponding equipment.
                      |- chinese_holidays.sql   chinese holidays sql
 ```
 
-------------------------------------------------
 ### Other application use the libary
 
 - Direct use the libary source code.
@@ -302,15 +297,11 @@ please compile and test the students with the corresponding equipment.
             m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
             qApp->installTranslator(&m_Translator);
 
-------------------------------------------------
 
 ### Contribution
 
-- Question: https://github.com/KangLin/LunarCalendar/issues
-- Project location: https://github.com/KangLin/LunarCalendar
-- Contributors: https://github.com/KangLin/LunarCalendar/graphs/contributors
-
-------------------------------------------------
+- [Question](https://github.com/KangLin/LunarCalendar/issues)
+- [Contributors](https://github.com/KangLin/LunarCalendar/graphs/contributors)
 
 ### [License Agreement](License.md "License.md")
 
