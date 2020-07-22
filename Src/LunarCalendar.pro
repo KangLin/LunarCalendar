@@ -2,6 +2,7 @@ TARGET = LunarCalendar
 TEMPLATE = lib
 
 isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin
+
 CONFIG *= c++11 link_pkgconfig create_prl link_prl
 CONFIG(staticlib): CONFIG*=static
 #android: CONFIG*=static
