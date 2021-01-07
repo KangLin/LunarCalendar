@@ -2,10 +2,10 @@
 
 作者：康林（kl222@126.com)
 
-- [项目位置](https://github.com/KangLin/LunarCalendar)
+- 项目位置: https://github.com/KangLin/LunarCalendar
 - [项目主页](https://kanglin.github.io/LunarCalendar/)
 
-[<img src="https://raw.githubusercontent.com/KangLin/Tasks/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
+[<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
 
 - [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 - [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
