@@ -26,8 +26,8 @@ public:
     int Load(const QString &file);
     int Save(const QString &file, bool bAll = true);
 
-    int Generate(const QDate &min, const QDate &max, const QString& szFile, int nThread = 2, bool bSaveAllDate = true);
-    int Generate(const QDate &min, const QDate &max);
+    int Generate(const QDate &min, const QDate &max, const QString& szFile, int nThread = 2, bool bClearCache = false, bool bSaveAllDate = true);
+    int Generate(const QDate &min, const QDate &max, bool bUseCached);
     int GetLunar(const QDate &date, _LUNAR_DAY &lunar);
 
 public Q_SLOTS:
@@ -55,6 +55,7 @@ public:
     explicit CThreadGenerate(CLunarTable* pTable,
                              const QDate& min,
                              const QDate& max,
+                             bool bCached,
                              QObject *parent = nullptr);
     
 protected:
@@ -63,6 +64,7 @@ protected:
 private:
     CLunarTable* m_pTable;
     QDate m_minDate, m_maxDate;
+    bool m_bCached;
 };
 
 #endif // LUNARTABLE_H

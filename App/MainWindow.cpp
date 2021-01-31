@@ -84,8 +84,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->ShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
-//    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2120, 1, 1));
-//    m_pLunarCalendar->GenerateCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat", 2, false);
+    
+    //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
+//    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
+//    m_pLunarCalendar->GenerateCalendarTable(
+//                qApp->applicationDirPath() + QDir::separator() + "cache.dat",
+//                8, true, false);
+        
 //    m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
 //    m_pLunarCalendar->ShowWeekHead(false);
 //    m_pLunarCalendar->ShowWeeks(false);

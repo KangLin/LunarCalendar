@@ -8,18 +8,20 @@ static const QString g_Signature = "Lunar table. Author: Kang Lin(kl222@126.com)
 CThreadGenerate::CThreadGenerate(CLunarTable *pTable,
                                  const QDate& min,
                                  const QDate& max,
+                                 bool bCached,
                                  QObject *parent)
     : QThread(parent),
       m_pTable(pTable),
       m_minDate(min),
-      m_maxDate(max)
+      m_maxDate(max),
+      m_bCached(bCached)
 {
 }
 
 void CThreadGenerate::run()
 {
     if(!m_pTable) return;
-    m_pTable->Generate(m_minDate, m_maxDate);
+    m_pTable->Generate(m_minDate, m_maxDate, m_bCached);
 }
 
 CLunarTable::CLunarTable(QObject *parent) : QObject(parent)
@@ -275,10 +277,11 @@ int CLunarTable::LoadVersion0(QDataStream &in)
     return 0;
 }
 
-int CLunarTable::Generate(const QDate &min, const QDate &max, const QString &szFile, int nThread, bool bSaveAllDate)
+int CLunarTable::Generate(const QDate &min, const QDate &max, const QString &szFile, int nThread, bool bClearCache, bool bSaveAllDate)
 {
     int nRet = 0;
-    
+    if(bClearCache)
+        m_Lunar.clear();
     m_nThreadNumber = nThread;
     m_szFile = szFile;
     m_minDate = min;
@@ -295,7 +298,7 @@ int CLunarTable::Generate(const QDate &min, const QDate &max, const QString &szF
             maxDate = max;
         else
             maxDate = d.addDays(num);
-        pGenerate = new CThreadGenerate(this, d, maxDate, this);
+        pGenerate = new CThreadGenerate(this, d, maxDate, !bClearCache, this);
         d = maxDate.addDays(1);
         if(pGenerate)
         {
@@ -323,7 +326,7 @@ void CLunarTable::slotGenerateFinished()
     Save(m_szFile, m_bSaveAllDate);
 }
 
-int CLunarTable::Generate(const QDate &min, const QDate &max)
+int CLunarTable::Generate(const QDate &min, const QDate &max, bool bUseCached)
 {
     int nRet = 0;
     if(!min.isValid() || !max.isValid())
@@ -332,20 +335,30 @@ int CLunarTable::Generate(const QDate &min, const QDate &max)
     QDate date = min;
     while(date.isValid() && date <= max)
     {
-        QMap<qint64, _LUNAR_DAY>::const_iterator it;
-        it = m_Lunar.find(date.toJulianDay());
-        if(it != m_Lunar.end())
+        if(bUseCached)
         {
-            date = date.addDays(1);
-            continue;
+            QMap<qint64, _LUNAR_DAY>::const_iterator it;
+            it = m_Lunar.find(date.toJulianDay());
+            if(it != m_Lunar.end())
+            {
+                date = date.addDays(1);
+                continue;
+            }
         }
         
         Lunar l;
         Day day = l.getDayBySolar(date.year(), date.month(), date.day());
         
         _LUNAR_DAY lunar;
-        lunar.nTg = day.Lyear2.tg;
-        lunar.nDz = day.Lyear2.dz;
+        
+        //TODO:同步修改CLunarTable::GetLunar中的
+        //以立春为农历新年第一天
+//        lunar.nTg = day.Lyear2.tg;
+//        lunar.nDz = day.Lyear2.dz;
+        //以春节为农历新年第一天
+        lunar.nTg = day.Lyear3.tg;
+        lunar.nDz = day.Lyear3.dz;
+        
         lunar.bLeap = day.Lleap;
         lunar.nMonth = day.Lmc;
         lunar.nDay = day.Ldi;
@@ -378,8 +391,14 @@ int CLunarTable::GetLunar(const QDate &date, _LUNAR_DAY &lunar)
     Lunar l;
     Day day = l.getDayBySolar(date.year(), date.month(), date.day());
 
-    lunar.nTg = day.Lyear2.tg;
-    lunar.nDz = day.Lyear2.dz;
+    //TODO:同步修改 CLunarTable::Generate 中
+    //以立春为农历新年第一天
+//        lunar.nTg = day.Lyear2.tg;
+//        lunar.nDz = day.Lyear2.dz;
+    //以春节为农历新年第一天
+    lunar.nTg = day.Lyear3.tg;
+    lunar.nDz = day.Lyear3.dz;
+    
     lunar.bLeap = day.Lleap;
     lunar.nMonth = day.Lmc;
     lunar.nDay = day.Ldi;

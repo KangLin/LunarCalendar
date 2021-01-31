@@ -112,7 +112,7 @@ public:
     int SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f);
     
     int LoadCalendarTable(const QString& szFile);
-    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bSaveAllDate = true);
+    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bClearCache = false, bool bSaveAllDate = true);
 
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
