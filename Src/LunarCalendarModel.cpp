@@ -1,6 +1,7 @@
 #include "LunarCalendarModel.h"
 #include "CalendarLunar.h"
 #include "RabbitCommonDir.h"
+#include "RabbitCommonLog.h"
 
 #include <QStandardPaths>
 #include <QTextCharFormat>
@@ -880,16 +881,16 @@ void CLunarCalendarModel::CheckUpdateDatabase()
                 sql.open(QIODevice::ReadOnly);
             
             if(m_UpdateSqlFile.size() == 0) break;
-            if(m_UpdateSqlFile.size() <= sql.size())
-            {
-                qDebug() << "update sql file size is little old sql";
-                break;
-            }
+//            if(m_UpdateSqlFile.size() <= sql.size())
+//            {
+//                LOG_MODEL_ERROR("LunarCalendar", "update sql file size is little old sql");
+//                break;
+//            }
             
             QCryptographicHash md5Update(QCryptographicHash::Md5);
             if(!md5Update.addData(&m_UpdateSqlFile))
             {
-                qDebug() << "Update sql file md5sum fail";
+                LOG_MODEL_ERROR("LunarCalendar", "Update sql file md5sum fail");
                 break;
             }
             
@@ -898,7 +899,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
             {
                 if(md5Update.result() == md5Sql.result())
                 {
-                    qDebug() << "The file is same";
+                    LOG_MODEL_DEBUG("LunarCalendar", "The file is same");
                     break;
                 }
             }
@@ -937,6 +938,10 @@ void CLunarCalendarModel::slotDownloadProgress(qint64 bytesReceived, qint64 byte
 {
     Q_UNUSED(bytesReceived)
     Q_UNUSED(bytesTotal)
+    LOG_MODEL_DEBUG("LunarCalendar", "Is download [%d] %d/%d",
+                    bytesReceived * 100 / bytesTotal,
+                    bytesReceived,
+                    bytesTotal);
 }
 
 void CLunarCalendarModel::slotError(QNetworkReply::NetworkError e)
@@ -944,7 +949,8 @@ void CLunarCalendarModel::slotError(QNetworkReply::NetworkError e)
     qDebug() << "CLunarCalendarModel::slotError: " << e;
     if(m_pReply)
     {
-        qDebug() << "Reply error:" << m_pReply->errorString();
+        LOG_MODEL_ERROR("LunarCalendar",  "Reply error: %s",
+                        m_pReply->errorString().toStdString().c_str());
         m_pReply->disconnect();
         m_pReply->deleteLater();
         m_pReply = nullptr;
@@ -971,7 +977,8 @@ void CLunarCalendarModel::slotSslError(const QList<QSslError> e)
 
 void CLunarCalendarModel::slotFinished()
 {
-    qDebug() << "CLunarCalendarModel::slotFinished()";
+    LOG_MODEL_DEBUG("LunarCalendar", "CLunarCalendarModel::slotFinished(): %s",
+                    m_UpdateSqlFile.fileName().toStdString().c_str());
     
     QVariant redirectionTarget;
     if(m_pReply)
@@ -1014,7 +1021,8 @@ int CLunarCalendarModel::DownloadFile(const QUrl &url)
         m_UpdateSqlFile.close();
     if(!m_UpdateSqlFile.open(QIODevice::WriteOnly))
     {
-        qDebug() << "Open file fail: " << m_UpdateSqlFile.fileName();
+        LOG_MODEL_ERROR("LunarCalendar", "Open file fail: %s",
+                        m_UpdateSqlFile.fileName().toStdString().c_str());
         return -1;
     }
 

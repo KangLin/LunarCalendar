@@ -220,13 +220,13 @@ else
     fi
     if [ "${BUILD_TARGERT}" = "android" ]; then
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
-            "CONFIG+=release" ${CONFIG_PARA}
+            "CONFIG+=Release" ${CONFIG_PARA}
 
         $MAKE
         $MAKE install INSTALL_ROOT=`pwd`/android-build
     else
         ${QT_ROOT}/bin/qmake ${SOURCE_DIR} \
-                "CONFIG+=release" ${CONFIG_PARA}\
+                "CONFIG+=Release" ${CONFIG_PARA}\
                 PREFIX=`pwd`/install
 
         $MAKE

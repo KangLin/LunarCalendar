@@ -116,8 +116,8 @@ QDataStream& operator<<(QDataStream& output, const Day& data)
            << data.Lday2
               
            << data.XiZ //星座
-           << data.jqmc //节气类型
-           << data.jqjd
+           << (int)data.jqmc //节气类型
+           << (double)data.jqjd
            << QString(data.jqsj.c_str())  //节气时间
               
            << data.yxmc //月像类型
@@ -169,8 +169,15 @@ QDataStream& operator>>(QDataStream& input, Day& data)
             >> data.Lday2
             
             >> data.XiZ //星座
-            >> data.jqmc //节气类型
-            >> data.jqjd;
+            ;
+    
+    int jqmc;
+    input >>  jqmc;
+    data.jqmc = jqmc; //节气类型
+    
+    double jqjd;
+    input >> jqjd;
+    data.jqjd = jqjd;
     
     QString jqsj;
     input >> jqsj;
