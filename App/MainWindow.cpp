@@ -120,6 +120,7 @@ void MainWindow::slotAbout()
     CDlgAbout about(this);
     about.m_AppIcon = QImage(":/image/Calendar");
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
+    about.m_szCopyrightStartTime = "2019";
     #if defined (Q_OS_ANDROID)
         about.showMaximized();
     #endif
