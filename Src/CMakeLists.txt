@@ -1,4 +1,9 @@
-project(LunarCalendar)
+project(LunarCalendar LANGUAGES CXX)
+
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "verbose")
 
 set(INSTALL_HEAD_FILES
     LunarCalendar.h
@@ -30,18 +35,20 @@ set(SOURCE_FILES
 set(SOURCE_UI_FILES
     )
 
-#翻译
-include(${CMAKE_SOURCE_DIR}/cmake/Qt5CorePatches.cmake) 
-include(${CMAKE_SOURCE_DIR}/cmake/Translations.cmake)
-
 #设置资源文件
 SET(RCC_FILES
     Resource/ResourceLunarCalendar.qrc
-    ${TRANSLATIONS_RESOURCE_FILES}
     )
-if("Debug" STREQUAL CMAKE_BUILD_TYPE)
-    SET(RCC_FILES
-        ${RCC_FILES}
+#翻译
+GENERATED_QT_TRANSLATIONS(
+    SOURCES ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES}
+    OUT_QRC TRANSLATIONS_QRC_FILES
+    )
+string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
+if(BUILD_TYPE STREQUAL "debug")
+    LIST(APPEND PRIVATE_DEFINITIONS DEBUG)
+    LIST(APPEND RCC_FILES
+        ${TRANSLATIONS_QRC_FILES}
         Resource/ResourceSql.qrc
         )
 endif()
@@ -52,9 +59,8 @@ IF(MSVC)
 ENDIF()
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
-#add_dependencies(${TRANSLATIONS_NAME} translations_${TRANSLATIONS_NAME})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
+target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRIVATE_DEFINITIONS})
 target_include_directories(${PROJECT_NAME} PRIVATE 
     ${CMAKE_BINARY_DIR}
     ${CMAKE_CURRENT_BINARY_DIR}

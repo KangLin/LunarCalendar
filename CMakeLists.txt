@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LunarCalendar)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "verbose")
+
 if(POLICY CMP0083)
     cmake_policy(SET CMP0083 NEW)
 endif()
@@ -151,6 +156,7 @@ endif()
 
 if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
     add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+    include(${RabbitCommon_DIR}/cmake/Translations.cmake)
 else()
     #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
     #        download(FILENAME RabbitCommon
