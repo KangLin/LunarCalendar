@@ -1,3 +1,4 @@
+*.user.*
 debian/
 obj-*/
 Translations.qrc
