@@ -42,8 +42,9 @@ Qt 写的农历。它提供：
   + 阳历和农历纪念日（例如：生日，结婚纪念日等）
   + 月视图
   + 周视图
-- 一个简单的日历应用程序。用于示例如何使用此农历日历库。
-- 此库的一个完整应用 [任务](https://github.com/KangLin/Tasks)
+- 示例
+  + 一个简单的日历应用程序。用于示例如何使用此农历日历库。
+  + 此库的一个完整应用 [日历](https://github.com/KangLin/Calendar)
 - 跨平台，支持多操作系统
   + [x] Windows
   + [x] Linux、Unix
@@ -122,15 +123,24 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
         make install
     
   + 用 cmake
-    - windows 或 linux
+    - linux
     
-            cd build
-            cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+          cd build
+          cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
                  -DCMAKE_BUILD_TYPE=Release \
                  -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
                  -DRabbitCommon_DIR=
-            cmake --build . --config Release --target install
+          cmake --build . --config Release --target install
         
+    - windows
+    
+          cd build
+          cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
+                   -DCMAKE_BUILD_TYPE=Release ^
+                   -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
+                   -DRabbitCommon_DIR=
+          cmake --build . --config Release --target install
+
     - android
       + 主机是linux
     
@@ -148,15 +158,15 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
       + 主机是windows
     
             cd build
-            cmake .. -G"Unix Makefiles" \
-               -DCMAKE_BUILD_TYPE=Release \
-               -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
-               -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
-               -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe \
-               -DANDROID_PLATFORM=android-18 \
-               -DANDROID_ABI=arm64-v8a \
-               -DANDROID_ARM_NEON=ON \
-               -DQt5_DIR= \
+            cmake .. -G"Unix Makefiles" ^
+               -DCMAKE_BUILD_TYPE=Release ^
+               -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+               -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+               -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+               -DANDROID_PLATFORM=android-18 ^
+               -DANDROID_ABI=arm64-v8a ^
+               -DANDROID_ARM_NEON=ON ^
+               -DQt5_DIR= ^
                -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
             cmake --build . --target APK

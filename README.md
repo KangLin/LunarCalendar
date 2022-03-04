@@ -41,8 +41,9 @@ The lunar calendar written by Qt. It provides:
    + Solar and Lunar Day (eg birthday, wedding anniversary, etc.)
    + Month view
    + Week view
-- A simple calendar app. Used to illustrate how to use this lunar calendar library.
-- A complete application of this library [Tasks](https://github.com/KangLin/Tasks)
+- Example
+  + A simple calendar app. Used to illustrate how to use this lunar calendar library.
+  + A complete application of this library [Calendar](https://github.com/KangLin/Calendar)
 - Cross-platform, support multiple operating systems
    + [x] Windows
    + [x] Linux、Unix
@@ -127,45 +128,64 @@ please compile and test the students with the corresponding equipment.
         make install
 
 + Use cmake
+  - linux
+
+        cd build
+        cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+             -DCMAKE_BUILD_TYPE=Release \
+             -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
+             -DRabbitCommon_DIR=
+        cmake --build . --config Release --target install
+    
+  - windows
+
+        cd build
+        cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
+               -DCMAKE_BUILD_TYPE=Release ^
+               -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
+               -DRabbitCommon_DIR=
+        cmake --build . --config Release --target install
+
+  - Android
     - The host is linux
     
-            cd build
-            cmake .. -DCMAKE_BUILD_TYPE=Release \
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Release \
                  -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
                  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
                  -DANDROID_ABI="armeabi-v7a with NEON" \
                  -DANDROID_PLATFORM=android-18 \
                  -DQt5_DIR= \
                  -DRabbitCommon_DIR= 
-            cmake --build . --config Release --target install
-            cmake --build . --target APK   
+          cmake --build . --config Release --target install
+          cmake --build . --target APK   
     
     - The host is windows
     
-            cd build
-            cmake .. -G"Unix Makefiles" \
-               -DCMAKE_BUILD_TYPE=Release \
-               -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
-               -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
-               -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe \
-               -DANDROID_PLATFORM=android-18 \
-               -DANDROID_ABI=arm64-v8a \
-               -DANDROID_ARM_NEON=ON \
-               -DQt5_DIR= \
+          cd build
+          cmake .. -G"Unix Makefiles" ^
+               -DCMAKE_BUILD_TYPE=Release ^
+               -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+               -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+               -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+               -DANDROID_PLATFORM=android-18 ^
+               -DANDROID_ABI=arm64-v8a ^
+               -DANDROID_ARM_NEON=ON ^
+               -DQt5_DIR= ^
                -DRabbitCommon_DIR= 
-            cmake --build . --config Release --target install
-            cmake --build . --target APK     
-      
+          cmake --build . --config Release --target install
+          cmake --build . --target APK     
+
     - Parameter Description: https://developer.android.google.cn/ndk/guides/cmake
       + ANDROID_ABI: The following values can be taken:
          Goal ABI. If the target ABI is not specified, CMake uses armeabi-v7a by default.
          Valid ABI are:
-        + armeabi：CPU with software floating point arithmetic based on ARMv5TE
-        + armeabi-v7a：ARMv7-based device with hardware FPU instructions (VFP v3 D16)
-        + armeabi-v7a with NEON：Same as armeabi-v7a, but with NEON floating point instructions enabled. This is equivalent to setting -DANDROID_ABI=armeabi-v7a and -DANDROID_ARM_NEON=ON.
-        + arm64-v8a：ARMv8 AArch64 Instruction Set
-        + x86：IA-32 Instruction Set
-        + x86_64 - x86-64 Instruction Set
+        - armeabi：CPU with software floating point arithmetic based on ARMv5TE
+        - armeabi-v7a：ARMv7-based device with hardware FPU instructions (VFP v3 D16)
+        - armeabi-v7a with NEON：Same as armeabi-v7a, but with NEON floating point instructions enabled. This is equivalent to setting -DANDROID_ABI=armeabi-v7a and -DANDROID_ARM_NEON=ON.
+        - arm64-v8a：ARMv8 AArch64 Instruction Set
+        - x86：IA-32 Instruction Set
+        - x86_64 - x86-64 Instruction Set
       + ANDROID_NDK <path> The path of installed ndk in host
       + ANDROID_PLATFORM: For a full list of platform names and corresponding Android system images, see the [Android NDK Native API] (https://developer.android.google.com/ndk/guides/stable_apis.html)
       + ANDROID_ARM_MODE
