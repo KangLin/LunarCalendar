@@ -1,3 +1,5 @@
+// Author: Kang Lin <kl222@126.com>
+
 #ifndef LUNARTABLE_H
 #define LUNARTABLE_H
 

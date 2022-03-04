@@ -1,3 +1,5 @@
+// Author: Kang Lin <kl222@126.com>
+
 #ifndef LUNAR_H
 #define LUNAR_H
 

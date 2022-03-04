@@ -1,3 +1,5 @@
+// Author: Kang Lin <kl222@126.com>
+
 #ifndef LUNARCALENDARDELEGATE_H_KL
 #define LUNARCALENDARDELEGATE_H_KL
 

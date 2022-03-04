@@ -1,3 +1,5 @@
+// Author: Kang Lin <kl222@126.com>
+
 #ifndef CCALENDARMODEL_H
 #define CCALENDARMODEL_H
 
