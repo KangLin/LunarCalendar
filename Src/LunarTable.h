@@ -9,6 +9,9 @@
 #include <QFile>
 #include <QMutex>
 
+/*!
+ * \brief 产生、保存、加载农历缓存
+ */
 class CLunarTable : public QObject
 {
     Q_OBJECT

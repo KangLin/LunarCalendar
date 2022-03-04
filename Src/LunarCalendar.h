@@ -18,6 +18,9 @@
 #include <QSharedPointer>
 #include "lunarcalendar_export.h"
 
+/*!
+ * \brief 农历界面类
+ */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
     Q_OBJECT
@@ -114,7 +117,10 @@ public:
     int SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f);
     
     int LoadCalendarTable(const QString& szFile);
-    int GenerateCalendarTable(const QString& szFile, int nThreadNumber = 2, bool bClearCache = false, bool bSaveAllDate = true);
+    int GenerateCalendarTable(const QString& szFile,
+                              int nThreadNumber = 2,
+                              bool bClearCache = false,
+                              bool bSaveAllDate = true);
 
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;

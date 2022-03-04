@@ -47,7 +47,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
         d.mkpath(szFile);
     szFile = szFile + QDir::separator() + "chinese_holidays.sql";
     m_UpdateSqlFile.setFileName(szFile);
-    DownloadFile(QUrl("https://raw.githubusercontent.com/KangLin/LunarCalendar/master/Src/Resource/database/chinese_holidays.sql"));
+    DownloadFile(QUrl("https://gitee.com/kl222/LunarCalendar/tree/master/Src/Resource/database/chinese_holidays.sql"));
     InitDatabase();
     
     slotUpdate();
@@ -1023,7 +1023,7 @@ int CLunarCalendarModel::DownloadFile(const QUrl &url)
         m_UpdateSqlFile.close();
     if(!m_UpdateSqlFile.open(QIODevice::WriteOnly))
     {
-        LOG_MODEL_ERROR("LunarCalendar", "Open file fail: %s",
+        LOG_MODEL_ERROR("LunarCalendar", "Open sql file fail: %s",
                         m_UpdateSqlFile.fileName().toStdString().c_str());
         return -1;
     }

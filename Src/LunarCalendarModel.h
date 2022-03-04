@@ -15,6 +15,9 @@
 
 #include "LunarCalendar.h"
 
+/*!
+ * \brief 农历模型
+ */
 class CLunarCalendarModel : public QAbstractTableModel
 {
     Q_OBJECT
