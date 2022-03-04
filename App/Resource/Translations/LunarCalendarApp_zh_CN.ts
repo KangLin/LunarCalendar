@@ -9,77 +9,77 @@
         <translation>日历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="20"/>
+        <location filename="../../MainWindow.cpp" line="22"/>
         <source>View</source>
         <translation>视图</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="21"/>
+        <location filename="../../MainWindow.cpp" line="23"/>
         <source>Lunar</source>
         <translation>农历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="26"/>
+        <location filename="../../MainWindow.cpp" line="28"/>
         <source>Solar</source>
         <translation>阳历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="33"/>
+        <location filename="../../MainWindow.cpp" line="35"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="38"/>
+        <location filename="../../MainWindow.cpp" line="40"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="44"/>
+        <location filename="../../MainWindow.cpp" line="46"/>
         <source>Use backgroup image</source>
         <translation>使用背景图</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="51"/>
+        <location filename="../../MainWindow.cpp" line="53"/>
         <source>Head postion</source>
         <translation>头位置</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="52"/>
+        <location filename="../../MainWindow.cpp" line="54"/>
         <source>Not</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="55"/>
+        <location filename="../../MainWindow.cpp" line="57"/>
         <source>Top</source>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="59"/>
+        <location filename="../../MainWindow.cpp" line="61"/>
         <source>Down</source>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="62"/>
+        <location filename="../../MainWindow.cpp" line="64"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="65"/>
+        <location filename="../../MainWindow.cpp" line="67"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="75"/>
+        <location filename="../../MainWindow.cpp" line="77"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="77"/>
+        <location filename="../../MainWindow.cpp" line="79"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="79"/>
+        <location filename="../../MainWindow.cpp" line="81"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -87,7 +87,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="38"/>
+        <location filename="../../main.cpp" line="40"/>
         <source>Calendar</source>
         <translation>日历</translation>
     </message>

@@ -4,19 +4,19 @@
 <context>
     <name>CLunarCalendar</name>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="89"/>
-        <location filename="../../LunarCalendar.cpp" line="90"/>
+        <location filename="../../LunarCalendar.cpp" line="91"/>
+        <location filename="../../LunarCalendar.cpp" line="92"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="173"/>
-        <location filename="../../LunarCalendar.cpp" line="1182"/>
+        <location filename="../../LunarCalendar.cpp" line="175"/>
+        <location filename="../../LunarCalendar.cpp" line="1184"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1179"/>
+        <location filename="../../LunarCalendar.cpp" line="1181"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
