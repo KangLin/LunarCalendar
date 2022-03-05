@@ -39,15 +39,15 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
     
-    QString szFile = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
+    QString szSqlFile = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
                             + QDir::separator() + "Rabbit" 
             + QDir::separator() + "LunarCalendar";
     QDir d;
-    if(!d.exists(szFile))
-        d.mkpath(szFile);
-    szFile = szFile + QDir::separator() + "chinese_holidays.sql";
-    m_UpdateSqlFile.setFileName(szFile);
-    DownloadFile(QUrl("https://gitee.com/kl222/LunarCalendar/tree/master/Src/Resource/database/chinese_holidays.sql"));
+    if(!d.exists(szSqlFile))
+        d.mkpath(szSqlFile);
+    szSqlFile = szSqlFile + QDir::separator() + "chinese_holidays.sql";
+    m_UpdateSqlFile.setFileName(szSqlFile);
+    DownloadFile(QUrl("https://gitee.com/kl222/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql"));
     InitDatabase();
     
     slotUpdate();
@@ -804,24 +804,24 @@ int CLunarCalendarModel::InitHoliday()
 
 int CLunarCalendarModel::InitDatabase()
 {
-    QString szFile;
-    szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
+    QString szDatabaseFile;
+    szDatabaseFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                            + QDir::separator() + "db.sqlite";
     m_Database = QSqlDatabase::addDatabase("QSQLITE");
-    m_Database.setDatabaseName(szFile);
+    m_Database.setDatabaseName(szDatabaseFile);
     QDir d;
-    if(!d.exists(szFile))
+    if(!d.exists(szDatabaseFile))
     {
         if(!m_Database.open())
         {
-            qCritical() << "Open database fail:"
-                        << m_Database.lastError().text()
-                        << "database file:" << szFile;
-            
+            LOG_MODEL_ERROR("CLunarCalendarModel",
+                            "Open database fail: %s database file: %s",
+                            m_Database.lastError().text().toStdString().c_str(),
+                            szDatabaseFile.toStdString().c_str());
             return m_Database.lastError().number();
         }
 #if defined (_DEBUG) || defined(DEBUG)
-        QFile file(":/database/ChineseHolidays");
+        QFile sqlFile(":/database/ChineseHolidays");
 #else
         QString szUserSql = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                 + QDir::separator() + "chinese_holidays.sql";
@@ -831,27 +831,32 @@ int CLunarCalendarModel::InitDatabase()
                        + QDir::separator() + "chinese_holidays.sql");
             file.copy(szUserSql);
         }
-        QFile file(szUserSql);
+        QFile sqlFile(szUserSql);
 #endif
-        if(file.open(QFile::ReadOnly))
+        if(sqlFile.open(QFile::ReadOnly))
         {
             QSqlQuery query(m_Database);
-            QString szSql(file.readAll());
+            QString szSql(sqlFile.readAll());
             QStringList sql = szSql.split(";");
             for(int i = 0; i < sql.size(); i++)
             {
-                qDebug() << sql[i];
-                if(!query.exec(sql[i]) && m_Database.lastError().type() != QSqlError::NoError)
+                LOG_MODEL_DEBUG("CLunarCalendarModel", "sql: %s",
+                                sql[i].toStdString().c_str());
+                if(!query.exec(sql[i])
+                        && m_Database.lastError().type() != QSqlError::NoError)
                 {
-                    qCritical() << "Create database fail: " << m_Database.lastError();
-                    file.close();
+                    LOG_MODEL_ERROR("CLunarCalendarModel",
+                                    "Create database fail: %d, %s",
+                                    m_Database.lastError().number(),
+                                    m_Database.lastError().text().toStdString().c_str());
+                    sqlFile.close();
                     m_Database.close();
                     QDir d;
-                    d.remove(szFile);
+                    d.remove(szDatabaseFile);
                     return -2;
                 }
             }
-            file.close();
+            sqlFile.close();
         }
         m_Database.close();
     }
@@ -868,10 +873,10 @@ int CLunarCalendarModel::InitDatabase()
 void CLunarCalendarModel::CheckUpdateDatabase()
 {
     bool bRet = false;
-    QString szFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
+    QString szSqlFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                         + QDir::separator() + "chinese_holidays.sql"; 
 
-    QFile sql(szFile);
+    QFile sql(szSqlFile);
     
     do{
         if(sql.exists())
@@ -917,7 +922,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
     
     if(!bRet) return;
     
-    m_UpdateSqlFile.copy(szFile);
+    m_UpdateSqlFile.copy(szSqlFile);
     if(m_Database.isOpen())
         m_Database.close();
 
@@ -940,7 +945,7 @@ void CLunarCalendarModel::slotDownloadProgress(qint64 bytesReceived, qint64 byte
 {
     Q_UNUSED(bytesReceived)
     Q_UNUSED(bytesTotal)
-    LOG_MODEL_DEBUG("LunarCalendar", "Is download [%d] %d/%d",
+    LOG_MODEL_DEBUG("CLunarCalendarModel", "Is download [%d] %d/%d",
                     bytesReceived * 100 / bytesTotal,
                     bytesReceived,
                     bytesTotal);
@@ -951,7 +956,7 @@ void CLunarCalendarModel::slotError(QNetworkReply::NetworkError e)
     qDebug() << "CLunarCalendarModel::slotError: " << e;
     if(m_pReply)
     {
-        LOG_MODEL_ERROR("LunarCalendar",  "Reply error: %s",
+        LOG_MODEL_ERROR("CLunarCalendarModel",  "Reply error: %s",
                         m_pReply->errorString().toStdString().c_str());
         m_pReply->disconnect();
         m_pReply->deleteLater();
@@ -979,7 +984,7 @@ void CLunarCalendarModel::slotSslError(const QList<QSslError> e)
 
 void CLunarCalendarModel::slotFinished()
 {
-    LOG_MODEL_DEBUG("LunarCalendar", "CLunarCalendarModel::slotFinished(): %s",
+    LOG_MODEL_DEBUG("CLunarCalendarModel", "CLunarCalendarModel::slotFinished(): %s",
                     m_UpdateSqlFile.fileName().toStdString().c_str());
     
     QVariant redirectionTarget;
@@ -1023,7 +1028,7 @@ int CLunarCalendarModel::DownloadFile(const QUrl &url)
         m_UpdateSqlFile.close();
     if(!m_UpdateSqlFile.open(QIODevice::WriteOnly))
     {
-        LOG_MODEL_ERROR("LunarCalendar", "Open sql file fail: %s",
+        LOG_MODEL_ERROR("CLunarCalendarModel", "Open sql file fail: %s",
                         m_UpdateSqlFile.fileName().toStdString().c_str());
         return -1;
     }
