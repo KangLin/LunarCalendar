@@ -5,11 +5,39 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "verbose")
 
-set(INSTALL_HEAD_FILES
+SET(LunarCalendar_VERSION "v0.2.0")
+# Find Git Version Patch
+IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
+    if(NOT GIT)
+        SET(GIT $ENV{GIT})
+    endif()
+    if(NOT GIT)
+        FIND_PROGRAM(GIT NAMES git git.exe git.cmd)
+    endif()
+    IF(GIT)
+        EXECUTE_PROCESS(
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+            COMMAND ${GIT} describe --tags
+            OUTPUT_VARIABLE GIT_VERSION  OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+	    if(NOT GIT_VERSION)
+            EXECUTE_PROCESS(
+                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+                COMMAND ${GIT} rev-parse --short HEAD
+                OUTPUT_VARIABLE GIT_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE
+            )
+        endif()
+        SET(LunarCalendar_VERSION ${GIT_VERSION})
+    ENDIF()
+ENDIF()
+message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
+set(VERSION ${LunarCalendar_VERSION})
+
+set(LunarCalendar_INSTALL_HEAD_FILES
     LunarCalendar.h
     )
-set(HEAD_FILES
-    ${INSTALL_HEAD_FILES}
+set(LunarCalendar_HEAD_FILES
+    ${LunarCalendar_INSTALL_HEAD_FILES}
     LunarCalendarModel.h 
     CalendarLunar.h 
     ../3th_lib/sxtwl/src/lunar.h 
@@ -20,7 +48,7 @@ set(HEAD_FILES
     LunarCalendarDelegate.h
     LunarTable.h
     )
-set(SOURCE_FILES
+set(LunarCalendar_SOURCE_FILES
     LunarCalendar.cpp
     LunarCalendarModel.cpp
     CalendarLunar.cpp
@@ -41,7 +69,7 @@ SET(RCC_FILES
     )
 #翻译
 GENERATED_QT_TRANSLATIONS(
-    SOURCES ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES}
+    SOURCES ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES} ${SOURCE_UI_FILES}
     OUT_QRC TRANSLATIONS_QRC_FILES
     )
 string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
@@ -57,7 +85,7 @@ IF(MSVC)
     add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 ENDIF()
-add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEAD_FILES}
+add_library(${PROJECT_NAME} ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRIVATE_DEFINITIONS})
@@ -70,13 +98,13 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
-    PUBLIC_HEADER "${INSTALL_HEAD_FILES}"     # Install head files
-    VERSION ${BUILD_VERSION})
+    PUBLIC_HEADER "${LunarCalendar_INSTALL_HEAD_FILES}"     # Install head files
+    VERSION ${LunarCalendar_VERSION})
 
 include(GenerateExportHeader)
 GENERATE_EXPORT_HEADER(${PROJECT_NAME})
 string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
-SET(INSTALL_HEAD_FILES ${INSTALL_HEAD_FILES}
+SET(LunarCalendar_INSTALL_HEAD_FILES ${LunarCalendar_INSTALL_HEAD_FILES}
     ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h)
 file(COPY ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h
     DESTINATION ${CMAKE_BINARY_DIR})
@@ -126,7 +154,7 @@ install(
 )
 write_basic_package_version_file(
     "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-    VERSION ${BUILD_VERSION}
+    VERSION ${LunarCalendar_VERSION}
     COMPATIBILITY AnyNewerVersion)
 install(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake")
 if(NOT MSVC)

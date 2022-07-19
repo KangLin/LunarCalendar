@@ -8,28 +8,28 @@ CONFIG(staticlib): CONFIG*=static
 #android: CONFIG*=static
 
 #Get app version use git, please set git path to environment variable PATH
-isEmpty(BUILD_VERSION) {
+isEmpty(LunarCalendar_VERSION) {
     isEmpty(GIT) : GIT=$$(GIT)
     isEmpty(GIT) : GIT=git
     isEmpty(GIT_DESCRIBE) {
         GIT_DESCRIBE = $$system(cd $$system_path($$_PRO_FILE_PWD_) && $$GIT describe --tags)
-        isEmpty(BUILD_VERSION) {
-            BUILD_VERSION = $$GIT_DESCRIBE
+        isEmpty(LunarCalendar_VERSION) {
+            LunarCalendar_VERSION = $$GIT_DESCRIBE
         }
     }
-    isEmpty(BUILD_VERSION) {
-        BUILD_VERSION = $$system(cd $$system_path($$_PRO_FILE_PWD_) && $$GIT rev-parse --short HEAD)
+    isEmpty(LunarCalendar_VERSION) {
+        LunarCalendar_VERSION = $$system(cd $$system_path($$_PRO_FILE_PWD_) && $$GIT rev-parse --short HEAD)
     }
 
-    isEmpty(BUILD_VERSION){
-        warning("Built without git, please add BUILD_VERSION to DEFINES or add git path to environment variable GIT or qmake parameter GIT")
+    isEmpty(LunarCalendar_VERSION){
+        warning("Built without git, please add LunarCalendar_VERSION to DEFINES or add git path to environment variable GIT or qmake parameter GIT")
     }
 }
-isEmpty(BUILD_VERSION){
-    BUILD_VERSION="v0.2.0"
+isEmpty(LunarCalendar_VERSION){
+    LunarCalendar_VERSION="v0.2.0"
 }
-message("LunarCalendar BUILD_VERSION:$$BUILD_VERSION")
-DEFINES += BUILD_VERSION=\"\\\"$$quote($$BUILD_VERSION)\\\"\"
+message("LunarCalendar LunarCalendar_VERSION:$$LunarCalendar_VERSION")
+DEFINES += LunarCalendar_VERSION=\"\\\"$$quote($$LunarCalendar_VERSION)\\\"\"
 android{
     DEFINES += BUILD_ARCH=\"\\\"$${ANDROID_TARGET_ARCH}\\\"\"
 } else {

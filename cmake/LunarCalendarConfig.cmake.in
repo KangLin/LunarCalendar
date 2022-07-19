@@ -17,7 +17,7 @@
 #      LunarCalendar_DEFINITIONS    - Set definitions
 #      LunarCalendar_VERSION_STRING - the version of LunarCalendar found (since CMake 2.8.8)
 
-set(LunarCalendar_VERSION_STRING @BUILD_VERSION@)
+set(LunarCalendar_VERSION_STRING @LunarCalendar_VERSION@)
 
 find_package(PkgConfig)
 if(PKG_CONFIG_FOUND)

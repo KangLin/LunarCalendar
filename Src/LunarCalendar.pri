@@ -34,8 +34,8 @@ msvc {
 CONFIG(static): DEFINES *= LUNARCALENDAR_STATIC_DEFINE
 else: DEFINES *= LunarCalendar_EXPORTS
 
-isEmpty(BUILD_VERSION): error("Please set BUILD_VERSION")
-VERSION=$$replace(BUILD_VERSION, v,)
+isEmpty(LunarCalendar_VERSION): error("Please set LunarCalendar_VERSION")
+VERSION=$$replace(LunarCalendar_VERSION, v,)
 win32{
     VERSION=$$split(VERSION, -)
     VERSION=$$first(VERSION)

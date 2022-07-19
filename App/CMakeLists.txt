@@ -26,7 +26,7 @@ if(BUILD_TYPE STREQUAL "debug")
         )
 endif()
 
-add_definitions(-DBUILD_VERSION="${BUILD_VERSION}")
+add_definitions(-DLunarCalendar_VERSION="${LunarCalendar_VERSION}")
 add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
 add_definitions(-DBUILD_PLATFORM="${BUILD_PLATFORM}")
 
@@ -58,7 +58,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
     ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
-    VERSION ${BUILD_VERSION})
+    VERSION ${LunarCalendar_VERSION})
 if(UNIX AND NOT ANDROID)
     set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_NAME ${PROJECT_NAME})
 endif()
