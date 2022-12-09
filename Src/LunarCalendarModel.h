@@ -14,6 +14,7 @@
 #include <QFile>
 
 #include "LunarCalendar.h"
+#include "DownloadFile.h"
 
 /*!
  * \brief 农历模型
@@ -101,11 +102,8 @@ public:
 private Q_SLOTS:
     int slotUpdate();
 
-    void slotReadyRead();
-    void slotError(QNetworkReply::NetworkError e);
-    void slotSslError(const QList<QSslError> e);
-    void slotDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
-    void slotFinished();
+    void slotDownloadError(int nErr, const QString szError);
+    void slotDownloadFileFinished(const QString szFile);
 
 private:
     void internalUpdate();
@@ -166,14 +164,14 @@ private:
     QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
     
     QSqlDatabase m_Database;
-    QNetworkAccessManager m_NetManager;
-    QNetworkReply *m_pReply;
+    QSharedPointer<RabbitCommon::CDownloadFile> m_Download;
+    
     /**
      * @brief DownloadFile
      * @param url: Download url
      * @return 
      */
-    int DownloadFile(const QUrl &url);
+    int DownloadFile(const QVector<QUrl> &urls);
     QFile m_UpdateSqlFile;
 };
 

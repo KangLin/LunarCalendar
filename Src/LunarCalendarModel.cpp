@@ -16,6 +16,9 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QFile>
+#include <QLoggingCategory>
+
+Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar.Model")
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -24,8 +27,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_MaximumDate(3000, 12, 31),
       m_ShownYear(m_Date.year()),
       m_ShownMonth(m_Date.month()),
-      m_ShowWeek(1),
-      m_pReply(nullptr)
+      m_ShowWeek(1)
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
                         CLunarCalendar::CalendarTypeLunar
@@ -47,7 +49,10 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
         d.mkpath(szSqlFile);
     szSqlFile = szSqlFile + QDir::separator() + "chinese_holidays.sql";
     m_UpdateSqlFile.setFileName(szSqlFile);
-    DownloadFile(QUrl("https://gitee.com/kl222/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql"));
+    QVector<QUrl> urls;
+    urls << QUrl("https://gitee.com/kl222/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
+         << QUrl("https://github.com/KangLin/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql");
+    DownloadFile(urls);
     InitDatabase();
     
     slotUpdate();
@@ -932,131 +937,51 @@ void CLunarCalendarModel::CheckUpdateDatabase()
     
 }
 
-void CLunarCalendarModel::slotReadyRead()
+void CLunarCalendarModel::slotDownloadError(int nErr, const QString szError)
 {
-    if(m_UpdateSqlFile.isOpen() && m_pReply)
-    {
-        QByteArray d = m_pReply->readAll();
-        m_UpdateSqlFile.write(d);
-    }
-}
-
-void CLunarCalendarModel::slotDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
-{
-    Q_UNUSED(bytesReceived)
-    Q_UNUSED(bytesTotal)
-    LOG_MODEL_DEBUG("CLunarCalendarModel", "Is download [%d] %d/%d",
-                    bytesReceived * 100 / bytesTotal,
-                    bytesReceived,
-                    bytesTotal);
-}
-
-void CLunarCalendarModel::slotError(QNetworkReply::NetworkError e)
-{
-    qDebug() << "CLunarCalendarModel::slotError: " << e;
-    if(m_pReply)
-    {
-        LOG_MODEL_ERROR("CLunarCalendarModel",  "Reply error: %s",
-                        m_pReply->errorString().toStdString().c_str());
-        m_pReply->disconnect();
-        m_pReply->deleteLater();
-        m_pReply = nullptr;
-    }
+    qDebug(Logger) << "CFrmUpdater::slotDownloadError:" << nErr << szError;
+    QString szMsg = szError;
+    if(szMsg.isEmpty()) szMsg = tr("Download file error");
     m_UpdateSqlFile.close();
 }
 
-void CLunarCalendarModel::slotSslError(const QList<QSslError> e)
+void CLunarCalendarModel::slotDownloadFileFinished(const QString szFile)
 {
-    qDebug() << "CLunarCalendarModel::slotSslError: " << e;
-    QString sErr;
-    foreach(QSslError s, e)
-        sErr += s.errorString() + " ";
-    qDebug() << "Download fail:" << sErr;
-    if(m_pReply)
-    {
-        m_pReply->disconnect();
-        m_pReply->deleteLater();
-        m_pReply = nullptr;
-    }
-    
-    m_UpdateSqlFile.close();
-}
+    if(m_UpdateSqlFile.isOpen())
+        m_UpdateSqlFile.close();
 
-void CLunarCalendarModel::slotFinished()
-{
-    LOG_MODEL_DEBUG("CLunarCalendarModel", "CLunarCalendarModel::slotFinished(): %s",
-                    m_UpdateSqlFile.fileName().toStdString().c_str());
-    
-    QVariant redirectionTarget;
-    if(m_pReply)
-       redirectionTarget = m_pReply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-    if(redirectionTarget.isValid())
-    {
-        if(m_pReply)
-        {
-            m_pReply->disconnect();
-            m_pReply->deleteLater();
-            m_pReply = nullptr;
-        }
-        QUrl u = redirectionTarget.toUrl();  
-        if(u.isValid())
-        {
-            qDebug() << "CLunarCalendarModel::slotFinished():redirectionTarget:url:" << u;
-            DownloadFile(u);
-        }
-        return;
-    }
-    
-    if(m_pReply)
-    {
-        m_pReply->disconnect();
-        m_pReply->deleteLater();
-        m_pReply = nullptr;
-    }
-    
-    m_UpdateSqlFile.close();
+    QString szTmp
+            = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    szTmp = szTmp + QDir::separator() + "Rabbit"
+            + QDir::separator() + qApp->applicationName();
+
+    QString f = m_UpdateSqlFile.fileName();
+
+    QFile::rename(szFile, f);
+
+    qDebug(Logger) << "CFrmUpdater::slotDownloadFileFinished: rename"
+                       << szFile << "to" << f;
     
     CheckUpdateDatabase();
     internalUpdate();
 }
 
-int CLunarCalendarModel::DownloadFile(const QUrl &url)
+int CLunarCalendarModel::DownloadFile(const QVector<QUrl> &urls)
 {
     int nRet = 0;
 
     if(m_UpdateSqlFile.isOpen())
         m_UpdateSqlFile.close();
-    if(!m_UpdateSqlFile.open(QIODevice::WriteOnly))
+    if(!urls.isEmpty())
     {
-        LOG_MODEL_ERROR("CLunarCalendarModel", "Open sql file fail: %s",
-                        m_UpdateSqlFile.fileName().toStdString().c_str());
-        return -1;
+        m_Download = QSharedPointer<RabbitCommon::CDownloadFile>(
+                    new RabbitCommon::CDownloadFile(urls));
+        bool check = connect(m_Download.data(), SIGNAL(sigFinished(const QString)),
+                this, SLOT(slotDownloadFileFinished(const QString)));
+        Q_ASSERT(check);
+        check = connect(m_Download.data(), SIGNAL(sigError(int, const QString)),
+                        this, SLOT(slotDownloadError(int, const QString)));
+        Q_ASSERT(check);
     }
-
-    QNetworkRequest request(url);
-    //https://blog.csdn.net/itjobtxq/article/details/8244509
-    /*QSslConfiguration config;
-    config.setPeerVerifyMode(QSslSocket::VerifyNone);
-    config.setProtocol(QSsl::AnyProtocol);
-    request.setSslConfiguration(config);
-    */
-    m_pReply = m_NetManager.get(request);
-    if(!m_pReply)
-        return -1;
-    
-    bool check = false;
-    check = connect(m_pReply, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
-    Q_ASSERT(check);
-    check = connect(m_pReply, SIGNAL(downloadProgress(qint64, qint64)),
-                    this, SLOT(slotDownloadProgress(qint64, qint64)));
-    Q_ASSERT(check);
-    check = connect(m_pReply, SIGNAL(error(QNetworkReply::NetworkError)),
-                    this, SLOT(slotError(QNetworkReply::NetworkError)));
-    Q_ASSERT(check);
-    check = connect(m_pReply, SIGNAL(sslErrors(const QList<QSslError>)),
-                    this, SLOT(slotSslError(const QList<QSslError>)));
-    check = connect(m_pReply, SIGNAL(finished()),
-                    this, SLOT(slotFinished()));
-    
     return nRet;
 }
