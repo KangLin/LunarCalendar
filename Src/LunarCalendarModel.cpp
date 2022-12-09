@@ -287,7 +287,7 @@ int CLunarCalendarModel::slotUpdate()
                 break;
             _DAY day;
             day.Solar = d.day();
-            day.szSolarHoliday = m_Holiday[d.month()][d.day()];
+            day.szSolarHoliday = m_Holiday[d.month()].value(d.day());
             
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
@@ -306,7 +306,7 @@ int CLunarCalendarModel::slotUpdate()
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
             if(day.szAnniversary.isEmpty())
-                day.szAnniversary = m_Anniversary[d.month()][d.day()];
+                day.szAnniversary = m_Anniversary[d.month()].value(d.day());
             
             if(m_GetTaskHandler)
                 day.nTasks = m_GetTaskHandler->onHandle(d);
@@ -723,7 +723,7 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
     if(szName.isEmpty())
         return -1;
-    m_Holiday[month].insertMulti(day, szName);
+    m_Holiday[month].insert(day, szName);
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
@@ -737,7 +737,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
 {
     if(szName.isEmpty())
         return -1;
-    m_Anniversary[month].insertMulti(day, szName);
+    m_Anniversary[month].insert(day, szName);
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
@@ -818,7 +818,7 @@ int CLunarCalendarModel::InitDatabase()
                             "Open database fail: %s database file: %s",
                             m_Database.lastError().text().toStdString().c_str(),
                             szDatabaseFile.toStdString().c_str());
-            return m_Database.lastError().number();
+            return m_Database.lastError().type();
         }
 #if defined (_DEBUG) || defined(DEBUG)
         QFile sqlFile(":/database/ChineseHolidays");
@@ -847,7 +847,7 @@ int CLunarCalendarModel::InitDatabase()
                 {
                     LOG_MODEL_ERROR("CLunarCalendarModel",
                                     "Create database fail: %d, %s",
-                                    m_Database.lastError().number(),
+                                    m_Database.lastError().type(),
                                     m_Database.lastError().text().toStdString().c_str());
                     sqlFile.close();
                     m_Database.close();

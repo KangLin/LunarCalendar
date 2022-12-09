@@ -25,8 +25,8 @@ static const QString g_jqImage[] = {"DongZhi", "XiaoHan", "DaHan", "LiChun",
 static const QString g_ymc[] = {"十一", "十二", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十"}; //月名称,建寅
 static const QString g_rmc[] = {"初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "廿", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "卅", "卅一"};
 
-static QMap<int, QMap<int, QString> > g_Holiday;
-static QMap<int, QMap<int, QString> > g_Anniversary;
+static QMap<int, QMultiMap<int, QString> > g_Holiday;     //假日
+static QMap<int, QMultiMap<int, QString> > g_Anniversary; //周年
 
 CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)
 {
@@ -78,13 +78,13 @@ int CCalendarLunar::GetLunar(const QDate &date)
         m_szLunar += g_ymc[day.nMonth] + "月" + g_rmc[day.nDay] + "日";
     }
     
-    QMap<int, QString> holiday = g_Holiday[day.nMonth];
+    QMultiMap<int, QString> holiday = g_Holiday[day.nMonth];
     if(!holiday.isEmpty())
-        m_szHoliday = holiday[day.nDay];
+        m_szHoliday = holiday.value(day.nDay);
     
     holiday = g_Anniversary[day.nMonth];
     if(!holiday.isEmpty())
-        m_szAnniversary = holiday[day.nDay];
+        m_szAnniversary = holiday.value(day.nDay);
     
     if(-1 != day.nJq)
     {   
@@ -182,7 +182,7 @@ int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
     if(m > 11)
         m = m % 12;
 
-    g_Holiday[m].insertMulti(day - 1, szName);
+    g_Holiday[m].insert(day - 1, szName);
     return 0;
 }
 
@@ -194,7 +194,7 @@ int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
     if(m > 11)
         m = m % 12;
 
-    g_Anniversary[m].insertMulti(day - 1, szName);
+    g_Anniversary[m].insert(day - 1, szName);
     return 0;
 }
 

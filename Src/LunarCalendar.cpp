@@ -193,7 +193,9 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout->addWidget(&m_cmbMonth);
     m_pToolLayout->addWidget(&m_tbNextMonth);
     m_pToolLayout->addWidget(&m_pbToday);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
     m_pToolLayout->setMargin(0);
+#endif
     m_pToolLayout->setSpacing(0);
 
     SetHeadPostion();
@@ -280,7 +282,9 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
     }
     
     m_pMainLayout = new QGridLayout(this);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
     m_pMainLayout->setMargin(0);
+#endif
     m_pMainLayout->setSpacing(0);
     setLayout(m_pMainLayout);
     
@@ -295,7 +299,9 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pHeadLayout->addLayout(m_pToolLayout);
         m_pHeadLayout->addWidget(&m_lbDate);
         m_pHeadLayout->addWidget(&m_lbTime);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         m_pHeadLayout->setMargin(0);
+#endif
         m_pHeadLayout->setSpacing(0);
 
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
@@ -309,7 +315,9 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pHeadLayout->addLayout(m_pToolLayout);
         m_pHeadLayout->addWidget(&m_lbDate);
         m_pHeadLayout->addWidget(&m_lbTime);
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         m_pHeadLayout->setMargin(0);
+#endif
         m_pHeadLayout->setSpacing(0);
         
         m_pMainLayout->addLayout(m_pHeadLayout, 1, 0);
@@ -322,7 +330,9 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pHeadLayout->addWidget(&m_lbDate);
         m_pHeadLayout->addWidget(&m_lbTime);
         m_pHeadLayout->addStretch();
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         m_pHeadLayout->setMargin(0);
+#endif
         m_pHeadLayout->setSpacing(0);
         
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
@@ -337,7 +347,9 @@ int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
         m_pHeadLayout->addWidget(&m_lbDate);
         m_pHeadLayout->addWidget(&m_lbTime);
         m_pHeadLayout->addStretch();
+#if QT_VERSION < QT_VERSION_CHECK(5, 11, 0)
         m_pHeadLayout->setMargin(0);
+#endif
         m_pHeadLayout->setSpacing(0);
         
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 1);
@@ -1018,7 +1030,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     case QEvent::Wheel:
         {
             QWheelEvent *we = dynamic_cast<QWheelEvent*>(event);
-            const int numDegrees = we->delta() / 8;
+            const int numDegrees = we->angleDelta().y() / 8;
             const int numSteps = numDegrees / 15;
             //qDebug() << "step:" << numSteps;
             CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());

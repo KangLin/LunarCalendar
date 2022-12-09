@@ -97,7 +97,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         painter->setFont(fontTasks);
         QFontMetrics m = painter->fontMetrics();
         tasksHeight = m.height();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+        tasksWidth = m.horizontalAdvance(QString::number(nTasks));
+#else
         tasksWidth = m.width(QString::number(nTasks));
+#endif
         width = tasksWidth;
         height = tasksHeight;
         nRow++;
@@ -112,7 +116,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         painter->setFont(fontSolar);
         QFontMetrics m = painter->fontMetrics();
         solarHeight = m.height();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+        solarWidth = m.horizontalAdvance(szSolar);
+#else
         solarWidth = m.width(szSolar);
+#endif
         width = qMax(width, solarWidth);
         height = qMax(height, solarHeight);
         nRow++;
@@ -127,7 +135,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         painter->setFont(fontLunar);
         QFontMetrics m = painter->fontMetrics();
         lunarHeight = m.height();
+#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+        lunarWidth = m.horizontalAdvance(szLunar); 
+#else
         lunarWidth = m.width(szLunar); 
+#endif
         
         width = qMax(width, lunarWidth);
         height = qMax(height, lunarHeight);
@@ -279,7 +291,13 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
     QFontMetrics m = painter->fontMetrics();
     QPoint pos;
     pos.setX(option.rect.left()
-             + ((option.rect.width() - m.width(szText)) >> 1));
+             + ((option.rect.width() -
+         #if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
+                 m.horizontalAdvance(szText)) >> 1
+         #else
+                 m.width(szText)) >> 1
+         #endif
+             ));
     pos.setY(option.rect.top() + ((option.rect.height() - m.height()) >> 1));
     painter->drawText(pos, szText);
     painter->restore();
