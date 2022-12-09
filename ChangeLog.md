@@ -5,6 +5,8 @@
   + 在 Windows 下，安装 MSVC 系统库。详见: RabbitCommon
   + 修复除 0 引起的崩溃。影响前面所有发行版本。此错误是 RabbitCommon 引起的。
     详见：RabbitCommon: 7ed300a206d8a36c30003b6c19ad181682d0ff5f
+  + 支持 Qt6
+  + 更新文件下载
 
 - v0.2.0
   + 修改 CI，增加修改日志
