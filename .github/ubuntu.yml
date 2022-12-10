@@ -1,100 +1,236 @@
-name: cmake_ubuntu
+name: ubuntu
 
 on: [push]
 
 env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest] #, macos-latest] #windows-latest,
-    # The CMake configure and build commands are platform agnostic and should work equally
-    # well on Windows or Mac.  You can convert this to a matrix build if you need
-    # cross-platform coverage.
-    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-    runs-on: ${{ matrix.os }} 
+        os: [Ubuntu-20.04, Ubuntu-18.04]
+        # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+        BUILD_TYPE: [Release, Debug]
+
+    runs-on: ${{matrix.os}}
+    env:
+      BUILD_TYPE:  ${{ matrix.BUILD_TYPE }}
+      SOURCE_DIR:  ${{github.workspace}}/.cache/source
+      TOOSL_DIR:   ${{github.workspace}}/.cache/tools
+      INSTALL_DIR: ${{github.workspace}}/.cache/install_ubuntu_2022_02_14
+      LunarCalendar_VERSION: 0.0.25
 
     steps:
+    - name: core dump infomations
+      if: false
+      run: |
+        echo "# ulimit -a"
+        ulimit -a
+        echo "# cat /proc/sys/kernel/core_pattern"
+        cat /proc/sys/kernel/core_pattern
+        echo "# ulimit -c unlimited"
+        ulimit -c unlimited
+        echo "# sudo sysctl -w kernel.core_pattern=core"
+        sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
+        echo "# ulimit -a"
+        ulimit -a
+        echo "# cat /proc/sys/kernel/core_pattern"
+        cat /proc/sys/kernel/core_pattern
+
+#        See: https://www.cnblogs.com/cong-wang/p/15026524.html
+#        Naming of core dump files
+#               By default, a core dump file is named core, but the /proc/sys/kernel/core_pattern file (since  Linux  2.6  and
+#               2.4.21)  can  be  set  to  define a template that is used to name core dump files.  The template can contain %
+#               specifiers which are substituted by the following values when a core file is created:
+#
+#                   %%  a single % character
+#                   %c  core file size soft resource limit of crashing process (since Linux 2.6.24)
+#                   %d  dump mode—same as value returned by prctl(2) PR_GET_DUMPABLE (since Linux 3.7)
+#                   %e  executable filename (without path prefix)
+#                   %E  pathname of executable, with slashes ('/') replaced by exclamation marks ('!') (since Linux 3.0).
+#                   %g  (numeric) real GID of dumped process
+#                   %h  hostname (same as nodename returned by uname(2))
+#                   %i  TID of thread that triggered core dump, as seen in the PID  namespace  in  which  the  thread  resides
+#                       (since Linux 3.18)
+#                   %I  TID of thread that triggered core dump, as seen in the initial PID namespace (since Linux 3.18)
+#                   %p  PID of dumped process, as seen in the PID namespace in which the process resides
+#                   %P  PID of dumped process, as seen in the initial PID namespace (since Linux 3.12)
+#                   %s  number of signal causing dump
+#                   %t  time of dump, expressed as seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC)
+#                   %u  (numeric) real UID of dumped process
+
     - uses: actions/checkout@v2
       with:
+        fetch-depth: 0
         submodules: 'true'
-      
-    - name: git clone --recursive
-      # Use a bash shell so we can use the same syntax for environment variable
-      # access regardless of the host operating system
-      shell: bash
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run:  git submodule update --init --recursive
 
-    - name: Install Qt
-      # You may pin to the exact commit or the version.
-      # uses: jurplel/install-qt-action@88f3374475d094ce56ca6a7cc41cfda5a6ec093c
-      uses: jurplel/install-qt-action@v2.13.0
-      with:
-        # Directory to install Qt
-        #dir: # optional
-        # Version of Qt to install
-        version: 5.12.10 # optional, default is 5.15.2
-        # Host platform
-        #host: # optional
-        # Target platform for build
-        #target: # optional, default is desktop
-        # Architecture for Windows/Android
-        #arch: # optional
-        # Whether or not to install Qt dependencies on Linux
-        #install-deps: # optional, default is true
-        # Additional Qt modules to install
-        #modules: # optional
-        # Whether or not to actually download Qt
-        #cached: # optional, default is false
-        # Whether or not to automatically run setup-python to find a valid python version.
-        #setup-python: # optional, default is true
-        # Qt tools to download--specify comma-separated argument lists which are themselves separated by spaces: <tool_name>,<tool_version>,<tool_arch>
-        #tools: # optional
-        # Whether or not to set environment variables after running aqtinstall
-        #set-env: # optional, default is true
-        # Whether or not to actually install Qt or just the tools from the tools argument
-        #tools-only: # optional, default is false
-        # Version of aqtinstall to use in case of issues
-        #aqtversion: # optional, default is ==1.1.3
-        # Version of py7zr to use in case of issues
-        #py7zrversion: # optional, default is ==0.14.0
-        # Any extra arguments to append to the back
-        #extra: # optional
-    
-    - name: Create Build Environment
-      # Some projects don't allow in-source building, so create a separate build directory
-      # We'll use this as our working directory for all subsequent commands
-      run: cmake -E make_directory ${{github.workspace}}/build
+    - name: make_directory
+      run: |
+        cmake -E make_directory ${{env.SOURCE_DIR}}
+        cmake -E make_directory ${{env.TOOSL_DIR}}
+        cmake -E make_directory ${{env.INSTALL_DIR}}
 
     - name: git clone RabbitCommon
-      working-directory: ${{github.workspace}}
+      working-directory: ${{env.SOURCE_DIR}}
       run: git clone https://github.com/KangLin/RabbitCommon.git
-      
-    - name: Configure CMake
-      # Use a bash shell so we can use the same syntax for environment variable
-      # access regardless of the host operating system
-      shell: bash
-      working-directory: ${{github.workspace}}/build
-      # Note the current convention is to use the -S and -B options here to specify source 
-      # and build directories, but this is only available with CMake 3.13 and higher.  
-      # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
-      env:
-        RabbitCommon_DIR: ${{github.workspace}}/RabbitCommon
-        
-    - name: Build
-      working-directory: ${{github.workspace}}/build
-      shell: bash
-      # Execute the build.  You can specify a specific target with "--target <NAME>"
-      run: cmake --build . --config $BUILD_TYPE
 
-#     - name: Test
-#       working-directory: ${{github.workspace}}/build
-#       shell: bash
-#       # Execute tests defined by the CMake configuration.  
-#       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
-#       run: ctest -C $BUILD_TYPE
+#    - name: apt helper action
+#      uses: ryankurte/action-apt@v0.3.0
+#      with:
+#        arch: amd64
+#        packages: xvfb xpra libglu1-mesa-dev libpulse-mainloop-glib0 cmake build-essential libusb-1.0-0-dev libvncserver-dev libpixman-1-dev libssh-dev libtelnet-dev libqxmpp-dev debhelper dh-systemd fakeroot graphviz qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev libutf8proc-dev libqtermwidget5-0-dev libpam0g-dev libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev libx11-dev libxfixes-dev qtwebengine5-dev gdb
+
+    - name: apt helper action
+      run: |
+        sudo apt update
+        sudo apt upgrade
+        sudo apt install xvfb xpra \
+            libglu1-mesa-dev libpulse-mainloop-glib0 \
+            cmake build-essential \
+            libusb-1.0-0-dev libvncserver-dev libpixman-1-dev libssh-dev \
+            libtelnet-dev libqxmpp-dev libfuse-dev \
+            debhelper fakeroot graphviz \
+            qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools \
+            qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev \
+            qtwebengine5-dev libqtermwidget5-0-dev \
+            libutf8proc-dev libpam0g-dev \
+            libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev \
+            libx11-dev libxfixes-dev \
+            libsqlite3-dev \
+            libmysql-cil-dev libmysql-cil-dev libmysql-ocaml-dev \
+            libmysql++-dev libmysqld-dev libmysqlcppconn-dev \
+            libmysqlclient-dev \
+            libodbc1 
+
+    - name: Cache installed
+      uses: actions/cache@v2
+      id: cache-installed
+      with:
+        path: |
+          ${{env.INSTALL_DIR}}
+        key: cache-installed-ubuntu-${{matrix.os}}-${{matrix.BUILD_TYPE}}_2022_12_01
+
+    - name: build log4qt
+      working-directory: ${{env.SOURCE_DIR}}
+      env:
+        QT_ROOT: /usr/lib/`uname -m`-linux-gnu/qt5
+      run: |
+        if [ ! -d ${{env.INSTALL_DIR}}/lib/cmake/Log4Qt ]; then
+            git clone https://github.com/KangLin/Log4Qt.git
+            cd Log4Qt
+            cmake -E make_directory build
+            cd build
+            cmake .. -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
+                -DQT_DIR=${{env.QT_ROOT}}/lib/cmake/Qt5 \
+                -DQt5_DIR=${{env.QT_ROOT}}/lib/cmake/Qt5 \
+                -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_DIR}} \
+                -DCMAKE_PREFIX_PATH=${{env.QT_ROOT}} \
+                -DLOG4QT_ENABLE_EXAMPLES=OFF \
+                -DLOG4QT_ENABLE_TESTS=OFF
+            cmake --build . --config ${{matrix.BUILD_TYPE}}
+            cmake --build . --config ${{matrix.BUILD_TYPE}} --target install/strip
+        fi
+
+    - name: build_debpackage.sh
+      working-directory: ${{github.workspace}}
+      env:
+        RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+        Log4Qt_DIR: ${{env.INSTALL_DIR}}/lib/cmake/Log4Qt
+      run: |
+        ./build_debpackage.sh /usr/lib/`uname -m`-linux-gnu/qt5
+        cp ../LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64.deb LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
+        md5sum LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb > LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
+
+    - name: update xml file
+      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.os == 'Ubuntu-20.04'}}
+      working-directory: ${{github.workspace}}
+      #continue-on-error: true
+      run: |
+        #sudo apt update -y -qq
+        #sudo apt-get install -y -qq xvfb xpra
+        sudo Xvfb :999 -ac &
+        export DISPLAY=:999.0
+        echo "Install rabbit remote control ......"
+        sudo apt install ./LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
+        echo "ls -l /opt/LunarCalendar/bin/"
+        ls -l /opt/LunarCalendar/bin/
+        echo "Update update_linux.xml ......"
+        export QT_XCB_GL_INTEGRATION=none
+        MD5SUM=`cat LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum|awk '{print $1}'`
+        echo "MD5SUM LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb: ${MD5SUM}"
+        #ulimit -c unlimited
+        #echo "# sudo sysctl -w kernel.core_pattern=core"
+        #sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
+        /opt/LunarCalendar/bin/LunarCalendarApp \
+            -f "`pwd`/update_linux.xml" \
+            -u "https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb";"https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
+            --md5 "${MD5SUM}" \
+            -pf LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
+            -m "v${{env.LunarCalendar_VERSION}}"
+
+    - name: dump core
+      if: false
+      working-directory: ${{github.workspace}}
+      run: |
+        gdb /opt/LunarCalendar/bin/LunarCalendarApp core
+
+    - name: update
+      if: ${{ matrix.BUILD_TYPE == 'Release' }}
+      uses: actions/upload-artifact@v2
+      with:
+          name: LunarCalendar_${{matrix.os}}
+          path: |
+            LunarCalendar_*.deb
+            update_linux.xml
+
+    - name: Upload To Github Release
+      if: ${{ matrix.BUILD_TYPE == 'Release' && startsWith(github.ref, 'refs/tags/') }}
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        prerelease: true
+        body: |
+           [:cn: 修改日志](ChangeLog.md)
+        files: |
+            ${{github.workspace}}/update_linux.xml
+            ${{github.workspace}}/LunarCalendar_*.deb
+            ${{github.workspace}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
+
+#- name: Release
+#  uses: fnkr/github-action-ghr@v1
+#  if: startsWith(github.ref, 'refs/tags/')
+#  env:
+#    GHR_COMPRESS: xz
+#    GHR_PATH: ${{github.workspace}}/LunarCalendar_*.deb
+#    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#    - name: Upload To Github Release
+#      # You may pin to the exact commit or the version.
+#      # uses: xresloader/upload-to-github-release@3ad14478ee4fb9bd65e84c6d496a7d6862892f43
+#      uses: xresloader/upload-to-github-release@v1.3.2
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      with:
+#        # The files or file patterns to upload. You can upload multiple files by split them by semicolon. You can use the glob pattern to find the files.
+#        file: ${{github.workspace}}/LunarCalendar_*.deb;${{github.workspace}}/update_linux.xml # default is 
+#        # The files or file patterns to delete before uploading new files. You can delete multiple files by split them by semicolon. You can use the glob pattern to find the files.
+#        #delete_file: # optional, default is 
+#        # If you need to overwrite existing files, add overwrite: true to the with.
+#        overwrite: true # optional, default is false
+#        # The resultant deployment is a draft Release that only repository collaborators can see. This gives you an opportunity to examine and edit the draft release.
+#        draft: true # optional, default is true
+#        # The resultant deployment is a Prerelease. This gives you an opportunity to examine and edit the prerelease.
+#        prerelease: true # optional, default is false
+#        # With tags: true, your Releases deployment will trigger if and only if the build is a tagged build.
+#        tags: true # optional, default is false
+#        # Only work on these branches(splited by semicolon), set to nothing to accept all branches.
+#        branches: master # optional, default is 
+#        # With verbose: true, be verbose.
+#        verbose: true # optional, default is false
+#        # Set custom tag name.
+#        #tag_name: 'v${{env.LunarCalendar_VERSION}}'
+#        # If try to update latest release.
+#        #update_latest_release: true # optional, default is false
+#      if: ${{ matrix.BUILD_TYPE == 'Release' && startsWith(github.ref, 'refs/tags/') }} 
