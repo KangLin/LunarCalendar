@@ -118,10 +118,18 @@ private:
     int columnForDayOfWeek(Qt::DayOfWeek day) const;
     QTextCharFormat formatForCell(QDate d, int row, int col) const;
     QColor GetHeight() const;
+
     int InitHoliday();
+
     int InitDatabase();
     void CheckUpdateDatabase();
-    
+    /**
+     * @brief DownloadFile
+     * @param url: Download url
+     * @return 
+     */
+    int DownloadFile(const QVector<QUrl> &urls);
+
 private:
     QDate m_Date;
     QDate m_MinimumDate;
@@ -165,13 +173,6 @@ private:
     
     QSqlDatabase m_Database;
     QSharedPointer<RabbitCommon::CDownloadFile> m_Download;
-    
-    /**
-     * @brief DownloadFile
-     * @param url: Download url
-     * @return 
-     */
-    int DownloadFile(const QVector<QUrl> &urls);
     QFile m_UpdateSqlFile;
 };
 
