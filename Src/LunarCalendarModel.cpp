@@ -3,7 +3,6 @@
 #include "LunarCalendarModel.h"
 #include "CalendarLunar.h"
 #include "RabbitCommonDir.h"
-#include "RabbitCommonLog.h"
 
 #include <QStandardPaths>
 #include <QTextCharFormat>
@@ -52,7 +51,8 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     QVector<QUrl> urls;
     urls << QUrl("https://sourceforge.net/p/lunarcalendar/code/ci/master/tree/Src/Resource/database/chinese_holidays.sql?format=raw")
          << QUrl("https://gitee.com/kl222/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
-         << QUrl("https://github.com/KangLin/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql");
+         << QUrl("https://github.com/KangLin/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
+         << QUrl("https://gitlab.com/kl222/LunarCalendar/-/raw/master/Src/Resource/database/chinese_holidays.sql");
     DownloadFile(urls);
     InitDatabase();
     
