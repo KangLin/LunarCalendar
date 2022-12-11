@@ -121,7 +121,13 @@ init:
   - echo QT_ROOT=%QT_ROOT%
   - echo QT_VERSION=%QT_VERSION%
   - del C:\msys64\usr\bin\link.exe
-  
+
+  - cd %APPVEYOR_BUILD_FOLDER%\Tools
+  - set CMAKE_VERSION=3.25.0
+  - if not exist cmake-%CMAKE_VERSION%-windows-i386 (curl -fsSL -o cmake-%CMAKE_VERSION%-windows-i386.zip https://github.com/Kitware/CMake/releases/download/v%CMAKE_VERSION%/cmake-%CMAKE_VERSION%-windows-i386.zip && 7z x cmake-%CMAKE_VERSION%-windows-i386.zip)
+  - cd cmake-%CMAKE_VERSION%-windows-i386
+  - set PATH="%CD%/bin";%PATH%
+
 install:
   - C:\msys64\autorebase.bat
   - C:\msys64\usr\bin\pacman.exe -S --noconfirm unzip
@@ -140,7 +146,7 @@ build_script:
   - C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build.sh
 
 artifacts:
-  - path: build_${BUILD_TARGERT}/LunarCalendar-Setup-*.exe
+  - path: build_${BUILD_TARGERT}/LunarCalendar_Setup_*.exe
     name: LunarCalendar_$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
     type: zip
 

@@ -79,7 +79,7 @@ jobs:
 #      uses: ryankurte/action-apt@v0.3.0
 #      with:
 #        arch: amd64
-#        packages: xvfb xpra libglu1-mesa-dev libpulse-mainloop-glib0 cmake build-essential libusb-1.0-0-dev libvncserver-dev libpixman-1-dev libssh-dev libtelnet-dev libqxmpp-dev debhelper dh-systemd fakeroot graphviz qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev libutf8proc-dev libqtermwidget5-0-dev libpam0g-dev libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev libx11-dev libxfixes-dev qtwebengine5-dev gdb
+#        packages: xvfb xpra libglu1-mesa-dev libpulse-mainloop-glib0 cmake build-essential debhelper dh-systemd fakeroot graphviz qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev libutf8proc-dev libqtermwidget5-0-dev libpam0g-dev libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev libx11-dev libxfixes-dev qtwebengine5-dev gdb
 
     - name: apt helper action
       run: |
@@ -88,8 +88,6 @@ jobs:
         sudo apt install xvfb xpra \
             libglu1-mesa-dev libpulse-mainloop-glib0 \
             cmake build-essential \
-            libusb-1.0-0-dev libvncserver-dev libpixman-1-dev libssh-dev \
-            libtelnet-dev libqxmpp-dev libfuse-dev \
             debhelper fakeroot graphviz \
             qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools \
             qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev \
@@ -98,9 +96,6 @@ jobs:
             libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev \
             libx11-dev libxfixes-dev \
             libsqlite3-dev \
-            libmysql-cil-dev libmysql-cil-dev libmysql-ocaml-dev \
-            libmysql++-dev libmysqld-dev libmysqlcppconn-dev \
-            libmysqlclient-dev \
             libodbc1 
 
     - name: Cache installed
