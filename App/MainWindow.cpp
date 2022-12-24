@@ -7,6 +7,7 @@
 #include <QIcon>
 #include <QDir>
 #include <QApplication>
+#include <QActionGroup>
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
     #include "FrmUpdater/FrmUpdater.h"
