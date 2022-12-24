@@ -8,6 +8,7 @@
 [<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
 
 [![msvc](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml)
+[![qmake](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml)
 [![ubuntu](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)

@@ -122,12 +122,6 @@ init:
   - echo QT_VERSION=%QT_VERSION%
   - del C:\msys64\usr\bin\link.exe
 
-  - cd %APPVEYOR_BUILD_FOLDER%\Tools
-  - set CMAKE_VERSION=3.25.0
-  - if not exist cmake-%CMAKE_VERSION%-windows-i386 (curl -fsSL -o cmake-%CMAKE_VERSION%-windows-i386.zip https://github.com/Kitware/CMake/releases/download/v%CMAKE_VERSION%/cmake-%CMAKE_VERSION%-windows-i386.zip && 7z x cmake-%CMAKE_VERSION%-windows-i386.zip)
-  - cd cmake-%CMAKE_VERSION%-windows-i386
-  - set PATH="%CD%/bin";%PATH%
-
 install:
   - C:\msys64\autorebase.bat
   - C:\msys64\usr\bin\pacman.exe -S --noconfirm unzip
@@ -143,6 +137,14 @@ before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
+  - mkdir Tools
+  - cd Tools
+  - set CMAKE_VERSION=3.25.0
+  - if not exist cmake-%CMAKE_VERSION%-windows-i386 (curl -fsSL -o cmake-%CMAKE_VERSION%-windows-i386.zip https://github.com/Kitware/CMake/releases/download/v%CMAKE_VERSION%/cmake-%CMAKE_VERSION%-windows-i386.zip && 7z x cmake-%CMAKE_VERSION%-windows-i386.zip)
+  - cd cmake-%CMAKE_VERSION%-windows-i386
+  - set PATH="%CD%/bin";%PATH%
+
+  - cd %APPVEYOR_BUILD_FOLDER%
   - C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build.sh
 
 artifacts:
@@ -152,7 +154,7 @@ artifacts:
 
   - path: build_${BUILD_TARGERT}/update_windows.xml
   - path: LunarCalendar_*.apk
-  
+
 test: off
 
 #See:https://www.appveyor.com/docs/deployment/github/

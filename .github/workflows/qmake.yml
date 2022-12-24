@@ -2,17 +2,14 @@ name: qmake
 
 on: [push]
 
-env:
-  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-  BUILD_TYPE: Release
-
 jobs:
   build:
-    name: ${{matrix.os}}-qt${{matrix.qt_version}}-${{env.BUILD_TYPE}}
+    name: ${{matrix.os}}-qt${{matrix.qt_version}}-${{matrix.BUILD_TYPE}}
     strategy:
       matrix:
-        os: [ubuntu-latest] #, macos-latest] #windows-latest,
-        qt_version: [6.2.4, 5.15.2, 5.12.12]
+        os: [ubuntu-latest] #, macos-latest, windows-latest]
+        qt_version: [5.15.2, 5.12.12]
+        BUILD_TYPE: [Release, Debug]
 
     # The CMake configure and build commands are platform agnostic and should work equally
     # well on Windows or Mac.  You can convert this to a matrix build if you need
@@ -20,6 +17,10 @@ jobs:
     # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
     
     runs-on: ${{ matrix.os }} 
+
+    env:
+      # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+      BUILD_TYPE: ${{matrix.BUILD_TYPE}}
 
     steps:
     - uses: actions/checkout@v2
@@ -89,6 +90,10 @@ jobs:
       # and build directories, but this is only available with CMake 3.13 and higher.  
       # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
       run: |
-        $Qt5_DIR/bin/qmake $GITHUB_WORKSPACE CONFIG*=$BUILD_TYPE RabbitCommon_DIR=${{github.workspace}}/RabbitCommon
+        if [ -n "$Qt5_DIR" ]; then
+           $Qt5_DIR/bin/qmake ${{github.workspace}} CONFIG*=${{env.BUILD_TYPE}} RabbitCommon_DIR=${{github.workspace}}/RabbitCommon
+        else
+           $Qt6_DIR/bin/qmake ${{github.workspace}} CONFIG*=${{env.BUILD_TYPE}} RabbitCommon_DIR=${{github.workspace}}/RabbitCommon
+        fi
         make
  

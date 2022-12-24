@@ -19,7 +19,7 @@ jobs:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_ubuntu_2022_02_14
-      LunarCalendar_VERSION: 0.0.25
+      LunarCalendar_VERSION: 0.2.0
 
     steps:
     - name: core dump infomations
@@ -134,11 +134,11 @@ jobs:
         Log4Qt_DIR: ${{env.INSTALL_DIR}}/lib/cmake/Log4Qt
       run: |
         ./build_debpackage.sh /usr/lib/`uname -m`-linux-gnu/qt5
-        cp ../LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64.deb LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
-        md5sum LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb > LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
+        cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
+        md5sum lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb > lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
 
     - name: update xml file
-      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.os == 'Ubuntu-20.04'}}
+      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.os == 'Ubuntu-20.041'}}
       working-directory: ${{github.workspace}}
       #continue-on-error: true
       run: |
@@ -147,28 +147,20 @@ jobs:
         sudo Xvfb :999 -ac &
         export DISPLAY=:999.0
         echo "Install rabbit remote control ......"
-        sudo apt install ./LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
-        echo "ls -l /opt/LunarCalendar/bin/"
-        ls -l /opt/LunarCalendar/bin/
+        sudo apt install ./lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
         echo "Update update_linux.xml ......"
         export QT_XCB_GL_INTEGRATION=none
-        MD5SUM=`cat LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum|awk '{print $1}'`
-        echo "MD5SUM LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb: ${MD5SUM}"
+        MD5SUM=`cat lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum|awk '{print $1}'`
+        echo "MD5SUM lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb: ${MD5SUM}"
         #ulimit -c unlimited
         #echo "# sudo sysctl -w kernel.core_pattern=core"
         #sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
         /opt/LunarCalendar/bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
-            -u "https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb";"https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
+            -u "https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb";"https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
             --md5 "${MD5SUM}" \
-            -pf LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
+            -pf lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
             -m "v${{env.LunarCalendar_VERSION}}"
-
-    - name: dump core
-      if: false
-      working-directory: ${{github.workspace}}
-      run: |
-        gdb /opt/LunarCalendar/bin/LunarCalendarApp core
 
     - name: update
       if: ${{ matrix.BUILD_TYPE == 'Release' }}
@@ -176,7 +168,7 @@ jobs:
       with:
           name: LunarCalendar_${{matrix.os}}
           path: |
-            LunarCalendar_*.deb
+            lunarcalendar_*.deb
             update_linux.xml
 
     - name: Upload To Github Release
@@ -190,8 +182,8 @@ jobs:
            [:cn: 修改日志](ChangeLog.md)
         files: |
             ${{github.workspace}}/update_linux.xml
-            ${{github.workspace}}/LunarCalendar_*.deb
-            ${{github.workspace}}/LunarCalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
+            ${{github.workspace}}/lunarcalendar_*.deb
+            ${{github.workspace}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
 
 #- name: Release
 #  uses: fnkr/github-action-ghr@v1
