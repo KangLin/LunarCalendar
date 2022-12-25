@@ -10,6 +10,7 @@
   + 更新文件下载
   + CI: 增加 github actions
   + 更新 RabbitCommon 更新软件
+  + 使用图标样式
 
 - v0.2.0
   + 修改 CI，增加修改日志

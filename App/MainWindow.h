@@ -32,6 +32,7 @@ private Q_SLOTS:
     void slotHeadPostionDown();
     void slotHeadPostionLeft();
     void slotHeadPostionRight();
+    void slotStyle();
     
 private:
     Ui::MainWindow *ui;

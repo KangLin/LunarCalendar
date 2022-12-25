@@ -191,3 +191,5 @@ else()
     INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
         DESTINATION "./data/db" COMPONENT Runtime)
 endif()
+
+INSTALL_ICON_THEME()

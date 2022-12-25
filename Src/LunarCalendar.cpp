@@ -87,7 +87,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_lbDate.setAlignment(Qt::AlignCenter);
     m_lbTime.setAlignment(Qt::AlignCenter);
     //m_pbToday.setText(tr("Today"));
-    m_pbToday.setIcon(QIcon(":/image/Today"));
+    m_pbToday.setIcon(QIcon::fromTheme("today"));
     m_pbToday.setToolTip(tr("Today"));
     m_pbToday.setStatusTip(tr("Today"));
     m_pbToday.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);

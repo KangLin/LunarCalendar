@@ -20,8 +20,8 @@
    <string>Calendar</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="Resource/Resource.qrc">
-    <normaloff>:/image/Calendar</normaloff>:/image/Calendar</iconset>
+   <iconset theme="calendar">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -30,7 +30,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>28</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
@@ -45,8 +45,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="Resource/Resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

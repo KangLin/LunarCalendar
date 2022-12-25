@@ -1,95 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_TW">
+<TS version="2.1" language="zh_rTW">
 <context>
     <name>MainWindow</name>
     <message>
         <location filename="../../MainWindow.ui" line="20"/>
         <source>Calendar</source>
-        <translation>日歷</translation>
+        <translation>日历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="20"/>
+        <location filename="../../MainWindow.cpp" line="24"/>
         <source>View</source>
-        <translation>視圖</translation>
+        <translation>视图</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="21"/>
+        <location filename="../../MainWindow.cpp" line="25"/>
         <source>Lunar</source>
-        <translation>農歷</translation>
+        <translation>农历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="26"/>
+        <location filename="../../MainWindow.cpp" line="30"/>
         <source>Solar</source>
-        <translation>陽歷</translation>
+        <translation>阳历</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="33"/>
+        <location filename="../../MainWindow.cpp" line="37"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="38"/>
+        <location filename="../../MainWindow.cpp" line="42"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="44"/>
+        <location filename="../../MainWindow.cpp" line="48"/>
         <source>Use backgroup image</source>
-        <translation>使用背景圖</translation>
-    </message>
-    <message>
-        <location filename="../../MainWindow.cpp" line="51"/>
-        <source>Head postion</source>
-        <translation>頭位置</translation>
-    </message>
-    <message>
-        <location filename="../../MainWindow.cpp" line="52"/>
-        <source>Not</source>
-        <translation>隱藏</translation>
+        <translation>使用背景图</translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="55"/>
+        <source>Head postion</source>
+        <translation>头位置</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="56"/>
+        <source>Not</source>
+        <translation>隐藏</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="59"/>
         <source>Top</source>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="59"/>
+        <location filename="../../MainWindow.cpp" line="63"/>
         <source>Down</source>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="62"/>
+        <location filename="../../MainWindow.cpp" line="66"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="65"/>
+        <location filename="../../MainWindow.cpp" line="69"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="75"/>
-        <source>Help</source>
-        <translation>幫助</translation>
+        <location filename="../../MainWindow.cpp" line="80"/>
+        <source>Style</source>
+        <translation>样式</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="77"/>
+        <location filename="../../MainWindow.cpp" line="85"/>
+        <source>Help</source>
+        <translation>帮助</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="87"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="79"/>
+        <location filename="../../MainWindow.cpp" line="89"/>
         <source>About</source>
-        <translation>關於</translation>
+        <translation>关于</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="38"/>
+        <location filename="../../main.cpp" line="40"/>
         <source>Calendar</source>
-        <translation>日歷</translation>
+        <translation>日历</translation>
     </message>
 </context>
 </TS>

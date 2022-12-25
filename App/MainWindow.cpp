@@ -11,6 +11,7 @@
 #ifdef RABBITCOMMON
     #include "DlgAbout/DlgAbout.h"
     #include "FrmUpdater/FrmUpdater.h"
+    #include "FrmStyle/FrmStyle.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -73,7 +74,13 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadPostion->addAction(pHeadDown);
     pViewHeadPostion->addAction(pHeadLeft);
     pViewHeadPostion->addAction(pHeadRight);
-    
+
+    pViewMenu->addSeparator();
+    QAction* pActionStyle = pViewMenu->addAction(QIcon::fromTheme("style"),
+                                                 tr("Style"),
+                                            this, SLOT(slotStyle()));
+    Q_UNUSED(pActionStyle);
+
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
     CFrmUpdater updater;
@@ -87,13 +94,13 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->ShowTools(false);
 //    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
 //    m_pLunarCalendar->SetShowGrid(true);
-    
+
     //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
 //    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
 //    m_pLunarCalendar->GenerateCalendarTable(
 //                qApp->applicationDirPath() + QDir::separator() + "cache.dat",
 //                8, true, false);
-        
+
 //    m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
 //    m_pLunarCalendar->ShowWeekHead(false);
 //    m_pLunarCalendar->ShowWeeks(false);
@@ -106,7 +113,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
-    
+
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
             this, SLOT(slotUpdateCalendar()));
     Q_ASSERT(check);
@@ -121,7 +128,12 @@ void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
     CDlgAbout about(this);
-    about.m_AppIcon = QImage(":/image/Calendar");
+    QIcon icon = QIcon::fromTheme("calendar");
+    if(icon.isNull()) return;
+    auto sizeList = icon.availableSizes();
+    if(sizeList.isEmpty()) return;
+    QPixmap p = icon.pixmap(*sizeList.begin());
+    about.m_AppIcon = p.toImage();
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     about.m_szCopyrightStartTime = "2019";
     #if defined (Q_OS_ANDROID)
@@ -135,12 +147,25 @@ void MainWindow::slotUpdate()
 {
 #ifdef RABBITCOMMON
     CFrmUpdater* pUpdate = new CFrmUpdater();
-    pUpdate->SetTitle(QImage(":/image/Calendar"));
+    QIcon icon = QIcon::fromTheme("calendar");
+    if(icon.isNull()) return;
+    auto sizeList = icon.availableSizes();
+    if(sizeList.isEmpty()) return;
+    QPixmap p = icon.pixmap(*sizeList.begin());
+    pUpdate->SetTitle(p.toImage());
     #if defined (Q_OS_ANDROID)
         pUpdate->showMaximized();
     #else
         pUpdate->show();
     #endif
+#endif
+}
+
+void MainWindow::slotStyle()
+{
+#ifdef RABBITCOMMON
+    CFrmStyle* f = new CFrmStyle();
+    f->show();
 #endif
 }
 
