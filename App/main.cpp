@@ -50,11 +50,13 @@ int main(int argc, char *argv[])
 #ifdef RABBITCOMMON
     CFrmUpdater *pUpdate = new CFrmUpdater();
     QIcon icon = QIcon::fromTheme("calendar");
-    if(icon.isNull()) return -1;
-    auto sizeList = icon.availableSizes();
-    if(sizeList.isEmpty()) return -2;
-    QPixmap p = icon.pixmap(*sizeList.begin());
-    pUpdate->SetTitle(p.toImage());
+    if(!icon.isNull()) {
+        auto sizeList = icon.availableSizes();
+        if(!sizeList.isEmpty()) {
+            QPixmap p = icon.pixmap(*sizeList.begin());
+            pUpdate->SetTitle(p.toImage());
+        }
+    }
     if(!pUpdate->GenerateUpdateXml())
         return 0;
 #endif

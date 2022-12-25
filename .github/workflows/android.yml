@@ -132,7 +132,8 @@ jobs:
                 -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
                 -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
                 -DANDROID_ABI=${{matrix.ANDROID_ABI}} \
-                -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}}
+                -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}} \
+                -DCMAKE_MAKE_PROGRAM=make
             cmake --build . --config ${{matrix.BUILD_TYPE}}
             cmake --build . --config ${{matrix.BUILD_TYPE}} --target install/strip
         fi
@@ -179,7 +180,8 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
             -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=${{matrix.ANDROID_ABI}} \
-            -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}}
+            -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}} \
+            -DCMAKE_MAKE_PROGRAM=make
         cmake --build . --config ${{ matrix.BUILD_TYPE }}
         cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install-runtime
         cmake --build . --config ${{ matrix.BUILD_TYPE }} --target APK
