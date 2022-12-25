@@ -55,10 +55,6 @@ IF(MSVC)
     add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
 ENDIF(MSVC)
 
-IF(MINGW)
-    add_compile_options("-std=c++0x")
-ENDIF()
-
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs")
 if (BUILD_SHARED_LIBS)
 	add_definitions(-DBUILD_SHARED_LIBS)
@@ -128,7 +124,6 @@ endif()
 
 if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
     add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
-    include(${RabbitCommon_DIR}/cmake/Translations.cmake)
 else()
     #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
     #        download(FILENAME RabbitCommon

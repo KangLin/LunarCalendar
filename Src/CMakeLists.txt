@@ -81,13 +81,14 @@ if(BUILD_TYPE STREQUAL "debug")
         )
 endif()
 
-IF(MSVC)
-    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-ENDIF()
 add_library(${PROJECT_NAME} ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
+IF(MSVC)
+target_compile_options(${PROJECT_NAME} PRIVATE
+    "$<$<C_COMPILER_ID:MSVC>:/utf-8>"
+    "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+ENDIF()
 target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRIVATE_DEFINITIONS})
 target_include_directories(${PROJECT_NAME} PRIVATE 
     ${CMAKE_BINARY_DIR}
