@@ -104,7 +104,7 @@ jobs:
       with:
         path: |
           ${{env.INSTALL_DIR}}
-        key: cache-installed-ubuntu-${{matrix.os}}-${{matrix.BUILD_TYPE}}_2022_12_01
+        key: cache-installed-ubuntu-${{matrix.os}}-${{matrix.BUILD_TYPE}}_2022_12_25
 
     - name: build log4qt
       working-directory: ${{env.SOURCE_DIR}}
@@ -138,7 +138,7 @@ jobs:
         md5sum lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb > lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
 
     - name: update xml file
-      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.os == 'Ubuntu-20.041'}}
+      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.os == 'Ubuntu-20.04'}}
       working-directory: ${{github.workspace}}
       #continue-on-error: true
       run: |
@@ -157,9 +157,9 @@ jobs:
         #sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
         /opt/LunarCalendar/bin/LunarCalendarApp \
             -f "`pwd`/update_linux.xml" \
-            -u "https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb";"https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
+            -u "https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb;https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
             --md5 "${MD5SUM}" \
-            -pf lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
+            --pf lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
             -m "v${{env.LunarCalendar_VERSION}}"
 
     - name: update

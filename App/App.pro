@@ -7,7 +7,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
 
 android {
     versionAtMost(QT_VERSION, 5.4.0) : error("Android: Qt version must greater than or equal to 5.4.0")
-    QT += androidextras gui
+    versionAtMost(QT_VERSION, 6.0.0) : QT *= androidextras
+    QT *= gui
 }
 
 isEmpty(DESTDIR): DESTDIR = $$OUT_PWD/../bin

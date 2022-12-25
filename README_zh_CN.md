@@ -11,9 +11,11 @@
 [![qmake](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml)
 [![ubuntu](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
+[![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 [![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
-[![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
+[![GitHub 点赞数](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
+[![Gitee 点赞数](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/forks)
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
 [![Current release](https://img.shields.io/github/release/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/releases)
@@ -72,29 +74,33 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
-- linux
-    + [LunarCalendar_v0.2.0.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar_v0.2.0.tar.gz)  
-    AppImage格式的执行程序，可直接运行在linux系统，详见：https://appimage.org/  
-    用法：
-       1. 解压。把 LunarCalendar_v0.2.0.tar.gz 复制到你想安装的位置，并解压：
+- Ubuntu:
+  + Ubuntu 20.04: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+    
+        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        
+        # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
+        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        # sudo apt-get install -f # 安装依赖
 
-                mkdir LunarCalendar
-                cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_v0.2.0.tar.gz .
-                tar xvfz LunarCalendar_v0.2.0.tar.gz
+    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb/download)
+  + md5 校验文件: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum
+    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum/download)
+  + Ubuntu 18.04: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
 
-       2. 安装
+        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        
+        # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
+        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        # sudo apt-get install -f # 安装依赖
 
-                ./install1.sh install LunarCalendar
-
-
-       3. 如果要卸载，运行:
-
-                ./install1.sh remove LunarCalendar
-
-- ubuntu
-    + [lunarcalendar_0.2.0_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64.deb)
-    deb 安装包,可用于 Ubuntu
+    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb/download)
+  + md5 校验文件: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum
+    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum/download)
   
 - windows
     + [LunarCalendar-Setup-v0.2.0.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar-Setup-v0.2.0.exe)  

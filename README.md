@@ -11,9 +11,11 @@ Author: KangLin (kl222@126.com)
 [![qmake](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml)
 [![ubuntu](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 [![Linux Build Status](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 [![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
+[![Gitee stars](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/forks)
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
 [![Current release](https://img.shields.io/github/release/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/releases)
@@ -74,25 +76,33 @@ please compile and test the students with the corresponding equipment.
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
-- linux
-    + [LunarCalendar_v0.2.0.tar.gz](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar_v0.2.0.tar.gz)
-      The AppImage format executable can be run directly on the Linux system, see: https://appimage.org/  
-      usage:
+- Ubuntu:
+  + Ubuntu 20.04: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+    
+        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        
+        # If you're on an older Linux distribution, you will need to run this instead:
+        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        # sudo apt-get install -f # Install dependencies
 
-      1. Decompress. Copy LunarCalendar_v0.2.0.tar.gz to install dirctory, then decompress it:
+    - [Download from github](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb)
+    - [Download from sourceforge](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb/download)
+  + MD5SUM file: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum
+    - [Download from github](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum)
+    - [Download from sourceforge](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum/download)
+  + Ubuntu 18.04: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
 
-                mkdir LunarCalendar
-                cd LunarCalendar
-                cp $DOWNLOAD/LunarCalendar_v0.2.0.tar.gz .
-                tar xvfz LunarCalendar_v0.2.0.tar.gz
+        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        
+        # If you're on an older Linux distribution, you will need to run this instead:
+        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        # sudo apt-get install -f # Install dependencies
 
-      2. install
-
-                ./install1.sh install LunarCalendar
-
-      3. If you want to uninstall
-
-                ./install1.sh remove LunarCalendar
+    - [Download from github](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb)
+    - [Download from sourceforge](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb/download)
+  + MD5SUM file: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum
+    - [Download from github](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum)
+    - [Download from sourceforge](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum/download)
 
 - ubuntu
     + [lunarcalendar_0.2.0_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64.deb)
