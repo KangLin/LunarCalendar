@@ -37,7 +37,7 @@ isEmpty(LunarCalendar_VERSION) {
     }
 }
 isEmpty(LunarCalendar_VERSION){
-    LunarCalendar_VERSION="v0.2.0"
+    LunarCalendar_VERSION="v0.2.1"
 }
 message("LunarCalendar_VERSION:$$LunarCalendar_VERSION")
 DEFINES += LunarCalendar_VERSION=\"\\\"$$quote($$LunarCalendar_VERSION)\\\"\"

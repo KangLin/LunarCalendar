@@ -1,4 +1,4 @@
-version: 'v0.2.0.{build}'
+version: 'v0.2.1.{build}'
 
 cache:
     - Package
@@ -153,7 +153,7 @@ deploy:
     description: 'Release LunarCalendar $(APPVEYOR_REPO_TAG_NAME) on windows'
     #token : https://github.com/settings/tokens password encrypt: https://ci.appveyor.com/tools/encrypt
     auth_token:
-      secure: OOPAfZ25Mcq7nie4SKX21lGti5sueZZ+/6wrAxP9I8ul5dNJHW/h329lAleSYyJM
+      secure: y42tpZMQWuT0cKJMwegdc6TXbrcKn4matIlwF2MJvcaeZiS91c1rQm3omyhBAb5E
     #artifact: LunarCalendar$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
     #draft: true
     #prerelease: true

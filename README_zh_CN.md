@@ -75,42 +75,42 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 - Ubuntu:
-  + Ubuntu 20.04: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+  + Ubuntu 20.04: lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
     
-        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        sudo apt install ./lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
         
         # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
-        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb
+        # sudo dpkg -i lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
         # sudo apt-get install -f # 安装依赖
 
-    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb/download)
-  + md5 校验文件: lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum
-    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-20.04.deb.md5sum/download)
-  + Ubuntu 18.04: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb/download)
+  + md5 校验文件: lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum
+    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum/download)
+  + Ubuntu 18.04: lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
 
-        sudo apt install ./lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        sudo apt install ./lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
         
         # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
-        # sudo dpkg -i lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb
+        # sudo dpkg -i lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
         # sudo apt-get install -f # 安装依赖
 
-    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb/download)
-  + md5 校验文件: lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum
-    - [从 github 下载](https://github.com/KangLin/RabbitRemoteControl/releases/download/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/rabbitremotecontrol/files/v0.2.0/lunarcalendar_0.2.0_amd64_Ubuntu-18.04.deb.md5sum/download)
+    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb/download)
+  + md5 校验文件: lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum
+    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum)
+    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum/download)
   
 - windows
-    + [LunarCalendar-Setup-v0.2.0.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar-Setup-v0.2.0.exe)  
+    + [LunarCalendar-Setup-v0.2.1.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar-Setup-v0.2.1.exe)  
     Windows安装包，支持 Windows xp 以上系统 
 
 - android
-    + [LunarCalendar_v0.2.0.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.0/LunarCalendar_v0.2.0.apk)  
+    + [LunarCalendar_v0.2.1.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar_v0.2.1.apk)  
     Android 安装包
     
-             adb install LunarCalendar_v0.2.0.apk
+             adb install LunarCalendar_v0.2.1.apk
 
 ### 编译
 - 依赖  
