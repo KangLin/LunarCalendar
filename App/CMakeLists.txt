@@ -97,8 +97,6 @@ else()
     INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
 endif()
 
-INSTALL_ICON_THEME()
-
 if(UNIX)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop
         DESTINATION "share/applications" COMPONENT Runtime)
