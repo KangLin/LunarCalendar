@@ -249,8 +249,10 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         MD5=`md5sum LunarCalendar_Setup_*.exe|awk '{print $1}'`
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
-            --md5 ${MD5} #\
-            #--min "v0.1.8"
+            --md5 ${MD5} \
+            -u https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_Setup_${VERSION}.exe;https://sourceforge.net/projects/LunarCalendar/files/${VERSION}/LunarCalendar_Setup_${VERSION}.exe \
+            --pf LunarCalendar_Setup_${VERSION}.exe \
+            -m ${VERSION}
     fi
 fi
 

@@ -39,14 +39,6 @@ int main(int argc, char *argv[])
 
     a.setApplicationDisplayName(QObject::tr("Calendar"));
 
-//    QFile file("d:/Source/Tasks/Src/Resource/sink/dark/style.qss");
-//    if(file.open(QFile::ReadOnly))
-//    {
-//        QString stylesheet= file.readAll();
-//        qApp->setStyleSheet(stylesheet);
-//        file.close();
-//    }
-
 #ifdef RABBITCOMMON
     CFrmUpdater *pUpdate = new CFrmUpdater();
     QIcon icon = QIcon::fromTheme("calendar");
