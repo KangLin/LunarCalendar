@@ -185,14 +185,13 @@ jobs:
         7z a LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip .\install\*
         md5sum LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip > LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip.md5sum
         makensis Install.nsi
-        md5sum LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe > LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe.md5sum
-        if "5.12.12" == "${{matrix.qt_version}}" (
-            ${{github.workspace}}\build\install\bin\LunarCalendarApp.exe ^
+        copy /Y LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}_win7.exe
+        md5sum LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}_win7.exe > LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}_win7.exe.md5sum
+        ${{github.workspace}}\build\install\bin\LunarCalendarApp.exe ^
                 -f "update_windows.xml" ^
-                -u https://github.com/KangLin/LunarCalendar/releases/download/${{env.LunarCalendar_VERSION}}/LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe;https://sourceforge.net/projects/LunarCalendar/files/${{env.LunarCalendar_VERSION}}/LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe ^
+                -u "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_Setup_${VERSION}.exe;https://sourceforge.net/projects/LunarCalendar/files/${VERSION}/LunarCalendar_Setup_${VERSION}.exe" ^
                 --pf LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe ^
                 -m "${{env.LunarCalendar_VERSION}}"
-        )
 
     - name: update 
       uses: actions/upload-artifact@v2
@@ -213,7 +212,5 @@ jobs:
         body: |
            [:cn: 修改日志](ChangeLog.md)
         files: |
-          ${{github.workspace}}\build\LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip
-          ${{github.workspace}}\build\LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip.md5sum
-          ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe
-          ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe.md5sum
+          ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}_win7.exe
+          ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}_win7.exe.md5sum
