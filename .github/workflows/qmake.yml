@@ -26,14 +26,10 @@ jobs:
     - uses: actions/checkout@v2
       with:
         submodules: 'true'
-      
-    - name: git clone --recursive
-      # Use a bash shell so we can use the same syntax for environment variable
-      # access regardless of the host operating system
-      shell: bash
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run:  git submodule update --init --recursive
-  
+        fetch-depth: 0
+
+    - uses: snickerbockers/submodules-init@v4
+
     - name: Install Qt
       # You may pin to the exact commit or the version.
       # uses: jurplel/install-qt-action@88f3374475d094ce56ca6a7cc41cfda5a6ec093c

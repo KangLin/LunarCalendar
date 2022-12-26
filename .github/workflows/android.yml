@@ -34,6 +34,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        submodules: 'true'
 
     - uses: snickerbockers/submodules-init@v4
 
