@@ -209,7 +209,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        prerelease: true
+        prerelease: false
         body: |
            [:cn: 修改日志](ChangeLog.md)
         files: |
@@ -217,4 +217,3 @@ jobs:
           ${{github.workspace}}\build\LunarCalendar_windows_${{env.LunarCalendar_VERSION}}.zip.md5sum
           ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe
           ${{github.workspace}}\build\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe.md5sum
-          ${{github.workspace}}\build\update_windows.xml

@@ -109,10 +109,10 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.2.1"
+    export VERSION="v0.2.2"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.2.1"
+    export VERSION="v0.2.2"
 fi
 export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}.<br> The change see [ChangeLog.md](ChangeLog.md)"
 #export UPLOADTOOL_PR_BODY=
@@ -250,7 +250,7 @@ if [ "${BUILD_TARGERT}" = "windows_msvc" ]; then
         echo "MD5:${MD5}"
         install/bin/LunarCalendarApp.exe -f "`pwd`/update_windows.xml" \
             --md5 ${MD5} \
-            -u https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_Setup_${VERSION}.exe;https://sourceforge.net/projects/LunarCalendar/files/${VERSION}/LunarCalendar_Setup_${VERSION}.exe \
+            -u "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_Setup_${VERSION}.exe;https://sourceforge.net/projects/LunarCalendar/files/${VERSION}/LunarCalendar_Setup_${VERSION}.exe" \
             --pf LunarCalendar_Setup_${VERSION}.exe \
             -m ${VERSION}
     fi

@@ -78,42 +78,42 @@ please compile and test the students with the corresponding equipment.
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - Ubuntu:
-  + Ubuntu 20.04: lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
+  + Ubuntu 20.04: lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb
     
-        sudo apt install ./lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
+        sudo apt install ./lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb
         
         # If you're on an older Linux distribution, you will need to run this instead:
-        # sudo dpkg -i lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb
+        # sudo dpkg -i lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb
         # sudo apt-get install -f # Install dependencies
 
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb/download)
-  + MD5SUM file: lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-20.04.deb.md5sum/download)
-  + Ubuntu 18.04: lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
+    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb)
+    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb/download)
+  + MD5SUM file: lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb.md5sum
+    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb.md5sum)
+    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-20.04.deb.md5sum/download)
+  + Ubuntu 18.04: lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb
 
-        sudo apt install ./lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
+        sudo apt install ./lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb
         
         # If you're on an older Linux distribution, you will need to run this instead:
-        # sudo dpkg -i lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb
+        # sudo dpkg -i lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb
         # sudo apt-get install -f # Install dependencies
 
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb/download)
-  + MD5SUM file: lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum/download)
+    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb)
+    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb/download)
+  + MD5SUM file: lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb.md5sum
+    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb.md5sum)
+    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.2/lunarcalendar_0.2.2_amd64_Ubuntu-18.04.deb.md5sum/download)
 
-- windows: LunarCalendar-Setup-v0.2.1.exe, Windows installation package, support for Windows xp and above
-    + [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar_Setup_v0.2.1.exe)
-    + [Download from sourceforge](https://sourceforge.net/projects/lunarcalendar/files/v0.2.1/LunarCalendar_Setup_v0.2.1.exe/download)
+- windows: LunarCalendar-Setup-v0.2.2.exe, Windows installation package, support for Windows xp and above
+    + [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/LunarCalendar_Setup_v0.2.2.exe)
+    + [Download from sourceforge](https://sourceforge.net/projects/lunarcalendar/files/v0.2.2/LunarCalendar_Setup_v0.2.2.exe/download)
 
 - android
-    + [LunarCalendar_v0.2.1.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar_v0.2.1.apk)
+    + [LunarCalendar_v0.2.2.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.2/LunarCalendar_v0.2.2.apk)
     Android installation package
     
-            adb install LunarCalendar_v0.2.1.apk
+            adb install LunarCalendar_v0.2.2.apk
 
 ### Compile
 
