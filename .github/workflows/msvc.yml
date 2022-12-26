@@ -45,7 +45,7 @@ jobs:
       CMAKE_GENERATOR: ${{matrix.CMAKE_GENERATOR}}
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
-      LunarCalendar_VERSION: v0.2.0
+      LunarCalendar_VERSION: v0.2.1
       VCPKGGITCOMMITID: 6adca01a3fadca0cc0b80f03ec57c7c3a0be5c02
       qt_modules: '${{matrix.qt_modules}}'
 
