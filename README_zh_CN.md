@@ -20,6 +20,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
 [![Current release](https://img.shields.io/github/release/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/releases)
 [![All releases downloads](https://img.shields.io/github/downloads/KangLin/LunarCalendar/total)](https://github.com/KangLin/LunarCalendar/releases)
+[![Download LunarCalendar](https://img.shields.io/sourceforge/dt/lunarcalendar.svg)](https://sourceforge.net/projects/lunarcalendar/files/latest/download)
 
 ------------------------------------------------
 
@@ -102,9 +103,9 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
     - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum)
     - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.1/lunarcalendar_0.2.1_amd64_Ubuntu-18.04.deb.md5sum/download)
   
-- windows
-    + [LunarCalendar-Setup-v0.2.1.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar-Setup-v0.2.1.exe)  
-    Windows安装包，支持 Windows xp 以上系统 
+- windows: LunarCalendar-Setup-v0.2.1.exe, Windows安装包，支持 Windows xp 以上系统
+    + [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar_Setup_v0.2.1.exe)  
+    + [从 sourceforge 下载](https://sourceforge.net/projects/lunarcalendar/files/v0.2.1/LunarCalendar_Setup_v0.2.1.exe/download)
 
 - android
     + [LunarCalendar_v0.2.1.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.1/LunarCalendar_v0.2.1.apk)  
