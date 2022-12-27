@@ -167,8 +167,7 @@ if [ "${BUILD_TARGERT}" = "unix" ]; then
     ./LunarCalendar-x86_64.AppImage \
             -f "`pwd`/update_linux_appimage.xml" \
             --url "https://github.com/KangLin/LunarCalendar/releases/download/${VERSION}/LunarCalendar_${VERSION}.tar.gz" \
-            --md5 ${MD5} #\
-            #--min "v0.1.8"
+            --md5 ${MD5} -m "${VERSION}"
     cat update_linux_appimage.xml
     
     if [ "$TRAVIS_TAG" != "" -a "${DOWNLOAD_QT}" = "APT" ]; then

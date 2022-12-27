@@ -110,6 +110,7 @@ init:
   - echo QT_ROOT=%QT_ROOT%
   - echo QT_VERSION=%QT_VERSION%
   - del C:\msys64\usr\bin\link.exe
+  - set LunarCalendar_VERSION=v0.2.3
 
 install:
   - C:\msys64\autorebase.bat
@@ -123,16 +124,26 @@ before_build:
   - git clone https://github.com/KangLin/RabbitCommon.git
   - set RabbitCommon_DIR=%APPVEYOR_BUILD_FOLDER%/RabbitCommon
   - if "%BUILD_TARGERT%" == "android" C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build-install-tools-windows.sh
+  - set OTHER_SOURCE=%APPVEYOR_BUILD_FOLDER%\..\other_source
+  - set INSTALL_DIR=%OTHER_SOURCE%\install_dir
+  - set VCPKG_DIR=%OTHER_SOURCE%\vcpkg
+  - if not exist "%OTHER_SOURCE%" ( mkdir "%OTHER_SOURCE%" )
 
-build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - mkdir Tools
-  - cd Tools
+  - cd %OTHER_SOURCE%
   - set CMAKE_VERSION=3.25.0
   - if not exist cmake-%CMAKE_VERSION%-windows-i386 (curl -fsSL -o cmake-%CMAKE_VERSION%-windows-i386.zip https://github.com/Kitware/CMake/releases/download/v%CMAKE_VERSION%/cmake-%CMAKE_VERSION%-windows-i386.zip && 7z x cmake-%CMAKE_VERSION%-windows-i386.zip)
   - cd cmake-%CMAKE_VERSION%-windows-i386
   - set PATH="%CD%/bin";%PATH%
 
+  - cd %OTHER_SOURCE%
+  - if not exist "%INSTALL_DIR%" (mkdir "%INSTALL_DIR%")
+  - cd %OTHER_SOURCE%
+  - if not exist vcpkg (git clone "https://github.com/microsoft/vcpkg.git" && cd "%VCPKG_DIR%" && git checkout -b 56765209ec0e92c58a5fd91aa09c46a16d660026 56765209ec0e92c58a5fd91aa09c46a16d660026 )
+  - cd %VCPKG_DIR%
+  - bootstrap-vcpkg.bat
+  - vcpkg --triplet %BUILD_ARCH%-windows install zlib openssl
+
+build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
   - C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build.sh
 
@@ -142,7 +153,6 @@ artifacts:
     type: zip
 
   - path: build_${BUILD_TARGERT}/update_windows.xml
-  - path: LunarCalendar_*.apk
 
 test: off
 
