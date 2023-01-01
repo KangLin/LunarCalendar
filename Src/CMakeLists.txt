@@ -81,6 +81,16 @@ if(BUILD_TYPE STREQUAL "debug")
         )
 endif()
 
+#需要的QT组件
+SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets Sql Network)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
+message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
+if(Qt${QT_VERSION_MAJOR}_FOUND)
+    FOREACH(_COMPONENT ${QT_COMPONENTS})
+        list(APPEND QT_LIBRARIES Qt${QT_VERSION_MAJOR}::${_COMPONENT})
+    ENDFOREACH()
+endif()
+
 add_library(${PROJECT_NAME} ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES}
     ${SOURCE_UI_FILES} ${RCC_FILES})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
