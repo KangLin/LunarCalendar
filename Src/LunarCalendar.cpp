@@ -33,9 +33,9 @@ class CLunarCalendarPrivate
 public:
     CLunarCalendarPrivate()
     {
-        m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
-                        + "/LunarCalendar_" + QLocale::system().name() + ".qm");
-        qApp->installTranslator(&m_Translator);
+        if(m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
+                             + "/LunarCalendar_" + QLocale::system().name() + ".qm"))
+            qApp->installTranslator(&m_Translator);
     }
     ~CLunarCalendarPrivate()
     {
