@@ -6,7 +6,7 @@
 #include <QTranslator>
 #include <QDir>
 #include <QScreen>
-#if defined(Q_OS_ANDROID)
+#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QtAndroid>
 #endif
 #ifdef RABBITCOMMON
@@ -22,14 +22,15 @@ int main(int argc, char *argv[])
     a.setApplicationVersion(LunarCalendar_VERSION);
     a.setApplicationName("LunarCalendar");
     
-#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QtAndroid::hideSplashScreen();
 #endif
 
     QTranslator tApp;
-    tApp.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
+    bool bRetTranslator = tApp.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
               + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
-    a.installTranslator(&tApp);
+    if(bRetTranslator)
+        a.installTranslator(&tApp);
 
     CLunarCalendar::InitResource();
 
@@ -66,5 +67,9 @@ int main(int argc, char *argv[])
     #endif
     w.show();
 #endif
-    return a.exec();
+    int nRet = a.exec();
+
+    if(bRetTranslator) a.removeTranslator(&tApp);
+
+    return nRet;
 }
