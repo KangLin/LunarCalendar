@@ -4,7 +4,7 @@ CONFIG(staticlib): CONFIG*=static
 CONFIG *= c++11 link_pkgconfig link_prl
 QT += core gui xml sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets network
-
+greaterThan(QT_MAJOR_VERSION, 5): QT += statemachine
 android {
     versionAtMost(QT_VERSION, 5.4.0) : error("Android: Qt version must greater than or equal to 5.4.0")
     versionAtMost(QT_VERSION, 6.0.0) : QT *= androidextras
