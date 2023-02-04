@@ -27,7 +27,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install
       LunarCalendar_VERSION: v0.0.25
-      VCPKGGITCOMMITID: 6adca01a3fadca0cc0b80f03ec57c7c3a0be5c02
+      VCPKGGITCOMMITID: 0ba60bfef5dea4cb2599daa7ad8364e309835a68
       qt_modules: '${{matrix.qt_modules}}'
 
     steps:
@@ -130,8 +130,7 @@ jobs:
                 -DQt5Test_DIR=${{env.QT_ROOT}}/lib/cmake/Qt5Test \
                 -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_DIR}} \
                 -DCMAKE_PREFIX_PATH=${{env.QT_ROOT}} \
-                -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
-                -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
+                -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
                 -DANDROID_ABI=${{matrix.ANDROID_ABI}} \
                 -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}} \
                 -DCMAKE_MAKE_PROGRAM=make
@@ -178,8 +177,7 @@ jobs:
             -DQt5WebEngineWidgets_DIR=${{env.QT_ROOT}}/lib/cmake/Qt5WebEngineWidgets \
             -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_DIR}} \
             -DCMAKE_PREFIX_PATH="${{env.QT_ROOT}}:${{env.INSTALL_DIR}}" \
-            -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
-            -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
+            -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
             -DANDROID_ABI=${{matrix.ANDROID_ABI}} \
             -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}} \
             -DCMAKE_MAKE_PROGRAM=make
