@@ -98,7 +98,9 @@ else()
 endif()
 
 if(UNIX)
-    INSTALL(FILES ${CMAKE_SOURCE_DIR}/debian/LunarCalendar.desktop
+    INSTALL(PROGRAMS ${CMAKE_SOURCE_DIR}/share/LunarCalendar.sh
+        DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime)
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/share/org.Rabbit.LunarCalendar.desktop
         DESTINATION "share/applications" COMPONENT Runtime)
     INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png
         DESTINATION "share/pixmaps" COMPONENT Runtime)

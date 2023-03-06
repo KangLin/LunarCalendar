@@ -110,7 +110,7 @@ win32 {
 
 !android : unix {
     DESKTOP_FILE.target = DESKTOP_FILE
-    DESKTOP_FILE.files = $$PWD/../debian/LunarCalendar.desktop
+    DESKTOP_FILE.files = $$PWD/../share/org.Rabbit.LunarCalendar.desktop
     DESKTOP_FILE.path = $$system_path($${PREFIX})/share/applications
     DESKTOP_FILE.CONFIG += directory no_check_exist
 

@@ -21,7 +21,7 @@ set -e
 
 case "$1" in
     purge|remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)
-        rm -f /usr/share/applications/LunarCalendar.desktop
+        rm -f /usr/share/applications/org.Rabbit.LunarCalendar.desktop
         rm -f /usr/share/pixmaps/calendar.png
         rm -f /etc/ld.so.conf.d/LunarCalendar.conf
         ldconfig

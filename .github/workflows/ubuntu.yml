@@ -157,7 +157,7 @@ jobs:
         #ulimit -c unlimited
         #echo "# sudo sysctl -w kernel.core_pattern=core"
         #sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
-        /opt/LunarCalendar/bin/LunarCalendarApp \
+        /opt/LunarCalendar/bin/LunarCalendar.sh \
             -f "`pwd`/update_linux.xml" \
             -u "https://github.com/KangLin/LunarCalendar/releases/download/v${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb;https://sourceforge.net/projects/LunarCalendar/files/v${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
             --md5 "${MD5SUM}" \
