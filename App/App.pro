@@ -75,7 +75,7 @@ FORMS += \
         MainWindow.ui
 
 RESOURCES += \
-    Resource/Resource.qrc 
+    Resource/Resource.qrc
 
 RC_FILE = AppIcon.rc
 
@@ -87,13 +87,13 @@ android {
     #} else {
         #ANDROID_EXTRA_LIBS += #\
           #$${THIRDLIBRARY_PATH}/libssl.so \
-          #$${THIRDLIBRARY_PATH}/libcrypto.so 
+          #$${THIRDLIBRARY_PATH}/libcrypto.so
     #}
 }
 
-win32 {    
+win32 {
     INSTALL_TARGET = $$system_path($${DESTDIR}/$(TARGET))
-      
+
     Deployment_qtlib.target = Deployment_qtlib
     Deployment_qtlib.files = $$system_path($${DESTDIR}/)
     Deployment_qtlib.path = $$system_path($${PREFIX})
@@ -114,12 +114,17 @@ win32 {
     DESKTOP_FILE.path = $$system_path($${PREFIX})/share/applications
     DESKTOP_FILE.CONFIG += directory no_check_exist
 
+    START_SCRIPT.target = START_SCRIPT
+    START_SCRIPT.files = $$PWD/../share/LunarCalendar.sh
+    START_SCRIPT.path = $${PREFIX}/bin
+    START_SCRIPT.CONFIG += directory no_check_exist
+
     # install icons
     icon.target = icon
     icon.files = Resource/image/LunarCalendar.png
     icon.path = $${PREFIX}/share/pixmaps
     icon.CONFIG = directory no_check_exist
-    INSTALLS += DESKTOP_FILE icon
+    INSTALLS += DESKTOP_FILE START_SCRIPT icon
 }
 
 OTHER_FILES += \

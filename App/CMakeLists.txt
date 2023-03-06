@@ -97,7 +97,7 @@ else()
     INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
 endif()
 
-if(UNIX)
+if(UNIX AND NOT ANDROID)
     INSTALL(PROGRAMS ${CMAKE_SOURCE_DIR}/share/LunarCalendar.sh
         DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/share/org.Rabbit.LunarCalendar.desktop
