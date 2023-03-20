@@ -9,7 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [Ubuntu-20.04, Ubuntu-18.04]
+        os: [Ubuntu-22.04, Ubuntu-20.04, Ubuntu-18.04]
         # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
         BUILD_TYPE: [Release, Debug]
         CMAKE: [1, 0]
