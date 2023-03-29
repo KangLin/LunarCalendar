@@ -345,3 +345,7 @@ Please follow the license agreement for the third-party libraries below and the 
 #### The third-party libraries
 
 - [sxtwl_cpp](https://github.com/yuangu/sxtwl_cpp)
+
+#### Other projects using this project
+
+- [Calendar](https://github.com/KangLin/Calendar)

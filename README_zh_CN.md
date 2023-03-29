@@ -331,3 +331,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 #### 第三方库
 
 - [寿星天文历](https://github.com/yuangu/sxtwl_cpp) 
+
+#### 使用本项目的项目
+
+- [日历](https://github.com/KangLin/Calendar)
