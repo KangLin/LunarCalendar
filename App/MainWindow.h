@@ -27,11 +27,11 @@ private Q_SLOTS:
     void slotViewMonth();
     void slotViewWeek();
     void slotViewBackgroup(bool checked);
-    void slotHeadPostionNot();
-    void slotHeadPostionTop();
-    void slotHeadPostionDown();
-    void slotHeadPostionLeft();
-    void slotHeadPostionRight();
+    void slotHeadpositionNot();
+    void slotHeadpositionTop();
+    void slotHeadpositionDown();
+    void slotHeadpositionLeft();
+    void slotHeadpositionRight();
     void slotStyle();
     
 private:

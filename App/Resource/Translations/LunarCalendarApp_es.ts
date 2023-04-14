@@ -40,7 +40,7 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="55"/>
-        <source>Head postion</source>
+        <source>Head position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -92,7 +92,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="40"/>
+        <location filename="../../main.cpp" line="41"/>
         <source>Calendar</source>
         <translation type="unfinished"></translation>
     </message>

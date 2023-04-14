@@ -40,7 +40,7 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="55"/>
-        <source>Head postion</source>
+        <source>Head position</source>
         <translation>头位置</translation>
     </message>
     <message>

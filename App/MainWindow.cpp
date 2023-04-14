@@ -9,9 +9,9 @@
 #include <QApplication>
 #include <QActionGroup>
 #ifdef RABBITCOMMON
-    #include "DlgAbout/DlgAbout.h"
-    #include "FrmUpdater/FrmUpdater.h"
-    #include "FrmStyle/FrmStyle.h"
+    #include "DlgAbout.h"
+    #include "FrmUpdater.h"
+    #include "FrmStyle.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -51,29 +51,29 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewBackgroup->setChecked(false);
     m_pLunarCalendar->SetShowBackgroupImage(false);
 
-    QActionGroup* pViewHeadPostion = new QActionGroup(this);
-    QMenu* pViewHeadPostionMenu = pViewMenu->addMenu(tr("Head postion"));
-    QAction* pHeadNot = pViewHeadPostionMenu->addAction(tr("Not"),
-                                             this, SLOT(slotHeadPostionNot()));
+    QActionGroup* pViewHeadposition = new QActionGroup(this);
+    QMenu* pViewHeadpositionMenu = pViewMenu->addMenu(tr("Head position"));
+    QAction* pHeadNot = pViewHeadpositionMenu->addAction(tr("Not"),
+                                             this, SLOT(slotHeadpositionNot()));
     pHeadNot->setCheckable(true);
-    QAction* pHeadTop = pViewHeadPostionMenu->addAction(tr("Top"),
-                                             this, SLOT(slotHeadPostionTop()));
+    QAction* pHeadTop = pViewHeadpositionMenu->addAction(tr("Top"),
+                                             this, SLOT(slotHeadpositionTop()));
     pHeadTop->setCheckable(true);
     pHeadTop->setChecked(true);
-    QAction* pHeadDown = pViewHeadPostionMenu->addAction(tr("Down"),
-                                            this, SLOT(slotHeadPostionDown()));
+    QAction* pHeadDown = pViewHeadpositionMenu->addAction(tr("Down"),
+                                            this, SLOT(slotHeadpositionDown()));
     pHeadDown->setCheckable(true);
-    QAction* pHeadLeft = pViewHeadPostionMenu->addAction(tr("Left"),
-                                            this, SLOT(slotHeadPostionLeft()));
+    QAction* pHeadLeft = pViewHeadpositionMenu->addAction(tr("Left"),
+                                            this, SLOT(slotHeadpositionLeft()));
     pHeadLeft->setCheckable(true);
-    QAction* pHeadRight = pViewHeadPostionMenu->addAction(tr("Right"),
-                                           this, SLOT(slotHeadPostionRight()));
+    QAction* pHeadRight = pViewHeadpositionMenu->addAction(tr("Right"),
+                                           this, SLOT(slotHeadpositionRight()));
     pHeadRight->setCheckable(true);
-    pViewHeadPostion->addAction(pHeadNot);
-    pViewHeadPostion->addAction(pHeadTop);
-    pViewHeadPostion->addAction(pHeadDown);
-    pViewHeadPostion->addAction(pHeadLeft);
-    pViewHeadPostion->addAction(pHeadRight);
+    pViewHeadposition->addAction(pHeadNot);
+    pViewHeadposition->addAction(pHeadTop);
+    pViewHeadposition->addAction(pHeadDown);
+    pViewHeadposition->addAction(pHeadLeft);
+    pViewHeadposition->addAction(pHeadRight);
 
     pViewMenu->addSeparator();
     QAction* pActionStyle = pViewMenu->addAction(QIcon::fromTheme("style"),
@@ -217,27 +217,27 @@ void MainWindow::slotViewBackgroup(bool checked)
     m_pLunarCalendar->SetShowBackgroupImage(checked);
 }
 
-void MainWindow::slotHeadPostionNot()
+void MainWindow::slotHeadpositionNot()
 {
-    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Not);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Not);
 }
 
-void MainWindow::slotHeadPostionTop()
+void MainWindow::slotHeadpositionTop()
 {
-    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Top);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Top);
 }
 
-void MainWindow::slotHeadPostionDown()
+void MainWindow::slotHeadpositionDown()
 {
-    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Down);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Down);
 }
 
-void MainWindow::slotHeadPostionLeft()
+void MainWindow::slotHeadpositionLeft()
 {
-    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Left);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Left);
 }
 
-void MainWindow::slotHeadPostionRight()
+void MainWindow::slotHeadpositionRight()
 {
-    m_pLunarCalendar->SetHeadPostion(CLunarCalendar::Right);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Right);
 }

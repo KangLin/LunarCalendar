@@ -10,7 +10,7 @@ if [ -n "$1" ]; then
         VERSION=` git rev-parse HEAD`
     fi
     
-    echo "Current verion: $VERSION, The version to will be set: $1"
+    echo "Current version: $VERSION, The version to will be set: $1"
     echo "Please check the follow list:"
     echo "    - Test is ok ?"
     echo "    - Translation is ok ?"
@@ -53,7 +53,7 @@ sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_D
 sed -i "s/export VERSION=".*"/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
 sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/qmake.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/macos.yml
 
 DEBIAN_VERSION=`echo ${VERSION}|cut -d "v" -f 2`
 sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${DEBIAN_VERSION}/g" ${SOURCE_DIR}/README*.md

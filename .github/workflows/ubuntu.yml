@@ -1,168 +1,87 @@
-name: ubuntu
+name: build_ubuntu
 
-on: [push]
+on:
+  workflow_call:
+    outputs:
+      name:
+        description: "The artifact name"
+        value: ${{ jobs.build_ubuntu.outputs.name }}
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
 jobs:
-  build:
+  build_ubuntu:
     strategy:
       matrix:
-        os: [Ubuntu-22.04, Ubuntu-20.04, Ubuntu-18.04]
-        # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
         BUILD_TYPE: [Release, Debug]
-        CMAKE: [1, 0]
 
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
+
     env:
-      BUILD_TYPE:  ${{ matrix.BUILD_TYPE }}
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
-      INSTALL_DIR: ${{github.workspace}}/.cache/install_ubuntu_2022_02_14
+      INSTALL_DIR: ${{github.workspace}}/.cache/install_ubuntu
       LunarCalendar_VERSION: 0.2.3
+      artifact_name: build_ubuntu
+
+    # Map the job outputs to step outputs
+    outputs:
+      name: ${{ env.artifact_name }}
 
     steps:
-    - name: core dump infomations
-      if: false
-      run: |
-        echo "# ulimit -a"
-        ulimit -a
-        echo "# cat /proc/sys/kernel/core_pattern"
-        cat /proc/sys/kernel/core_pattern
-        echo "# ulimit -c unlimited"
-        ulimit -c unlimited
-        echo "# sudo sysctl -w kernel.core_pattern=core"
-        sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
-        echo "# ulimit -a"
-        ulimit -a
-        echo "# cat /proc/sys/kernel/core_pattern"
-        cat /proc/sys/kernel/core_pattern
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
 
-#        See: https://www.cnblogs.com/cong-wang/p/15026524.html
-#        Naming of core dump files
-#               By default, a core dump file is named core, but the /proc/sys/kernel/core_pattern file (since  Linux  2.6  and
-#               2.4.21)  can  be  set  to  define a template that is used to name core dump files.  The template can contain %
-#               specifiers which are substituted by the following values when a core file is created:
-#
-#                   %%  a single % character
-#                   %c  core file size soft resource limit of crashing process (since Linux 2.6.24)
-#                   %d  dump mode—same as value returned by prctl(2) PR_GET_DUMPABLE (since Linux 3.7)
-#                   %e  executable filename (without path prefix)
-#                   %E  pathname of executable, with slashes ('/') replaced by exclamation marks ('!') (since Linux 3.0).
-#                   %g  (numeric) real GID of dumped process
-#                   %h  hostname (same as nodename returned by uname(2))
-#                   %i  TID of thread that triggered core dump, as seen in the PID  namespace  in  which  the  thread  resides
-#                       (since Linux 3.18)
-#                   %I  TID of thread that triggered core dump, as seen in the initial PID namespace (since Linux 3.18)
-#                   %p  PID of dumped process, as seen in the PID namespace in which the process resides
-#                   %P  PID of dumped process, as seen in the initial PID namespace (since Linux 3.12)
-#                   %s  number of signal causing dump
-#                   %t  time of dump, expressed as seconds since the Epoch, 1970-01-01 00:00:00 +0000 (UTC)
-#                   %u  (numeric) real UID of dumped process
+      - name: make_directory
+        run: |
+          cmake -E make_directory ${{env.SOURCE_DIR}}
+          cmake -E make_directory ${{env.TOOSL_DIR}}
+          cmake -E make_directory ${{env.INSTALL_DIR}}
+          cmake -E make_directory ${{github.workspace}}/build
 
-    - uses: actions/checkout@v2
-      with:
-        submodules: 'true'
-        fetch-depth: 0
+      - name: git clone RabbitCommon
+        working-directory: ${{env.SOURCE_DIR}}
+        run: |
+          git clone https://github.com/KangLin/RabbitCommon.git
 
-    - uses: snickerbockers/submodules-init@v4
+      - name: Install apt packages
+        run: |
+          sudo apt update
+          sudo apt upgrade
+          sudo apt install xvfb xpra \
+              libglu1-mesa-dev libpulse-mainloop-glib0 \
+              cmake build-essential \
+              debhelper fakeroot graphviz \
+              qt6-tools-dev qt6-tools-dev-tools \
+              qt6-base-dev qt6-base-dev-tools qt6-qpa-plugins \
+              qt6-l10n-tools qt6-translations-l10n \
+              qt6-scxml-dev qt6-webengine-dev qt6-webengine-dev-tools \
+              libsqlite3-dev
 
-    - name: make_directory
-      run: |
-        cmake -E make_directory ${{env.SOURCE_DIR}}
-        cmake -E make_directory ${{env.TOOSL_DIR}}
-        cmake -E make_directory ${{env.INSTALL_DIR}}
-
-    - name: git clone RabbitCommon
-      working-directory: ${{env.SOURCE_DIR}}
-      run: git clone https://github.com/KangLin/RabbitCommon.git
-
-#    - name: apt helper action
-#      uses: ryankurte/action-apt@v0.3.0
-#      with:
-#        arch: amd64
-#        packages: xvfb xpra libglu1-mesa-dev libpulse-mainloop-glib0 cmake build-essential debhelper dh-systemd fakeroot graphviz qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev libutf8proc-dev libqtermwidget5-0-dev libpam0g-dev libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev libx11-dev libxfixes-dev qtwebengine5-dev gdb
-
-    - name: apt helper action
-      run: |
-        sudo apt update
-        sudo apt upgrade
-        sudo apt install xvfb xpra \
-            libglu1-mesa-dev libpulse-mainloop-glib0 \
-            cmake build-essential \
-            debhelper fakeroot graphviz \
-            qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools \
-            qtmultimedia5-dev qtlocation5-dev libqt5svg5-dev \
-            qtwebengine5-dev libqtermwidget5-0-dev \
-            libutf8proc-dev libpam0g-dev \
-            libxkbcommon-dev libxkbcommon-x11-dev xorg-dev libx11-xcb-dev \
-            libx11-dev libxfixes-dev \
-            libsqlite3-dev \
-            libodbc1 
-
-    - name: Cache installed
-      uses: actions/cache@v2
-      id: cache-installed
-      with:
-        path: |
-          ${{env.INSTALL_DIR}}
-        key: cache-installed-ubuntu-${{matrix.os}}-${{matrix.BUILD_TYPE}}_2022_12_25
-
-    - name: build_debpackage.sh
-      working-directory: ${{github.workspace}}
-      env:
-        RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
-        CMAKE: ${{matrix.CMAKE}}
-      run: |
-        ./build_debpackage.sh /usr/lib/`uname -m`-linux-gnu/qt5
-        cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
-        md5sum lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb > lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum
-
-    - name: update xml file
-      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.CMAKE && matrix.os == 'Ubuntu-20.04'}}
-      working-directory: ${{github.workspace}}
-      #continue-on-error: true
-      run: |
-        #sudo apt update -y -qq
-        #sudo apt-get install -y -qq xvfb xpra
-        sudo Xvfb :999 -ac &
-        export DISPLAY=:999.0
-        echo "Install rabbit remote control ......"
-        sudo apt install ./lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb
-        echo "Update update_linux.xml ......"
-        export QT_XCB_GL_INTEGRATION=none
-        MD5SUM=`cat lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum|awk '{print $1}'`
-        echo "MD5SUM lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb: ${MD5SUM}"
-        #ulimit -c unlimited
-        #echo "# sudo sysctl -w kernel.core_pattern=core"
-        #sudo sysctl -w kernel.core_pattern=${{github.workspace}}/core
-        /opt/LunarCalendar/bin/LunarCalendar.sh \
-            -f "`pwd`/update_linux.xml" \
-            -u "https://github.com/KangLin/LunarCalendar/releases/download/v${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb;https://sourceforge.net/projects/LunarCalendar/files/v${{env.LunarCalendar_VERSION}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb" \
-            --md5 "${MD5SUM}" \
-            --pf lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{ matrix.os }}.deb \
-            -m "v${{env.LunarCalendar_VERSION}}"
-
-    - name: update
-      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.CMAKE }}
-      uses: actions/upload-artifact@v2
-      with:
-          name: LunarCalendar_${{matrix.os}}
+      - name: Cache installed
+        uses: actions/cache@v3
+        id: cache-installed
+        with:
           path: |
-            lunarcalendar_*.deb
-            update_linux.xml
+            ${{env.INSTALL_DIR}}
+          key: cache-installed-ubuntu
 
-    - name: Upload To Github Release
-      if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.CMAKE && startsWith(github.ref, 'refs/tags/') }}
-      uses: softprops/action-gh-release@v1
-      env:
-        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-      with:
-        prerelease: false
-        body: |
-           [:cn: 修改日志](ChangeLog.md)
-        files: |
-            ${{github.workspace}}/update_linux.xml
+      - name: build_debpackage.sh
+        working-directory: ${{github.workspace}}
+        env:
+          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+        run: |
+          export Qt6_DIR=/usr/lib/`uname-a`-linux-gnu/cmake/Qt6
+          ./build_debpackage.sh
+          cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb
+
+      - name:  Update artifact
+        if: ${{ matrix.BUILD_TYPE == 'Release' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.artifact_name }}
+          path: |
             ${{github.workspace}}/lunarcalendar_*.deb
-            ${{github.workspace}}/lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64_${{matrix.os}}.deb.md5sum

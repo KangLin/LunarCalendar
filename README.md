@@ -30,7 +30,7 @@ Author: KangLin (kl222@126.com)
 - [Screenshots](#Screenshots)
 - [Download setup package](#Download-setup-package)
 - [Compile](#Compile)
-- [Other application use the libary](#Other-application-use-the-libary)
+- [Other application use the library](#Other-application-use-the-library)
 - [Contribution](#Contribution)
 - [License Agreement](#License-Agreement)
     - [The third-party libraries](#The-third-party-libraries)
@@ -203,7 +203,7 @@ please compile and test the students with the corresponding equipment.
       + ANDROID_STL: Specifies the STL that CMake should use. 
         - c++_shared: The shared library variant of libc++.
         - c++_static: The static library variant of libc++.
-        - none: No C++ standard library suport.
+        - none: No C++ standard library support.
         - system: The system STL
     
     - Install apk to devices
@@ -234,9 +234,9 @@ please compile and test the students with the corresponding equipment.
                      |- chinese_holidays.sql   chinese holidays sql
 ```
 
-### Other application use the libary
+### Other application use the library
 
-- Direct use the libary source code.
+- Direct use the library source code.
     + cmake
         - Submodule
             + add submodule:
@@ -264,7 +264,7 @@ please compile and test the students with the corresponding equipment.
                       message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar")
                       message("   ag:")
                       message("       git clone https://github.com/KangLin/LunarCalendar.git")
-                      message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root dirctory.")
+                      message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root directory.")
                       message("   ag:")
                       message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
                   endif()
@@ -295,7 +295,7 @@ please compile and test the students with the corresponding equipment.
                      message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
                      message("   git clone https://github.com/KangLin/LunarCalendar.git")
                      message("2. Build and make install the project")
-                     error("3. Then set value LunarCalendar_DIR to install dirctory")
+                     error("3. Then set value LunarCalendar_DIR to install directory")
                  }
 
     + cmake
@@ -317,7 +317,7 @@ please compile and test the students with the corresponding equipment.
                 target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - Load translator
-    + Use libary function
+    + Use library function
 
             CLunarCalendar::InitResource();
 

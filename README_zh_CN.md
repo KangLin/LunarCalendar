@@ -263,7 +263,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
                     message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar")
                     message("   ag:")
                     message("       git clone https://github.com/KangLin/LunarCalendar.git")
-                    message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root dirctory.")
+                    message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root directory.")
                     message("   ag:")
                     message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
                 endif()
@@ -295,7 +295,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
                 message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
                 message("   git clone https://github.com/KangLin/LunarCalendar.git")
                 message("2. Build and make install the project")
-                error("3. Then set value LunarCalendar_DIR to install dirctory")
+                error("3. Then set value LunarCalendar_DIR to install directory")
             }
 
   + cmake

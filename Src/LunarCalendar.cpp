@@ -62,7 +62,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout(nullptr),
     m_pHeadLayout(nullptr),
     m_pMainLayout(nullptr),
-    m_HeadPostion(Top),
+    m_Headposition(Top),
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
@@ -200,7 +200,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 #endif
     m_pToolLayout->setSpacing(0);
 
-    SetHeadPostion();
+    SetHeadposition();
 
     bool check = connect(&m_Timer, SIGNAL(timeout()),
                          this, SLOT(slotTimeout()));
@@ -264,9 +264,9 @@ void CLunarCalendar::CLeanResource()
 #endif
 }
 
-int CLunarCalendar::SetHeadPostion(_HEAD_POSTION pos)
+int CLunarCalendar::SetHeadposition(_HEAD_position pos)
 {
-    m_HeadPostion = pos;
+    m_Headposition = pos;
     if(m_pMainLayout)
     {
         m_pMainLayout->removeWidget(&m_View);
@@ -754,7 +754,7 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     
     if(min > max)
     {
-        qCritical() << "SetDateRange parmter error: min =" << min << " max =" << max;
+        qCritical() << "SetDateRange parameter error: min =" << min << " max =" << max;
         return;
     }
     
@@ -1406,7 +1406,7 @@ QSize CLunarCalendar::minimumSizeHint() const
         headerW = qMax(headerW, s.width());
     }
 
-    switch (m_HeadPostion) {
+    switch (m_Headposition) {
     case Top:
     case Down:
         w = qMax(w, headerW);

@@ -2,15 +2,16 @@ Source: lunarcalendar
 Section: main
 Priority: optional
 Maintainer: Kang Lin <kl222@126.com>
-Build-Depends: debhelper (>= 6)
+Build-Depends: debhelper (>= 6), cmake
 Standards-Version:"v0.2.3"
 Homepage: https://github.com/KangLin/LunarCalendar
 Vcs-Git: https://github.com/KangLin/LunarCalendar.git
-#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/lunarcalendar.git
+Vcs-Browser: https://github.com/KangLin/LunarCalendar
 
 Package: lunarcalendar
 Architecture: any
-Pre-Depends: ${misc:Pre-Depends}
+Recommends: qt6-qpa-plugins, libqt6svg6, libqt6svgwidgets6, libqt6webenginecore6-bin
+#Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: The lunar calendar 
   - A lunar calendar library of Qt GUI, support QSS.

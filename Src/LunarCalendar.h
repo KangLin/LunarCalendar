@@ -60,7 +60,7 @@ public:
     void SetShowBackgroupImage(bool show);
     bool ShowBackgroupImage();
 
-    enum _HEAD_POSTION
+    enum _HEAD_position
     {
         Not,
         Top,
@@ -68,7 +68,7 @@ public:
         Left,
         Right
     };
-    int SetHeadPostion(_HEAD_POSTION pos = Top);
+    int SetHeadposition(_HEAD_position pos = Top);
     void ShowHead(bool bShow);
     void ShowTools(bool bShow);
     void ShowToday(bool bShow);
@@ -167,7 +167,7 @@ private:
     QHBoxLayout* m_pToolLayout;
     QVBoxLayout* m_pHeadLayout;
     QGridLayout* m_pMainLayout;
-    _HEAD_POSTION m_HeadPostion;
+    _HEAD_position m_Headposition;
     
     int m_oldRow, m_oldCol;
     bool m_bShowToday;

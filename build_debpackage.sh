@@ -5,7 +5,8 @@ if [ -n "$1" -a -z "$QT_ROOT" ]; then
 fi
 
 if [ ! -f /usr/bin/qmake -a -z "$QT_ROOT" ]; then
-	echo "./$1 QT_ROOT RabbitCommon_DIR"
+    echo "Don't QT_ROOT"
+	echo "$1 QT_ROOT RabbitCommon_DIR"
     exit -1
 fi
 
@@ -18,7 +19,8 @@ if [ -z "$RabbitCommon_DIR" ]; then
 fi
 
 if [ ! -d "$RabbitCommon_DIR" ]; then
-	echo "./$1 QT_ROOT RabbitCommon_DIR"
+    echo "Please set RabbitCommon_DIR"
+	echo "$1 QT_ROOT RabbitCommon_DIR"
         exit -2
 fi
 
@@ -27,6 +29,6 @@ export QT_ROOT=$QT_ROOT
 export PATH=$QT_ROOT/bin:$PATH
 export LD_LIBRARY_PATH=$QT_ROOT/lib/i386-linux-gnu:$QT_ROOT/lib:$LD_LIBRARY_PATH
 export PKG_CONFIG_PATH=$QT_ROOT/lib/pkgconfig:$PKG_CONFIG_PATH
-#fakeroot debian/rules binary 
+#fakeroot debian/rules binary
 dpkg-buildpackage -us -uc -b
 

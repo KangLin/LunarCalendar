@@ -14,12 +14,6 @@
 
 #export QT_SELECT=qt5
 
-ifdef CMAKE
-    ifdef Log4Qt_DIR
-        CMAKE_PARAS += -DLog4Qt_DIR=${Log4Qt_DIR}
-    endif
-endif
-
 ifdef INSTALL_DIR
     LIB_PARAS += ${INSTALL_DIR}/lib
 endif
@@ -30,11 +24,7 @@ endif
 # dh_make generated override targets
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
-    ifdef CMAKE
-		dh_auto_configure --  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/LunarCalendar ${CMAKE_PARAS}
-    else
-		$(QT_ROOT)/bin/qmake PREFIX=/opt/LunarCalendar CONFIG+=Release ${PARAS}
-    endif
+	dh_auto_configure --  -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/LunarCalendar ${CMAKE_PARAS}
 
 override_dh_auto_build:
 	dh_auto_build -- $(if "`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`" = "0",, -j`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`)

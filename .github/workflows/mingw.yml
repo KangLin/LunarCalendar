@@ -1,84 +1,89 @@
-name: mingw 
+name: mingw
 
-on: [push]
+on:
+  workflow_call:
+    outputs:
+      name:
+        description: "The artifact name"
+        value: ${{ jobs.build_mingw.outputs.name }}
 
 jobs:
-  build:
-    name: build
+  build_mingw:
 
     strategy:
       matrix:
-        os: [windows-2019]
-        # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
         BUILD_TYPE: [Release, Debug]
 
-    env:
-      SOURCE_DIR:  ${{github.workspace}}\.cache\source
-      TOOSL_DIR:   ${{github.workspace}}\.cache\tools
-      INSTALL_DIR: ${{github.workspace}}\.cache\install_msvc_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}
-    
     defaults:
       run:
         shell: cmd
         
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
+    env:
+      BUILD_TYPE:  ${{ matrix.BUILD_TYPE }}
+      SOURCE_DIR:  ${{github.workspace}}\.cache\source
+      TOOSL_DIR:   ${{github.workspace}}\.cache\tools
+      INSTALL_DIR: ${{github.workspace}}\.cache\install_mingw
+      artifact_name: build_mingw
 
+    # Map the job outputs to step outputs
+    outputs:
+      name: ${{ env.artifact_name }}
+      
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-        submodules: 'true'
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
 
-    - uses: snickerbockers/submodules-init@v4
+      - name: Make directories
+        run: |
+          cmake -E make_directory ${{env.SOURCE_DIR}}
+          cmake -E make_directory ${{env.TOOSL_DIR}}
+          cmake -E make_directory ${{env.INSTALL_DIR}}
+          cmake -E make_directory ${{github.workspace}}/build
 
-    - name: make directory
-      run: |
-        cmake -E make_directory ${{env.SOURCE_DIR}}
-        cmake -E make_directory ${{env.TOOSL_DIR}}
-        cmake -E make_directory ${{env.INSTALL_DIR}}
-
-    - name: pacman
-      env:
-        PATH: C:\msys64\usr\bin
-      run: | 
-        C:\msys64\usr\bin\pacman.exe -S --noconfirm mingw-w64-x86_64-cmake ^
-            mingw-w64-x86_64-make ^
-            mingw-w64-x86_64-nsis ^
-            mingw-w64-x86_64-gcc ^
-            mingw-w64-x86_64-qt5 ^
-            mingw-w64-x86_64-qtwebkit ^
-            mingw-w64-x86_64-zlib ^
-            git base-devel
+      - name: pacman
+        env:
+          PATH: C:\msys64\usr\bin
+        run: | 
+          C:\msys64\usr\bin\pacman.exe -S --noconfirm mingw-w64-x86_64-cmake ^
+              mingw-w64-x86_64-make ^
+              mingw-w64-x86_64-nsis ^
+              mingw-w64-x86_64-gcc ^
+              mingw-w64-x86_64-qt5 ^
+              mingw-w64-x86_64-qtwebkit ^
+              mingw-w64-x86_64-zlib ^
+              mingw-w64-x86_64-7zip ^
+              git base-devel
   
-    - name: git clone RabbitCommon
-      working-directory: ${{env.SOURCE_DIR}}
-      run: git clone https://github.com/KangLin/RabbitCommon.git
+      - name: git clone RabbitCommon
+        working-directory: ${{env.SOURCE_DIR}}
+        run: git clone https://github.com/KangLin/RabbitCommon.git
 
-    - name: build LunarCalendar
-      working-directory: ${{github.workspace}}
-      env:
-        RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
-        #Qt5_Dir: C:\msys64\mingw64
-        MSYSTEM: MINGW64
-        PATH: C:\msys64\mingw64\bin;C:\msys64\usr\bin
-      run: |
-        cmake -E make_directory build
-        cd build
-        cmake .. -G"MinGW Makefiles" ^
-            -DCMARK_SHARED=OFF ^
-            -DCMARK_TESTS=OFF ^
-            -DCMARK_STATIC=ON ^
-            -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
-            -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build/install
-        cmake --build . --config ${{ matrix.BUILD_TYPE }}
-        cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
+      - name: build LunarCalendar
+        working-directory: ${{github.workspace}}\build
+        env:
+          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+          #Qt5_Dir: C:\msys64\mingw64
+          MSYSTEM: MINGW64
+          PATH: C:\msys64\mingw64\bin;C:\msys64\usr\bin
+        run: |
+          cmake .. -G"MinGW Makefiles" ^
+              -DCMARK_SHARED=OFF ^
+              -DCMARK_TESTS=OFF ^
+              -DCMARK_STATIC=ON ^
+              -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
+              -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build/install
+          cmake --build . --config ${{ matrix.BUILD_TYPE }}
+          cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
+          7z a LunarCalendar_mingw_${{matrix.BUILD_TYPE}}.zip .\install\*
 
-    - name: Package
-      working-directory: ${{github.workspace}}/build
-      run: |
-        move /Y install\plugins\*crypto*.dll install\bin
-        move /Y install\plugins\*ssl*.dll install\bin
-        copy /Y C:\msys64\mingw64\bin\*.dll install\bin
-        copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
-        copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
-        makensis ${{github.workspace}}/build/Install.nsi
+      - name: Update artifact
+        #if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '5.12.12' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.artifact_name }}
+          path: |
+            ${{github.workspace}}\build\LunarCalendar_mingw_${{matrix.BUILD_TYPE}}.zip
+      
