@@ -18,7 +18,7 @@ jobs:
             qt_version: 5.12.12
             qt_arch: android_armv7
             ANDROID_ABI: armeabi-v7a
-            #qt_modules: 'qtscxml qtmultimedia qtwebview qtimageformats'
+            #qt_modules: 'qtscxml qtwebengine qtmultimedia'
 
     runs-on: Ubuntu-latest
 

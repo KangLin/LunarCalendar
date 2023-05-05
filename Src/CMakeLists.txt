@@ -5,46 +5,60 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "verbose")
 
-SET(LunarCalendar_VERSION "v0.2.0")
-# Find Git Version Patch
-IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../.git")
-    if(NOT GIT)
-        SET(GIT $ENV{GIT})
+if(NOT RabbitCommon_DIR)
+    set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
+    if(NOT RabbitCommon_DIR)
+        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
     endif()
-    if(NOT GIT)
-        FIND_PROGRAM(GIT NAMES git git.exe git.cmd)
+    if(NOT EXISTS ${RabbitCommon_DIR}/Src)
+        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
     endif()
-    IF(GIT)
-        EXECUTE_PROCESS(
-            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-            COMMAND ${GIT} describe --tags
-            OUTPUT_VARIABLE GIT_VERSION  OUTPUT_STRIP_TRAILING_WHITESPACE
-        )
-	    if(NOT GIT_VERSION)
-            EXECUTE_PROCESS(
-                WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-                COMMAND ${GIT} rev-parse --short HEAD
-                OUTPUT_VARIABLE GIT_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE
-            )
-        endif()
-        SET(LunarCalendar_VERSION ${GIT_VERSION})
-    ENDIF()
-ENDIF()
+endif()
+
+if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
+    if(NOT EXISTS ${CMAKE_BINARY_DIR}/RabbitCommon)
+        add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+    endif()
+    include(${RabbitCommon_DIR}/cmake/RabbitCommonUtils.cmake)
+else()
+    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
+    message("   ag:")
+    message("       git clone https://github.com/KangLin/RabbitCommon.git")
+    message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root directory.")
+    message("   ag:")
+    message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
+endif()
+
+GET_VERSION(OUT_VERSION LunarCalendar_VERSION
+    OUT_REVISION LunarCalendar_REVISION)
+if(NOT LunarCalendar_VERSION)
+    SET(LunarCalendar_VERSION "v0.2.3")
+endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
-set(VERSION ${LunarCalendar_VERSION})
+message("LunarCalendar_REVISION:${LunarCalendar_REVISION}")
+
+if(LunarCalendar_VERSION)
+    list(APPEND LunarCalendar_DEFINITIONS
+        LunarCalendar_VERSION="${LunarCalendar_VERSION}"
+        )
+endif()
+if(LunarCalendar_REVISION)
+    list(APPEND LunarCalendar_DEFINITIONS
+        LunarCalendar_REVISION="${LunarCalendar_REVISION}")
+endif()
 
 set(LunarCalendar_INSTALL_HEAD_FILES
     LunarCalendar.h
     )
 set(LunarCalendar_HEAD_FILES
     ${LunarCalendar_INSTALL_HEAD_FILES}
-    LunarCalendarModel.h 
-    CalendarLunar.h 
-    ../3th_lib/sxtwl/src/lunar.h 
-    ../3th_lib/sxtwl/src/eph.h 
-    ../3th_lib/sxtwl/src/JD.h 
+    LunarCalendarModel.h
+    CalendarLunar.h
+    ../3th_lib/sxtwl/src/lunar.h
+    ../3th_lib/sxtwl/src/eph.h
+    ../3th_lib/sxtwl/src/JD.h
     ../3th_lib/sxtwl/src/SSQ.h
-    ../3th_lib/sxtwl/src/XL.h  
+    ../3th_lib/sxtwl/src/XL.h
     LunarCalendarDelegate.h
     LunarTable.h
     )
@@ -56,25 +70,18 @@ set(LunarCalendar_SOURCE_FILES
     ../3th_lib/sxtwl/src/eph.cpp
     ../3th_lib/sxtwl/src/JD.cpp
     ../3th_lib/sxtwl/src/SSQ.cpp
-    ../3th_lib/sxtwl/src/XL.cpp  
+    ../3th_lib/sxtwl/src/XL.cpp
     LunarCalendarDelegate.cpp
     LunarTable.cpp
-    )
-set(SOURCE_UI_FILES
     )
 
 #设置资源文件
 SET(RCC_FILES
     Resource/ResourceLunarCalendar.qrc
     )
-#翻译
-GENERATED_QT_TRANSLATIONS(
-    SOURCES ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES} ${SOURCE_UI_FILES}
-    OUT_QRC TRANSLATIONS_QRC_FILES
-    )
+
 string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
 if(BUILD_TYPE STREQUAL "debug")
-    LIST(APPEND PRIVATE_DEFINITIONS DEBUG)
     LIST(APPEND RCC_FILES
         ${TRANSLATIONS_QRC_FILES}
         Resource/ResourceSql.qrc
@@ -91,107 +98,32 @@ if(Qt${QT_VERSION_MAJOR}_FOUND)
     ENDFOREACH()
 endif()
 
-add_library(${PROJECT_NAME} ${LunarCalendar_SOURCE_FILES} ${LunarCalendar_HEAD_FILES}
-    ${SOURCE_UI_FILES} ${RCC_FILES})
-target_link_libraries(${PROJECT_NAME} PUBLIC ${QT_LIBRARIES} RabbitCommon)
-IF(MSVC)
-    target_compile_options(${PROJECT_NAME} PRIVATE
-        "$<$<C_COMPILER_ID:MSVC>:/utf-8>"
-        "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-ENDIF()
-target_compile_definitions(${PROJECT_NAME} PRIVATE ${PRIVATE_DEFINITIONS})
-target_include_directories(${PROJECT_NAME} PRIVATE 
-    ${CMAKE_BINARY_DIR}
-    ${CMAKE_CURRENT_BINARY_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/../3th_lib/sxtwl/src
-    ${RabbitCommon_DIR}/Src)
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
-    PUBLIC_HEADER "${LunarCalendar_INSTALL_HEAD_FILES}"     # Install head files
-    VERSION ${LunarCalendar_VERSION})
-
-include(GenerateExportHeader)
-GENERATE_EXPORT_HEADER(${PROJECT_NAME})
-string(TOLOWER ${PROJECT_NAME} LOWER_PROJECT_NAME)
-SET(LunarCalendar_INSTALL_HEAD_FILES ${LunarCalendar_INSTALL_HEAD_FILES}
-    ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h)
-file(COPY ${CMAKE_CURRENT_BINARY_DIR}/${LOWER_PROJECT_NAME}_export.h
-    DESTINATION ${CMAKE_BINARY_DIR})
-
-# Install target
-if(ANDROID)
-    INSTALL(TARGETS ${PROJECT_NAME}
-        EXPORT ${PROJECT_NAME}Config
-        RUNTIME DESTINATION "libs/${ANDROID_ABI}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "libs/${ANDROID_ABI}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/LunarCalendar
-    )
-elseif(WIN32)
-    INSTALL(TARGETS ${PROJECT_NAME}
-        EXPORT ${PROJECT_NAME}Config
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/LunarCalendar
-    )
-else()
-    INSTALL(TARGETS ${PROJECT_NAME}
-        EXPORT ${PROJECT_NAME}Config
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/LunarCalendar
-    )
-endif()
-export(TARGETS ${PROJECT_NAME}
-       APPEND FILE ${CMAKE_BINARY_DIR}/${PROJECT_NAME}Config.cmake
-)
-# Install cmake configure files
-install(
-        EXPORT ${PROJECT_NAME}Config
-        DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake"
-)
-write_basic_package_version_file(
-    "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+ADD_TARGET(NAME ${PROJECT_NAME}
+    SOURCE_FILES ${LunarCalendar_SOURCE_FILES}
+        ${LunarCalendar_HEAD_FILES}
+        ${RCC_FILES}
+    INSTALL_HEADER_FILES ${LunarCalendar_INSTALL_HEAD_FILES}
+    PRIVATE_LIBS ${QT_LIBRARIES} RabbitCommon
+    INCLUDE_DIRS
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> # See: http://www.it1352.com/478094.html
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+    PRIVATE_INCLUDE_DIRS
+        ${CMAKE_BINARY_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../3th_lib/sxtwl/src
     VERSION ${LunarCalendar_VERSION}
-    COMPATIBILITY AnyNewerVersion)
-install(FILES "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake")
-if(NOT MSVC)
-    # Install pc files
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendar.pc.in
-        ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
-    install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc
-        DESTINATION lib/pkgconfig)
-endif()
-IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32 AND BUILD_SHARED_LIBS)
-    IF(CMAKE_BUILD_TYPE MATCHES Release AND MINGW)
-        #windeployqt 分发时，是根据是否 strip 来判断是否是 DEBUG 版本,而用mingw编译时,qt没有自动 strip
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND strip "$<TARGET_FILE:${PROJECT_NAME}>"
-            )
-    ENDIF()
+    DEFINITIONS ${LunarCalendar_DEFINITIONS}
+    )
 
-    #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中  
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND "${QT_INSTALL_DIR}/bin/windeployqt"
-        --compiler-runtime
-        --verbose 7
-        "$<TARGET_FILE:${PROJECT_NAME}>"
-        )
-    #INSTALL(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/" DESTINATION "${CMAKE_INSTALL_BINDIR}")
-ENDIF()
+foreach(d ${LunarCalendar_DEFINITIONS})
+    SET(LunarCalendar_DEFINITIONS_PC "${LunarCalendar_DEFINITIONS_PC} -D${d}")
+endforeach()
+
+# Install pc files
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendar.pc.in
+    ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
+install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc
+    DESTINATION lib/pkgconfig)
 
 # Install dababase files
 if(ANDROID)

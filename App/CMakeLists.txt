@@ -1,5 +1,22 @@
 project(LunarCalendarApp LANGUAGES CXX)
 
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core)
+#需要的QT组件
+SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets)
+if(${QT_VERSION_MAJOR} LESS 6 AND ANDROID)
+    LIST(APPEND QT_COMPONENTS AndroidExtras)
+endif()
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
+message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
+if(Qt${QT_VERSION_MAJOR}_VERSION VERSION_LESS 5.10.0 AND ANDROID)
+    message(FATAL_ERROR "Qt must great 5.10.0")
+endif()
+if(Qt${QT_VERSION_MAJOR}_FOUND)
+    FOREACH(_COMPONENT ${QT_COMPONENTS})
+        LIST(APPEND QT_LIBRARIES Qt${QT_VERSION_MAJOR}::${_COMPONENT})
+    ENDFOREACH()
+endif()
+
 set(HEAD_FILES
     MainWindow.h 
     )
@@ -13,89 +30,18 @@ set(SOURCE_UI_FILES
 
 set(RESOURCE_FILES ${RESOURCE_FILES}
     Resource/Resource.qrc)
-#翻译
-GENERATED_QT_TRANSLATIONS(
-    SOURCES ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES}
-    OUT_QRC TRANSLATIONS_QRC_FILES
+
+ADD_TARGET(NAME ${PROJECT_NAME}
+    ISEXE
+    ISWINDOWS
+    VERSION ${LunarCalendar_VERSION}
+    SOURCE_FILES ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES}
+        ${RESOURCE_FILES}
+    PRIVATE_LIBS RabbitCommon LunarCalendar
+    PRIVATE_DEFINITIONS RABBITCOMMON
+        LunarCalendar_VERSION="${LunarCalendar_VERSION}"
+        LunarCalendar_REVISION="${LunarCalendar_REVISION}"
     )
-string(TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
-if(BUILD_TYPE STREQUAL "debug")
-    LIST(APPEND PRIVATE_DEFINITIONS DEBUG)
-    LIST(APPEND RESOURCE_FILES
-        ${TRANSLATIONS_QRC_FILES}
-        )
-endif()
-
-add_definitions(-DLunarCalendar_VERSION="${LunarCalendar_VERSION}")
-add_definitions(-DBUILD_ARCH="${BUILD_ARCH}")
-add_definitions(-DBUILD_PLATFORM="${BUILD_PLATFORM}")
-
-if(ANDROID)
-    add_library(${PROJECT_NAME} ${SOURCE_FILES}
-        ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES})
-else()
-    add_executable(${PROJECT_NAME} ${SOURCE_FILES}
-        ${HEAD_FILES} ${SOURCE_UI_FILES} ${RESOURCE_FILES} AppIcon.rc)
-endif()
-if(MINGW)
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "-mwindows")
-elseif(MSVC)
-    set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE
-        "/SUBSYSTEM:WINDOWS\",5.01\" /ENTRY:mainCRTStartup")
-endif()
-SET(APP_LIBS LunarCalendar ${QT_LIBRARIES})
-if(TARGET RabbitCommon)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE -DRABBITCOMMON)
-    target_include_directories(${PROJECT_NAME}
-        PRIVATE "${RabbitCommon_DIR}/Src")
-    set(APP_LIBS ${APP_LIBS} RabbitCommon)
-endif()
-target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
-target_include_directories(${PROJECT_NAME} PRIVATE
-    "${CMAKE_SOURCE_DIR}/Src" "${CMAKE_BINARY_DIR}")
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib
-    )
-if(UNIX AND NOT ANDROID)
-    set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_NAME ${PROJECT_NAME})
-endif()
-
-# Install target
-if(ANDROID)
-    INSTALL(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION "libs/${ANDROID_ABI}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "libs/${ANDROID_ABI}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        )
-elseif(WIN32)
-    INSTALL(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        )
-else()
-    INSTALL(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
-            COMPONENT Runtime
-        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-            COMPONENT Runtime
-        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
-        )
-endif()
-if(ANDROID)
-    # Install other files
-    INSTALL(FILES ${OTHER_FILES} DESTINATION "assets" COMPONENT Runtime)    
-else()
-    # Install other files
-    INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
-endif()
 
 if(UNIX AND NOT ANDROID)
     INSTALL(PROGRAMS ${CMAKE_SOURCE_DIR}/share/LunarCalendar.sh
@@ -105,43 +51,3 @@ if(UNIX AND NOT ANDROID)
     INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png
         DESTINATION "share/pixmaps" COMPONENT Runtime)
 endif()
-
-IF("Release" STREQUAL CMAKE_BUILD_TYPE AND WIN32)
-    SET(RUNTIME_FILE "${CMAKE_BINARY_DIR}/bin/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX}")
-    IF(CMAKE_BUILD_TYPE MATCHES Release AND MINGW)
-        #windeployqt 分发时，是根据是否 strip 来判断是否是 DEBUG 版本,而用mingw编译时,qt没有自动 strip
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-            COMMAND strip "$<TARGET_FILE:${PROJECT_NAME}>"
-            )
-    ENDIF()
-
-    #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中  
-    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMAND "${QT_INSTALL_DIR}/bin/windeployqt"
-        --compiler-runtime
-        --verbose 7
-        "$<TARGET_FILE:${PROJECT_NAME}>"
-        )
-    INSTALL(DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>/"
-        DESTINATION "${CMAKE_INSTALL_BINDIR}"
-        COMPONENT Runtime)
-ENDIF()
-
-IF(ANDROID)
-    Set(JSON_FILE ${CMAKE_CURRENT_BINARY_DIR}/android-libLunarCalendarApp.so-deployment-settings.json)
-    GENERATED_DEPLOYMENT_SETTINGS(NAME ${JSON_FILE}
-        APPLACTION "${CMAKE_BINARY_DIR}/bin/lib${PROJECT_NAME}.so")
-
-    add_custom_target(APK #TARGET ${PROJECT_NAME} POST_BUILD
-        #COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:${PROJECT_NAME}>" ${CMAKE_INSTALL_PREFIX}/libs/${ANDROID_ABI}/$<TARGET_FILE_NAME:${PROJECT_NAME}>
-        #COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/libs/${ANDROID_ABI}
-        #COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE_DIR:${PROJECT_NAME}>/*" ${CMAKE_INSTALL_PREFIX}/libs/${ANDROID_ABI}
-        #注意 需要把 ${QT_INSTALL_DIR}/bin 加到环境变量PATH中
-        COMMAND "${QT_INSTALL_DIR}/bin/androiddeployqt"
-        --output ${CMAKE_INSTALL_PREFIX}
-        --input ${JSON_FILE}
-        --verbose
-        --gradle
-        )
-
-ENDIF(ANDROID)

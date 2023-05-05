@@ -6,5 +6,4 @@ Name: @PROJECT_NAME@
 Description: Lunar calendar C++ library
 Version: @LunarCalendar_VERSION@
 Libs: -L${libdir} -lLunarCalendar
-Cflags: -I${includedir} 
-
+Cflags: -I${includedir} @LunarCalendar_DEFINITIONS_PC@

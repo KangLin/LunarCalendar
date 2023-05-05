@@ -14,7 +14,7 @@ environment:
   matrix:
   ##### msvc 2013 ########
   - BUILD_TARGERT: windows_msvc
-    #GENERATORS: "Visual Studio 12 2013"
+    GENERATORS: "Visual Studio 12 2013"
     TOOLCHAIN_VERSION: 12
     QT_ROOT: C:\Qt\5.6\msvc2013
     BUILD_ARCH: x86
@@ -52,6 +52,7 @@ environment:
 
   ##### msvc 2017 ########
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    GENERATORS: "Visual Studio 15 2017"
     BUILD_TARGERT: windows_msvc
     TOOLCHAIN_VERSION: 15
     QT_ROOT: C:\Qt\5.12\msvc2017
@@ -88,11 +89,13 @@ environment:
     BUILD_ARCH: x86
 
   - BUILD_TARGERT: windows_mingw
+    GENERATORS: "MSYS Makefiles"
     TOOLCHAIN_VERSION: 530_32
     QT_ROOT: C:\Qt\5.10\mingw53_32
     BUILD_ARCH: x86
     
   - BUILD_TARGERT: windows_mingw
+    GENERATORS: "MSYS Makefiles"
     TOOLCHAIN_VERSION: 730_64
     QT_ROOT: C:\Qt\5.12\mingw73_64
     BUILD_ARCH: x64

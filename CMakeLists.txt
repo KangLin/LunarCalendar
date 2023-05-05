@@ -24,7 +24,7 @@ SET(CMAKE_VERBOSE_MAKEFILE ON)
 
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core)
 #需要的QT组件
-SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets Sql Network)
+SET(QT_COMPONENTS ${QT_COMPONENTS} Core)
 if(${QT_VERSION_MAJOR} LESS 6 AND ANDROID)
     LIST(APPEND QT_COMPONENTS AndroidExtras)
 endif()
@@ -141,11 +141,12 @@ else()
     message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
 endif()
 
-SET(LunarCalendar_VERSION "v0.2.3")
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
-    OUT_REVISION LunarCalendar_VERSION_REVISION)
+    OUT_REVISION LunarCalendar_REVISION)
+if(NOT LunarCalendar_VERSION)
+    SET(LunarCalendar_VERSION "v0.2.3")
+endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
-set(VERSION ${LunarCalendar_VERSION})
 
 add_subdirectory(Src)
 option(BUILD_APP "Set to ON to build applaction" ON)

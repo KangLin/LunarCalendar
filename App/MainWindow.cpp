@@ -136,6 +136,7 @@ void MainWindow::slotAbout()
     about.m_AppIcon = p.toImage();
     about.m_szHomePage = "https://github.com/KangLin/LunarCalendar";
     about.m_szCopyrightStartTime = "2019";
+    about.m_szVersionRevision = LunarCalendar_REVISION;
     #if defined (Q_OS_ANDROID)
         about.showMaximized();
     #endif
