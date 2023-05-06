@@ -7,12 +7,10 @@
 
 [<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
 
-[![msvc](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml)
-[![qmake](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml)
-[![ubuntu](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml)
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
-[![Linux 编译状态](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 [![GitHub 点赞数](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
 [![Gitee 点赞数](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
@@ -76,44 +74,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
 
 ### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
-
-- Ubuntu:
-  + Ubuntu 20.04: lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-    
-        sudo apt install ./lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-
-        # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
-        # sudo dpkg -i lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-        # sudo apt-get install -f # 安装依赖
-
-    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb/download)
-  + md5 校验文件: lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum
-    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum/download)
-  + Ubuntu 18.04: lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-
-        sudo apt install ./lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-
-        # 如要你是在老的 linux 发行版本上，你需要用下列命令替换：
-        # sudo dpkg -i lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-        # sudo apt-get install -f # 安装依赖
-
-    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb/download)
-  + md5 校验文件: lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum
-    - [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum)
-    - [从 sourceforge 下载](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum/download)
-
-- windows: LunarCalendar-Setup-v0.2.3.exe, Windows安装包，支持 Windows xp 以上系统
-    + [从 github 下载](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/LunarCalendar_Setup_v0.2.3.exe)  
-    + [从 sourceforge 下载](https://sourceforge.net/projects/lunarcalendar/files/v0.2.3/LunarCalendar_Setup_v0.2.3.exe/download)
-
-- android
-    + [LunarCalendar_v0.2.3.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/LunarCalendar_v0.2.3.apk)  
-    Android 安装包
-    
-             adb install LunarCalendar_v0.2.3.apk
 
 ### 编译
 - 依赖  

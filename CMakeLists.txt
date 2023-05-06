@@ -15,6 +15,20 @@ if(POLICY CMP0020)
     cmake_policy(SET CMP0020 NEW)
 endif()
 
+SET(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs")
+
+IF(MSVC)
+    # This option is to enable the /MP switch for Visual Studio 2005 and above compilers
+    OPTION(WIN32_USE_MP "Set to ON to build with the /MP option (Visual Studio 2005 and above)." ON)
+    MARK_AS_ADVANCED(WIN32_USE_MP)
+    IF(WIN32_USE_MP)
+        #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+        add_compile_options(/MP)
+    ENDIF(WIN32_USE_MP)
+    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
+    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+ENDIF(MSVC)
+
 #打开 qt 编译工具
 SET(CMAKE_AUTOUIC ON)
 SET(CMAKE_AUTOMOC ON)
@@ -41,30 +55,6 @@ endif()
 get_filename_component(QT_INSTALL_DIR "${Qt${QT_VERSION_MAJOR}_DIR}/../../.." ABSOLUTE)
 message("QT_INSTALL_DIR:${QT_INSTALL_DIR}")
 
-IF(MSVC)
-    # This option is to enable the /MP switch for Visual Studio 2005 and above compilers
-    OPTION(WIN32_USE_MP "Set to ON to build with the /MP option (Visual Studio 2005 and above)." ON)
-    MARK_AS_ADVANCED(WIN32_USE_MP)
-    IF(WIN32_USE_MP)
-        #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
-        add_compile_options(/MP)
-    ENDIF(WIN32_USE_MP)
-    add_compile_options("$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-    add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
-ENDIF(MSVC)
-
-SET(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs")
-if (BUILD_SHARED_LIBS)
-	add_definitions(-DBUILD_SHARED_LIBS)
-    if (CMAKE_COMPILER_IS_GNUCXX AND NOT MINGW)
-       # Just setting CMAKE_POSITION_INDEPENDENT_CODE should be enough to set
-       # -fPIC for GCC but sometimes it still doesn't get set, so make sure it
-       # does.
-       add_definitions("-fPIC")
-    endif()
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-endif()
-
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
 include(CheckIncludeFile)
@@ -83,35 +73,6 @@ include(cmake/DownloadFile.cmake)
 #check_include_file("math.h" HAVE_MATH_H)
 
 #check_function_exists("fabs" HAVE_FABS)
-
-set(BUILD_PLATFORM "${CMAKE_SYSTEM_NAME}")
-
-# ----------------------------------------------------------------------------
-# Detect compiler and target platform architecture
-# ----------------------------------------------------------------------------
-if(NOT ANDROID)
-    if(X86_64 OR CMAKE_SIZEOF_VOID_P EQUAL 8)
-        set(BUILD_ARCH x86_64)
-    elseif(X86 OR CMAKE_SIZEOF_VOID_P EQUAL 4)
-        set(BUILD_ARCH x86)
-    endif()
-else()
-    set(BUILD_ARCH ${CMAKE_ANDROID_ARCH_ABI})
-endif()
-
-if("Debug" STREQUAL CMAKE_BUILD_TYPE)
-    add_definitions(-D_DEBUG)
-endif()
-
-set(OTHER_FILES
-    ${CMAKE_SOURCE_DIR}/License.md
-    ${CMAKE_SOURCE_DIR}/Authors.md
-    ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
-    ${CMAKE_SOURCE_DIR}/ChangeLog.md
-    )
-if(WIN32)
-    set(OTHER_FILES ${OTHER_FILES} ${CMAKE_SOURCE_DIR}/App/AppIcon.ico)
-endif()
 
 if(NOT RabbitCommon_DIR)
     set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
@@ -144,7 +105,7 @@ endif()
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
     OUT_REVISION LunarCalendar_REVISION)
 if(NOT LunarCalendar_VERSION)
-    SET(LunarCalendar_VERSION "v0.2.3")
+    SET(LunarCalendar_VERSION "0.2.4")
 endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
 
@@ -154,31 +115,24 @@ if(BUILD_APP)
     add_subdirectory(App)
 endif(BUILD_APP)
 
-if(WIN32)
-    INSTALL(FILES Install/Install.nsi DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
-endif(WIN32)
+SET(OTHER_FILES
+    ${CMAKE_SOURCE_DIR}/License.md
+    ${CMAKE_SOURCE_DIR}/Authors.md
+    ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
+    ${CMAKE_SOURCE_DIR}/ChangeLog.md
+    )
+if(ANDROID)
+    INSTALL(FILES ${OTHER_FILES} DESTINATION "assets" COMPONENT Runtime)
+else()
+    INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
+endif()
 
-# Create install runtime target
-add_custom_target(install-runtime
-  COMMAND
-     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=Runtime 
-     -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_install.cmake"
-)
-# Create uninstall runtime target
-add_custom_target(uninstall-runtime
-  COMMAND
-     "${CMAKE_COMMAND}" -DCMAKE_INSTALL_COMPONENT=Runtime 
-     -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-)
-# Create will be delete files
-CONFIGURE_FILE(
-    "${RabbitCommon_DIR}/cmake/cmake_uninstall.cmake.in"
-    "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
-    IMMEDIATE @ONLY)
-# Create unistall target
-ADD_CUSTOM_TARGET(uninstall
-    "${CMAKE_COMMAND}" -P "${CMAKE_BINARY_DIR}/cmake_uninstall.cmake"
-    DEPENDS uninstall-runtime)
+if(WIN32)
+    INSTALL(FILES ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
+        DESTINATION . COMPONENT Runtime)
+    INSTALL(FILES Install/Install.nsi
+        DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
+endif(WIN32)
 
 message("Build arch:${BUILD_ARCH}")
 message("Build app:${BUILD_APP}")

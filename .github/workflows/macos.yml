@@ -33,7 +33,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_macos
       qt_modules: qtwebengine ${{matrix.qt_modules}}
-      LunarCalendar_VERSION: v0.2.3
+      LunarCalendar_VERSION: 0.2.4
       artifact_name: build_macos
 
     # Map the job outputs to step outputs
@@ -74,13 +74,13 @@ jobs:
           dir: '${{env.TOOSL_DIR}}/qt' # optional
           version: '${{matrix.qt_version}}' # optional, default is 5.15.2
           arch: '${{matrix.qt_arch}}' # optional
-          modules: '${{env.qt_modules}}' # optional
+          modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           cached: '${{steps.cache-qt.outputs.cache-hit}}' # optional, default is false
 
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}
         run: git clone https://github.com/KangLin/RabbitCommon.git
-      
+
       - name: Compile
         working-directory: ${{github.workspace}}/build
         env:
@@ -90,11 +90,12 @@ jobs:
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
+              -DINSTALL_QT=OFF \
               -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} \
               -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install \
-              -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake 
+              -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
-          7z a LunarCalendar${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}.zip .\install\*
+          7z a LunarCalendar${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}.zip ./install/*
 
       - name: Update artifact
         #if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '5.12.12' }}

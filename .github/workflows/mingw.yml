@@ -73,6 +73,7 @@ jobs:
               -DCMARK_SHARED=OFF ^
               -DCMARK_TESTS=OFF ^
               -DCMARK_STATIC=ON ^
+              -DINSTALL_QT=OFF ^
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build/install
           cmake --build . --config ${{ matrix.BUILD_TYPE }}

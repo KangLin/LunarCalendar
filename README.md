@@ -7,12 +7,10 @@ Author: KangLin (kl222@126.com)
 
 [<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/china.png" alt="Chinese" title="Chinese" width="16" height="16"/>Chinese](README_zh_CN.md)
 
-[![msvc](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/msvc.yml)
-[![qmake](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/qmake.yml)
-[![ubuntu](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/KangLin/LunarCalendar/actions/workflows/ubuntu.yml)
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
-[![Linux Build Status](https://travis-ci.org/KangLin/LunarCalendar.svg?branch=master)](https://travis-ci.org/KangLin/LunarCalendar)
 
 [![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
 [![Gitee stars](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
@@ -76,44 +74,6 @@ please compile and test the students with the corresponding equipment.
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
-
-- Ubuntu:
-  + Ubuntu 20.04: lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-    
-        sudo apt install ./lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-        
-        # If you're on an older Linux distribution, you will need to run this instead:
-        # sudo dpkg -i lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb
-        # sudo apt-get install -f # Install dependencies
-
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb/download)
-  + MD5SUM file: lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-20.04.deb.md5sum/download)
-  + Ubuntu 18.04: lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-
-        sudo apt install ./lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-        
-        # If you're on an older Linux distribution, you will need to run this instead:
-        # sudo dpkg -i lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb
-        # sudo apt-get install -f # Install dependencies
-
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb/download)
-  + MD5SUM file: lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum
-    - [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum)
-    - [Download from sourceforge](https://sourceforge.net/projects/LunarCalendar/files/v0.2.3/lunarcalendar_0.2.3_amd64_Ubuntu-18.04.deb.md5sum/download)
-
-- windows: LunarCalendar-Setup-v0.2.3.exe, Windows installation package, support for Windows xp and above
-    + [Download from github](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/LunarCalendar_Setup_v0.2.3.exe)
-    + [Download from sourceforge](https://sourceforge.net/projects/lunarcalendar/files/v0.2.3/LunarCalendar_Setup_v0.2.3.exe/download)
-
-- android
-    + [LunarCalendar_v0.2.3.apk](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.3/LunarCalendar_v0.2.3.apk)
-    Android installation package
-    
-            adb install LunarCalendar_v0.2.3.apk
 
 ### Compile
 

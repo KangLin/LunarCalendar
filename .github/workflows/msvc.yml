@@ -43,7 +43,7 @@ jobs:
       CMAKE_GENERATOR: "Visual Studio 17 2022"
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
-      LunarCalendar_VERSION: v0.2.3
+      LunarCalendar_VERSION: 0.2.4
       VCPKGGITCOMMITID: 2b1757dd1d5ed7d9d5bb65fd8316631b157e7afc
       qt_modules: qtwebengine ${{matrix.qt_modules}}
       artifact_name: build_msvc
@@ -76,7 +76,7 @@ jobs:
           path: |
             ${{env.INSTALL_DIR}}
           key: cache-installed-msvc
-      
+
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v7.4
         with:
@@ -101,7 +101,7 @@ jobs:
           dir: '${{env.TOOSL_DIR}}/qt' # optional
           version: '${{matrix.qt_version}}' # optional, default is 5.15.2
           arch: '${{matrix.qt_arch}}' # optional
-          modules: '${{env.qt_modules}}' # optional
+          modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           cached: '${{steps.cache-qt.outputs.cache-hit}}' # optional, default is false
  
       - name: git clone RabbitCommon
@@ -123,6 +123,7 @@ jobs:
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build/install ^
               -DBUILD_QUIWidget=OFF ^
+              -DINSTALL_QT=OFF ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
@@ -134,7 +135,7 @@ jobs:
           copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
           copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
           copy /Y ${{env.RUNVCPKG_VCPKG_ROOT}}\installed\${{env.RUNVCPKG_VCPKG_TRIPLET_OUT}}\bin\*.dll install\bin
-          7z a LunarCalendar_windows_${{env.LunarCalendar_VERSION}}_qt${{matrix.qt_version}}_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}.zip .\install\*
+          7z a LunarCalendar${{env.LunarCalendar_VERSION}}_qt${{matrix.qt_version}}_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}.zip .\install\*
 
       - name: Update artifact
         #if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '5.12.12' }}
@@ -142,4 +143,4 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
           path: |
-            ${{github.workspace}}\build\LunarCalendar_windows_${{env.LunarCalendar_VERSION}}_qt${{matrix.qt_version}}_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}.zip
+            ${{github.workspace}}\build\LunarCalendar${{env.LunarCalendar_VERSION}}_qt${{matrix.qt_version}}_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}.zip

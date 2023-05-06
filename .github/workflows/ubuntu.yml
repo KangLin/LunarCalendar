@@ -22,7 +22,7 @@ jobs:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_ubuntu
-      LunarCalendar_VERSION: 0.2.3
+      LunarCalendar_VERSION: 0.2.4
       artifact_name: build_ubuntu
 
     # Map the job outputs to step outputs
@@ -74,7 +74,7 @@ jobs:
         env:
           RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
-          export Qt6_DIR=/usr/lib/`uname-a`-linux-gnu/cmake/Qt6
+          export Qt6_DIR=/usr/lib/`uname -a`-linux-gnu/cmake/Qt6
           ./build_debpackage.sh
           cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb
 

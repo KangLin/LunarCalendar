@@ -32,7 +32,7 @@ endif()
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
     OUT_REVISION LunarCalendar_REVISION)
 if(NOT LunarCalendar_VERSION)
-    SET(LunarCalendar_VERSION "v0.2.3")
+    SET(LunarCalendar_VERSION "0.2.4")
 endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
 message("LunarCalendar_REVISION:${LunarCalendar_REVISION}")
@@ -99,6 +99,7 @@ if(Qt${QT_VERSION_MAJOR}_FOUND)
 endif()
 
 ADD_TARGET(NAME ${PROJECT_NAME}
+    NOT_INSTALL_QT
     SOURCE_FILES ${LunarCalendar_SOURCE_FILES}
         ${LunarCalendar_HEAD_FILES}
         ${RCC_FILES}

@@ -53,6 +53,8 @@ sed -i "s/export VERSION=".*"/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/
 sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/macos.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/mingw.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/android.yml
 
 DEBIAN_VERSION=`echo ${VERSION}|cut -d "v" -f 2`
 sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${DEBIAN_VERSION}/g" ${SOURCE_DIR}/README*.md
