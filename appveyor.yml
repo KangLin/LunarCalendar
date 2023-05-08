@@ -160,20 +160,20 @@ artifacts:
 test: off
 
 #See:https://www.appveyor.com/docs/deployment/github/
-deploy:
-  - provider: GitHub
-    #release: LunarCalendar_$(appveyor_build_version)
-    description: 'Release LunarCalendar $(APPVEYOR_REPO_TAG_NAME) on windows'
-    #token : https://github.com/settings/tokens password encrypt: https://ci.appveyor.com/tools/encrypt
-    auth_token:
-      secure: aPr1U6S1RtXZiK2mCWtAAIOMjuiBR0yPsD2kaYIADtx2ulIitdp336kFqmfKwM9x
-    #artifact: LunarCalendar$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
-    #draft: true
-    #prerelease: true
-    on:
-      BUILD_TARGERT: windows_msvc
-      TOOLCHAIN_VERSION: 14
-      GENERATORS: "Visual Studio 14 2015"
-      QT_VERSION: 5.6.3
-      BUILD_ARCH: x86
-      appveyor_repo_tag: true        # deploy on tag push only
+#deploy:
+#  - provider: GitHub
+#    #release: LunarCalendar_$(appveyor_build_version)
+#    description: 'Release LunarCalendar $(APPVEYOR_REPO_TAG_NAME) on windows'
+#    #token : https://github.com/settings/tokens password encrypt: https://ci.appveyor.com/tools/encrypt
+#    auth_token:
+#      secure: aPr1U6S1RtXZiK2mCWtAAIOMjuiBR0yPsD2kaYIADtx2ulIitdp336kFqmfKwM9x
+#    #artifact: LunarCalendar$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
+#    #draft: true
+#    #prerelease: true
+#    on:
+#      BUILD_TARGERT: windows_msvc
+#      TOOLCHAIN_VERSION: 14
+#      GENERATORS: "Visual Studio 14 2015"
+#      QT_VERSION: 5.6.3
+#      BUILD_ARCH: x86
+#      appveyor_repo_tag: true        # deploy on tag push only

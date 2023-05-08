@@ -69,6 +69,30 @@ jobs:
             ${{env.INSTALL_DIR}}
           key: cache-installed-ubuntu
 
+      - name: Build develop library
+        working-directory: ${{github.workspace}}/build
+        env:
+          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+        run: |
+          cmake ${{github.workspace}} \
+            -DCMARK_SHARED=OFF \
+            -DCMARK_TESTS=OFF \
+            -DCMARK_STATIC=ON \
+            -DINSTALL_QT=OFF \
+            -DBUILD_APP=OFF \
+            -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} \
+            -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install \
+            -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake
+          cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
+          7z a LunarCalendar${{env.LunarCalendar_VERSION}}_ubuntu.zip ./install/*
+
+      - name:  Update artifact for develop library
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.artifact_name }}
+          path: |
+            ${{github.workspace}}/build/LunarCalendar${{env.LunarCalendar_VERSION}}_ubuntu.zip
+      
       - name: build_debpackage.sh
         working-directory: ${{github.workspace}}
         env:
@@ -78,7 +102,7 @@ jobs:
           ./build_debpackage.sh
           cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb
 
-      - name:  Update artifact
+      - name:  Update artifact for application
         if: ${{ matrix.BUILD_TYPE == 'Release' }}
         uses: actions/upload-artifact@v3
         with:

@@ -125,7 +125,7 @@ jobs:
               -DBUILD_FREERDP=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DCMAKE_INSTALL_PREFIX=${{env.INSTALL_DIR}} \
-              -DCMAKE_PREFIX_PATH="${{env.QT_ROOT}}:${{env.INSTALL_DIR}}" \
+              -DCMAKE_PREFIX_PATH="${{env.INSTALL_DIR}}" \
               -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
               -DANDROID_ABI=${{matrix.ANDROID_ABI}} \
               -DANDROID_PLATFORM=${{matrix.ANDROID_PLATFORM}} \
@@ -138,7 +138,6 @@ jobs:
         if: ${{matrix.BUILD_TYPE == 'Release'}}
         working-directory: ${{env.INSTALL_DIR}}
         env:
-          QT_ROOT: ${{env.Qt5_Dir}}
           RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
           APK_FILE=`find . -name "install-release-signed.apk"`

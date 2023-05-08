@@ -2,14 +2,21 @@
 
 作者：康林（kl222@126.com)
 
+------------------------------------------------
+
+[:us: English](README.md)
+
 - 项目位置: https://github.com/KangLin/LunarCalendar
 - [项目主页](https://kanglin.github.io/LunarCalendar/)
 
-[<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/English.png" alt="英语" title="英语" width="16" height="16" />英语](README.md)
+------------------------------------------------
 
+- 主分支
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
-[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
+
+- 开发分支
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 
 [![GitHub 点赞数](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
@@ -25,9 +32,9 @@
 ### 目录：
 
 - [功能](#功能)
+- [下载安装包](#下载安装包)
 - [捐赠](#捐赠)
 - [屏幕截图](#屏幕截图)
-- [下载安装包](#下载安装包)
 - [编译](#编译)
 - [其它应用使用本项目](#其它应用使用本项目)
 - [贡献](#贡献)
@@ -59,7 +66,9 @@ Qt 写的农历。它提供：
 
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
 
-## 捐赠
+### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
+
+### 捐赠
 
 [![捐赠](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "捐赠")
 
@@ -72,8 +81,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 - Android
 
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
-
-### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 ### 编译
 - 依赖  
@@ -89,11 +96,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
         mkdir build
 
 - 编译
-  + 用 qmake 
-
-        cd build
-        qmake ../LunarCalendar.pro RabbitCommon_DIR=
-        make install
     
   + 用 cmake
     - linux
@@ -242,21 +244,6 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
                 target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - 以库方式使用使用
-  + Qt 工程文件
-     + 在环境变量（LunarCalendar_DIR）或 QMAKE参数 （LunarCalendar_DIR） 
-        中指定 LunarCalendar 库安装根目录的位置，然后在主工程文件（.pro）中加入下列：
-    
-            isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
-            !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/include/LunarCalendar.h"){
-                DEFINES += LunarCalendar
-                INCLUDEPATH *= $${LunarCalendar_DIR}/include $${LunarCalendar_DIR}/include/export
-                LIBS *= -L$${LunarCalendar_DIR}/lib -lLunarCalendar
-            } else{
-                message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
-                message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                message("2. Build and make install the project")
-                error("3. Then set value LunarCalendar_DIR to install directory")
-            }
 
   + cmake
     cmake 参数 LunarCalendar_DIR 指定安装根目录

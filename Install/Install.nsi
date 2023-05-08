@@ -22,8 +22,8 @@ SetCompressor lzma
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-!define MUI_ICON "install\AppIcon.ico"
-!define MUI_UNICON "install\AppIcon.ico"
+!define MUI_ICON "AppIcon.ico"
+!define MUI_UNICON "AppIcon.ico"
 
 ; Language Selection Dialog Settings
 !define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
@@ -33,7 +33,7 @@ SetCompressor lzma
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-!insertmacro MUI_PAGE_LICENSE "install\LICENSE.md"
+!insertmacro MUI_PAGE_LICENSE "LICENSE.md"
 ; Components page
 !insertmacro MUI_PAGE_COMPONENTS
 ; Directory page

@@ -2,14 +2,21 @@
 
 Author: KangLin (kl222@126.com)
 
+------------------------------------------------
+
+[:cn: 中文](README_zh_CN.md)
+
 - Project position: https://github.com/KangLin/LunarCalendar
 - [Project home](https://kanglin.github.io/LunarCalendar/)
 
-[<img src="https://gitee.com/kl222/Calendar/raw/master/Resource/Image/china.png" alt="Chinese" title="Chinese" width="16" height="16"/>Chinese](README_zh_CN.md)
+------------------------------------------------
 
+- master
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
-[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
+
+- develop
+[![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 
 [![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
@@ -24,9 +31,9 @@ Author: KangLin (kl222@126.com)
 
 ### Table of Contents:
 - [Features](#Features)
+- [Download setup package](#Download-setup-package)
 - [Donation](#Donation)
 - [Screenshots](#Screenshots)
-- [Download setup package](#Download-setup-package)
 - [Compile](#Compile)
 - [Other application use the library](#Other-application-use-the-library)
 - [Contribution](#Contribution)
@@ -75,6 +82,13 @@ please compile and test the students with the corresponding equipment.
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
+[LunarCalendar0.2.4_ubuntu.zip](https://github.com/KangLin/LunarCalendar/releases/download/develop/LunarCalendar0.2.4_ubuntu.zip)
+
+[LunarCalendar_v0.2.4_macos_qt5.12.12_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/develop/LunarCalendar_v0.2.4_macos_qt5.12.12_Debug.zip)
+[LunarCalendar_v0.2.4_macos_qt5.12.12_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/develop/LunarCalendar_v0.2.4_macos_qt5.12.12_Release.zip)
+[LunarCalendar_v0.2.4_macos_qt5.15.2_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/develop/LunarCalendar_v0.2.4_macos_qt5.15.2_Debug.zip)
+[LunarCalendar_v0.2.4_macos_qt5.15.2_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/develop/LunarCalendar_v0.2.4_macos_qt5.15.2_Release.zip)
+
 ### Compile
 
 - Depend
@@ -91,13 +105,7 @@ please compile and test the students with the corresponding equipment.
         cd LunarCalendar
         mkdir build
 
-+ Use qmake
-
-        cd build
-        qmake ../LunarCalendar.pro RabbitCommon_DIR=
-        make install
-
-+ Use cmake
+- Use cmake
   - linux
 
         cd build
@@ -243,20 +251,6 @@ please compile and test the students with the corresponding equipment.
                   target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - Use in library mode
-    + Qt project file
-        + Environment variable（LunarCalendar_DIR）or QMAKE parameters LunarCalendar_DIR Specify the location of the LunarCalendar install root directory, then add the following to the main project file (.pro):
-
-                isEmpty(LunarCalendar_DIR): LunarCalendar_DIR=$$(LunarCalendar_DIR)
-                !isEmpty(LunarCalendar_DIR): exists("$${LunarCalendar_DIR}/include/LunarCalendar.h"){
-                     DEFINES += LunarCalendar
-                     INCLUDEPATH *= $${LunarCalendar_DIR}/include $${LunarCalendar_DIR}/include/export
-                     LIBS *= -L$${LunarCalendar_DIR}/lib -lLunarCalendar
-                 } else{
-                     message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar ag:")
-                     message("   git clone https://github.com/KangLin/LunarCalendar.git")
-                     message("2. Build and make install the project")
-                     error("3. Then set value LunarCalendar_DIR to install directory")
-                 }
 
     + cmake
         - Cmake parameter LunarCalendar_DIR specifies the installation root directory

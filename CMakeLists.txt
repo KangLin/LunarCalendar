@@ -74,32 +74,37 @@ include(cmake/DownloadFile.cmake)
 
 #check_function_exists("fabs" HAVE_FABS)
 
-if(NOT RabbitCommon_DIR)
-    set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
+find_package(RabbitCommon)
+if(NOT RabbitCommon_FOUND)
     if(NOT RabbitCommon_DIR)
-        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
+        set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
+        if(NOT RabbitCommon_DIR)
+            set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
+        endif()
+        if(NOT EXISTS ${RabbitCommon_DIR}/Src)
+            set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
+        endif()
     endif()
-    if(NOT EXISTS ${RabbitCommon_DIR}/Src)
-        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
+    
+    if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
+        add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+    else()
+        #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
+        #        download(FILENAME RabbitCommon
+        #            HASH acb14d8d5cfd264d5899604281913161
+        #            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
+        #            DESTINATION_DIR ${RabbitCommon_DIR}
+        #            UNPACK
+        #            )
+        message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
+        message("   ag:")
+        message("       git clone https://github.com/KangLin/RabbitCommon.git")
+        message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root directory.")
+        message("   ag:")
+        message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
     endif()
-endif()
-
-if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
-    add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
 else()
-    #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
-    #        download(FILENAME RabbitCommon
-    #            HASH acb14d8d5cfd264d5899604281913161
-    #            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
-    #            DESTINATION_DIR ${RabbitCommon_DIR}
-    #            UNPACK
-    #            )
-    message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
-    message("   ag:")
-    message("       git clone https://github.com/KangLin/RabbitCommon.git")
-    message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root directory.")
-    message("   ag:")
-    message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
+    message("RabbitCommon found")
 endif()
 
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
@@ -128,9 +133,9 @@ else()
 endif()
 
 if(WIN32)
-    INSTALL(FILES ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
-        DESTINATION . COMPONENT Runtime)
     INSTALL(FILES Install/Install.nsi
+        ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
+        ${OTHER_FILES}
         DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
 endif(WIN32)
 
