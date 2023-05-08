@@ -35,7 +35,7 @@ jobs:
         with:
           submodules: true
 
-      - name: make_directory
+      - name: Make directories
         run: |
           cmake -E make_directory ${{env.SOURCE_DIR}}
           cmake -E make_directory ${{env.TOOSL_DIR}}

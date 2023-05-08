@@ -21,14 +21,16 @@ if(NOT RabbitCommon_FOUND)
         if(NOT EXISTS ${CMAKE_BINARY_DIR}/RabbitCommon)
             add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
         endif()
-        include(${RabbitCommon_DIR}/cmake/RabbitCommonUtils.cmake)
     else()
-        message("1. Please download RabbitCommon source code from https://github.com/KangLin/RabbitCommon")
+        message("1. Set RabbitCommon_DIR to the install prefix of RabbitCommon.")
+        message("2. Set RabbitCommon_DIR to source code root of RabbitCommon.")
+        message("2.1 Please download the source code of RabbitCommon from https://github.com/KangLin/RabbitCommon")
         message("   ag:")
         message("       git clone https://github.com/KangLin/RabbitCommon.git")
-        message("2. Then set cmake value or environment variable RabbitCommon_DIR to download root directory.")
+        message("2.2 Then set cmake variable or environment variable RabbitCommon_DIR to download root directory.")
         message("   ag:")
-        message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
+        message("       cmake -DRabbitCommon_DIR= ")
+        message(FATAL_ERROR "RabbitCommon_DIR isn't set.")
     endif()
 endif()
 
@@ -98,9 +100,11 @@ message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
 if(Qt${QT_VERSION_MAJOR}_FOUND)
     FOREACH(_COMPONENT ${QT_COMPONENTS})
         list(APPEND QT_LIBRARIES Qt${QT_VERSION_MAJOR}::${_COMPONENT})
+        set(LunarCalendar_QT_COMPONENTS "${LunarCalendar_QT_COMPONENTS} ${_COMPONENT}")
     ENDFOREACH()
 endif()
 
+include(GenerateExportHeader)
 ADD_TARGET(NAME ${PROJECT_NAME}
     NOT_INSTALL_QT
     SOURCE_FILES ${LunarCalendar_SOURCE_FILES}
@@ -117,6 +121,8 @@ ADD_TARGET(NAME ${PROJECT_NAME}
         ${CMAKE_CURRENT_SOURCE_DIR}/../3th_lib/sxtwl/src
     VERSION ${LunarCalendar_VERSION}
     DEFINITIONS ${LunarCalendar_DEFINITIONS}
+    INSTALL_EXPORT_NAME ${PROJECT_NAME}Targets
+    INSTALL_CMAKE_CONFIG_IN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendarConfig.cmake.in
     )
 
 foreach(d ${LunarCalendar_DEFINITIONS})
@@ -130,12 +136,9 @@ install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc
     DESTINATION lib/pkgconfig)
 
 # Install dababase files
-if(ANDROID)
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
-        DESTINATION "assets/data/db" COMPONENT Runtime)
-else()
-    INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
-        DESTINATION "./data/db" COMPONENT Runtime)
-endif()
+INSTALL_FILE(
+    SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
+    DESTINATION "data/db")
 
-INSTALL_ICON_THEME()
+INSTALL_ICON_THEME(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/icons)

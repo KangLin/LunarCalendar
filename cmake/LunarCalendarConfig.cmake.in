@@ -1,0 +1,20 @@
+@PACKAGE_INIT@
+
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/")
+
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_LIST_DIR}")
+
+include(CMakeFindDependencyMacro)
+find_dependency(RabbitCommon)
+find_dependency(Qt@QT_VERSION_MAJOR@ COMPONENTS @LunarCalendar_QT_COMPONENTS@)
+
+# Install data directory. It include resource(icon theme, style etc).
+set_and_check(data ${PACKAGE_PREFIX_DIR}/data)
+if(NOT PROJECT_NAME)
+    message(FATAL_ERROR "Move the find_package(RabbitCommon) to the back of the project(...)")
+else()
+    INSTALL_DIR(SOURCES ${data})
+
+    # Install translations
+    INSTALL_DIR(SOURCES ${PACKAGE_PREFIX_DIR}/translations)
+endif()

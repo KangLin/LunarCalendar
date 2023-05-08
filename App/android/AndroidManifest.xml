@@ -1,9 +1,35 @@
 <?xml version="1.0"?>
-<manifest package="org.KangLinStudio.LunarCalendar" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.2.5" android:versionCode="0" android:installLocation="auto">
-<supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="org.KangLinStudio.LunarCalendar"
+	android:installLocation="auto"
+	android:versionName="0.2.5"
+	android:versionCode="0">
 
-    <application android:hardwareAccelerated="true" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="@string/app_name" android:icon="@drawable/icon">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.qtproject.qt5.android.bindings.QtActivity" android:label="@string/app_name" android:screenOrientation="unspecified" android:launchMode="singleTop">
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="24"/>
+
+	<supports-screens
+		android:largeScreens="true"
+		android:normalScreens="true"
+		android:anyDensity="true"
+		android:smallScreens="true"/>
+
+    <application
+    	android:name="org.qtproject.qt.android.bindings.QtApplication"
+    	android:hardwareAccelerated="true"
+    	android:label="@string/app_name"
+    	android:icon="@drawable/icon"
+    	android:requestLegacyExternalStorage="true"
+        android:allowNativeHeapPointerTagging="false"
+        android:allowBackup="true"
+        android:fullBackupOnly="false">
+
+        <activity
+        	android:name="org.qtproject.qt.android.bindings.QtActivity"
+        	android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation"
+        	android:label="@string/app_name"
+        	android:launchMode="singleTop"
+        	android:screenOrientation="unspecified"
+        	android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -12,14 +38,14 @@
             <!-- meta-data android:name="android.app.arguments" android:value="arg1 arg2 arg3"/ -->
             <!-- Application arguments -->
             <meta-data android:name="android.app.lib_name" android:value="LunarCalendarApp"/>
-            <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
+            <!-- <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/> -->
             <meta-data android:name="android.app.repository" android:value="default"/>
             <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
             <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
             <!-- Deploy Qt libs as part of package -->
             <meta-data android:name="android.app.bundle_local_qt_libs" android:value="1"/>
-            <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
-            <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
+            <!-- <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
+            <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/> -->
             <!-- Run with local libs -->
             <meta-data android:name="android.app.use_local_qt_libs" android:value="-- %%USE_LOCAL_QT_LIBS%% --"/>
             <meta-data android:name="android.app.libs_prefix" android:value="/data/local/tmp/qt/"/>
@@ -29,9 +55,9 @@
             <!-- Used to specify custom system library path to run with local system libs -->
             <meta-data android:name="android.app.system_libs_prefix" android:value="/system/lib/"/>
             <!--  Messages maps -->
-            <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
+            <!-- <meta-data android:value="@string/ministro_not_found_msg" android:name="android.app.ministro_not_found_msg"/>
             <meta-data android:value="@string/ministro_needed_msg" android:name="android.app.ministro_needed_msg"/>
-            <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
+            <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/> -->
             <meta-data android:value="@string/unsupported_android_version" android:name="android.app.unsupported_android_version"/>
             <!--  Messages maps -->
             <!-- Splash screen -->
@@ -67,12 +93,9 @@
         <!-- For adding service(s) please check: https://wiki.qt.io/AndroidServices -->
     </application>
 
-    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="24"/>
-    <supports-screens android:largeScreens="true" android:normalScreens="true" android:anyDensity="true" android:smallScreens="true"/>
-
     <!-- The following comment will be replaced upon deployment with default permissions based on the dependencies of the application.
          Remove the comment if you do not require these default permissions. -->
-        <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 

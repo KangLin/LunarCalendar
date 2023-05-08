@@ -1,3 +1,7 @@
+- v0.2.6
+  + CI: 修改 android.yml
+  + 使用 find_package(RabbitCommon)
+
 - v0.2.5
   + 修复 NSIS 错误
   + 增加 find_package(RabbitCommon)

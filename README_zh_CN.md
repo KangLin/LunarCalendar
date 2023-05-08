@@ -12,10 +12,12 @@
 ------------------------------------------------
 
 - 主分支
+
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master)
 
 - 开发分支
+
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 
@@ -61,7 +63,7 @@ Qt 写的农历。它提供：
   + [x] Windows
   + [x] Linux、Unix
   + [x] Android
-  + [ ] Mac os
+  + [x] Mac os
   + [ ] IOS
 
 Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己编译，测试。
@@ -165,21 +167,35 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
     - android
       + 主机是linux
-    
+
             cd build
+            # 如果是 Qt6
             cmake .. -DCMAKE_BUILD_TYPE=Release \
                  -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
                  -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
                  -DANDROID_ABI="armeabi-v7a with NEON" \
                  -DANDROID_PLATFORM=android-18 \
+                 -DQT_DIR= \
+                 -DQt6_DIR= \
+                 -DRabbitCommon_DIR=
+            cmake --build . --target all
+
+            # If is Qt5
+            cmake .. -DCMAKE_BUILD_TYPE=Release \
+                 -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+                 -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
+                 -DANDROID_ABI="armeabi-v7a with NEON" \
+                 -DANDROID_PLATFORM=android-18 \
+                 -DQT_DIR= \
                  -DQt5_DIR= \
                  -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
-            cmake --build . --target APK         
+            cmake --build . --target APK
     
       + 主机是windows
     
             cd build
+            ; 如果是 Qt5
             cmake .. -G"Unix Makefiles" ^
                -DCMAKE_BUILD_TYPE=Release ^
                -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
@@ -188,10 +204,25 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
                -DANDROID_PLATFORM=android-18 ^
                -DANDROID_ABI=arm64-v8a ^
                -DANDROID_ARM_NEON=ON ^
+               -DQT_DIR= ^
                -DQt5_DIR= ^
                -DRabbitCommon_DIR= 
             cmake --build . --config Release --target install
             cmake --build . --target APK
+            
+            ; If is Qt6
+            cmake .. -G"Unix Makefiles" ^
+               -DCMAKE_BUILD_TYPE=Release ^
+               -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+               -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+               -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+               -DANDROID_PLATFORM=android-18 ^
+               -DANDROID_ABI=arm64-v8a ^
+               -DANDROID_ARM_NEON=ON ^
+               -DQT_DIR= ^
+               -DQt6_DIR= ^
+               -DRabbitCommon_DIR= 
+            cmake --build . --target all
     
       - 参数说明：https://developer.android.google.cn/ndk/guides/cmake
         + ANDROID_ABI: 可取下列值：
