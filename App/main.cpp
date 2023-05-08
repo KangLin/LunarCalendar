@@ -11,7 +11,7 @@
 #endif
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
-    #include "FrmUpdater/FrmUpdater.h"
+    #include "FrmUpdater.h"
     #include "RabbitCommonDir.h"
 #endif
 #include <QLocale>

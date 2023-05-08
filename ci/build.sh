@@ -109,10 +109,10 @@ case ${BUILD_TARGERT} in
 esac
 
 if [ -n "$appveyor_build_version" -a -z "$VERSION" ]; then
-    export VERSION="v0.2.4"
+    export VERSION="v0.2.5"
 fi
 if [ -z "$VERSION" ]; then
-    export VERSION="v0.2.4"
+    export VERSION="v0.2.5"
 fi
 export UPLOADTOOL_BODY="Release LunarCalendar-${VERSION}.<br> The change see [ChangeLog.md](ChangeLog.md)"
 #export UPLOADTOOL_PR_BODY=

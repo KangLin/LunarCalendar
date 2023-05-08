@@ -103,14 +103,12 @@ if(NOT RabbitCommon_FOUND)
         message("   ag:")
         message(FATAL_ERROR "       cmake -DRabbitCommon_DIR= ")
     endif()
-else()
-    message("RabbitCommon found")
 endif()
 
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
     OUT_REVISION LunarCalendar_REVISION)
 if(NOT LunarCalendar_VERSION)
-    SET(LunarCalendar_VERSION "v0.2.4")
+    SET(LunarCalendar_VERSION "v0.2.5")
 endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
 

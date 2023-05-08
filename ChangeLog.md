@@ -1,3 +1,7 @@
+- v0.2.5
+  + 修复 NSIS 错误
+  + 增加 find_package(RabbitCommon)
+
 - v0.2.4
   + 删除 pro 管理项目
   + 使用 RabbitCommon v2
