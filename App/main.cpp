@@ -21,18 +21,6 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     a.setApplicationVersion(LunarCalendar_VERSION);
     a.setApplicationName("LunarCalendar");
-    
-#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QtAndroid::hideSplashScreen();
-#endif
-
-    QTranslator tApp;
-    bool bRetTranslator = tApp.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
-              + "/LunarCalendarApp_" + QLocale::system().name() + ".qm");
-    if(bRetTranslator)
-        a.installTranslator(&tApp);
-
-    CLunarCalendar::InitResource();
 
 #ifdef RABBITCOMMON
     RabbitCommon::CTools::Instance()->Init();
@@ -54,6 +42,20 @@ int main(int argc, char *argv[])
         return 0;
 #endif
 
+    QTranslator tApp;
+    QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
+            + "/LunarCalendarApp_" + QLocale::system().name() + ".qm";
+    bool bRetTranslator = tApp.load(szFile);
+    if(bRetTranslator)
+    {
+        qDebug() << "Load translation file:" << szFile;
+        a.installTranslator(&tApp);
+    }
+    else
+        qCritical() << "Load translation file fail:" << szFile;
+
+    CLunarCalendar::InitResource();
+    
     MainWindow w;
 
 #if defined (Q_OS_ANDROID)

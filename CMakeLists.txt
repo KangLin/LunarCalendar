@@ -36,8 +36,8 @@ if(QT_VERSION_MAJOR EQUAL 5 AND ANDROID)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
 message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
-if(Qt${QT_VERSION_MAJOR}_VERSION VERSION_LESS 5.10.0 AND ANDROID)
-    message(FATAL_ERROR "Qt must great 5.10.0")
+if(Qt${QT_VERSION_MAJOR}_VERSION VERSION_LESS 6.0.0 AND ANDROID)
+    message(FATAL_ERROR "Qt must great 6.0.0")
 endif()
 if(Qt${QT_VERSION_MAJOR}_FOUND)
     FOREACH(_COMPONENT ${QT_COMPONENTS})
@@ -106,18 +106,6 @@ option(BUILD_APP "Set to ON to build applaction" ON)
 if(BUILD_APP)
     add_subdirectory(App)
 endif(BUILD_APP)
-
-SET(OTHER_FILES
-    ${CMAKE_SOURCE_DIR}/License.md
-    ${CMAKE_SOURCE_DIR}/Authors.md
-    ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
-    ${CMAKE_SOURCE_DIR}/ChangeLog.md
-    )
-if(ANDROID)
-    INSTALL_DIR(SOURCES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
-else()
-    INSTALL(FILES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
-endif()
 
 if(WIN32)
     INSTALL(FILES Install/Install.nsi
