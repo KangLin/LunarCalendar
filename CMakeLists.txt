@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.21)
 
 project(LunarCalendar)
 
@@ -6,14 +6,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "verbose")
-
-if(POLICY CMP0083)
-    cmake_policy(SET CMP0083 NEW)
-endif()
-
-if(POLICY CMP0020)
-    cmake_policy(SET CMP0020 NEW)
-endif()
 
 SET(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libs")
 
@@ -39,7 +31,7 @@ SET(CMAKE_VERBOSE_MAKEFILE ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core)
 #需要的QT组件
 SET(QT_COMPONENTS ${QT_COMPONENTS} Core)
-if(QT_VERSION_MAJOR LESS 6 AND ANDROID)
+if(QT_VERSION_MAJOR EQUAL 5 AND ANDROID)
     LIST(APPEND QT_COMPONENTS AndroidExtras)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
@@ -74,30 +66,22 @@ include(cmake/DownloadFile.cmake)
 
 #check_function_exists("fabs" HAVE_FABS)
 
-find_package(RabbitCommon)
-if(RabbitCommon_FOUND)
-    message("Find RabbitCommon Package")
-else()
+if(NOT RabbitCommon_DIR)
+    set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
     if(NOT RabbitCommon_DIR)
-        set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
-        if(NOT RabbitCommon_DIR)
-            set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
-        endif()
-        if(NOT EXISTS ${RabbitCommon_DIR}/Src)
-            set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
-        endif()
+        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
     endif()
-    
-    if(DEFINED RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
-        add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
-    else()
-        #        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/.cache/RabbitCommon)
-        #        download(FILENAME RabbitCommon
-        #            HASH acb14d8d5cfd264d5899604281913161
-        #            URL https://github.com/KangLin/RabbitCommon/archive/master.tar.gz
-        #            DESTINATION_DIR ${RabbitCommon_DIR}
-        #            UNPACK
-        #            )
+    if(NOT EXISTS ${RabbitCommon_DIR}/Src)
+        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
+    endif()
+endif()
+if(RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
+    message("Use RabbitCommon source code")
+    add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
+else()
+    find_package(RabbitCommon)
+    if(NOT RabbitCommon_FOUND)
+        message("RabbitCommon_DIR is not found. Please use one of the following ways to set it:")
         message("1. Set RabbitCommon_DIR to the install prefix of RabbitCommon.")
         message("2. Set RabbitCommon_DIR to source code root of RabbitCommon.")
         message("2.1 Please download the source code of RabbitCommon from https://github.com/KangLin/RabbitCommon")
