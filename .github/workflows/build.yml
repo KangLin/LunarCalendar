@@ -3,7 +3,7 @@ name: build
 env:
   artifact_path: artifact_path
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  LunarCalendar_VERSION: v0.2.5
+  LunarCalendar_VERSION: v0.2.6
 
 on:
   push:
@@ -67,19 +67,19 @@ jobs:
       - name: Make note file
         run: |
           cd ${{ env.artifact_path }}
-          echo "[:cn: 修改日志](https://github.com/KangLin/LunarCalendar/blob/${{env.LunarCalendar_VERSION}}/ChangeLog.md)" > Release.md
-          echo "" >> Release.md
-          echo "文件签名:" >> Release.md
+          echo "[:cn: 修改日志](https://github.com/KangLin/LunarCalendar/blob/${{env.LunarCalendar_VERSION}}/ChangeLog.md)" > ${{github.workspace}}/Release.md
+          echo "" >> ${{github.workspace}}/Release.md
+          echo "文件签名:" >> ${{github.workspace}}/Release.md
           for file in *
           do
               echo $file
               if [ -f $file ]; then
                   md5sum $file > $file.md5sum
-                  cat $file.md5sum >> Release.md
+                  cat $file.md5sum >> ${{github.workspace}}/Release.md
               fi
           done
 
       - name: Upload To Github Release
         run: |
-          gh release create ${{ github.ref_name }} --title ${{ github.ref_name }} --notes-file ${{github.workspace}}/${{ env.artifact_path }}/Release.md
+          gh release create ${{ github.ref_name }} --title ${{ github.ref_name }} --notes-file ${{github.workspace}}/Release.md
           gh release upload ${{ github.ref_name }} ${{github.workspace}}/${{ env.artifact_path }}/*

@@ -84,53 +84,6 @@ please compile and test the students with the corresponding equipment.
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
-- ubuntu:
-  + Application installation package
-
-    [lunarcalendar_0.2.5_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/lunarcalendar_0.2.5_amd64.deb)
-
-  + Development kits
-  
-    [LunarCalendar0.2.5_ubuntu.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar0.2.5_ubuntu.zip)
-
-
-- Windows
-  + Application installation package
-  
-    [LunarCalendar_Setup_v0.2.5.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_Setup_v0.2.5.exe)
-    
-  + Development kits
-    - MSVC
-      - Qt6.5.0
-        - [LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Debug.zip)
-        - [LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Release.zip)
-
-      - Qt5.15.2
-        - [LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Debug.zip)
-        - [LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Release.zip)
-
-      - Qt5.12.12
-        - [LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Debug.zip)
-        - [LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Release.zip)
-
-    - Mingw
-      - [LunarCalendar_mingw_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_mingw_Debug.zip)
-      - [LunarCalendar_mingw_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_mingw_Release.zip)
-
-- macos
-  + Development kits
-    - Qt6.5.0
-      - [LunarCalendar_v0.2.5_macos_qt0.2.5_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt6.5.0_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt0.2.5_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt6.5.0_Release.zip)
-
-    - Qt5.15.2
-      - [LunarCalendar_v0.2.5_macos_qt5.15.2_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.15.2_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt5.15.2_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.15.2_Release.zip)
-
-    - Qt5.12.12
-      - [LunarCalendar_v0.2.5_macos_qt5.12.12_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.12.12_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt5.12.12_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.12.12_Release.zip)
-
 ### Compile
 
 - Depend

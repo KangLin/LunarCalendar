@@ -84,53 +84,6 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
-- ubuntu:
-  + 应用程序安装包
-
-    [lunarcalendar_0.2.5_amd64.deb](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/lunarcalendar_0.2.5_amd64.deb)
-
-  + 开发包
-  
-    [LunarCalendar0.2.5_ubuntu.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar0.2.5_ubuntu.zip)
-
-
-- Windows
-  + 应用程序安装包
-  
-    [LunarCalendar_Setup_v0.2.5.exe](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_Setup_v0.2.5.exe)
-    
-  + 开发包
-    - MSVC
-      - Qt6.5.0
-        - [LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Debug.zip)
-        - [LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt6.5.0_Release.zip)
-
-      - Qt5.15.2
-        - [LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Debug.zip)
-        - [LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x64-windows_qt5.15.2_Release.zip)
-
-      - Qt5.12.12
-        - [LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Debug.zip)
-        - [LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_x86-windows_qt5.12.12_Release.zip)
-
-    - Mingw
-      - [LunarCalendar_mingw_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_mingw_Debug.zip)
-      - [LunarCalendar_mingw_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_mingw_Release.zip)
-
-- macos
-  + 开发包
-    - Qt6.5.0
-      - [LunarCalendar_v0.2.5_macos_qt0.2.5_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt6.5.0_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt0.2.5_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt6.5.0_Release.zip)
-
-    - Qt5.15.2
-      - [LunarCalendar_v0.2.5_macos_qt5.15.2_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.15.2_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt5.15.2_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.15.2_Release.zip)
-
-    - Qt5.12.12
-      - [LunarCalendar_v0.2.5_macos_qt5.12.12_Debug.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.12.12_Debug.zip)
-      - [LunarCalendar_v0.2.5_macos_qt5.12.12_Release.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.2.5/LunarCalendar_v0.2.5_macos_qt5.12.12_Release.zip)
-
 ### 编译
 - 依赖  
   + [Qt (LGPL v2.1)](http://qt.io/)

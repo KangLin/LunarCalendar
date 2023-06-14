@@ -13,16 +13,18 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: [Release]
-        qt_arch: [android_armv7, android_x86_64]
+        qt_arch: [android_arm64_v8a, android_armv7, android_x86_64]
         qt_version: [6.5.1]
         include:
           - BUILD_TYPE: Release
-            qt_arch: android_armv7
-            qt_version: 6.5.1
+            qt_arch: android_arm64_v8a
             VCPKG_TARGET_TRIPLET: arm-android
 
           - BUILD_TYPE: Release
-            qt_version: 6.5.1
+            qt_arch: android_armv7
+            VCPKG_TARGET_TRIPLET: arm-android
+
+          - BUILD_TYPE: Release
             qt_arch: android_x86_64 
             VCPKG_TARGET_TRIPLET: x64-android
 
@@ -33,7 +35,7 @@ jobs:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.BUILD_TYPE}}
-      LunarCalendar_VERSION: v0.0.25
+      LunarCalendar_VERSION: v0.2.5
       VCPKGGITCOMMITID: ea222747b888b8d63df56240b262db38b095c68f
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
@@ -82,7 +84,7 @@ jobs:
           target: 'desktop'
           arch: 'gcc_64'
           set-env: false
-#          cached: '${{ steps.cache-qt.outputs.cache-hit }}' # optional, default is false
+          cached: '${{ steps.cache-qt.outputs.cache-hit }}' # optional, default is false
 
       - name: Install Qt of android
         uses: jurplel/install-qt-action@v3
@@ -98,11 +100,9 @@ jobs:
           # Architecture for Windows/Android
           arch: '${{matrix.qt_arch}}' # optional
           # Additional Qt modules to install
-          #modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
-          modules: 'qt3d qtcharts qtconnectivity qtdatavis3d qtgrpc qthttpserver qtimageformats qtlocation qtlottie qtmultimedia qtnetworkauth qtpositioning qtquick3dphysics qtremoteobjects qtscxml qtsensors qtserialbus qtserialport qtspeech qtvirtualkeyboard qtwebchannel qtwebsockets qtwebview qt5compat qtquick3d qtquicktimeline qtshadertools'
+          modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           # Whether or not to actually download Qt
-#          cached: '${{ steps.cache-qt.outputs.cache-hit }}' # optional, default is false
-#          archives: none
+          cached: '${{ steps.cache-qt.outputs.cache-hit }}' # optional, default is false
 
       - name: run-vcpkg
         if: false
@@ -132,6 +132,9 @@ jobs:
         run: |
           sudo chmod 777 ${Qt6_DIR}/bin/qt-cmake
           ${Qt6_DIR}/bin/qt-cmake .. \
+              -DCMARK_SHARED=OFF \
+              -DCMARK_TESTS=OFF \
+              -DCMARK_STATIC=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
               -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
