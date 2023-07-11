@@ -34,6 +34,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_macos
       qt_modules: qtwebengine ${{matrix.qt_modules}}
+      VCPKGGITCOMMITID: 5ac89392d779288ec8073ebba69cf12d3537f6d7
       LunarCalendar_VERSION: v0.2.6
       artifact_name: build_macos
 
@@ -61,6 +62,17 @@ jobs:
           path: |
             ${{env.INSTALL_DIR}}
           key: Cache-installed-macos
+
+      - name: run-vcpkg
+        uses: lukka/run-vcpkg@v7.4
+        with:
+          vcpkgGitCommitId: ${{env.VCPKGGITCOMMITID}}
+          vcpkgDirectory: ${{runner.workspace}}/vcpkg/
+          # Since the cache must be invalidated when content of the vcpkg.json file changes, let's
+          # compute its hash and append this to the computed cache's key.
+          appendedCacheKey: cache-vcpkg-msvc-${{matrix.os}}-vc${{matrix.VCPKG_PLATFORM_TOOLSET}}-${{matrix.triplet}}-qt${{matrix.qt_version}}-${{matrix.BUILD_TYPE}}-${{env.VCPKGGITCOMMITID}}
+          vcpkgTriplet: '${{matrix.triplet}}'
+          vcpkgArguments: 'zlib openssl sqlite3'
 
       - name: Cache Qt
         id: cache-qt
@@ -94,8 +106,9 @@ jobs:
               -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} \
               -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install \
               -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake \
-              -DINSTALL_QT=OFF \
-              -DBUILD_APP=OFF
+              -DVCPKG_VERBOSE=ON \
+              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON \
+              -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
           7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}_${{ matrix.BUILD_TYPE }}.zip ./install/*
 

@@ -36,7 +36,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.BUILD_TYPE}}
       LunarCalendar_VERSION: v0.2.6
-      VCPKGGITCOMMITID: 1286cac8751e13bb289061b7e3b89eb4c3f613a2
+      VCPKGGITCOMMITID: 5ac89392d779288ec8073ebba69cf12d3537f6d7
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
       qt_modules: 'qtimageformats qtmultimedia qtscxml'
@@ -142,9 +142,9 @@ jobs:
               -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DCMAKE_INSTALL_PREFIX=`pwd`/install
           cmake --build . --config ${{matrix.BUILD_TYPE}}  --target all
-          cmake --build . --config ${{matrix.BUILD_TYPE}}  --target install
           APK_FILE=`find . -name "android-*.apk"`
           cp $APK_FILE LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.apk
+          cmake --build . --config ${{matrix.BUILD_TYPE}}  --target install
           7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip install/*
 
       - name: Update artifact
