@@ -26,8 +26,8 @@
 [![GitHub forks](https://img.shields.io/github/forks/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/forks)
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
 [![Current release](https://img.shields.io/github/release/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/releases)
-[![All releases downloads](https://img.shields.io/github/downloads/KangLin/LunarCalendar/total)](https://github.com/KangLin/LunarCalendar/releases)
-[![Download LunarCalendar](https://img.shields.io/sourceforge/dt/lunarcalendar.svg)](https://sourceforge.net/projects/lunarcalendar/files/latest/download)
+[![All releases downloads](https://img.shields.io/github/downloads/KangLin/LunarCalendar/total?label=Github%20下载量)](https://github.com/KangLin/LunarCalendar/releases)
+[![Download LunarCalendar](https://img.shields.io/sourceforge/dt/lunarcalendar.svg?label=Sourceforge%20下载量)](https://sourceforge.net/projects/lunarcalendar/files/latest/download)
 
 ------------------------------------------------
 
@@ -59,7 +59,8 @@ Qt 写的农历。它提供：
 - 示例
   + 一个简单的日历应用程序。用于示例如何使用此农历日历库。
   + 此库的一个完整应用 [日历](https://github.com/KangLin/Calendar)
-- 跨平台，支持多操作系统
+- 跨平台，支持多操作系统。
+  详见：[Qt5 支持平台](https://doc.qt.io/qt-5/supported-platforms.html)、[Qt6 支持平台](https://doc.qt.io/qt-6/supported-platforms.html)。
   + [x] Windows
   + [x] Linux、Unix
   + [x] Android

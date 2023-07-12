@@ -44,7 +44,7 @@ jobs:
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
       LunarCalendar_VERSION: v0.2.7
-      VCPKGGITCOMMITID: 5ac89392d779288ec8073ebba69cf12d3537f6d7
+      VCPKGGITCOMMITID: d765306b074717dea8dc1c4723e1b025acb61c2d
       qt_modules: qtwebengine ${{matrix.qt_modules}}
       artifact_name: build_msvc
 
