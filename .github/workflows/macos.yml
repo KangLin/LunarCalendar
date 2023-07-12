@@ -35,7 +35,7 @@ jobs:
       INSTALL_DIR: ${{github.workspace}}/.cache/install_macos
       qt_modules: qtwebengine ${{matrix.qt_modules}}
       VCPKGGITCOMMITID: 5ac89392d779288ec8073ebba69cf12d3537f6d7
-      LunarCalendar_VERSION: v0.2.6
+      LunarCalendar_VERSION: v0.2.7
       artifact_name: build_macos
 
     # Map the job outputs to step outputs
