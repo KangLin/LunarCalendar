@@ -1,3 +1,6 @@
+- v0.2.7
+  + 修复 DockDebugLog 崩溃. 详见: [RabbitCommon](https://github.com/KangLin/RabbitCommon/commit/af2e434e39af35876113436ead2a946efcf74199)
+
 - v0.2.6
   + CI: 修改 android.yml
   + 使用 find_package(RabbitCommon)
