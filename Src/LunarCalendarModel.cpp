@@ -949,7 +949,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
     if(db.exists())
     {
         if(db.remove())
-            qDebug(Logger) << "Remove database file:" << db.fileName();
+            qInfo(Logger) << "Remove database file:" << db.fileName();
         else
             qCritical(Logger) << "Remove database file fail:" << db.fileName();
     }
