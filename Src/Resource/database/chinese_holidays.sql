@@ -485,6 +485,6 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-06',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-07',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-12',0,NULL);
 
-
+-- TODO: add holiday
 
 COMMIT;

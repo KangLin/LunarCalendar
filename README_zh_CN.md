@@ -85,6 +85,12 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
+- 开发包： *.zip
+- 示例程序安装包：
+  - Ubuntu: *.deb
+  - Windows: *.exe
+  - Android: *.apk
+
 ### 编译
 - 依赖  
   + [Qt (LGPL v2.1)](http://qt.io/)

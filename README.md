@@ -73,6 +73,7 @@ please compile and test the students with the corresponding equipment.
 
 [![donation](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation")](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation")
 
+
 ### Screenshots
 - Windows
 
@@ -84,6 +85,12 @@ please compile and test the students with the corresponding equipment.
 ![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
+
+- Develop library: *.zip
+- Example program installation package:
+  - Ubuntu: *.deb
+  - Windows: *.exe
+  - Android: *.apk
 
 ### Compile
 
