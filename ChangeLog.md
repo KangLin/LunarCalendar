@@ -1,5 +1,6 @@
 - v0.2.8
   + [增加 2024 年节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)
+  + 在应用程序中增加日志菜单
 
 - v0.2.7
   + 修复 DockDebugLog 崩溃. 详见: [RabbitCommon](https://github.com/KangLin/RabbitCommon/commit/af2e434e39af35876113436ead2a946efcf74199)

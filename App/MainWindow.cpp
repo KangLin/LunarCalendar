@@ -11,7 +11,7 @@
 #ifdef RABBITCOMMON
     #include "DlgAbout.h"
     #include "FrmUpdater.h"
-    #include "FrmStyle.h"
+    #include "RabbitCommonTools.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -76,10 +76,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadposition->addAction(pHeadRight);
 
     pViewMenu->addSeparator();
-    QAction* pActionStyle = pViewMenu->addAction(QIcon::fromTheme("style"),
-                                                 tr("Style"),
-                                            this, SLOT(slotStyle()));
-    Q_UNUSED(pActionStyle);
+    pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
 
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
@@ -87,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pHelp->addAction(updater.windowIcon(), tr("Update"),
                      this, SLOT(slotUpdate()));
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
+    pHelp->addMenu(RabbitCommon::CTools::Instance()->GetLogMenu(this));
 #endif
 
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
@@ -160,14 +158,6 @@ void MainWindow::slotUpdate()
     #else
         pUpdate->show();
     #endif
-#endif
-}
-
-void MainWindow::slotStyle()
-{
-#ifdef RABBITCOMMON
-    CFrmStyle* f = new CFrmStyle();
-    f->show();
 #endif
 }
 
