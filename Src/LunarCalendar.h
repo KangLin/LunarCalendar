@@ -1,4 +1,12 @@
-// Author: Kang Lin <kl222@126.com>
+/*!
+ * \copyright 康林工作室版权所有 (c)，保留所有权力。
+ * \author 康　林 <kl222@126.com>
+ */
+
+/*!
+ * \defgroup API 应用程序接口
+ * \defgroup INTERNAL_API 内部使用接口
+ */
 
 #ifndef LUNARCALENDAR_H
 #define LUNARCALENDAR_H
@@ -20,6 +28,7 @@
 
 /*!
  * \brief 农历界面类
+ * \ingroup API
  */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {

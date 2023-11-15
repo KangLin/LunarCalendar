@@ -1,4 +1,7 @@
-// 作者：康林 <kl222@126.com>
+/*!
+ * \copyright 康林工作室版权所有 (c)，保留所有权力。
+ * \author 康　林 <kl222@126.com>
+ */
 
 #include "LunarTable.h"
 #include <QDataStream>

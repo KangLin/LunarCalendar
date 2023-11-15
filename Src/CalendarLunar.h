@@ -1,4 +1,7 @@
-// Author: Kang Lin <kl222@126.com>
+/*!
+ * \copyright 康林工作室版权所有 (c)，保留所有权力。
+ * \author 康　林 <kl222@126.com>
+ */
 
 #ifndef LUNAR_H
 #define LUNAR_H
@@ -9,6 +12,7 @@
 
 /*!
  * \brief 农历类
+ * \ingroup INTERNAL_API
  */
 class CCalendarLunar : public QObject
 {

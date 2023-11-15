@@ -1,4 +1,7 @@
-// Author: Kang Lin <kl222@126.com>
+/*!
+ * \copyright 康林工作室版权所有 (c)，保留所有权力。
+ * \author 康　林 <kl222@126.com>
+ */
 
 #ifndef LUNARTABLE_H
 #define LUNARTABLE_H
@@ -11,6 +14,7 @@
 
 /*!
  * \brief 产生、保存、加载农历缓存
+ * \ingroup INTERNAL_API
  */
 class CLunarTable : public QObject
 {

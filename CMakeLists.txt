@@ -115,6 +115,25 @@ if(WIN32)
         DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
 endif(WIN32)
 
-message("Build arch:${BUILD_ARCH}")
-message("Build app:${BUILD_APP}")
-message("Build shared library:${BUILD_SHARED_LIBS}")
+# 产生文档
+option(BUILD_DOCS "Generating API documentation" OFF)
+if(BUILD_DOCS)
+    find_package(Doxygen)
+    if(DOXYGEN_FOUND)
+        file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Doxygen)
+        configure_file(${CMAKE_SOURCE_DIR}/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
+        add_custom_target(doc ALL
+            ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile # &> doxygen.log
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+            COMMENT "Generating API documentation with Doxygen" VERBATIM
+            )
+        install(DIRECTORY ${CMAKE_BINARY_DIR}/Doxygen/
+            DESTINATION ${CMAKE_INSTALL_DOCDIR}
+            COMPONENT Runtime)
+    endif(DOXYGEN_FOUND)
+endif(BUILD_DOCS)
+
+message(STATUS "Build arch: ${BUILD_ARCH}")
+message(STATUS "Build app: ${BUILD_APP}")
+message(STATUS "Build shared library: ${BUILD_SHARED_LIBS}")
+message(STATUS "Build documentsS: ${BUILD_DOCS}")
