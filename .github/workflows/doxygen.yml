@@ -21,7 +21,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_doxygen
       DOXYGEN_VERSION: 1.9.8
-      LunarCalendar_VERSION: v0.0.28
+      LunarCalendar_VERSION: v0.2.8
       artifact_name: build_doxygen
 
     # Map the job outputs to step outputs
