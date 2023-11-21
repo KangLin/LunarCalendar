@@ -1,13 +1,18 @@
 ## LunarCalendar
 
-Author: KangLin (kl222@126.com)
+Author: Kang Lin <kl222@126.com>
 
 ------------------------------------------------
 
 [:cn: 中文](README_zh_CN.md)
 
-- Project position: https://github.com/KangLin/LunarCalendar
-- [Project home](https://kanglin.github.io/LunarCalendar/)
+- Project position:
+  - The main repository: https://github.com/KangLin/LunarCalendar
+  - Mirror repository:
+    - https://gitee.com/kl222/LunarCalendar
+    - https://gitlab.com/kl222/LunarCalendar
+    - https://sourceforge.net/projects/lunarcalendar/
+- [Project home](https://kanglin.github.io/LunarCalendar/html/index.html)
 
 ------------------------------------------------
 
@@ -21,7 +26,7 @@ Author: KangLin (kl222@126.com)
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 
-[![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
+[![GitHub stars](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://star-history.com/#KangLin/LunarCalendar&Date)
 [![Gitee stars](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/forks)
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
@@ -79,6 +84,10 @@ please compile and test the students with the corresponding equipment.
 
 ![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
 ![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
+
+- Ubuntu
+
+![Ubuntu](Docs/image/ScreenShotUbunt.png "Ubuntu")
 
 - Android
 

@@ -1,13 +1,18 @@
 ## 农历
 
-作者：康林（kl222@126.com)
+作者：康 林 <kl222@126.com>
 
 ------------------------------------------------
 
 [:us: English](README.md)
 
-- 项目位置: https://github.com/KangLin/LunarCalendar
-- [项目主页](https://kanglin.github.io/LunarCalendar/)
+- 项目位置: 
+  - 主库：　https://github.com/KangLin/LunarCalendar
+  - 镜像库：
+    - https://gitee.com/kl222/LunarCalendar
+    - https://gitlab.com/kl222/LunarCalendar
+    - https://sourceforge.net/projects/lunarcalendar/
+- [项目主页](https://kanglin.github.io/LunarCalendar/html/index.html)
 
 ------------------------------------------------
 
@@ -21,7 +26,7 @@
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
 [![Windows 编译状态](https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true)](https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop)
 
-[![GitHub 点赞数](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/stars)
+[![GitHub 点赞数](https://img.shields.io/github/stars/KangLin/LunarCalendar)](https://star-history.com/#KangLin/LunarCalendar&Date)
 [![Gitee 点赞数](https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark)](https://gitee.com/kl222/LunarCalendar/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/forks)
 [![GitHub issues](https://img.shields.io/github/issues/KangLin/LunarCalendar)](https://github.com/KangLin/LunarCalendar/issues)
@@ -78,6 +83,10 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
 ![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
+
+- Ubuntu
+
+![Ubuntu 屏幕截图](Docs/image/ScreenShotUbunt.png "Ubuntu 屏幕截图")
 
 - Android
 

@@ -104,8 +104,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //    m_pLunarCalendar->ShowWeeks(false);
 //    m_pLunarCalendar->ShowHead(false);
 //    m_pLunarCalendar->ShowTime(false);
-//    m_pLunarCalendar->AddAnniversary(8, 19, "my birth");
-//    m_pLunarCalendar->AddAnniversary(4, 25, "you birth");
+//    m_pLunarCalendar->AddAnniversary(10, 19, "my birth");
+//    m_pLunarCalendar->AddAnniversary(10, 25, "you birth");
 //    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
 //    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
