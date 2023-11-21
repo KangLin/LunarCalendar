@@ -25,6 +25,8 @@ QColor GetColorRole(const QPalette &palette, int role)
         return palette.color(QPalette::Disabled, QPalette::Text);
     case CLunarCalendarModel::ColorHighlight:
         return palette.color(QPalette::Active, QPalette::Highlight);
+    case CLunarCalendarModel::ColorRed:
+        return QColor(255, 0, 0);
     }
     return QColor();
 }

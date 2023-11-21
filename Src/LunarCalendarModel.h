@@ -43,7 +43,8 @@ public:
     {
         ColorNormal,
         ColorDisable,
-        ColorHighlight
+        ColorHighlight,
+        ColorRed
     };
     enum _FONT_ROLE
     {

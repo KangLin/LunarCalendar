@@ -219,9 +219,17 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return "";
     }
     case WorkDayColorRole:
+        if(d.month() != m_ShownMonth
+            && CLunarCalendar::ViewTypeMonth == m_viewType)
+             return ColorDisable;
         if(WORK == GetDay(row, column).WorkDay)
             return ColorHighlight;
-        return ColorDisable;
+        /*if(d.dayOfWeek() == Qt::Saturday
+            || Qt::Sunday == d.dayOfWeek()
+            //|| d == QDate::currentDate()
+            || !GetDay(row, column).szSolarHoliday.isEmpty())
+             return ColorHighlight;//*/
+        return ColorNormal;
     default:
         break;
     };
