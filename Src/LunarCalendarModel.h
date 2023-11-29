@@ -159,7 +159,7 @@ private:
         int nLunarMonth;
         int nLunarDay;
         QString szLunar;
-        QString szLunarHoliday;
+        QStringList LunarHoliday;
         QString szAnniversary;
         QString szImageBackgroup;
         int nTasks;

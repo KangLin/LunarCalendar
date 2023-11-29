@@ -159,8 +159,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case LunarRole:
         if(!GetDay(row, column).SolarHoliday.isEmpty())
             return GetDay(row, column).SolarHoliday.first();
-        if(!GetDay(row, column).szLunarHoliday.isEmpty())
-            return GetDay(row, column).szLunarHoliday;
+        if(!GetDay(row, column).LunarHoliday.isEmpty())
+            return GetDay(row, column).LunarHoliday.first();
         if(!GetDay(row, column).szAnniversary.isEmpty())
             return GetDay(row, column).szAnniversary;
         return GetDay(row, column).szLunar;
@@ -170,14 +170,14 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                 && CLunarCalendar::ViewTypeMonth == m_viewType)
             return ColorDisable;
 
-        if(GetDay(row, column).szLunarHoliday.isEmpty())
+        if(GetDay(row, column).LunarHoliday.isEmpty())
             return ColorNormal;
         
         return ColorHighlight;
     }
     case LunarFontRole:
     {
-        if(GetDay(row, column).szLunarHoliday.isEmpty())
+        if(GetDay(row, column).LunarHoliday.isEmpty())
             return FontNormal;
         
         return FontBold;
@@ -317,9 +317,9 @@ int CLunarCalendarModel::slotUpdate()
                 day.nLunarDay = lunar.GetDay();
                 day.szLunar = lunar.GetLunarDay();
                 
-                day.szLunarHoliday = lunar.GetHoliday();
-                if(day.szLunarHoliday.isEmpty())
-                    day.szLunarHoliday = lunar.GetJieQi();
+                day.LunarHoliday = lunar.GetHoliday();
+                if(day.LunarHoliday.isEmpty() && !lunar.GetJieQi().isEmpty())
+                    day.LunarHoliday << lunar.GetJieQi();
                 
                 day.szAnniversary = lunar.GetAnniversary();
                 day.szImageBackgroup = lunar.GetJieQiImage();    

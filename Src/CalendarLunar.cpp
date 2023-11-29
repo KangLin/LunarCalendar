@@ -83,7 +83,7 @@ int CCalendarLunar::GetLunar(const QDate &date)
     
     QMultiMap<int, QString> holiday = g_Holiday[day.nMonth];
     if(!holiday.isEmpty())
-        m_szHoliday = holiday.value(day.nDay);
+        m_Holiday << holiday.values(day.nDay);
     
     holiday = g_Anniversary[day.nMonth];
     if(!holiday.isEmpty())
@@ -117,9 +117,9 @@ QString CCalendarLunar::GetLunarDay()
     return m_szLunarDay;
 }
 
-QString CCalendarLunar::GetHoliday()
+QStringList CCalendarLunar::GetHoliday()
 {
-    return m_szHoliday;
+    return m_Holiday;
 }
 
 QString CCalendarLunar::GetJieQi()
