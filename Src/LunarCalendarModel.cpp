@@ -157,14 +157,48 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case SolarRole:
         return d.day();
     case Qt::ToolTipRole:
+    {
+        QString szTip;
+        _DAY day = GetDay(row, column);
+        szTip = QString::number(day.Solar) + "\n";
+        szTip += day.szLunar + "\n";
+        if(!day.SolarHoliday.isEmpty()) {
+            foreach(auto h, day.SolarHoliday) {
+                if(h.isEmpty())
+                    break;
+                szTip += h + "\n";
+            }
+        }
+        if(!day.LunarHoliday.isEmpty()) {
+            foreach (auto h, day.LunarHoliday) {
+                if(h.isEmpty())
+                    break;
+                szTip += h + "\n";
+            }
+        }
+        if(!day.szAnniversary.isEmpty())
+            return day.szAnniversary;
+        return szTip;
+    }
     case LunarRole:
-        if(!GetDay(row, column).SolarHoliday.isEmpty())
-            return GetDay(row, column).SolarHoliday.first();
-        if(!GetDay(row, column).LunarHoliday.isEmpty())
-            return GetDay(row, column).LunarHoliday.first();
-        if(!GetDay(row, column).szAnniversary.isEmpty())
-            return GetDay(row, column).szAnniversary;
-        return GetDay(row, column).szLunar;
+    {
+        _DAY day = GetDay(row, column);
+        if(!day.SolarHoliday.isEmpty()) {
+            foreach(auto h, day.SolarHoliday) {
+                if(!h.isEmpty())
+                    return h;
+            }
+        }
+        if(!day.LunarHoliday.isEmpty()) {
+            foreach (auto h, day.LunarHoliday) {
+                if(!h.isEmpty())
+                    return h;
+            }
+        }
+        if(!day.szAnniversary.isEmpty())
+            return day.szAnniversary;
+        return day.szLunar;
+    }
     case LunarColorRole:
     {
         if(d.month() != m_ShownMonth
@@ -218,6 +252,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
              return "班";
         case REST:
              return "休";
+        default:
+             break;
         }
         return "";
     }
