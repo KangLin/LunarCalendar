@@ -3,6 +3,7 @@
   + 修改节日为列表
   + 修改农历假日为列表
   + 增加 ToolTipRole
+  + 修改周年为列表
   
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)

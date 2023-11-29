@@ -176,8 +176,13 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                 szTip += h + "\n";
             }
         }
-        if(!day.szAnniversary.isEmpty())
-            return day.szAnniversary;
+        if(!day.szAnniversary.isEmpty()) {
+            foreach (auto h, day.szAnniversary) {
+                if(h.isEmpty())
+                    break;
+                szTip += h + "\n";
+            }
+        }
         return szTip;
     }
     case LunarRole:
@@ -195,8 +200,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                     return h;
             }
         }
-        if(!day.szAnniversary.isEmpty())
-            return day.szAnniversary;
+        if(!day.szAnniversary.isEmpty()) {
+            foreach (auto h, day.szAnniversary) {
+                if(!h.isEmpty())
+                    return h;
+            }
+        }
         return day.szLunar;
     }
     case LunarColorRole:
@@ -344,8 +353,10 @@ int CLunarCalendarModel::slotUpdate()
             _DAY day;
             day.Solar = d.day();
             day.SolarHoliday << m_Holiday[d.month()].values(d.day());
-            
+
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
+            
+            day.szAnniversary = m_Anniversary[d.month()].values(d.day());
             
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
@@ -358,11 +369,9 @@ int CLunarCalendarModel::slotUpdate()
                 if(day.LunarHoliday.isEmpty() && !lunar.GetJieQi().isEmpty())
                     day.LunarHoliday << lunar.GetJieQi();
                 
-                day.szAnniversary = lunar.GetAnniversary();
+                day.szAnniversary += lunar.GetAnniversary();
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
-            if(day.szAnniversary.isEmpty())
-                day.szAnniversary = m_Anniversary[d.month()].value(d.day());
             
             if(m_GetTaskHandler)
                 day.nTasks = m_GetTaskHandler->onHandle(d);
@@ -799,7 +808,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
     cellForDate(date, &row, &col);
     if(-1 == row || -1 == col || m_Day.isEmpty())
         return -2;
-    m_Day[row * 7 + col].szAnniversary = szName;            
+    m_Day[row * 7 + col].szAnniversary << szName;            
     return 0;
 }
 

@@ -34,7 +34,7 @@ public:
     QString GetLunar();
     QString GetLunarDay();
     QStringList GetHoliday();
-    QString GetAnniversary();
+    QStringList GetAnniversary();
     QString GetJieQi();
     QString GetJieQiImage();
     
@@ -47,7 +47,7 @@ private:
     QString m_szLunar;
     QString m_szLunarDay;
     QStringList m_Holiday;
-    QString m_szAnniversary;
+    QStringList m_Anniversary;
     QString m_szJieQi;
     QString m_szImageJieQi;
     int m_Year;

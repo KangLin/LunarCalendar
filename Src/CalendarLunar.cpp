@@ -87,7 +87,7 @@ int CCalendarLunar::GetLunar(const QDate &date)
     
     holiday = g_Anniversary[day.nMonth];
     if(!holiday.isEmpty())
-        m_szAnniversary = holiday.value(day.nDay);
+        m_Anniversary = holiday.values(day.nDay);
     
     if(-1 != day.nJq)
     {   
@@ -201,7 +201,7 @@ int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
     return 0;
 }
 
-QString CCalendarLunar::GetAnniversary()
+QStringList CCalendarLunar::GetAnniversary()
 {
-    return m_szAnniversary;
+    return m_Anniversary;
 }

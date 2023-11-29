@@ -160,7 +160,7 @@ private:
         int nLunarDay;
         QString szLunar;
         QStringList LunarHoliday;
-        QString szAnniversary;
+        QStringList szAnniversary;
         QString szImageBackgroup;
         int nTasks;
         __WORK_DAY WorkDay;

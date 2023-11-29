@@ -9,9 +9,9 @@
 #include <QApplication>
 #include <QActionGroup>
 #ifdef RABBITCOMMON
-    #include "DlgAbout.h"
-    #include "FrmUpdater.h"
-    #include "RabbitCommonTools.h"
+#include "DlgAbout.h"
+#include "FrmUpdater.h"
+#include "RabbitCommonTools.h"
 #endif
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,58 +23,58 @@ MainWindow::MainWindow(QWidget *parent) :
     
     QMenu* pViewMenu = menuBar()->addMenu(tr("View"));
     QAction* pActionLunar = pViewMenu->addAction(tr("Lunar"),
-                                            this, SLOT(slotActionLunar(bool)));
+                                                 this, SLOT(slotActionLunar(bool)));
     pActionLunar->setCheckable(true);
     pActionLunar->setChecked(true);
     
     QAction* pActionSolar = pViewMenu->addAction(tr("Solar"),
-                                            this, SLOT(slotActionSolar(bool)));
+                                                 this, SLOT(slotActionSolar(bool)));
     pActionSolar->setCheckable(true);
     pActionSolar->setChecked(true);
     pViewMenu->addSeparator();
     
     QActionGroup* pViewTypeGroup = new QActionGroup(this);
     QAction* pViewMonth = pViewMenu->addAction(tr("Month"),
-                                            this, SLOT(slotViewMonth()));
+                                               this, SLOT(slotViewMonth()));
     pViewMonth->setCheckable(true);
     pViewMonth->setChecked(true);
     pViewTypeGroup->addAction(pViewMonth);
     QAction* pViewWeek = pViewMenu->addAction(tr("Week"),
-                                            this, SLOT(slotViewWeek()));
+                                              this, SLOT(slotViewWeek()));
     pViewWeek->setCheckable(true);
     pViewTypeGroup->addAction(pViewWeek);
     pViewMenu->addSeparator();
     
     QAction* pViewBackgroup = pViewMenu->addAction(tr("Use backgroup image"),
-                                       this, SLOT(slotViewBackgroup(bool)));
+                                                   this, SLOT(slotViewBackgroup(bool)));
     pViewBackgroup->setCheckable(true);
     pViewBackgroup->setChecked(false);
     m_pLunarCalendar->SetShowBackgroupImage(false);
-
+    
     QActionGroup* pViewHeadposition = new QActionGroup(this);
     QMenu* pViewHeadpositionMenu = pViewMenu->addMenu(tr("Head position"));
     QAction* pHeadNot = pViewHeadpositionMenu->addAction(tr("Not"),
-                                             this, SLOT(slotHeadpositionNot()));
+                                                         this, SLOT(slotHeadpositionNot()));
     pHeadNot->setCheckable(true);
     QAction* pHeadTop = pViewHeadpositionMenu->addAction(tr("Top"),
-                                             this, SLOT(slotHeadpositionTop()));
+                                                         this, SLOT(slotHeadpositionTop()));
     pHeadTop->setCheckable(true);
     pHeadTop->setChecked(true);
     QAction* pHeadDown = pViewHeadpositionMenu->addAction(tr("Down"),
-                                            this, SLOT(slotHeadpositionDown()));
+                                                          this, SLOT(slotHeadpositionDown()));
     pHeadDown->setCheckable(true);
     QAction* pHeadLeft = pViewHeadpositionMenu->addAction(tr("Left"),
-                                            this, SLOT(slotHeadpositionLeft()));
+                                                          this, SLOT(slotHeadpositionLeft()));
     pHeadLeft->setCheckable(true);
     QAction* pHeadRight = pViewHeadpositionMenu->addAction(tr("Right"),
-                                           this, SLOT(slotHeadpositionRight()));
+                                                           this, SLOT(slotHeadpositionRight()));
     pHeadRight->setCheckable(true);
     pViewHeadposition->addAction(pHeadNot);
     pViewHeadposition->addAction(pHeadTop);
     pViewHeadposition->addAction(pHeadDown);
     pViewHeadposition->addAction(pHeadLeft);
     pViewHeadposition->addAction(pHeadRight);
-
+    
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
 
@@ -86,38 +86,41 @@ MainWindow::MainWindow(QWidget *parent) :
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
     pHelp->addMenu(RabbitCommon::CTools::Instance()->GetLogMenu(this));
 #endif
-
+    
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
     //m_pLunarCalendar->ShowToday(false);
     //m_pLunarCalendar->ShowTools(false);
     //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
     //m_pLunarCalendar->SetShowGrid(true);
-
+    
     //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
     /*
     m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
     m_pLunarCalendar->GenerateCalendarTable(
                 qApp->applicationDirPath() + QDir::separator() + "cache.dat",
                 8, true, false); //*/
-
-//    m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
+    
+    //m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
     //m_pLunarCalendar->ShowWeekHead(false);
     //m_pLunarCalendar->ShowWeeks(false);
     //m_pLunarCalendar->ShowHead(false);
     //m_pLunarCalendar->ShowDate(false);
     //m_pLunarCalendar->ShowTime(false);
-    //m_pLunarCalendar->AddHoliday(10, 24, "holiday");
-    //m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
-    //m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
-    //m_pLunarCalendar->AddLunarAnniversary(1, 21, "My birth");
+    m_pLunarCalendar->AddHoliday(10, 1, "holiday");
+    m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
+    m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
+    m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
+    m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
+    m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
+    m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
-
+    
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
-            this, SLOT(slotUpdateCalendar()));
+                         this, SLOT(slotUpdateCalendar()));
     Q_ASSERT(check);
 }
 
@@ -140,10 +143,10 @@ void MainWindow::slotAbout()
     about.m_szBuildTime = QString("%1/%2").arg(__DATE__, __TIME__);
     about.m_szCopyrightStartTime = "2019";
     about.m_szVersionRevision = LunarCalendar_REVISION;
-    #if defined (Q_OS_ANDROID)
-        about.showMaximized();
-    #endif
-        about.exec();
+#if defined (Q_OS_ANDROID)
+    about.showMaximized();
+#endif
+    about.exec();
 #endif
 }
 
@@ -157,11 +160,11 @@ void MainWindow::slotUpdate()
     if(sizeList.isEmpty()) return;
     QPixmap p = icon.pixmap(*sizeList.begin());
     pUpdate->SetTitle(p.toImage());
-    #if defined (Q_OS_ANDROID)
-        pUpdate->showMaximized();
-    #else
-        pUpdate->show();
-    #endif
+#if defined (Q_OS_ANDROID)
+    pUpdate->showMaximized();
+#else
+    pUpdate->show();
+#endif
 #endif
 }
 
@@ -174,28 +177,28 @@ void MainWindow::slotActionLunar(bool checked)
 {
     if(checked)
         m_pLunarCalendar->SetCalendarType(
-                static_cast<CLunarCalendar::_CalendarType>(
-                          CLunarCalendar::CalendarTypeLunar
-                   | m_pLunarCalendar->GetCalendarType()));
+            static_cast<CLunarCalendar::_CalendarType>(
+                CLunarCalendar::CalendarTypeLunar
+                | m_pLunarCalendar->GetCalendarType()));
     else
         m_pLunarCalendar->SetCalendarType(
-                static_cast<CLunarCalendar::_CalendarType>(
-                          ~CLunarCalendar::CalendarTypeLunar
-                   & m_pLunarCalendar->GetCalendarType()));
+            static_cast<CLunarCalendar::_CalendarType>(
+                ~CLunarCalendar::CalendarTypeLunar
+                & m_pLunarCalendar->GetCalendarType()));
 }
 
 void MainWindow::slotActionSolar(bool checked)
 {
     if(checked)
         m_pLunarCalendar->SetCalendarType(
-                static_cast<CLunarCalendar::_CalendarType>(
-                          CLunarCalendar::CalendarTypeSolar
-                   | m_pLunarCalendar->GetCalendarType()));
+            static_cast<CLunarCalendar::_CalendarType>(
+                CLunarCalendar::CalendarTypeSolar
+                | m_pLunarCalendar->GetCalendarType()));
     else
         m_pLunarCalendar->SetCalendarType(
-                static_cast<CLunarCalendar::_CalendarType>(
-                          ~CLunarCalendar::CalendarTypeSolar
-                   & m_pLunarCalendar->GetCalendarType()));
+            static_cast<CLunarCalendar::_CalendarType>(
+                ~CLunarCalendar::CalendarTypeSolar
+                & m_pLunarCalendar->GetCalendarType()));
 }
 
 void MainWindow::slotViewMonth()
