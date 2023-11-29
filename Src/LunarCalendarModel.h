@@ -154,7 +154,7 @@ private:
     struct _DAY
     {
         int Solar;
-        QString szSolarHoliday;
+        QStringList SolarHoliday;
         int nLunarYear;
         int nLunarMonth;
         int nLunarDay;

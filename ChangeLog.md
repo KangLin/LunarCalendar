@@ -1,5 +1,6 @@
 - v0.2.9
   + 修改　org.Rabbit.Calendar.desktop　中的 MimeType　值
+  + 修改节日为列表
 
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)

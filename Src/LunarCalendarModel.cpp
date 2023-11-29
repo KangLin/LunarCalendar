@@ -157,10 +157,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case SolarRole:
         return d.day();
     case LunarRole:
-        if(!GetDay(row, column).szSolarHoliday.isEmpty())
-            return GetDay(row, column).szSolarHoliday;
+        if(!GetDay(row, column).SolarHoliday.isEmpty())
+            return GetDay(row, column).SolarHoliday.first();
         if(!GetDay(row, column).szLunarHoliday.isEmpty())
             return GetDay(row, column).szLunarHoliday;
+        if(!GetDay(row, column).szAnniversary.isEmpty())
+            return GetDay(row, column).szAnniversary;
         return GetDay(row, column).szLunar;
     case LunarColorRole:
     {
@@ -195,13 +197,13 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(d.dayOfWeek() == Qt::Saturday
                 || Qt::Sunday == d.dayOfWeek()
                 //|| d == QDate::currentDate()
-                || !GetDay(row, column).szSolarHoliday.isEmpty())
+                || !GetDay(row, column).SolarHoliday.isEmpty())
             return ColorHighlight;
         
         return ColorNormal;
     }
     case SolarFontRole:
-        if(GetDay(row, column).szSolarHoliday.isEmpty())
+        if(GetDay(row, column).SolarHoliday.isEmpty())
             return FontNormal;
         
         return FontBold;
@@ -227,7 +229,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         /*if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             //|| d == QDate::currentDate()
-            || !GetDay(row, column).szSolarHoliday.isEmpty())
+            || !GetDay(row, column).SolarHoliday.isEmpty())
              return ColorHighlight;//*/
         return ColorNormal;
     default:
@@ -304,7 +306,7 @@ int CLunarCalendarModel::slotUpdate()
                 break;
             _DAY day;
             day.Solar = d.day();
-            day.szSolarHoliday = m_Holiday[d.month()].value(d.day());
+            day.SolarHoliday << m_Holiday[d.month()].values(d.day());
             
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
@@ -357,7 +359,7 @@ int CLunarCalendarModel::slotUpdate()
             //qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
         }
         row++;
-    }while(d.isValid());
+    } while(d.isValid());
     //qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
     
     internalUpdate();
@@ -715,11 +717,11 @@ QTextCharFormat CLunarCalendarModel::formatForCell(QDate d, int row, int col) co
     if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             || d == QDate::currentDate()
-            || !GetDay(row, col).szSolarHoliday.isEmpty())
+            || !GetDay(row, col).SolarHoliday.isEmpty())
     {
         format.setForeground(QBrush(GetHeight()));
     }
-    if(!GetDay(row, col).szSolarHoliday.isEmpty())
+    if(!GetDay(row, col).SolarHoliday.isEmpty())
     {
         QFont font = format.font();
         font.setBold(true);
@@ -746,7 +748,7 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
     cellForDate(date, &row, &col);
     if(-1 == row || -1 == col || m_Day.isEmpty())
         return -2;
-    m_Day[row * 7 + col].szSolarHoliday = szName;            
+    m_Day[row * 7 + col].SolarHoliday.push_back(szName);
     return 0;
 }
 
