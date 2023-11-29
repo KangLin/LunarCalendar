@@ -88,26 +88,29 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
-//    m_pLunarCalendar->ShowToday(false);
-//    m_pLunarCalendar->ShowTools(false);
-//    m_pLunarCalendar->SetSelectedDate(QDate::currentDate());
-//    m_pLunarCalendar->SetShowGrid(true);
+    //m_pLunarCalendar->ShowToday(false);
+    //m_pLunarCalendar->ShowTools(false);
+    //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
+    //m_pLunarCalendar->SetShowGrid(true);
 
     //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
-//    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
-//    m_pLunarCalendar->GenerateCalendarTable(
-//                qApp->applicationDirPath() + QDir::separator() + "cache.dat",
-//                8, true, false);
+    /*
+    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
+    m_pLunarCalendar->GenerateCalendarTable(
+                qApp->applicationDirPath() + QDir::separator() + "cache.dat",
+                8, true, false); //*/
 
 //    m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
-//    m_pLunarCalendar->ShowWeekHead(false);
-//    m_pLunarCalendar->ShowWeeks(false);
-//    m_pLunarCalendar->ShowHead(false);
-//    m_pLunarCalendar->ShowTime(false);
-//    m_pLunarCalendar->AddAnniversary(10, 19, "my birth");
-//    m_pLunarCalendar->AddAnniversary(10, 25, "you birth");
-//    m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
-//    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
+    //m_pLunarCalendar->ShowWeekHead(false);
+    //m_pLunarCalendar->ShowWeeks(false);
+    //m_pLunarCalendar->ShowHead(false);
+    //m_pLunarCalendar->ShowDate(false);
+    //m_pLunarCalendar->ShowTime(false);
+    //m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
+    //m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
+    //m_pLunarCalendar->AddLunarAnniversary(1, 21, "My birth");
+    //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
+    //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);

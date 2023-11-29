@@ -82,8 +82,8 @@ please compile and test the students with the corresponding equipment.
 ### Screenshots
 - Windows
 
-![Screenshots](Docs/image/ScreenShot.PNG "Screenshots")
-![Screenshots](Docs/image/ScreenShotQss.PNG "Screenshots")
+![Screenshots](Docs/image/ScreenShot.png "Screenshots")
+![Screenshots](Docs/image/ScreenShotQss.png "Screenshots")
 
 - Ubuntu
 
@@ -91,7 +91,7 @@ please compile and test the students with the corresponding equipment.
 
 - Android
 
-![Android Screenshots](Docs/image/ScreenShotAndroid.PNG "Android Screenshots")
+![Android Screenshots](Docs/image/ScreenShotAndroid.png "Android Screenshots")
 
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 

@@ -28,7 +28,42 @@
 
 /*!
  * \brief 农历界面类
+ * \details
+ * - 日历
+ * \image html Docs/image/ScreenShotUbunt.png
+ * - 日历头
+ * \image html Docs/image/Head.png
+ * - 日期工具按钮
+ * \image html Docs/image/Tool.png
+ * - 今日工具按钮
+ * \image html Docs/image/Tool.png
+ * - 选择日期
+ * \image html Docs/image/Date.png
+ * - 当前时间
+ * \image html Docs/image/Date.png
+ * - 周
+ * \image html Docs/image/Week.png
+ * - 节日
+ *   - 中国节假日，在左上角显示
+ *   - 周年纪念日，在上面中间用圆点表示
+ *     - 农历
+ *     - 公历
+ *   - 节日
+ *     - 公历
+ *     - 农历
+ *     - 节气
+ * - 农历位置显示优先级
+ *   - 公历节日
+ *   - 节气
+ *   - 农历节日
+ *   - 周年纪念日
+ *     - 公历
+ *     - 农历
+ *   - 农历
+ * \image html Docs/image/Holiday.png
+ * 
  * \ingroup API
+ * 
  */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
@@ -47,54 +82,172 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
     
+    /*!
+     * \brief 初始化程序资源，仅在在程序开始处, QApplication a(argc, argv); 之后调用一次.
+     */
     static void InitResource();
+    /*!
+     * \brief 释放程序资源。仅在程序退出前调用一次
+     */
     static void CLeanResource();
     
+    /*!
+     * \brief 得到当前选择的日期
+     */
     QDate SelectedDate() const;
+    /*!
+     * \brief 设置当前选择的日期
+     * \param date
+     * \param bForce: TRUE, 应用到模型中
+     */
     void SetSelectedDate(const QDate &date, bool bForce = false);
     
-    QString SelectedLunar();
+    /*!
+     * \brief 得到当前选择的日期的农历
+     */
+    QString SelectedLunar() const;
     //TODO:int SelectedLunar(int &year, int &month, int &day);
+    /*!
+     * \brief 得到给定日期的农历（公历转农历）
+     * \param date: 日期
+     * \param year: 农历年
+     * \param month: 农历月
+     * \param day: 农历日
+     * \return 
+     */
     static int GetLunar(const QDate date, int &year, int &month, int &day);
     
+    /*!
+     * \brief 得到显示的年份
+     * \return 显示的年份
+     */
     int YearShown() const;
+    /*!
+     * \brief 得到显示的月份
+     * \return 得到显示的月份
+     */
     int MonthShown() const;
     
+    /*!
+     * \brief 得到年周从哪天开始
+     * \return 
+     */
     Qt::DayOfWeek FirstDayOfWeek() const;
     //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
+    /*!
+     * \brief 显示或隐藏网格
+     */
     void SetShowGrid(bool show);
-    bool ShowGrid();
-
+    /*!
+     * \brief 得到是否显示网格
+     */
+    bool ShowGrid() const;
+    
+    /*!
+     * \brief 显示或隐藏背景图片
+     */
     void SetShowBackgroupImage(bool show);
+    /*!
+     * \brief 得到是否显示背景图片
+     */
     bool ShowBackgroupImage();
 
     enum _HEAD_position
     {
-        Not,
-        Top,
-        Down,
-        Left,
-        Right
+        Not,   //! 无
+        Top,   //! 上
+        Down,  //! 下
+        Left,  //! 左
+        Right  //! 右
     };
+    /*!
+     * \brief 设置日历头的位置
+     * \param pos
+     * \return 
+     */
     int SetHeadposition(_HEAD_position pos = Top);
+    /*!
+     * 显示或隐藏日历头
+     * \image html Docs/image/Head.png
+     */
     void ShowHead(bool bShow);
+    /*!
+     * 显示或隐藏日期工具按钮
+     * \image html Docs/image/Tool.png
+     */
     void ShowTools(bool bShow);
+    /*!
+     * 显示或隐藏今日工具按钮
+     * \image html Docs/image/Tool.png
+     */
     void ShowToday(bool bShow);
+    /*!
+     * 显示或隐藏选择日期
+     * \image html Docs/image/Date.png
+     */
     void ShowDate(bool bShow);
+    /*!
+     * 显示或隐藏当前时间
+     * \image html Docs/image/Date.png
+     */
     void ShowTime(bool bShow);
-
+    
+    /*!
+     * 显示或隐藏周
+     * \image html Docs/image/Week.png
+     */
     void ShowWeekHead(bool bShow);
+    /*!
+     * 显示或隐藏第几周
+     * \image html Docs/image/Week.png
+     */
     void ShowWeeks(bool bShow);
     
+    /*!
+     * \brief 得到日历的支持最小日期
+     */
     QDate MinimumDate() const;
+    /*!
+     * \brief 设置日历的支持最小日期
+     */
     void SetMinimumDate(const QDate &date);
+    /*!
+     * \brief 得到日历的支持最大日期
+     */    
     QDate MaximumDate() const;
+    /*!
+     * \brief 设置日历的支持最大日期
+     */
     void SetMaximumDate(const QDate &date);
+    /*!
+     * \brief 设置日历的支持日期的范围
+     */
     void SetDateRange(const QDate &min, const QDate &max);
-
+    
+    /*!
+     * \brief 增加公历假日
+     * \param month: 节日月份
+     * \param day: 节日日期
+     * \param szName: 节日名
+     * \image html Docs/image/Holiday.png
+     */
     int AddHoliday(int month, int day, const QString &szName);
+    /*!
+     * \brief 设置周年纪念日（例如：公历生日）
+     * \param month: 月
+     * \param day: 日
+     * \param szName: 纪念日名
+     * \image html Docs/image/Holiday.png
+     */
     int AddAnniversary(int month, int day, const QString &szName);
+    /*!
+     * \brief 设置农历周年纪念日（例如：农历生日）
+     * \param month: 农历月
+     * \param day: 农历日
+     * \param szName: 纪念日名
+     * \image html Docs/image/Holiday.png
+     */
     int AddLunarAnniversary(int month, int day, const QString &szName);
 
     class CGetTaskHandler
@@ -107,16 +260,20 @@ public:
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
 
     enum _CalendarType{
-        CalendarTypeSolar = 0x01,
-        CalendarTypeLunar = 0x02
+        CalendarTypeSolar = 0x01,  //! 阳历
+        CalendarTypeLunar = 0x02   //! 农历
     };
+    //! 设置日历类型（组合）
     int SetCalendarType(_CalendarType type);
+    //! 得到日历类型
     _CalendarType GetCalendarType() const;
     enum _VIEW_TYPE{
-        ViewTypeMonth,
-        ViewTypeWeek
+        ViewTypeMonth,  //! 月
+        ViewTypeWeek    //! 周
     };
+    //!　设置视图类型
     int SetViewType(_VIEW_TYPE type);
+    //! 得到视图类型
     _VIEW_TYPE GetViewType() const;
     
     enum _TOUCH_UP_DOWN_FUNCTION{
@@ -125,17 +282,35 @@ public:
     };
     int SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f);
     
-    int LoadCalendarTable(const QString& szFile);
-    int GenerateCalendarTable(const QString& szFile,
-                              int nThreadNumber = 2,
-                              bool bClearCache = false,
-                              bool bSaveAllDate = true);
-
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
     
     int Update();
-
+    
+    //////// 下列功能仅由开发者使用。普通用户不要使用。
+    /*!
+     * \brief 从缓存文件中得到农历
+     * \param szFile: 缓存文件
+     * \return 成功返回　0　；其它失败
+     * \note 仅由开发者使用。普通用户不要使用。
+     * \see CLunarTable
+     */
+    int LoadCalendarTable(const QString& szFile);
+    /*!
+     * \brief 产生日历缓存表
+     * \param szFile: 缓存文件
+     * \param nThreadNumber: 产生的线程数
+     * \param bClearCache: 是否清除以前的缓存
+     * \param bSaveAllDate: 是否保存所有日期
+     * \return 成功返回 0　；其它失败
+     * \note 仅由开发者使用。普通用户不要使用。
+     * \see CLunarTable
+     */
+    int GenerateCalendarTable(const QString& szFile,
+                              int nThreadNumber = 2,
+                              bool bClearCache = false,
+                              bool bSaveAllDate = true);
+    
 Q_SIGNALS:
     void sigSelectionChanged();
 

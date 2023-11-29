@@ -20,7 +20,7 @@
 #include <QFile>
 #include <QLoggingCategory>
 
-Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar.Model")
+static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar.Model")
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -972,7 +972,7 @@ void CLunarCalendarModel::slotDownloadError(int nErr, const QString szError)
 {
     qDebug(Logger) << "CFrmUpdater::slotDownloadError:" << nErr << szError;
     QString szMsg = szError;
-    if(szMsg.isEmpty()) szMsg = tr("Download file error");
+    if(szMsg.isEmpty()) szMsg = tr("Download file fail");
     m_UpdateSqlFile.close();
 }
 

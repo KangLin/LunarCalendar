@@ -7,7 +7,7 @@
 #include "LunarCalendarModel.h"
 #include <QDate>
 #include <QLocale>
-#include <QDebug>
+#include <QLoggingCategory>
 #include <QHeaderView>
 #include <QScrollBar>
 #include <QKeyEvent>
@@ -31,14 +31,19 @@
 #include "LunarTable.h"
 #include "RabbitCommonDir.h"
 
+static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar");
+
 class CLunarCalendarPrivate
 {
 public:
     CLunarCalendarPrivate()
     {
-        if(m_Translator.load(RabbitCommon::CDir::Instance()->GetDirTranslations()
-                             + "/LunarCalendar_" + QLocale::system().name() + ".qm"))
+        QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
+                         + "/LunarCalendar_" + QLocale::system().name() + ".qm";
+        if(m_Translator.load(szFile))
             qApp->installTranslator(&m_Translator);
+        else
+            qCritical(Logger) << "Load translator fail: %s" << szFile;
     }
     ~CLunarCalendarPrivate()
     {
@@ -72,6 +77,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_bShowBackgroupImage(false),
     m_TouchFunction(TouchChangeMounth)
 {
+    InitResource();
     //setLocale(QLocale("zh_CN"));
     
     m_tbPreYear.setArrowType(Qt::UpArrow);
@@ -176,6 +182,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
         m_cmbMonth.addItem(locale().monthName(i + 1), i + 1);
     }
     m_cmbMonth.setToolTip(tr("Month"));
+    m_cmbMonth.setStatusTip(tr("Month"));
     
     m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(pModel->GetDate().month()));
     SetSelectedDate(pModel->GetDate());
@@ -184,6 +191,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
                  pModel->GetMaximumDate().year());
     m_cmbYear.setCurrentIndex(m_cmbYear.findData(pModel->GetDate().year()));
     m_cmbYear.setEditable(true);
+    m_cmbYear.setToolTip(tr("Year"));
+    m_cmbYear.setStatusTip(tr("Year"));
     
 //    m_View.sizePolicy().setVerticalPolicy(QSizePolicy::Preferred);
 //    m_View.sizePolicy().setHorizontalPolicy(QSizePolicy::Preferred);
@@ -392,7 +401,7 @@ int CLunarCalendar::ShowSelectTitle()
 
 void CLunarCalendar::on_cbYear_currentIndexChanged(int index)
 {
-    qDebug() << "CLunarCalendar::on_cbYear_currentIndexChanged";
+    qDebug(Logger) << "CLunarCalendar::on_cbYear_currentIndexChanged";
     Q_UNUSED(index);
     UpdateViewModel();
     UpdateMonthMenu();
@@ -444,7 +453,7 @@ void CLunarCalendar::on_tbPreviousMonth_clicked()
 
 void CLunarCalendar::on_cbMonth_currentIndexChanged(int index)
 {
-    qDebug() << "CLunarCalendar::on_cbMonth_currentIndexChanged:" << index;
+    qDebug(Logger) << "CLunarCalendar::on_cbMonth_currentIndexChanged:" << index;
     Q_UNUSED(index);
     UpdateViewModel();
     EnableMonthMenu();
@@ -502,7 +511,7 @@ void CLunarCalendar::SetShowGrid(bool show)
     m_View.setShowGrid(show);
 }
 
-bool CLunarCalendar::ShowGrid()
+bool CLunarCalendar::ShowGrid() const
 {
     return m_View.showGrid();
 }
@@ -645,7 +654,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
     emit sigSelectionChanged();
 }
 
-QString CLunarCalendar::SelectedLunar()
+QString CLunarCalendar::SelectedLunar() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QString();
@@ -943,7 +952,7 @@ Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 
 void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 {
-    qDebug() << "CLunarCalendar::on_tvMonth_pressed" << index;
+    qDebug(Logger) << "CLunarCalendar::on_tvMonth_pressed" << index;
     if(!index.isValid())
         return;
     
@@ -959,20 +968,20 @@ void CLunarCalendar::on_tvMonth_pressed(const QModelIndex &index)
 
 bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
 {
-    //qDebug() << event->type();
+    //qDebug(Logger) << event->type();
     switch(event->type()){
 //    case QEvent::Gesture:
 //        {
-//            qDebug() << "QEvent::Gesture";
+//            qDebug(Logger) << "QEvent::Gesture";
 //            QGestureEvent *gestureEvent = static_cast<QGestureEvent*>(event);
 //            if (QGesture *swipe = gestureEvent->gesture(Qt::SwipeGesture))
 //                if (swipe->state() == Qt::GestureFinished) {
 //                    QSwipeGesture *gesture = static_cast<QSwipeGesture *>(swipe);
 //                    if (gesture->horizontalDirection() == QSwipeGesture::Left
 //                        || gesture->verticalDirection() == QSwipeGesture::Up) {
-//                        qDebug() << "swipeTriggered(): swipe to previous";
+//                        qDebug(Logger) << "swipeTriggered(): swipe to previous";
 //                    } else {
-//                        qDebug() << "swipeTriggered(): swipe to next";
+//                        qDebug(Logger) << "swipeTriggered(): swipe to next";
 //                    }
 //                }
 //        }
@@ -981,7 +990,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     {
 //        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
 //        QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-//        qDebug() << "touch begin points:" << touchPoints.length() << touchPoints;
+//        qDebug(Logger) << "touch begin points:" << touchPoints.length() << touchPoints;
         event->accept();
         return true;
     }
@@ -989,7 +998,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     {
 //        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
 //        QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-//        qDebug() << "touch update points:" << touchPoints.length() << touchPoints;
+//        qDebug(Logger) << "touch update points:" << touchPoints.length() << touchPoints;
         //event->accept();
         break;
     }
@@ -998,14 +1007,14 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             event->accept();
             QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
             QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-            //qDebug() << "touch end points:" << touchPoints.length() << touchPoints;
+            //qDebug(Logger) << "touch end points:" << touchPoints.length() << touchPoints;
             if(touchPoints.length() == 1)
             {
                 QTouchEvent::TouchPoint t = touchPoints.first();
                 QLineF line(QLineF(t.startPos(), t.lastPos()));
                 if(qAbs(line.dx()) > qAbs(line.dy()))
                 {
-                    //qDebug() << "dx:" << line.dx() << "hor:" << m_View.horizontalHeader()->minimumSectionSize();
+                    //qDebug(Logger) << "dx:" << line.dx() << "hor:" << m_View.horizontalHeader()->minimumSectionSize();
                     if(qAbs(line.dx()) > m_View.horizontalHeader()->minimumSectionSize())
                     {
                         if(line.dx() > 0)
@@ -1014,7 +1023,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                             on_tbNextMonth_clicked();
                     }
                 }else {
-                    //qDebug() << "dy:" << line.dy();
+                    //qDebug(Logger) << "dy:" << line.dy();
                     if(qAbs(line.dy()) > m_View.verticalHeader()->minimumSectionSize())
                     {
                         if(line.dy() > 0)
@@ -1047,7 +1056,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
             QWheelEvent *we = dynamic_cast<QWheelEvent*>(event);
             const int numDegrees = we->angleDelta().y() / 8;
             const int numSteps = numDegrees / 15;
-            //qDebug() << "step:" << numSteps;
+            //qDebug(Logger) << "step:" << numSteps;
             CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
             if(pModel)
             {
@@ -1068,7 +1077,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
         if(!pModel)
             break;
         QKeyEvent* key = dynamic_cast<QKeyEvent*>(event);
-        qDebug() << "CLunarCalendar::eventFilter key:" << key
+        qDebug(Logger) << "CLunarCalendar::eventFilter key:" << key
                  << "old:" << m_oldRow << m_oldCol
                  << "current:" << m_View.currentIndex().row()
                  << m_View.currentIndex().column();
@@ -1206,9 +1215,11 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     switch (GetViewType()) {
     case ViewTypeWeek:
         m_cmbMonth.setToolTip(tr("Week"));
+        m_cmbMonth.setStatusTip(tr("Week"));
         break;
     case ViewTypeMonth:
         m_cmbMonth.setToolTip(tr("Month"));
+        m_cmbMonth.setStatusTip(tr("Month"));
         break;
     }
 
@@ -1327,7 +1338,7 @@ QSize CLunarCalendar::minimumSizeHint() const
             + marginW + cm.left() + cm.right();
     if(m_View.verticalHeader()->isVisible())
     {
-//        qDebug() << "m_View.verticalHeader()->isVisible()";
+//        qDebug(Logger) << "m_View.verticalHeader()->isVisible()";
         w += m_View.verticalHeader()->sizeHint().width();
     }
     cm = m_View.verticalHeader()->contentsMargins();
@@ -1338,11 +1349,11 @@ QSize CLunarCalendar::minimumSizeHint() const
     h = h + marginH + cm.top() + cm.bottom();
     if(m_View.horizontalHeader()->isVisible())
     {
-//        qDebug() << "m_View.horizontalHeader()->isVisible()";
+//        qDebug(Logger) << "m_View.horizontalHeader()->isVisible()";
         h += m_View.horizontalHeader()->sizeHint().height();
     }
     
-//    qDebug() << "w:" << w << "h:" << h << "marginW:" << marginW
+//    qDebug(Logger) << "w:" << w << "h:" << h << "marginW:" << marginW
 //             << "m_View.horizontalHeader()->minimumSectionSize():"
 //             << m_View.horizontalHeader()->minimumSectionSize() 
 //             << "m_View.verticalHeader()->minimumSectionSize():"
@@ -1428,7 +1439,7 @@ QSize CLunarCalendar::minimumSizeHint() const
     w += cm.left() + cm.right();
     h += cm.top() + cm.bottom();
     
-//    qDebug() << "w:" << w << "h:" << h;
+//    qDebug(Logger) << "w:" << w << "h:" << h;
 
     return QSize(w, h);
 }

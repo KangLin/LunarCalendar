@@ -69,22 +69,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="80"/>
-        <source>Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MainWindow.cpp" line="85"/>
+        <location filename="../../MainWindow.cpp" line="82"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="87"/>
+        <location filename="../../MainWindow.cpp" line="84"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="89"/>
+        <location filename="../../MainWindow.cpp" line="86"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
@@ -92,7 +87,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="41"/>
+        <location filename="../../main.cpp" line="29"/>
         <source>Calendar</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,10 +2,10 @@
   + 修改　org.Rabbit.Calendar.desktop　中的 MimeType　值
 
 - v0.2.8
-  + [增加 2024 年节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)
+  + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)
   + 在应用程序中增加日志菜单
   + 增加帮助文档 (doxygen)
-  + 修改工作日颜色。用红色提示周未为工作日
+  + 修改中国节假日中工作日颜色。用高显提示周未为工作日
 
 - v0.2.7
   + 修复 DockDebugLog 崩溃. 详见: [RabbitCommon](https://github.com/KangLin/RabbitCommon/commit/af2e434e39af35876113436ead2a946efcf74199)
@@ -30,9 +30,9 @@
   + 修改自动化编译
 
 - v0.2.1
-  + 增加 2021 年假期
-  + 增加 2022 年假期
-  + 增加 2023 年假期
+  + 增加 2021 年中国节假日
+  + 增加 2022 年中国节假日
+  + 增加 2023 年中国节假日
   + 修改 github action
   + 在 Windows 下，安装 MSVC 系统库。详见: RabbitCommon
   + 修复除 0 引起的崩溃。影响前面所有发行版本。此错误是 RabbitCommon 引起的。

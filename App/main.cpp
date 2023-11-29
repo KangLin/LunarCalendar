@@ -70,7 +70,8 @@ int main(int argc, char *argv[])
     w.show();
 #endif
     int nRet = a.exec();
-
+    
+    CLunarCalendar::CLeanResource();
     if(bRetTranslator) a.removeTranslator(&tApp);
 
     return nRet;

@@ -81,8 +81,8 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ### 屏幕截图
 - Windows
 
-![屏幕截图](Docs/image/ScreenShot.PNG "屏幕截图")
-![屏幕截图](Docs/image/ScreenShotQss.PNG "屏幕截图")
+![屏幕截图](Docs/image/ScreenShot.png "屏幕截图")
+![屏幕截图](Docs/image/ScreenShotQss.png "屏幕截图")
 
 - Ubuntu
 
@@ -90,7 +90,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 - Android
 
-![Android 屏幕截图](Docs/image/ScreenShotAndroid.PNG "Android 屏幕截图")
+![Android 屏幕截图](Docs/image/ScreenShotAndroid.png "Android 屏幕截图")
 
 ### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 

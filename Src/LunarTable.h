@@ -13,7 +13,8 @@
 #include <QMutex>
 
 /*!
- * \brief 产生、保存、加载农历缓存
+ * \brief 产生、保存、加载农历缓存。用于提高性能。
+ * \see CLunarCalendar::LoadCalendarTable CLunarCalendar::GenerateCalendarTable
  * \ingroup INTERNAL_API
  */
 class CLunarTable : public QObject
