@@ -106,6 +106,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->ShowHead(false);
     //m_pLunarCalendar->ShowDate(false);
     //m_pLunarCalendar->ShowTime(false);
+    /*
     m_pLunarCalendar->AddHoliday(10, 1, "holiday");
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
@@ -113,7 +114,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
-    m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth1");
+    m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth1");//*/
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);

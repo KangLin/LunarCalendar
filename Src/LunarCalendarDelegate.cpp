@@ -81,7 +81,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
     QString szSolar, szLunar, szAnniversary, szWork;
     szAnniversary = index.data(CLunarCalendarModel::Anniversary).toString();
-    int nTasks = index.data(CLunarCalendarModel::Tasks).toInt();
+    uint nTasks = index.data(CLunarCalendarModel::Tasks).toUInt();
     szWork = index.data(CLunarCalendarModel::WorkDayRole).toString();
 
     int solarHeight = 0;

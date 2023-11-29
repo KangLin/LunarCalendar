@@ -162,7 +162,7 @@ private:
         QStringList LunarHoliday;
         QStringList szAnniversary;
         QString szImageBackgroup;
-        int nTasks;
+        uint nTasks;
         __WORK_DAY WorkDay;
     };
     QVector<_DAY> m_Day;

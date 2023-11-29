@@ -138,6 +138,10 @@ int CLunarCalendarModel::columnCount(const QModelIndex &parent) const
     return m_ColumnCount;
 }
 
+/*!
+ * \details
+ * \ref HolidayPriority
+ */
 QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())

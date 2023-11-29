@@ -29,6 +29,7 @@
 /*!
  * \brief 农历界面类
  * \details
+ * \section LunarUI 农历界面
  * - 日历
  * \image html Docs/image/ScreenShotUbunt.png
  * - 日历头
@@ -43,16 +44,19 @@
  * \image html Docs/image/Date.png
  * - 周
  * \image html Docs/image/Week.png
- * - 节日
+ *
+ * \section Holiday 节日
  *   - 中国节假日，在左上角显示
- *   - 周年纪念日，在上面中间用圆点表示
- *     - 农历
- *     - 公历
  *   - 节日
  *     - 公历
  *     - 农历
  *     - 节气
- * - 农历位置显示优先级
+ *   - 周年纪念日，在上面中间用圆点表示
+ *     - 农历
+ *     - 公历
+ * \image html Docs/image/Holiday.png
+ * 
+ * \subsection HolidayPriority 农历位置显示优先级
  *   - 公历节日
  *   - 农历节日
  *   - 节气
@@ -60,7 +64,6 @@
  *     - 公历
  *     - 农历
  *   - 农历
- * \image html Docs/image/Holiday.png
  * 
  * \ingroup API
  * 
@@ -255,7 +258,11 @@ public:
     public:
         CGetTaskHandler() {}
         virtual ~CGetTaskHandler(){}
-        virtual int onHandle(QDate date) = 0;
+        /*!
+         * \param date: 日期
+         * \return 返回任务数。当任务数大于0时，会在日历上显示圆点提示
+         */
+        virtual uint onHandle(QDate date) = 0;
     };
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
 
