@@ -32,7 +32,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          submodules: true
+          submodules: recursive
 
       - name: make_directory
         run: |
@@ -51,6 +51,8 @@ jobs:
 
       - name: install apt packages
         run: |
+          sudo apt update
+          sudo apt upgrade
           sudo apt install -y -q cmake build-essential graphviz \
               qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools
 
