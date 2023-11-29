@@ -352,11 +352,11 @@ int CLunarCalendarModel::slotUpdate()
                 break;
             _DAY day;
             day.Solar = d.day();
-            day.SolarHoliday << m_Holiday[d.month()].values(d.day());
+            day.SolarHoliday << m_Holiday[d.month()].value(d.day());
 
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
-            day.szAnniversary = m_Anniversary[d.month()].values(d.day());
+            day.szAnniversary = m_Anniversary[d.month()].value(d.day());
             
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
@@ -788,7 +788,7 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
     if(szName.isEmpty())
         return -1;
-    m_Holiday[month].insert(day, szName);
+    m_Holiday[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
@@ -802,7 +802,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
 {
     if(szName.isEmpty())
         return -1;
-    m_Anniversary[month].insert(day, szName);
+    m_Anniversary[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);

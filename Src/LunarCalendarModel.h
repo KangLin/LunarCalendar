@@ -168,8 +168,8 @@ private:
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
 
-    QMap<int, QMultiMap<int, QString> > m_Holiday;
-    QMap<int, QMultiMap<int, QString> > m_Anniversary;
+    QMap<int, QMap<int, QStringList> > m_Holiday;
+    QMap<int, QMap<int, QStringList> > m_Anniversary;
     
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;
