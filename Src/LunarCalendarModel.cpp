@@ -366,7 +366,7 @@ int CLunarCalendarModel::slotUpdate()
                 day.szLunar = lunar.GetLunarDay();
                 
                 day.LunarHoliday = lunar.GetHoliday();
-                if(day.LunarHoliday.isEmpty() && !lunar.GetJieQi().isEmpty())
+                if(!lunar.GetJieQi().isEmpty())
                     day.LunarHoliday << lunar.GetJieQi();
                 
                 day.szAnniversary += lunar.GetAnniversary();
