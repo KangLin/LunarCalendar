@@ -2,7 +2,8 @@
   + 修改　org.Rabbit.Calendar.desktop　中的 MimeType　值
   + 修改节日为列表
   + 修改农历假日为列表
-
+  + 增加 ToolTipRole
+  
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)
   + 在应用程序中增加日志菜单

@@ -156,6 +156,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case Qt::EditRole:
     case SolarRole:
         return d.day();
+    case Qt::ToolTipRole:
     case LunarRole:
         if(!GetDay(row, column).SolarHoliday.isEmpty())
             return GetDay(row, column).SolarHoliday.first();
