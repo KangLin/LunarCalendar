@@ -114,6 +114,7 @@ if(WIN32)
         ${OTHER_FILES}
         DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
 endif(WIN32)
+include(Package/CMakeCPack.cmake)
 
 # 产生文档
 option(BUILD_DOCS "Generating API documentation" OFF)

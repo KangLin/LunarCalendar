@@ -1,0 +1,16 @@
+# 作者: 康 林 <kl222@126.com>
+
+# 此文件在运行 cmake 时配置，在运行 cpack 时加载。
+# 要从 cmake 传递变量到 cpack 中，则需要在此文件中配置。
+# 主要作用是把 CMAKE_* 变量传递到 CPACK 中
+
+if("${CPACK_GENERATOR}" STREQUAL "DEB")
+    configure_file("@CMAKE_SOURCE_DIR@/Package/deb/postinst.in"
+    	"@CMAKE_BINARY_DIR@/postinst" @ONLY)
+    configure_file("@CMAKE_SOURCE_DIR@/Package/deb/postrm.in"
+    	"@CMAKE_BINARY_DIR@/postrm" @ONLY)
+    configure_file("@CMAKE_SOURCE_DIR@/Package/deb/preinst.in"
+    	"@CMAKE_BINARY_DIR@/preinst" @ONLY)
+    configure_file("@CMAKE_SOURCE_DIR@/Package/deb/prerm.in"
+    	"@CMAKE_BINARY_DIR@/prerm" @ONLY)
+endif()
