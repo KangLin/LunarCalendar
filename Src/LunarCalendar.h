@@ -73,8 +73,8 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     Q_OBJECT
     Q_PROPERTY(QDate selectedDate WRITE SetSelectedDate READ SelectedDate)
     Q_PROPERTY(QString selectLunar READ SelectedLunar)
-    Q_PROPERTY(int yearShow READ YearShown)
-    Q_PROPERTY(int monthShow READ MonthShown)
+    Q_PROPERTY(int showYear READ GetShowYear)
+    Q_PROPERTY(int showMonth READ GetShowMonth)
     //Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
@@ -95,15 +95,46 @@ public:
     static void CLeanResource();
     
     /*!
-     * \brief 得到当前选择的日期
+     * \brief 得到当前选择的日期。
+     *        当前选择的日期在指定的最小日期 MinimumDate() 与最大日期 MaximumDate() 的范围内。
+     *        默认为系统当前日期。
+     * \see MinimumDate()
+     * \see MaximumDate()
      */
     QDate SelectedDate() const;
     /*!
      * \brief 设置当前选择的日期
-     * \param date
-     * \param bForce: TRUE, 应用到模型中
+     * \param date: 将选择的日期。
+     * \note 选择的日期必须在指定的最小日期 MinimumDate() 与最大日期 MaximumDate() 的范围内。
+     *       如果超过范围。则会自动调整到范围内。
+     * \param bForce:
+     *          - true: 更新模型中的日期
+     *          - false: 当前设置的日期与模型中的日期不相同时，才更新模型中的日期
+     * \see SetDateRange()
+     * \see SetMinimumDate() MinimumDate()
+     * \see SetMaximumDate() MaximumDate()
      */
     void SetSelectedDate(const QDate &date, bool bForce = false);
+    /*!
+     * \brief 得到日历的支持最小日期
+     */
+    QDate MinimumDate() const;
+    /*!
+     * \brief 设置日历的支持最小日期
+     */
+    void SetMinimumDate(const QDate &date);
+    /*!
+     * \brief 得到日历的支持最大日期
+     */
+    QDate MaximumDate() const;
+    /*!
+     * \brief 设置日历的支持最大日期
+     */
+    void SetMaximumDate(const QDate &date);
+    /*!
+     * \brief 设置日历的支持日期的范围
+     */
+    void SetDateRange(const QDate &min, const QDate &max);
     
     /*!
      * \brief 得到当前选择的日期的农历
@@ -121,16 +152,15 @@ public:
     static int GetLunar(const QDate date, int &year, int &month, int &day);
     
     /*!
-     * \brief 得到显示的年份
+     * \brief 得到当前界面显示的年份
      * \return 显示的年份
      */
-    int YearShown() const;
+    int GetShowYear() const;
     /*!
-     * \brief 得到显示的月份
+     * \brief 得到当前界面显示的月份
      * \return 得到显示的月份
      */
-    int MonthShown() const;
-    
+    int GetShowMonth() const;
     /*!
      * \brief 得到年周从哪天开始
      * \return 
@@ -206,27 +236,6 @@ public:
      * \image html Docs/image/Week.png
      */
     void ShowWeeks(bool bShow);
-    
-    /*!
-     * \brief 得到日历的支持最小日期
-     */
-    QDate MinimumDate() const;
-    /*!
-     * \brief 设置日历的支持最小日期
-     */
-    void SetMinimumDate(const QDate &date);
-    /*!
-     * \brief 得到日历的支持最大日期
-     */    
-    QDate MaximumDate() const;
-    /*!
-     * \brief 设置日历的支持最大日期
-     */
-    void SetMaximumDate(const QDate &date);
-    /*!
-     * \brief 设置日历的支持日期的范围
-     */
-    void SetDateRange(const QDate &min, const QDate &max);
     
     /*!
      * \brief 增加公历假日
@@ -319,6 +328,10 @@ public:
                               bool bSaveAllDate = true);
     
 Q_SIGNALS:
+    /*!
+     * \brief 当前选择日期改变时触发
+     * 可以在相应的槽函数中调用 SelectedDate() 或　SelectedLunar() 得到选择的日期
+     */
     void sigSelectionChanged();
 
 public Q_SLOTS:

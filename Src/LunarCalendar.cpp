@@ -577,16 +577,6 @@ void CLunarCalendar::ShowDate(bool bShow)
     updateGeometry();
 }
 
-/*!
-    \property QCalendarWidget::selectedDate
-    \brief the currently selected date.
-
-    The selected date must be within the date range specified by the
-    minimumDate and maximumDate properties. By default, the selected
-    date is the current date.
-
-    \sa setDateRange()
-*/
 QDate CLunarCalendar::SelectedDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
@@ -672,14 +662,14 @@ int CLunarCalendar::GetLunar(const QDate date, int &year, int &month, int &day)
     return 0;
 }
 
-int CLunarCalendar::YearShown() const
+int CLunarCalendar::GetShowYear() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->GetShowYear();
 }
 
-int CLunarCalendar::MonthShown() const
+int CLunarCalendar::GetShowMonth() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;

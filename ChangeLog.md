@@ -4,6 +4,8 @@
   + 修改农历假日为列表
   + 增加 ToolTipRole
   + 修改周年为列表
+  + 重命名 YearShown 为 GetShowYear
+  + 重命名 MonthShown 为 GetShowMonth
   
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)

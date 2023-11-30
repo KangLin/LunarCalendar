@@ -648,7 +648,7 @@ void CLunarCalendarModel::cellForDateWeek(const QDate &date, int *row, int *colu
     *column = columnForDayOfWeek(static_cast<Qt::DayOfWeek>(date.dayOfWeek()));
 }
 
-/*
+/*!
 This simple algorithm tries to generate a valid date from the month shown.
 Some months don't contain a first day (e.g. Jan of -4713 year,
 so QDate (-4713, 1, 1) would be invalid). In that case we try to generate
