@@ -58,7 +58,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QPalette paletteLunar = palette;
-    QColor solarColor, lunarColor, anniversaryColor, workColor;
+    QColor solarColor, lunarColor, tasksColor, workColor;
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
     
@@ -196,7 +196,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 //        qDebug() << "Color:" << solarColor << index.data(CLunarCalendarModel::SolarColorRole).toInt()
 //                 << lunarColor << index.data(CLunarCalendarModel::LunarColorRole).toInt();
     }
-    anniversaryColor = solarColor;
+    tasksColor = GetColorRole(palette,
+                       index.data(CLunarCalendarModel::TasksColorRole).toInt());
 
     if(!szWork.isEmpty())
     {
@@ -217,8 +218,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         painter->setFont(fontTasks);
         int h = qMax(tasksWidth, tasksHeight);
-        painter->setBrush(QBrush(anniversaryColor, Qt::SolidPattern));
-        painter->setPen(anniversaryColor);
+        painter->setBrush(QBrush(tasksColor, Qt::SolidPattern));
+        painter->setPen(tasksColor);
         
         QRect rect(option.rect.left() + (width - h) / 2,
                    option.rect.top() + (height - h) / 2,
@@ -229,10 +230,10 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
         if(nTasks > 0 && nTasks < 10)
         {
-            unsigned char r = ~(unsigned char)anniversaryColor.red();
-            unsigned char g = ~(unsigned char)anniversaryColor.green();
-            unsigned char b = ~(unsigned char)anniversaryColor.blue();
-            QColor clr(r, g, b, anniversaryColor.alpha());            
+            unsigned char r = ~(unsigned char)tasksColor.red();
+            unsigned char g = ~(unsigned char)tasksColor.green();
+            unsigned char b = ~(unsigned char)tasksColor.blue();
+            QColor clr(r, g, b, tasksColor.alpha());
             painter->setBrush(clr);
             painter->setPen(clr);
             painter->drawText(option.rect.left(),

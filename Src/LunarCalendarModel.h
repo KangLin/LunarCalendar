@@ -63,6 +63,7 @@ public:
         BackgroupImage,
         Anniversary,
         Tasks,
+        TasksColorRole,
         TodayRole,
         WorkDayRole,
         WorkDayColorRole

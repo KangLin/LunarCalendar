@@ -245,6 +245,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case Tasks:
         return GetDay(row, column).nTasks;
+    case TasksColorRole:
+        return ColorHighlight;
     case SolarColorRole:
     {
         if(d.month() != m_ShownMonth
