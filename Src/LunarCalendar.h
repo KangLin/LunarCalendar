@@ -78,9 +78,7 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     //Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
-    Q_PROPERTY(bool showGrid READ ShowGrid WRITE SetShowGrid)
-    Q_PROPERTY(bool showBackgroupImage READ ShowBackgroupImage WRITE SetShowBackgroupImage)
-    
+
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
@@ -93,7 +91,7 @@ public:
      * \brief 释放程序资源。仅在程序退出前调用一次
      */
     static void CLeanResource();
-    
+
     /*!
      * \brief 得到当前选择的日期。
      *        当前选择的日期在指定的最小日期 MinimumDate() 与最大日期 MaximumDate() 的范围内。
@@ -135,7 +133,7 @@ public:
      * \brief 设置日历的支持日期的范围
      */
     void SetDateRange(const QDate &min, const QDate &max);
-    
+
     /*!
      * \brief 得到当前选择的日期的农历
      */
@@ -150,93 +148,7 @@ public:
      * \return 
      */
     static int GetLunar(const QDate date, int &year, int &month, int &day);
-    
-    /*!
-     * \brief 得到当前界面显示的年份
-     * \return 显示的年份
-     */
-    int GetShowYear() const;
-    /*!
-     * \brief 得到当前界面显示的月份
-     * \return 得到显示的月份
-     */
-    int GetShowMonth() const;
-    /*!
-     * \brief 得到年周从哪天开始
-     * \return 
-     */
-    Qt::DayOfWeek FirstDayOfWeek() const;
-    //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
-    
-    /*!
-     * \brief 显示或隐藏网格
-     */
-    void SetShowGrid(bool show);
-    /*!
-     * \brief 得到是否显示网格
-     */
-    bool ShowGrid() const;
-    
-    /*!
-     * \brief 显示或隐藏背景图片
-     */
-    void SetShowBackgroupImage(bool show);
-    /*!
-     * \brief 得到是否显示背景图片
-     */
-    bool ShowBackgroupImage();
 
-    enum _HEAD_position
-    {
-        Not,   //! 无
-        Top,   //! 上
-        Down,  //! 下
-        Left,  //! 左
-        Right  //! 右
-    };
-    /*!
-     * \brief 设置日历头的位置
-     * \param pos
-     * \return 
-     */
-    int SetHeadposition(_HEAD_position pos = Top);
-    /*!
-     * 显示或隐藏日历头
-     * \image html Docs/image/Head.png
-     */
-    void ShowHead(bool bShow);
-    /*!
-     * 显示或隐藏日期工具按钮
-     * \image html Docs/image/Tool.png
-     */
-    void ShowTools(bool bShow);
-    /*!
-     * 显示或隐藏今日工具按钮
-     * \image html Docs/image/Tool.png
-     */
-    void ShowToday(bool bShow);
-    /*!
-     * 显示或隐藏选择日期
-     * \image html Docs/image/Date.png
-     */
-    void ShowDate(bool bShow);
-    /*!
-     * 显示或隐藏当前时间
-     * \image html Docs/image/Date.png
-     */
-    void ShowTime(bool bShow);
-    
-    /*!
-     * 显示或隐藏周
-     * \image html Docs/image/Week.png
-     */
-    void ShowWeekHead(bool bShow);
-    /*!
-     * 显示或隐藏第几周
-     * \image html Docs/image/Week.png
-     */
-    void ShowWeeks(bool bShow);
-    
     /*!
      * \brief 增加公历假日
      * \param month: 节日月份
@@ -274,6 +186,88 @@ public:
         virtual uint onHandle(QDate date) = 0;
     };
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
+
+    /*!
+     * \brief 得到当前界面显示的年份
+     * \return 显示的年份
+     */
+    int GetShowYear() const;
+    /*!
+     * \brief 得到当前界面显示的月份
+     * \return 得到显示的月份
+     */
+    int GetShowMonth() const;
+    /*!
+     * \brief 得到年周从哪天开始
+     * \return 
+     */
+    Qt::DayOfWeek FirstDayOfWeek() const;
+    //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
+
+    enum _HEAD_position
+    {
+        Not,   //! 无
+        Top,   //! 上
+        Down,  //! 下
+        Left,  //! 左
+        Right  //! 右
+    };
+    /*!
+     * \brief 设置日历头的位置
+     * \param pos
+     * \return 
+     */
+    int SetHeadposition(_HEAD_position pos = Top);
+
+public Q_SLOTS:
+    /*!
+     * 显示或隐藏日历头
+     * \image html Docs/image/Head.png
+     */
+    void ShowHead(bool bShow);
+    /*!
+     * 显示或隐藏日期工具按钮
+     * \image html Docs/image/Tool.png
+     */
+    void ShowTools(bool bShow);
+    /*!
+     * 显示或隐藏今日工具按钮
+     * \image html Docs/image/Tool.png
+     */
+    void ShowToday(bool bShow);
+    /*!
+     * 显示或隐藏选择日期
+     * \image html Docs/image/Date.png
+     */
+    void ShowDate(bool bShow);
+    /*!
+     * 显示或隐藏当前时间
+     * \image html Docs/image/Date.png
+     */
+    void ShowTime(bool bShow);
+
+    /*!
+     * 显示或隐藏周
+     * \image html Docs/image/Week.png
+     */
+    void ShowWeekHead(bool bShow);
+    /*!
+     * 显示或隐藏第几周
+     * \image html Docs/image/Week.png
+     */
+    void ShowWeeks(bool bShow);
+
+    /*!
+     * \brief 显示或隐藏网格
+     */
+    void ShowGrid(bool show);
+
+    /*!
+     * \brief 显示或隐藏背景图片
+     */
+    void ShowBackgroupImage(bool show);
+
+public:
 
     enum _CalendarType{
         CalendarTypeSolar = 0x01,  //! 阳历

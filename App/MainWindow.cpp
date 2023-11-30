@@ -20,17 +20,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     m_pLunarCalendar = new CLunarCalendar(this);
+    if(!m_pLunarCalendar)
+        throw std::bad_alloc();
     
     QMenu* pViewMenu = menuBar()->addMenu(tr("View"));
-    QAction* pActionLunar = pViewMenu->addAction(tr("Lunar"),
-                                                 this, SLOT(slotActionLunar(bool)));
-    pActionLunar->setCheckable(true);
-    pActionLunar->setChecked(true);
+    QAction* pAction = pViewMenu->addAction(tr("Lunar"),
+                                            this, SLOT(slotActionLunar(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
     
-    QAction* pActionSolar = pViewMenu->addAction(tr("Solar"),
-                                                 this, SLOT(slotActionSolar(bool)));
-    pActionSolar->setCheckable(true);
-    pActionSolar->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Solar"),
+                                   this, SLOT(slotActionSolar(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
     pViewMenu->addSeparator();
     
     QActionGroup* pViewTypeGroup = new QActionGroup(this);
@@ -45,11 +47,43 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewTypeGroup->addAction(pViewWeek);
     pViewMenu->addSeparator();
     
-    QAction* pViewBackgroup = pViewMenu->addAction(tr("Use backgroup image"),
-                                                   this, SLOT(slotViewBackgroup(bool)));
-    pViewBackgroup->setCheckable(true);
-    pViewBackgroup->setChecked(false);
-    m_pLunarCalendar->SetShowBackgroupImage(false);
+    pAction = pViewMenu->addAction(tr("Show Head"),
+                                   m_pLunarCalendar, SLOT(ShowHead(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show Tools"),
+                                   m_pLunarCalendar, SLOT(ShowTools(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show today"),
+                                   m_pLunarCalendar, SLOT(ShowToday(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show date"),
+                                   m_pLunarCalendar, SLOT(ShowDate(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show time"),
+                                   m_pLunarCalendar, SLOT(ShowTime(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show week head"),
+                                   m_pLunarCalendar, SLOT(ShowWeekHead(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show weeks"),
+                                   m_pLunarCalendar, SLOT(ShowWeeks(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
+    pAction = pViewMenu->addAction(tr("Show grid"),
+                                   m_pLunarCalendar, SLOT(ShowGrid(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(false);
+    pAction = pViewMenu->addAction(tr("Use backgroup image"),
+                                   m_pLunarCalendar, SLOT(ShowBackgroupImage(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(false);
+    m_pLunarCalendar->ShowBackgroupImage(false);
     
     QActionGroup* pViewHeadposition = new QActionGroup(this);
     QMenu* pViewHeadpositionMenu = pViewMenu->addMenu(tr("Head position"));
@@ -91,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->ShowToday(false);
     //m_pLunarCalendar->ShowTools(false);
     //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
-    //m_pLunarCalendar->SetShowGrid(true);
+    //m_pLunarCalendar->ShowGrid(true);
     
     //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
     /*
@@ -211,11 +245,6 @@ void MainWindow::slotViewMonth()
 void MainWindow::slotViewWeek()
 {
     m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-}
-
-void MainWindow::slotViewBackgroup(bool checked)
-{
-    m_pLunarCalendar->SetShowBackgroupImage(checked);
 }
 
 void MainWindow::slotHeadpositionNot()

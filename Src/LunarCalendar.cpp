@@ -117,7 +117,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.setAttribute(Qt::WA_AcceptTouchEvents);
-    SetShowGrid(false);
+    ShowGrid(false);
 
     m_View.setFocusPolicy(Qt::WheelFocus);
     m_View.setSelectionBehavior(QAbstractItemView::SelectItems);
@@ -506,17 +506,17 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
     return 0;
 }
 
-void CLunarCalendar::SetShowGrid(bool show)
+void CLunarCalendar::ShowGrid(bool show)
 {
     m_View.setShowGrid(show);
 }
-
+/*
 bool CLunarCalendar::ShowGrid() const
 {
     return m_View.showGrid();
-}
+}//*/
 
-void CLunarCalendar::SetShowBackgroupImage(bool show)
+void CLunarCalendar::ShowBackgroupImage(bool show)
 {
     m_bShowBackgroupImage = show;
     if(m_bShowBackgroupImage)
@@ -526,11 +526,11 @@ void CLunarCalendar::SetShowBackgroupImage(bool show)
         
     return;
 }
-
+/*
 bool CLunarCalendar::ShowBackgroupImage()
 {
     return m_bShowBackgroupImage;
-}
+}//*/
 
 void CLunarCalendar::ShowToday(bool bShow)
 {

@@ -26,7 +26,6 @@ private Q_SLOTS:
     void slotActionSolar(bool checked);
     void slotViewMonth();
     void slotViewWeek();
-    void slotViewBackgroup(bool checked);
     void slotHeadpositionNot();
     void slotHeadpositionTop();
     void slotHeadpositionDown();
