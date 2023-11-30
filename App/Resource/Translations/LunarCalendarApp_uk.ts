@@ -9,77 +9,117 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="24"/>
+        <location filename="../../MainWindow.cpp" line="28"/>
         <source>View</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="25"/>
+        <location filename="../../MainWindow.cpp" line="29"/>
         <source>Lunar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="30"/>
+        <location filename="../../MainWindow.cpp" line="34"/>
         <source>Solar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="37"/>
+        <location filename="../../MainWindow.cpp" line="41"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="42"/>
+        <location filename="../../MainWindow.cpp" line="46"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="48"/>
-        <source>Use backgroup image</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../MainWindow.cpp" line="55"/>
-        <source>Head position</source>
+        <location filename="../../MainWindow.cpp" line="52"/>
+        <source>Show Head</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="56"/>
-        <source>Not</source>
+        <source>Show Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="59"/>
-        <source>Top</source>
+        <location filename="../../MainWindow.cpp" line="60"/>
+        <source>Show today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="63"/>
-        <source>Down</source>
+        <location filename="../../MainWindow.cpp" line="64"/>
+        <source>Show date</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="66"/>
-        <source>Left</source>
+        <location filename="../../MainWindow.cpp" line="68"/>
+        <source>Show time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="69"/>
-        <source>Right</source>
+        <location filename="../../MainWindow.cpp" line="72"/>
+        <source>Show week head</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="82"/>
-        <source>Help</source>
+        <location filename="../../MainWindow.cpp" line="76"/>
+        <source>Show weeks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="80"/>
+        <source>Show grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="84"/>
+        <source>Use backgroup image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="91"/>
+        <source>Head position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="92"/>
+        <source>Not</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="95"/>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="99"/>
+        <source>Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="102"/>
+        <source>Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="105"/>
+        <source>Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="118"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="120"/>
         <source>Update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="86"/>
+        <location filename="../../MainWindow.cpp" line="122"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>

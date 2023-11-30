@@ -4,22 +4,27 @@
 <context>
     <name>CLunarCalendar</name>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="100"/>
-        <location filename="../../LunarCalendar.cpp" line="101"/>
+        <location filename="../../LunarCalendar.cpp" line="81"/>
+        <source>Lunar calendar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../LunarCalendar.cpp" line="102"/>
+        <location filename="../../LunarCalendar.cpp" line="103"/>
         <source>Today</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="184"/>
-        <location filename="../../LunarCalendar.cpp" line="185"/>
+        <location filename="../../LunarCalendar.cpp" line="186"/>
+        <location filename="../../LunarCalendar.cpp" line="187"/>
         <location filename="../../LunarCalendar.cpp" line="1221"/>
         <location filename="../../LunarCalendar.cpp" line="1222"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="194"/>
-        <location filename="../../LunarCalendar.cpp" line="195"/>
+        <location filename="../../LunarCalendar.cpp" line="196"/>
+        <location filename="../../LunarCalendar.cpp" line="197"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33,7 +38,7 @@
 <context>
     <name>CLunarCalendarModel</name>
     <message>
-        <location filename="../../LunarCalendarModel.cpp" line="975"/>
+        <location filename="../../LunarCalendarModel.cpp" line="1080"/>
         <source>Download file fail</source>
         <translation type="unfinished"></translation>
     </message>

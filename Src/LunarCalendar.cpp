@@ -78,6 +78,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_TouchFunction(TouchChangeMounth)
 {
     InitResource();
+    setWindowTitle(tr("Lunar calendar"));
+
     //setLocale(QLocale("zh_CN"));
     
     m_tbPreYear.setArrowType(Qt::UpArrow);
