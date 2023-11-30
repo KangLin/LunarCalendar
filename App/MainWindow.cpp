@@ -140,7 +140,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->ShowHead(false);
     //m_pLunarCalendar->ShowDate(false);
     //m_pLunarCalendar->ShowTime(false);
-    /*
+    //*
     m_pLunarCalendar->AddHoliday(10, 1, "holiday");
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");

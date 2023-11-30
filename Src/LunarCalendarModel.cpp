@@ -180,8 +180,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                 szTip += h + "\n";
             }
         }
-        if(!day.szAnniversary.isEmpty()) {
-            foreach (auto h, day.szAnniversary) {
+        if(!day.Anniversary.isEmpty()) {
+            foreach (auto h, day.Anniversary) {
                 if(h.isEmpty())
                     break;
                 szTip += h + "\n";
@@ -204,8 +204,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                     return h;
             }
         }
-        if(!day.szAnniversary.isEmpty()) {
-            foreach (auto h, day.szAnniversary) {
+        if(!day.Anniversary.isEmpty()) {
+            foreach (auto h, day.Anniversary) {
                 if(!h.isEmpty())
                     return h;
             }
@@ -233,7 +233,16 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case BackgroupImage:
         return GetDay(row, column).szImageBackgroup;
     case Anniversary:
-        return GetDay(row, column).szAnniversary;
+    {
+        _DAY day = GetDay(row, column);
+        if(!day.Anniversary.isEmpty()) {
+            foreach (auto h, day.Anniversary) {
+                if(!h.isEmpty())
+                    return h;
+            }
+        }
+        break;
+    }
     case Tasks:
         return GetDay(row, column).nTasks;
     case SolarColorRole:
@@ -360,7 +369,7 @@ int CLunarCalendarModel::slotUpdate()
 
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
-            day.szAnniversary = m_Anniversary[d.month()].value(d.day());
+            day.Anniversary = m_Anniversary[d.month()].value(d.day());
             
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
@@ -373,7 +382,7 @@ int CLunarCalendarModel::slotUpdate()
                 if(!lunar.GetJieQi().isEmpty())
                     day.LunarHoliday << lunar.GetJieQi();
                 
-                day.szAnniversary += lunar.GetAnniversary();
+                day.Anniversary += lunar.GetAnniversary();
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
             
@@ -812,7 +821,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
     cellForDate(date, &row, &col);
     if(-1 == row || -1 == col || m_Day.isEmpty())
         return -2;
-    m_Day[row * 7 + col].szAnniversary << szName;            
+    m_Day[row * 7 + col].Anniversary << szName;
     return 0;
 }
 
