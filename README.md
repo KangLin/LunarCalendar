@@ -56,8 +56,10 @@ The lunar calendar written by Qt. It provides:
 - A lunar calendar library of Qt GUI, support QSS.
    + Solar calendar
    + Lunar calendar
-   + Solar and Lunar holiday(include chinese holidays)
-   + Solar and Lunar Day (eg birthday, wedding anniversary, etc.)
+   + Solar and Lunar holiday(eg: chinese holidays)
+   + Solar and Lunar anniversary (eg: birthday, wedding anniversary, etc.)
+   + User-defined task prompts on the calendar (highlighted)
+   + ToolTip shows detailed tooltip content
    + Month view
    + Week view
 - Example

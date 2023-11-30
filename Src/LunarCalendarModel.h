@@ -111,6 +111,8 @@ public:
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
     CLunarCalendar::_VIEW_TYPE GetViewType();
     
+    void EnableToolTip(bool enable);
+    
 private Q_SLOTS:
     int slotUpdate();
 
@@ -182,7 +184,9 @@ private:
     
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;
-    
+
+    bool m_bEnableToolTip;
+
     QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
 #if HAS_CPP_11
     std::function<uint(const QDate& date, QStringList& tasks)> m_cbTaskHandler;

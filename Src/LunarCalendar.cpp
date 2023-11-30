@@ -534,6 +534,13 @@ bool CLunarCalendar::ShowBackgroupImage()
     return m_bShowBackgroupImage;
 }//*/
 
+void CLunarCalendar::EnableToolTip(bool enable)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return;
+    return pModel->EnableToolTip(enable);
+}
+
 void CLunarCalendar::ShowToday(bool bShow)
 {
     if(m_bShowToday == bShow)

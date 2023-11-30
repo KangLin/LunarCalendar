@@ -81,6 +81,10 @@ MainWindow::MainWindow(QWidget *parent) :
                                    m_pLunarCalendar, SLOT(ShowGrid(bool)));
     pAction->setCheckable(true);
     pAction->setChecked(false);
+    pAction = pViewMenu->addAction(tr("Show tooltip"),
+                                   m_pLunarCalendar, SLOT(EnableToolTip(bool)));
+    pAction->setCheckable(true);
+    pAction->setChecked(true);
     pAction = pViewMenu->addAction(tr("Use backgroup image"),
                                    m_pLunarCalendar, SLOT(ShowBackgroupImage(bool)));
     pAction->setCheckable(true);

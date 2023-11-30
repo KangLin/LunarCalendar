@@ -75,51 +75,56 @@
     </message>
     <message>
         <location filename="../../MainWindow.cpp" line="84"/>
+        <source>Show tooltip</source>
+        <translation>显示工具提示</translation>
+    </message>
+    <message>
+        <location filename="../../MainWindow.cpp" line="88"/>
         <source>Use backgroup image</source>
         <translation>使用背景图</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="91"/>
+        <location filename="../../MainWindow.cpp" line="95"/>
         <source>Head position</source>
         <translation>头位置</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="92"/>
+        <location filename="../../MainWindow.cpp" line="96"/>
         <source>Not</source>
         <translation>隐藏</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="95"/>
+        <location filename="../../MainWindow.cpp" line="99"/>
         <source>Top</source>
         <translation>上</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="99"/>
+        <location filename="../../MainWindow.cpp" line="103"/>
         <source>Down</source>
         <translation>下</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="102"/>
+        <location filename="../../MainWindow.cpp" line="106"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="105"/>
+        <location filename="../../MainWindow.cpp" line="109"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="118"/>
+        <location filename="../../MainWindow.cpp" line="122"/>
         <source>Help</source>
         <translation>帮助</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="120"/>
+        <location filename="../../MainWindow.cpp" line="124"/>
         <source>Update</source>
         <translation>更新</translation>
     </message>
     <message>
-        <location filename="../../MainWindow.cpp" line="122"/>
+        <location filename="../../MainWindow.cpp" line="126"/>
         <source>About</source>
         <translation>关于</translation>
     </message>

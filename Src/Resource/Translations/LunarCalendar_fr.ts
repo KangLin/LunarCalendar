@@ -17,8 +17,8 @@
     <message>
         <location filename="../../LunarCalendar.cpp" line="186"/>
         <location filename="../../LunarCalendar.cpp" line="187"/>
-        <location filename="../../LunarCalendar.cpp" line="1221"/>
-        <location filename="../../LunarCalendar.cpp" line="1222"/>
+        <location filename="../../LunarCalendar.cpp" line="1228"/>
+        <location filename="../../LunarCalendar.cpp" line="1229"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29,8 +29,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1217"/>
-        <location filename="../../LunarCalendar.cpp" line="1218"/>
+        <location filename="../../LunarCalendar.cpp" line="1224"/>
+        <location filename="../../LunarCalendar.cpp" line="1225"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38,7 +38,7 @@
 <context>
     <name>CLunarCalendarModel</name>
     <message>
-        <location filename="../../LunarCalendarModel.cpp" line="1080"/>
+        <location filename="../../LunarCalendarModel.cpp" line="1089"/>
         <source>Download file fail</source>
         <translation type="unfinished"></translation>
     </message>

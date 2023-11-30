@@ -290,6 +290,8 @@ public Q_SLOTS:
      * \brief 显示或隐藏网格
      */
     void ShowGrid(bool show);
+    
+    void EnableToolTip(bool show);
 
     /*!
      * \brief 显示或隐藏背景图片

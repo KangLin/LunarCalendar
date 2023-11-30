@@ -37,6 +37,9 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     
     SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
                     CLunarCalendar::ViewTypeMonth));
+
+    EnableToolTip(true);
+
     m_RowCount = 5;
     m_ColumnCount = 7;
     m_Locale = QLocale::system();
@@ -209,6 +212,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case Qt::ToolTipRole:
     {
+        if(!m_bEnableToolTip)
+            break;
         QString szTip;
         _DAY day = GetDay(row, column);
         szTip = d.toString(m_Locale.dateFormat(QLocale::LongFormat));
@@ -906,6 +911,10 @@ int CLunarCalendarModel::SetCalendarType(CLunarCalendar::_CalendarType type)
     m_calendarType = type;
     slotUpdate();
     return 0;
+}
+
+void CLunarCalendarModel::EnableToolTip(bool enable) {
+    m_bEnableToolTip = enable;
 }
 
 CLunarCalendar::_CalendarType CLunarCalendarModel::GetCalendarType()
