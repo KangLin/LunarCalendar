@@ -244,7 +244,10 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         break;
     }
     case Tasks:
-        return GetDay(row, column).nTasks;
+    {
+        _DAY day = GetDay(row, column);
+        return day.nTasks + day.Anniversary.size();
+    }
     case TasksColorRole:
         return ColorHighlight;
     case SolarColorRole:
