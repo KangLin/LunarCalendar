@@ -205,15 +205,15 @@ public:
          * \param date: 日期
          * \return 返回任务数。当任务数大于0时，会在日历上显示圆点提示
          */
-        virtual uint onHandle(QDate date) = 0;
+        virtual uint onHandle(const QDate& date) = 0;
     };
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
 #if HAS_CPP_11
     /*!
      * \note It is need c++ standard 11
      */
-    /*virtual int SetTaskHandle(
-        std::function<int(QStringList& tasks)->uint> cb);*/
+    virtual int SetTaskHandle(
+        std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
 #endif
 
     /*!

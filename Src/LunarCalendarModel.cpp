@@ -160,34 +160,23 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case Qt::EditRole:
     case SolarRole:
         return d.day();
-    case Qt::ToolTipRole:
+    case LunarColorRole:
     {
-        QString szTip;
-        _DAY day = GetDay(row, column);
-        szTip = QString::number(day.Solar) + "\n";
-        szTip += day.szLunar + "\n";
-        if(!day.SolarHoliday.isEmpty()) {
-            foreach(auto h, day.SolarHoliday) {
-                if(h.isEmpty())
-                    break;
-                szTip += h + "\n";
-            }
-        }
-        if(!day.LunarHoliday.isEmpty()) {
-            foreach (auto h, day.LunarHoliday) {
-                if(h.isEmpty())
-                    break;
-                szTip += h + "\n";
-            }
-        }
-        if(!day.Anniversary.isEmpty()) {
-            foreach (auto h, day.Anniversary) {
-                if(h.isEmpty())
-                    break;
-                szTip += h + "\n";
-            }
-        }
-        return szTip;
+        if(d.month() != m_ShownMonth
+            && CLunarCalendar::ViewTypeMonth == m_viewType)
+            return ColorDisable;
+
+        if(GetDay(row, column).LunarHoliday.isEmpty())
+            return ColorNormal;
+
+        return ColorHighlight;
+    }
+    case LunarFontRole:
+    {
+        if(GetDay(row, column).LunarHoliday.isEmpty())
+            return FontNormal;
+
+        return FontBold;
     }
     case LunarRole:
     {
@@ -210,28 +199,50 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                     return h;
             }
         }
-        return day.szLunar;
+        if(!day.Tasks.isEmpty()) {
+            foreach (auto h, day.Tasks) {
+                if(!h.isEmpty())
+                    return h;
+            }
+        }
+        return day.szLunarDay;
     }
-    case LunarColorRole:
+    case Qt::ToolTipRole:
     {
-        if(d.month() != m_ShownMonth
-                && CLunarCalendar::ViewTypeMonth == m_viewType)
-            return ColorDisable;
-
-        if(GetDay(row, column).LunarHoliday.isEmpty())
-            return ColorNormal;
-        
-        return ColorHighlight;
+        QString szTip;
+        _DAY day = GetDay(row, column);
+        szTip = d.toString(m_Locale.dateFormat(QLocale::LongFormat));
+        szTip += "\n" + day.szLunar;
+        if(!day.SolarHoliday.isEmpty()) {
+            foreach(auto h, day.SolarHoliday) {
+                if(h.isEmpty())
+                    break;
+                szTip += "\n" + h;
+            }
+        }
+        if(!day.LunarHoliday.isEmpty()) {
+            foreach (auto h, day.LunarHoliday) {
+                if(h.isEmpty())
+                    break;
+                szTip += "\n" + h;
+            }
+        }
+        if(!day.Anniversary.isEmpty()) {
+            foreach (auto h, day.Anniversary) {
+                if(h.isEmpty())
+                    break;
+                szTip += "\n" + h;
+            }
+        }
+        if(!day.Tasks.isEmpty()) {
+            foreach (auto h, day.Tasks) {
+                if(h.isEmpty())
+                    break;
+                szTip += "\n" + h;
+            }
+        }
+        return szTip;
     }
-    case LunarFontRole:
-    {
-        if(GetDay(row, column).LunarHoliday.isEmpty())
-            return FontNormal;
-        
-        return FontBold;
-    }
-    case BackgroupImage:
-        return GetDay(row, column).szImageBackgroup;
     case Anniversary:
     {
         _DAY day = GetDay(row, column);
@@ -246,10 +257,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case Tasks:
     {
         _DAY day = GetDay(row, column);
-        return day.nTasks + day.Anniversary.size();
+        return day.nTasks + day.Anniversary.size() + day.Tasks.size();
     }
     case TasksColorRole:
         return ColorHighlight;
+    case BackgroupImage:
+        return GetDay(row, column).szImageBackgroup;
     case SolarColorRole:
     {
         if(d.month() != m_ShownMonth
@@ -368,7 +381,7 @@ int CLunarCalendarModel::slotUpdate()
             d = dateForCell(row, col);
             if(!d.isValid())
                 break;
-            _DAY day;
+            _DAY day = {0};
             day.Solar = d.day();
             day.SolarHoliday << m_Holiday[d.month()].value(d.day());
 
@@ -381,7 +394,8 @@ int CLunarCalendarModel::slotUpdate()
                 CCalendarLunar lunar(d);
                 day.nLunarMonth = lunar.GetMonth();
                 day.nLunarDay = lunar.GetDay();
-                day.szLunar = lunar.GetLunarDay();
+                day.szLunar = lunar.GetLunar();
+                day.szLunarDay = lunar.GetLunarDay();
                 
                 day.LunarHoliday = lunar.GetHoliday();
                 if(!lunar.GetJieQi().isEmpty())
@@ -390,12 +404,20 @@ int CLunarCalendarModel::slotUpdate()
                 day.Anniversary += lunar.GetAnniversary();
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
-            
+
+            day.nTasks = 0;
             if(m_GetTaskHandler)
-                day.nTasks = m_GetTaskHandler->onHandle(d);
-            else
-                day.nTasks = 0;
-            
+                day.nTasks += m_GetTaskHandler->onHandle(d);
+#if HAS_CPP_11
+            if(m_cbTaskHandler) {
+                day.nTasks += m_cbTaskHandler(d, day.Tasks);
+                if(day.nTasks != day.Tasks.size())
+                {
+                    qWarning(Logger) << "Tasks count is same return";
+                }
+            }
+#endif
+
             day.WorkDay = NO;
             if(m_Database.isOpen())
             {
@@ -850,6 +872,17 @@ int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHa
     m_GetTaskHandler = handler;
     return 0;
 }
+
+#if HAS_CPP_11
+/*!
+     * \note It is need c++ standard 11
+     */
+int CLunarCalendarModel::SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler)
+{
+    m_cbTaskHandler = cbHandler;
+    return 0;
+}
+#endif
 
 CLunarCalendarModel::_DAY CLunarCalendarModel::GetDay(int row, int col) const
 {

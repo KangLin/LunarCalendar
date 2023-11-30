@@ -148,10 +148,16 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
     m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
-    m_pLunarCalendar->AddAnniversary(10, 26, "you birth1");
+    m_pLunarCalendar->AddAnniversary(10, 26, "爸生日");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
-    m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");//*/
+    m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");
+    m_pLunarCalendar->SetTaskHandle([](QDate d, QStringList& tasks)->uint {
+        if(d.day() == 10 && d.month() == 10)
+        {
+            tasks << "妈生日";
+        }
+        return tasks.size();});//*/
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);

@@ -1178,6 +1178,14 @@ int CLunarCalendar::SetTaskHandle(QSharedPointer<CGetTaskHandler> handler)
     return pModel->SetTaskHandle(handler);
 }
 
+#if HAS_CPP_11
+int CLunarCalendar::SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return -1;
+    return pModel->SetTaskHandle(cbHandler);
+}
+#endif
 
 int CLunarCalendar::SetViewType(_VIEW_TYPE type)
 {

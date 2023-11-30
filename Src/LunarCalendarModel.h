@@ -99,7 +99,13 @@ public:
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
     int SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler);
-    
+#if HAS_CPP_11
+    /*!
+     * \note It is need c++ standard 11
+     */
+    virtual int SetTaskHandle(
+        std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
+#endif
     int SetCalendarType(CLunarCalendar::_CalendarType type);
     CLunarCalendar::_CalendarType GetCalendarType();
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
@@ -160,10 +166,12 @@ private:
         int nLunarMonth;
         int nLunarDay;
         QString szLunar;
+        QString szLunarDay;
         QStringList LunarHoliday;
         QStringList Anniversary;
-        QString szImageBackgroup;
+        QStringList Tasks;
         uint nTasks;
+        QString szImageBackgroup;
         __WORK_DAY WorkDay;
     };
     QVector<_DAY> m_Day;
@@ -176,6 +184,9 @@ private:
     CLunarCalendar::_CalendarType m_calendarType;
     
     QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
+#if HAS_CPP_11
+    std::function<uint(const QDate& date, QStringList& tasks)> m_cbTaskHandler;
+#endif
     
     QSqlDatabase m_Database;
     QSharedPointer<RabbitCommon::CDownloadFile> m_Download;
