@@ -2,7 +2,7 @@
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include <QDebug>
+#include <QLoggingCategory>
 #include <QDate>
 #include <QIcon>
 #include <QDir>
@@ -13,6 +13,8 @@
 #include "FrmUpdater.h"
 #include "RabbitCommonTools.h"
 #endif
+
+static Q_LOGGING_CATEGORY(Logger, "App")
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -207,7 +209,14 @@ void MainWindow::slotUpdate()
 
 void MainWindow::slotUpdateCalendar()
 {
-    qDebug() << m_pLunarCalendar->SelectedLunar();
+    qDebug(Logger) << "\n"
+        << "SelectedDate:" << m_pLunarCalendar->SelectedDate() << "\n"
+        << "SelectedLunar:" << m_pLunarCalendar->SelectedLunar() << "\n"
+        << "Year:" << m_pLunarCalendar->GetShowYear() << "\n"
+        << "Month:" << m_pLunarCalendar->GetShowMonth() << "\n"
+        << "MinimumDate:" << m_pLunarCalendar->MinimumDate() << "\n"
+        << "MaximumDate:" << m_pLunarCalendar->MaximumDate()
+        ;
 }
 
 void MainWindow::slotActionLunar(bool checked)

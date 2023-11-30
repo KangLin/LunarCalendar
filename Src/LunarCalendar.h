@@ -26,6 +26,28 @@
 #include <QSharedPointer>
 #include "lunarcalendar_export.h"
 
+#if defined(__clang__) || defined(__GNUC__)
+#define CPP_STANDARD __cplusplus
+#elif defined(_MSC_VER)
+#define CPP_STANDARD _MSVC_LANG
+#endif
+#if CPP_STANDARD >= 199711L
+#define HAS_CPP_03 1
+#endif
+#if CPP_STANDARD >= 201103L
+#define HAS_CPP_11 1
+#endif
+#if CPP_STANDARD >= 201402L
+#define HAS_CPP_14 1
+#endif
+#if CPP_STANDARD >= 201703L
+#define HAS_CPP_17 1
+#endif
+
+#if HAS_CPP_11
+#include <functional>
+#endif
+
 /*!
  * \brief 农历界面类
  * \details
@@ -186,6 +208,13 @@ public:
         virtual uint onHandle(QDate date) = 0;
     };
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
+#if HAS_CPP_11
+    /*!
+     * \note It is need c++ standard 11
+     */
+    /*virtual int SetTaskHandle(
+        std::function<int(QStringList& tasks)->uint> cb);*/
+#endif
 
     /*!
      * \brief 得到当前界面显示的年份

@@ -1,4 +1,4 @@
-- v0.2.9
+- v0.3.0
   + 修改　org.Rabbit.Calendar.desktop　中的 MimeType　值
   + 修改节日为列表
   + 修改农历假日为列表

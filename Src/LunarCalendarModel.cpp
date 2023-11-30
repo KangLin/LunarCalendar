@@ -804,8 +804,10 @@ QColor CLunarCalendarModel::GetHeight() const
 
 int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty())
+    if(szName.isEmpty()) {
+        qCritical(Logger, "AddHoliday parameter szName is empty");
         return -1;
+    }
     m_Holiday[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
@@ -818,8 +820,10 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 
 int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty())
+    if(szName.isEmpty()) {
+        qCritical(Logger, "AddAnniversary parameter szName is empty");
         return -1;
+    }
     m_Anniversary[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
@@ -832,8 +836,10 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
 
 int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty())
+    if(szName.isEmpty()){
+        qCritical(Logger, "AddLunarAnniversary parameter szName is empty");
         return -1;
+    }
 
     CCalendarLunar l;
     return l.AddAnniversary(month, day, szName);
