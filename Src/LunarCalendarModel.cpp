@@ -189,25 +189,25 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         _DAY day = GetDay(row, column);
         if(!day.SolarHoliday.isEmpty()) {
             foreach(auto h, day.SolarHoliday) {
-                if(!h.isEmpty())
+                if(!h.isEmpty() && "" != h)
                     return h;
             }
         }
         if(!day.LunarHoliday.isEmpty()) {
             foreach (auto h, day.LunarHoliday) {
-                if(!h.isEmpty())
+                if(!h.isEmpty() && "" != h)
                     return h;
             }
         }
         if(!day.Anniversary.isEmpty()) {
             foreach (auto h, day.Anniversary) {
-                if(!h.isEmpty())
+                if(!h.isEmpty() && "" != h)
                     return h;
             }
         }
         if(!day.Tasks.isEmpty()) {
             foreach (auto h, day.Tasks) {
-                if(!h.isEmpty())
+                if(!h.isEmpty() && "" != h)
                     return h;
             }
         }
@@ -227,28 +227,28 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         szTip += "\n" + day.szLunar;
         if(!day.SolarHoliday.isEmpty()) {
             foreach(auto h, day.SolarHoliday) {
-                if(h.isEmpty())
+                if(h.isEmpty() || "" == h)
                     break;
                 szTip += "\n" + h;
             }
         }
         if(!day.LunarHoliday.isEmpty()) {
             foreach (auto h, day.LunarHoliday) {
-                if(h.isEmpty())
+                if(h.isEmpty() || "" == h)
                     break;
                 szTip += "\n" + h;
             }
         }
         if(!day.Anniversary.isEmpty()) {
             foreach (auto h, day.Anniversary) {
-                if(h.isEmpty())
+                if(h.isEmpty() || "" == h)
                     break;
                 szTip += "\n" + h;
             }
         }
         if(!day.Tasks.isEmpty()) {
             foreach (auto h, day.Tasks) {
-                if(h.isEmpty())
+                if(h.isEmpty() || "" == h)
                     break;
                 szTip += "\n" + h;
             }
@@ -260,7 +260,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         _DAY day = GetDay(row, column);
         if(!day.Anniversary.isEmpty()) {
             foreach (auto h, day.Anniversary) {
-                if(!h.isEmpty())
+                if(!h.isEmpty() && "" != h)
                     return h;
             }
         }
@@ -272,7 +272,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
          * - 任务取值： 包括周年纪念日、任务、任务计数之和
          */
         _DAY day = GetDay(row, column);
-        return day.nTasks + day.Anniversary.size() + day.Tasks.size();
+        return day.Anniversary.size() + day.Tasks.size();
     }
     case TasksColorRole:
         return ColorHighlight;
@@ -425,17 +425,12 @@ int CLunarCalendarModel::slotUpdate()
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
 
-            day.nTasks = 0;
             if(m_GetTaskHandler)
-                day.nTasks += m_GetTaskHandler->onHandle(d, day.Tasks);
+                m_GetTaskHandler->onHandle(d, day.Tasks);
+            
 #if HAS_CPP_11
-            if(m_cbTaskHandler) {
-                day.nTasks += m_cbTaskHandler(d, day.Tasks);
-                if(day.nTasks != day.Tasks.size())
-                {
-                    qWarning(Logger) << "Tasks count is same return";
-                }
-            }
+            if(m_cbTaskHandler)
+                m_cbTaskHandler(d, day.Tasks);
 #endif
 
             day.WorkDay = NO;
@@ -846,7 +841,7 @@ QColor CLunarCalendarModel::GetHeight() const
 
 int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty()) {
+    if(szName.isEmpty() || szName == "") {
         qCritical(Logger, "AddHoliday parameter szName is empty");
         return -1;
     }
@@ -862,7 +857,7 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
 
 int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty()) {
+    if(szName.isEmpty() || szName == "") {
         qCritical(Logger, "AddAnniversary parameter szName is empty");
         return -1;
     }
@@ -878,7 +873,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
 
 int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &szName)
 {
-    if(szName.isEmpty()){
+    if(szName.isEmpty() || szName == ""){
         qCritical(Logger, "AddLunarAnniversary parameter szName is empty");
         return -1;
     }

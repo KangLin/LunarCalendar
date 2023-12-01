@@ -158,14 +158,19 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
     
+    //! \name 资源操作
+    //! @{
     /*!
      * \brief 初始化程序资源，仅在在程序开始处, QApplication a(argc, argv); 之后调用一次.
+     * \snippet App/main.cpp CLunarCalendar::InitResource()
      */
     static void InitResource();
     /*!
      * \brief 释放程序资源。仅在程序退出前调用一次
+     * \snippet App/main.cpp CLunarCalendar::CLeanResource()
      */
     static void CLeanResource();
+    //! @} 资源操作
     
     //! \name 日期操作
     //! @{
@@ -213,9 +218,11 @@ public:
     
     /*!
      * \brief 增加公历假日
+     * \details
+     * \snippet App/MainWindow.cpp Add Holiday
      * \param month: 节日月份
      * \param day: 节日日期
-     * \param szName: 节日名
+     * \param szName: 节日名。不能为空或""
      * \image html Docs/image/Holiday.png
      */
     int AddHoliday(int month, int day, const QString &szName);
@@ -223,7 +230,7 @@ public:
      * \brief 设置周年纪念日（例如：公历生日）
      * \param month: 月
      * \param day: 日
-     * \param szName: 纪念日名
+     * \param szName: 纪念日名。不能为空或""
      * \image html Docs/image/Holiday.png
      */
     int AddAnniversary(int month, int day, const QString &szName);
@@ -231,24 +238,34 @@ public:
      * \brief 设置农历周年纪念日（例如：农历生日）
      * \param month: 农历月
      * \param day: 农历日
-     * \param szName: 纪念日名
+     * \param szName: 纪念日名。不能为空或""
      * \image html Docs/image/Holiday.png
      */
     int AddLunarAnniversary(int month, int day, const QString &szName);
     
+    /*!
+     * 自定义任务处理类
+     * \see SetTaskHandle
+     */
     class CGetTaskHandler
     {
     public:
         CGetTaskHandler() {}
         virtual ~CGetTaskHandler(){}
         /*!
+         * 处理自定义任务
          * \param date: 日期
-         * \return 返回任务数。当任务数大于0时，会在日历上显示圆点提示
+         * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。否则忽略
+         *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
+         * \return 任务数。目前忽略
          */
         virtual uint onHandle(const QDate& date, QStringList& tasks) = 0;
     };
     /*!
-     * 处理使用者自定义任务
+     * \brief 处理使用者自定义任务
+     * \param handler
+     * \return 
+     * \see CGetTaskHandler
      */
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
 
@@ -256,6 +273,12 @@ public:
     /*!
      * 处理使用者自定义任务
      *
+     * \param cbHandler: 处理函数
+     *      \param date: 要处理的日期
+     *      \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。否则忽略。
+     *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
+     *      \return 任务数。目前忽略
+     * 
      * \snippet App/MainWindow.cpp User defined tasks
      * \note It is need c++ standard 11
      */
@@ -307,6 +330,9 @@ public:
     
     //! @} 日期操作
     
+    //! \name 设置界面
+    //! @{
+    
     enum _HEAD_position
     {
         Not,   //! 无
@@ -323,8 +349,6 @@ public:
     int SetHeadposition(_HEAD_position pos = Top);
     
 public Q_SLOTS:
-    //! \name 属性操作
-    //! @{
     
     /*!
      * 显示或隐藏日历头
@@ -378,8 +402,6 @@ public Q_SLOTS:
      */
     void ShowBackgroupImage(bool show);
     
-    //! @} 属性操作
-    
 public:
     
     //! 日历类型
@@ -402,6 +424,8 @@ public:
     //! 得到视图类型
     _VIEW_TYPE GetViewType() const;
     
+    //! @} 设置界面
+
     enum _TOUCH_UP_DOWN_FUNCTION{
         TouchChangeView,
         TouchChangeMounth
@@ -441,7 +465,7 @@ public:
                               bool bSaveAllDate = true);
     
     //! @}  上面功能仅由开发者使用。客户不要使用。
-    
+
 Q_SIGNALS:
     /*!
      * \brief 当前选择日期改变时触发

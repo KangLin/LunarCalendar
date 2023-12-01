@@ -48,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewWeek->setCheckable(true);
     pViewTypeGroup->addAction(pViewWeek);
     pViewMenu->addSeparator();
-    
+
+    //! [Set UI]
     pAction = pViewMenu->addAction(tr("Show Head"),
                                    m_pLunarCalendar, SLOT(ShowHead(bool)));
     pAction->setCheckable(true);
@@ -90,7 +91,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pAction->setCheckable(true);
     pAction->setChecked(false);
     m_pLunarCalendar->ShowBackgroupImage(false);
-    
+
     QActionGroup* pViewHeadposition = new QActionGroup(this);
     QMenu* pViewHeadpositionMenu = pViewMenu->addMenu(tr("Head position"));
     QAction* pHeadNot = pViewHeadpositionMenu->addAction(tr("Not"),
@@ -114,7 +115,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadposition->addAction(pHeadDown);
     pViewHeadposition->addAction(pHeadLeft);
     pViewHeadposition->addAction(pHeadRight);
-    
+    //! [Set UI]
+
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
 
@@ -147,8 +149,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->ShowDate(false);
     //m_pLunarCalendar->ShowTime(false);
     //*
-    m_pLunarCalendar->AddHoliday(10, 1, "holiday");
+    //! [Add Holiday]
+    m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
+    //! [Add Holiday]
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
+    //! [Add Anniversary]
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
     m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
@@ -156,12 +161,20 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
     m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");
-    
+    //! [Add Anniversary]
+
     //! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
         if(d.day() == 10 && d.month() == 10)
         {
             tasks << "辛亥革命纪念日";
+        }
+        
+        if(d.day() == 11 && d.month() == 10)
+        {
+            // 表示只显示圆点，不显示内容。
+            tasks << QString();
+            return 1;
         }
         return tasks.size();});
     //! [User defined tasks]
@@ -171,10 +184,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
-
+    
+    //! [sigSelectionChanged]
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
                          this, SLOT(slotUpdateCalendar()));
     Q_ASSERT(check);
+    //! [sigSelectionChanged]
 }
 
 MainWindow::~MainWindow()
@@ -182,6 +197,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+//! \name help
+//! @{
 void MainWindow::slotAbout()
 {
 #ifdef RABBITCOMMON
@@ -220,7 +237,9 @@ void MainWindow::slotUpdate()
 #endif
 #endif
 }
+//! @}
 
+//! [slotUpdateCalendar]
 void MainWindow::slotUpdateCalendar()
 {
     qDebug(Logger) << "\n"
@@ -232,6 +251,7 @@ void MainWindow::slotUpdateCalendar()
         << "MaximumDate:" << m_pLunarCalendar->MaximumDate()
         ;
 }
+//! [slotUpdateCalendar]
 
 void MainWindow::slotActionLunar(bool checked)
 {

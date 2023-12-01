@@ -172,7 +172,6 @@ private:
         QStringList LunarHoliday;
         QStringList Anniversary;
         QStringList Tasks;
-        uint nTasks;
         QString szImageBackgroup;
         __WORK_DAY WorkDay;
     };

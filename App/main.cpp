@@ -53,8 +53,10 @@ int main(int argc, char *argv[])
     }
     else
         qCritical() << "Load translation file fail:" << szFile;
-
+    
+    //! [CLunarCalendar::InitResource()]
     CLunarCalendar::InitResource();
+    //! [CLunarCalendar::InitResource()]
     
     MainWindow w;
 
@@ -71,7 +73,10 @@ int main(int argc, char *argv[])
 #endif
     int nRet = a.exec();
     
+    //! [CLunarCalendar::CLeanResource()]
     CLunarCalendar::CLeanResource();
+    //! [CLunarCalendar::CLeanResource()]
+
     if(bRetTranslator) a.removeTranslator(&tApp);
 
     return nRet;
