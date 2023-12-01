@@ -165,6 +165,27 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case Qt::EditRole:
     case SolarRole:
         return d.day();
+    case SolarColorRole:
+    {
+        if(d.month() != m_ShownMonth
+            && CLunarCalendar::ViewTypeMonth == m_viewType)
+            return ColorDisable;
+        
+        if(d.dayOfWeek() == Qt::Saturday
+            || Qt::Sunday == d.dayOfWeek()
+            //|| d == QDate::currentDate()
+            || !GetDay(row, column).SolarHoliday.isEmpty())
+            return ColorHighlight;
+        
+        return ColorNormal;
+    }
+    case SolarFontRole:
+        if(GetDay(row, column).SolarHoliday.isEmpty())
+            return FontNormal;
+        
+        return FontBold;
+    case TodayRole:
+        return d == QDate::currentDate();
     case LunarColorRole:
     {
         if(d.month() != m_ShownMonth
@@ -278,27 +299,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return ColorHighlight;
     case BackgroupImage:
         return GetDay(row, column).szImageBackgroup;
-    case SolarColorRole:
-    {
-        if(d.month() != m_ShownMonth
-                && CLunarCalendar::ViewTypeMonth == m_viewType)
-            return ColorDisable;
-
-        if(d.dayOfWeek() == Qt::Saturday
-                || Qt::Sunday == d.dayOfWeek()
-                //|| d == QDate::currentDate()
-                || !GetDay(row, column).SolarHoliday.isEmpty())
-            return ColorHighlight;
-        
-        return ColorNormal;
-    }
-    case SolarFontRole:
-        if(GetDay(row, column).SolarHoliday.isEmpty())
-            return FontNormal;
-        
-        return FontBold;
-    case TodayRole:
-        return d == QDate::currentDate();
     case WorkDayRole:
     {
         switch(GetDay(row, column).WorkDay)
@@ -403,11 +403,11 @@ int CLunarCalendarModel::slotUpdate()
                 break;
             _DAY day = {0};
             day.Solar = d.day();
-            day.SolarHoliday << m_Holiday[d.month()].value(d.day());
+            day.SolarHoliday << m_SolarHoliday[d.month()].value(d.day());
 
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
-            day.Anniversary = m_Anniversary[d.month()].value(d.day());
+            day.Anniversary = m_SolarAnniversary[d.month()].value(d.day());
             
             if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
             {
@@ -845,7 +845,7 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
         qCritical(Logger, "AddHoliday parameter szName is empty");
         return -1;
     }
-    m_Holiday[month][day] << szName;
+    m_SolarHoliday[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
@@ -861,7 +861,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szNam
         qCritical(Logger, "AddAnniversary parameter szName is empty");
         return -1;
     }
-    m_Anniversary[month][day] << szName;
+    m_SolarAnniversary[month][day] << szName;
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);

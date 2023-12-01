@@ -12,9 +12,6 @@
 
 /*!
  * \brief 农历类
- * 
- * TODO: 周年纪念日是全局的，所以当多个实例时，每个实例都是一样的。需要修改为私有的
- * 
  * \ingroup INTERNAL_API
  */
 class CCalendarLunar : public QObject
@@ -48,9 +45,14 @@ public:
     QString GetJieQi();
     //! 得到节气的图片
     QString GetJieQiImage();
-
+    
+    //! \name 以年为周期的
+    //! @{
+    //! 节日是全局的，所以当多个实例时，每个实例都是一样的。
     static int AddHoliday(int month, int day, const QString &szName);
+    //! 周年纪念日是全局的，所以当多个实例时，每个实例都是一样的。
     static int AddAnniversary(int month, int day, const QString &szName);
+    //! @}
 
 private:
     explicit CCalendarLunar(QObject *parent = nullptr);

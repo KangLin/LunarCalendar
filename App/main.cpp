@@ -1,4 +1,6 @@
-// 作者：康林 <kl222@126.com>
+/*! \copyright 康林工作室版权所有 (c)，保留所有权力。
+ * \author 康　林 <kl222@126.com>
+ */
 
 #include "MainWindow.h"
 #include <QApplication>
@@ -16,6 +18,13 @@
 #endif
 #include <QLocale>
 
+/*!
+ * \defgroup Example 示例程序
+ */
+
+/*!
+ * \ingroup Example
+ */
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

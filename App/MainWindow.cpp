@@ -21,9 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    
+    //! [Instance CLunarCalendar]
     m_pLunarCalendar = new CLunarCalendar(this);
     if(!m_pLunarCalendar)
         throw std::bad_alloc();
+    //! [Instance CLunarCalendar]
     
     QMenu* pViewMenu = menuBar()->addMenu(tr("View"));
     QAction* pAction = pViewMenu->addAction(tr("Lunar"),

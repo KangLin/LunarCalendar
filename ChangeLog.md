@@ -6,6 +6,9 @@
   + 修改周年为列表
   + 重命名 YearShown 为 GetShowYear
   + 重命名 MonthShown 为 GetShowMonth
+  + TODO: 修复 pkg-config 
+  + TODO: 增加使用测试（CMakeTest)
+  + TODO: 
   
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)

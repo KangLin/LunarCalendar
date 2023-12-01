@@ -164,23 +164,26 @@ private:
     {
         int Solar;
         QStringList SolarHoliday;
+
         int nLunarYear;
         int nLunarMonth;
         int nLunarDay;
         QString szLunar;
         QString szLunarDay;
         QStringList LunarHoliday;
+
         QStringList Anniversary;
         QStringList Tasks;
+
         QString szImageBackgroup;
         __WORK_DAY WorkDay;
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
 
-    QMap<int, QMap<int, QStringList> > m_Holiday;
-    QMap<int, QMap<int, QStringList> > m_Anniversary;
-    
+    QMap<int, QMap<int, QStringList> > m_SolarHoliday;
+    QMap<int, QMap<int, QStringList> > m_SolarAnniversary;
+
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;
 

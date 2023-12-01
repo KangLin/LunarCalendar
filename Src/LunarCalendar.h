@@ -3,32 +3,6 @@
  * \author 康　林 <kl222@126.com>
  */
 
-
-/*!
- * 
- * \defgroup USE_DOC 使用文档
- * \details 使用者文档
- * 
- * - \ref RoleDefinitions
- * - \ref API
- * 
- * \defgroup DEVELOPER_DOC 开发文档
- * \details 开发者文档
- * - \ref RoleDefinitions
- * - \ref API
- * - \ref INTERNAL_API
- * 
- * \defgroup API 应用程序接口
- * \details 应用程序接口
- * - \ref RoleDefinitions
- * \ingroup USE_DOC DEVELOPER_DOC
- * 
- * \defgroup INTERNAL_API 内部使用接口
- * \details 内部使用接口
- * - \ref RoleDefinitions
- * \ingroup DEVELOPER_DOC
- */
-
 #ifndef LUNARCALENDAR_H
 #define LUNARCALENDAR_H
 
@@ -70,18 +44,45 @@
 #endif
 
 /*!
- * \brief 农历界面类
- * \details 显示阳历、农历、节日、任务
+ * \defgroup USE_DOC 使用文档
+ * \details 使用文档
+ * - \ref RoleDefinitions
+ * - \ref API
+ * - \ref UssCLunarCalendar
+ * - [使用文档](../Docs/User.md)
  * 
- * \section RoleDefinitions 角色定义
- * - 开发者(Developer)：开发本项目的人员
- * - 使用者(User)：使用本项目进行二次开发的人员
- * - 客户(Client)：使用本项目最终程序的人员
+ * \defgroup DEVELOPER_DOC 开发文档
+ * \details 开发文档
+ * - \ref RoleDefinitions
+ * - \ref UssCLunarCalendar
+ * - \ref API
+ * - \ref INTERNAL_API
+ * - [开发文档](../Docs/Developer.md)
  * 
- * \section LunarUI 农历界面
+ * \defgroup API 应用程序接口
+ * \details 应用程序接口
+ * - \ref RoleDefinitions
+ * - \ref UssCLunarCalendar
+ * \ingroup USE_DOC DEVELOPER_DOC
+ * 
+ * \defgroup INTERNAL_API 内部使用接口
+ * \details 内部使用接口
+ * - \ref RoleDefinitions
+ * \ingroup DEVELOPER_DOC
+ */
+
+/*!
+ * \mainpage 农历日历
+ * \details 一个 Qt 界面的农历日历库，支持 QSS (换肤功能），任务显示。
+ * 
+ * \section LunarUI 农历日历界面
  * 
  * - 日历
- * \image html Docs/image/ScreenShotUbunt.png
+ * 
+ *  |                  月视图                   |                 周视图               |
+ *  |:----------------------------------------:|:-----------------------------------:|  
+ *  |\image html Docs/image/ScreenShotUbunt.png| \image html Docs/image/ViewWeek.png |
+ *   
  * - 日历头
  * \image html Docs/image/Head.png
  * - 日期工具按钮
@@ -94,6 +95,11 @@
  * \image html Docs/image/Date.png
  * - 周
  * \image html Docs/image/Week.png
+ * 
+ * \section RoleDefinitions 角色定义
+ * - 开发者(Developer)：开发本项目的人员
+ * - 使用者(User)：使用本项目进行二次开发的人员
+ * - 客户(Client)：使用本项目最终程序的人员
  *
  * \section Tasks 任务
  * 
@@ -119,7 +125,7 @@
  *
  * \subsection TasksDisplay 任务显示
  * - 中国节假日，在左上角显示。
- * - 节日，放在农历位置上显示。最多显示最前一个。
+ * - 节日，放在农历位置上显示。最多显示最前一个。高亮加粗体
  * - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
  *
  * \subsubsection HolidayPriority 农历位置显示优先级
@@ -140,8 +146,37 @@
  * 
  * \snippet App/MainWindow.cpp User defined tasks
  * 
+ * \section 文档
+ * - \ref UssCLunarCalendar
+ * - [开发文档](Modules.html)
+ * - \ref Example
+ */
+
+/*!
+ * \brief 农历日历类
+ * \details 显示阳历、农历、节日、任务
  * \ingroup API
  * 
+ * \section UssCLunarCalendar CLunarCalendar 类的使用
+ * 
+ * - 初始化资源
+ * \snippet App/main.cpp CLunarCalendar::InitResource()
+ * - 释放资源
+ * \snippet App/main.cpp CLunarCalendar::CLeanResource()
+ * - 实例化 CLunarCalendar 对象
+ * \snippet App/MainWindow.h Instance CLunarCalendar
+ * \snippet App/MainWindow.cpp Instance CLunarCalendar
+ * - [可选]设置界面 
+ * \snippet App/MainWindow.cpp Set UI
+ * - [可选]设置周年纪念日
+ * \snippet App/MainWindow.cpp Add Anniversary
+ * - [可选]设置自定义任务
+ * \snippet App/MainWindow.cpp User defined tasks
+ * - [可选]处理选择事件
+ *   - 连接选择信号
+ *     \snippet App/MainWindow.cpp sigSelectionChanged
+ *   - 处理选择事件
+ *     \snippet App/MainWindow.cpp slotUpdateCalendar
  */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
@@ -255,11 +290,11 @@ public:
         /*!
          * 处理自定义任务
          * \param date: 日期
-         * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。否则忽略
+         * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
          *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
          * \return 任务数。目前忽略
          */
-        virtual uint onHandle(const QDate& date, QStringList& tasks) = 0;
+        virtual uint onHandle(/*in*/const QDate& date, /*out*/QStringList& tasks) = 0;
     };
     /*!
      * \brief 处理使用者自定义任务
@@ -275,14 +310,14 @@ public:
      *
      * \param cbHandler: 处理函数
      *      \param date: 要处理的日期
-     *      \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。否则忽略。
+     *      \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
      *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
      *      \return 任务数。目前忽略
      * 
      * \snippet App/MainWindow.cpp User defined tasks
      * \note It is need c++ standard 11
      */
-    virtual int SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
+    virtual int SetTaskHandle(std::function<uint(/*in*/const QDate& date, /*out*/QStringList& tasks)> cbHandler);
 #endif
     
     //! @} 节日、周年纪念日、任务操作
