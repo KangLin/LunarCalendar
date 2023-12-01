@@ -17,4 +17,5 @@ else()
 
     # Install translations
     INSTALL_DIR(SOURCES ${PACKAGE_PREFIX_DIR}/translations)
+    include("${CMAKE_CURRENT_LIST_DIR}/LunarCalendarTargets.cmake")
 endif()
