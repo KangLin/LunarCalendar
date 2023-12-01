@@ -156,18 +156,22 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
     m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");
-    m_pLunarCalendar->SetTaskHandle([](QDate d, QStringList& tasks)->uint {
+    
+    //! [User defined tasks]
+    m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
         if(d.day() == 10 && d.month() == 10)
         {
-            tasks << "妈生日";
+            tasks << "辛亥革命纪念日";
         }
-        return tasks.size();});//*/
+        return tasks.size();});
+    //! [User defined tasks]
+    //*/
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
-    
+
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
                          this, SLOT(slotUpdateCalendar()));
     Q_ASSERT(check);

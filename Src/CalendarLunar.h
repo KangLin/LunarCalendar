@@ -12,6 +12,9 @@
 
 /*!
  * \brief 农历类
+ * 
+ * TODO: 周年纪念日是全局的，所以当多个实例时，每个实例都是一样的。需要修改为私有的
+ * 
  * \ingroup INTERNAL_API
  */
 class CCalendarLunar : public QObject
@@ -19,31 +22,47 @@ class CCalendarLunar : public QObject
     Q_OBJECT
 public:
     explicit CCalendarLunar(QDate date, QObject *parent = nullptr);
-    explicit CCalendarLunar(QObject *parent = nullptr);
 
     /*!
-     * \brief 得到指定日期的农历
-     * \param date：日期
-     * \return 成功返回 0，否则返回非 0
+     * \brief 得到指定日期的农历年份
+     *
+     * TODO: Not implemented
      */
-    int GetLunar(const QDate &date);
-    int GetYear(){return 0;} //TODO: Not implemented
+    int GetYear(){return 0;}
+    //! 得到指定日期的农历月份
     int GetMonth();
+    //! 得到指定日期的农历天数
     int GetDay();
     
+    //! 得到指定日期的农历（汉字）
+    //! \note 编码：UTF-8 ，由文件编码决定
     QString GetLunar();
+    //! 得到指定日期的农历当月的第几天（汉字）
+    //! \note 编码：UTF-8 ，由文件编码决定
     QString GetLunarDay();
+    //! 得到节日
     QStringList GetHoliday();
+    //! 得到周年纪念日（例如：生日）
     QStringList GetAnniversary();
+    //! 得到节气
     QString GetJieQi();
+    //! 得到节气的图片
     QString GetJieQiImage();
-    
+
     static int AddHoliday(int month, int day, const QString &szName);
     static int AddAnniversary(int month, int day, const QString &szName);
 
 private:
+    explicit CCalendarLunar(QObject *parent = nullptr);
     int InitHoliday();
-    
+
+    /*!
+     * \brief 得到指定日期的农历。
+     * \param date：日期
+     * \return 成功返回 0，否则返回非 0
+     */
+    int GetLunar(const QDate &date);
+
     QString m_szLunar;
     QString m_szLunarDay;
     QStringList m_Holiday;

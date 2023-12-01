@@ -142,8 +142,10 @@ int CLunarCalendarModel::columnCount(const QModelIndex &parent) const
 }
 
 /*!
- * \details
- * \ref HolidayPriority
+ * 得到数据
+ *
+ * 数据初始化详见 \ref slotUpdate .
+ * 得到数据：
  */
 QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 {
@@ -183,6 +185,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case LunarRole:
     {
+        //! - 农历位置取值: \ref HolidayPriority
         _DAY day = GetDay(row, column);
         if(!day.SolarHoliday.isEmpty()) {
             foreach(auto h, day.SolarHoliday) {
@@ -212,6 +215,10 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case Qt::ToolTipRole:
     {
+        /*!
+         * - 工具提示： 显示日期的详细信息
+         *   \see CLunarCalendar::EnableToolTip
+         */
         if(!m_bEnableToolTip)
             break;
         QString szTip;
@@ -261,6 +268,9 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case Tasks:
     {
+        /*!
+         * - 任务取值： 包括周年纪念日、任务、任务计数之和
+         */
         _DAY day = GetDay(row, column);
         return day.nTasks + day.Anniversary.size() + day.Tasks.size();
     }
@@ -362,6 +372,11 @@ int CLunarCalendarModel::showMonth(int year, int month, bool bForce)
     return slotUpdate();
 }
 
+/*!
+ * \brief 更新模型数据
+ * 
+ * \see data
+ */
 int CLunarCalendarModel::slotUpdate()
 {
     switch(m_viewType)
@@ -412,7 +427,7 @@ int CLunarCalendarModel::slotUpdate()
 
             day.nTasks = 0;
             if(m_GetTaskHandler)
-                day.nTasks += m_GetTaskHandler->onHandle(d);
+                day.nTasks += m_GetTaskHandler->onHandle(d, day.Tasks);
 #if HAS_CPP_11
             if(m_cbTaskHandler) {
                 day.nTasks += m_cbTaskHandler(d, day.Tasks);
@@ -868,8 +883,7 @@ int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &
         return -1;
     }
 
-    CCalendarLunar l;
-    return l.AddAnniversary(month, day, szName);
+    return CCalendarLunar::AddAnniversary(month, day, szName);
 }
 
 int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler)

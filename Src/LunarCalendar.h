@@ -3,9 +3,30 @@
  * \author 康　林 <kl222@126.com>
  */
 
+
 /*!
+ * 
+ * \defgroup USE_DOC 使用文档
+ * \details 使用者文档
+ * 
+ * - \ref RoleDefinitions
+ * - \ref API
+ * 
+ * \defgroup DEVELOPER_DOC 开发文档
+ * \details 开发者文档
+ * - \ref RoleDefinitions
+ * - \ref API
+ * - \ref INTERNAL_API
+ * 
  * \defgroup API 应用程序接口
+ * \details 应用程序接口
+ * - \ref RoleDefinitions
+ * \ingroup USE_DOC DEVELOPER_DOC
+ * 
  * \defgroup INTERNAL_API 内部使用接口
+ * \details 内部使用接口
+ * - \ref RoleDefinitions
+ * \ingroup DEVELOPER_DOC
  */
 
 #ifndef LUNARCALENDAR_H
@@ -50,8 +71,15 @@
 
 /*!
  * \brief 农历界面类
- * \details
+ * \details 显示阳历、农历、节日、任务
+ * 
+ * \section RoleDefinitions 角色定义
+ * - 开发者(Developer)：开发本项目的人员
+ * - 使用者(User)：使用本项目进行二次开发的人员
+ * - 客户(Client)：使用本项目最终程序的人员
+ * 
  * \section LunarUI 农历界面
+ * 
  * - 日历
  * \image html Docs/image/ScreenShotUbunt.png
  * - 日历头
@@ -67,25 +95,50 @@
  * - 周
  * \image html Docs/image/Week.png
  *
- * \section Holiday 节日
+ * \section Tasks 任务
+ * 
+ * 任务可分为：
+ *  - 年为周期。例如：节日；纪念日
+ *  - 月为周期。例如：中国发工资；还贷款
+ *  - 星期为周期。例如：开会；国外发工资
+ *  - 以及其它周期性任务
+ *  - 单个任务
+ *
+ * 由于任务类型众多，所以本项目只处理以年为周期的任务。其它类型任务由使用者自行处理。
+ *
+ * \subsection Holiday 节日（以年为周期的任务）
+ * - 以年为周期的任务
  *   - 中国节假日，在左上角显示
  *   - 节日
- *     - 公历
+ *     - 公历： CLunarCalendar::AddHoliday
  *     - 农历
  *     - 节气
- *   - 周年纪念日，在上面中间用圆点表示
- *     - 农历
- *     - 公历
- * \image html Docs/image/Holiday.png
- * 
- * \subsection HolidayPriority 农历位置显示优先级
+ *   - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
+ *     - 公历: CLunarCalendar::AddAnniversary
+ *     - 农历: CLunarCalendar::AddLunarAnniversary
+ *
+ * \subsection TasksDisplay 任务显示
+ * - 中国节假日，在左上角显示。
+ * - 节日，放在农历位置上显示。最多显示最前一个。
+ * - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
+ *
+ * \subsubsection HolidayPriority 农历位置显示优先级
  *   - 公历节日
  *   - 农历节日
  *   - 节气
  *   - 周年纪念日
  *     - 公历
  *     - 农历
+ *   - 任务
  *   - 农历
+ *
+ * \image html Docs/image/Holiday.png
+ *
+ * \subsection UserDefinedTasks 使用者自定义任务
+ * 
+ * 使用 CLunarCalendar::SetTaskHandle 处理自定义任务
+ * 
+ * \snippet App/MainWindow.cpp User defined tasks
  * 
  * \ingroup API
  * 
@@ -100,7 +153,7 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     //Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
-
+    
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
@@ -113,7 +166,10 @@ public:
      * \brief 释放程序资源。仅在程序退出前调用一次
      */
     static void CLeanResource();
-
+    
+    //! \name 日期操作
+    //! @{
+    
     /*!
      * \brief 得到当前选择的日期。
      *        当前选择的日期在指定的最小日期 MinimumDate() 与最大日期 MaximumDate() 的范围内。
@@ -136,27 +192,6 @@ public:
      */
     void SetSelectedDate(const QDate &date, bool bForce = false);
     /*!
-     * \brief 得到日历的支持最小日期
-     */
-    QDate MinimumDate() const;
-    /*!
-     * \brief 设置日历的支持最小日期
-     */
-    void SetMinimumDate(const QDate &date);
-    /*!
-     * \brief 得到日历的支持最大日期
-     */
-    QDate MaximumDate() const;
-    /*!
-     * \brief 设置日历的支持最大日期
-     */
-    void SetMaximumDate(const QDate &date);
-    /*!
-     * \brief 设置日历的支持日期的范围
-     */
-    void SetDateRange(const QDate &min, const QDate &max);
-
-    /*!
      * \brief 得到当前选择的日期的农历
      */
     QString SelectedLunar() const;
@@ -170,7 +205,12 @@ public:
      * \return 
      */
     static int GetLunar(const QDate date, int &year, int &month, int &day);
-
+    
+    //! @} 日期操作
+    
+    //! \name 节日、周年纪念日、任务操作
+    //! @{
+    
     /*!
      * \brief 增加公历假日
      * \param month: 节日月份
@@ -195,7 +235,7 @@ public:
      * \image html Docs/image/Holiday.png
      */
     int AddLunarAnniversary(int month, int day, const QString &szName);
-
+    
     class CGetTaskHandler
     {
     public:
@@ -205,17 +245,49 @@ public:
          * \param date: 日期
          * \return 返回任务数。当任务数大于0时，会在日历上显示圆点提示
          */
-        virtual uint onHandle(const QDate& date) = 0;
+        virtual uint onHandle(const QDate& date, QStringList& tasks) = 0;
     };
+    /*!
+     * 处理使用者自定义任务
+     */
     int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
+
 #if HAS_CPP_11
     /*!
+     * 处理使用者自定义任务
+     *
+     * \snippet App/MainWindow.cpp User defined tasks
      * \note It is need c++ standard 11
      */
-    virtual int SetTaskHandle(
-        std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
+    virtual int SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
 #endif
-
+    
+    //! @} 节日、周年纪念日、任务操作
+    
+    //! \name 日期操作
+    //! @{
+    
+    /*!
+     * \brief 得到日历的支持最小日期
+     */
+    QDate MinimumDate() const;
+    /*!
+     * \brief 设置日历的支持最小日期
+     */
+    void SetMinimumDate(const QDate &date);
+    /*!
+     * \brief 得到日历的支持最大日期
+     */
+    QDate MaximumDate() const;
+    /*!
+     * \brief 设置日历的支持最大日期
+     */
+    void SetMaximumDate(const QDate &date);
+    /*!
+     * \brief 设置日历的支持日期的范围
+     */
+    void SetDateRange(const QDate &min, const QDate &max);
+    
     /*!
      * \brief 得到当前界面显示的年份
      * \return 显示的年份
@@ -232,7 +304,9 @@ public:
      */
     Qt::DayOfWeek FirstDayOfWeek() const;
     //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
-
+    
+    //! @} 日期操作
+    
     enum _HEAD_position
     {
         Not,   //! 无
@@ -247,8 +321,11 @@ public:
      * \return 
      */
     int SetHeadposition(_HEAD_position pos = Top);
-
+    
 public Q_SLOTS:
+    //! \name 属性操作
+    //! @{
+    
     /*!
      * 显示或隐藏日历头
      * \image html Docs/image/Head.png
@@ -274,7 +351,7 @@ public Q_SLOTS:
      * \image html Docs/image/Date.png
      */
     void ShowTime(bool bShow);
-
+    
     /*!
      * 显示或隐藏周
      * \image html Docs/image/Week.png
@@ -285,21 +362,27 @@ public Q_SLOTS:
      * \image html Docs/image/Week.png
      */
     void ShowWeeks(bool bShow);
-
+    
     /*!
      * \brief 显示或隐藏网格
      */
     void ShowGrid(bool show);
-    
-    void EnableToolTip(bool show);
 
+    /*!
+     * \brief 显示或隐藏工具提示
+     */
+    void EnableToolTip(bool show);
+    
     /*!
      * \brief 显示或隐藏背景图片
      */
     void ShowBackgroupImage(bool show);
-
+    
+    //! @} 属性操作
+    
 public:
-
+    
+    //! 日历类型
     enum _CalendarType{
         CalendarTypeSolar = 0x01,  //! 阳历
         CalendarTypeLunar = 0x02   //! 农历
@@ -308,6 +391,8 @@ public:
     int SetCalendarType(_CalendarType type);
     //! 得到日历类型
     _CalendarType GetCalendarType() const;
+    
+    //! 视图类型
     enum _VIEW_TYPE{
         ViewTypeMonth,  //! 月
         ViewTypeWeek    //! 周
@@ -328,7 +413,10 @@ public:
     
     int Update();
     
-    //////// 下列功能仅由开发者使用。普通用户不要使用。
+    //! \name 下列功能仅由开发者使用。客户不要使用。
+    //! \ref RoleDefinitions
+    //! @{
+    
     /*!
      * \brief 从缓存文件中得到农历
      * \param szFile: 缓存文件
@@ -352,16 +440,18 @@ public:
                               bool bClearCache = false,
                               bool bSaveAllDate = true);
     
+    //! @}  上面功能仅由开发者使用。客户不要使用。
+    
 Q_SIGNALS:
     /*!
      * \brief 当前选择日期改变时触发
      * 可以在相应的槽函数中调用 SelectedDate() 或　SelectedLunar() 得到选择的日期
      */
     void sigSelectionChanged();
-
-public Q_SLOTS:
+    
+private Q_SLOTS:
     void soltShowToday();
-
+    
 private slots:
     void on_tbNextYear_clicked();
     void on_tbPreviousYear_clicked();
@@ -370,12 +460,12 @@ private slots:
     void on_cbMonth_currentIndexChanged(int index);
     void on_cbYear_currentIndexChanged(int index);
     void on_tvMonth_pressed(const QModelIndex &index);
-
+    
     void slotTimeout();
-
+    
 protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
-
+    
 private:
     int ShowSelectTitle();
     int UpdateViewModel(bool bForce = false);
@@ -383,7 +473,7 @@ private:
     int EnableMonthMenu();
     int SetBackgroup(const QString& szFile);
     int SetYearRange(int min, int max);
-
+    
 private:
     QComboBox m_cmbYear;
     QToolButton m_tbPreYear, m_tbNextYear;
@@ -392,7 +482,7 @@ private:
     QPushButton m_pbToday;
     QLabel m_lbDate, m_lbTime;
     QTableView m_View;
-
+    
     QHBoxLayout* m_pToolLayout;
     QVBoxLayout* m_pHeadLayout;
     QGridLayout* m_pMainLayout;
@@ -404,7 +494,7 @@ private:
     bool m_bShowBackgroupImage;
     
     _TOUCH_UP_DOWN_FUNCTION m_TouchFunction;
-
+    
 };
 
 #endif // LUNARCALENDAR_H

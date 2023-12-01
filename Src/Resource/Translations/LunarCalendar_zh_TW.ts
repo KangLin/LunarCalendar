@@ -38,7 +38,7 @@
 <context>
     <name>CLunarCalendarModel</name>
     <message>
-        <location filename="../../LunarCalendarModel.cpp" line="1089"/>
+        <location filename="../../LunarCalendarModel.cpp" line="1103"/>
         <source>Download file fail</source>
         <translation>下載文件失敗</translation>
     </message>

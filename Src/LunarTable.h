@@ -32,7 +32,7 @@ public:
         quint8 nDay;
         qint8 nJq;
     };
-    
+
     int Load(const QString &file);
     int Save(const QString &file, bool bAll = true);
 
@@ -42,12 +42,12 @@ public:
 
 public Q_SLOTS:
     void slotGenerateFinished();
-    
+
 private:
     explicit CLunarTable(QObject *parent = nullptr);
     int LoadVersion0(QDataStream &data);
     int CleanOutsideRange(const QDate&min, const QDate& max);
-    
+
     QMap<qint64, _LUNAR_DAY> m_Lunar;
     QMutex m_GenerateMutex;
     QString m_szFile;
@@ -67,10 +67,10 @@ public:
                              const QDate& max,
                              bool bCached,
                              QObject *parent = nullptr);
-    
+
 protected:
     virtual void run();
-    
+
 private:
     CLunarTable* m_pTable;
     QDate m_minDate, m_maxDate;
