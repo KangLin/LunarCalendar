@@ -75,7 +75,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_oldCol(0),
     m_bShowToday(true),
     m_bShowBackgroupImage(false),
-    m_TouchFunction(TouchChangeMounth)
+    m_TouchFunction(_TOUCH_UP_DOWN_FUNCTION::TouchChangeMounth)
 {
     InitResource();
     setWindowTitle(tr("Lunar calendar"));
@@ -1028,7 +1028,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                         if(line.dy() > 0)
                         {
                             if(GetViewType() != _VIEW_TYPE::ViewTypeMonth
-                                    && m_TouchFunction == TouchChangeView)
+                                    && m_TouchFunction == _TOUCH_UP_DOWN_FUNCTION::TouchChangeView)
                                 SetViewType(_VIEW_TYPE::ViewTypeMonth);
                             else
                                 on_tbPreviousMonth_clicked();
@@ -1036,7 +1036,7 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                         else
                         {
                             if(GetViewType() != _VIEW_TYPE::ViewTypeWeek
-                                    && m_TouchFunction == TouchChangeView)
+                                    && m_TouchFunction == _TOUCH_UP_DOWN_FUNCTION::TouchChangeView)
                                 SetViewType(_VIEW_TYPE::ViewTypeWeek);
                             else
                                 on_tbNextMonth_clicked();

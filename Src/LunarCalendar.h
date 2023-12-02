@@ -440,7 +440,7 @@ public Q_SLOTS:
 public:
     
     //! 日历类型
-    enum _CalendarType{
+    enum _CalendarType {
         CalendarTypeSolar = 0x01,  //! 阳历
         CalendarTypeLunar = 0x02   //! 农历
     };
@@ -450,7 +450,7 @@ public:
     _CalendarType GetCalendarType() const;
     
     //! 视图类型
-    enum class _VIEW_TYPE{
+    enum class _VIEW_TYPE {
         ViewTypeMonth,  //! 月
         ViewTypeWeek    //! 周
     };
@@ -461,7 +461,7 @@ public:
     
     //! @} 设置界面
 
-    enum _TOUCH_UP_DOWN_FUNCTION{
+    enum class _TOUCH_UP_DOWN_FUNCTION {
         TouchChangeView,
         TouchChangeMounth
     };
