@@ -1,4 +1,4 @@
-## 使用文档 {#md_User}
+## 使用文档
 
 ### 直接用本项目源码   
 
@@ -20,8 +20,10 @@
         git clone --recursive https://github.com/KangLin/LunarCalendar.git
        
   + 引入以 add_subdirectory 本项目录
-          
-        set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
+
+        if(NOT LunarCalendar_DIR)
+            set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
+        endif()
         if(EXISTS ${LunarCalendar_DIR}/Src)
             add_subdirectory(${LunarCalendar_DIR}/Src ${CMAKE_BINARY_DIR}/LunarCalendar)
         else()

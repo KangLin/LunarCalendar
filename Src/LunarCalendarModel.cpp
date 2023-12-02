@@ -427,7 +427,7 @@ int CLunarCalendarModel::slotUpdate()
 
             if(m_GetTaskHandler)
                 m_GetTaskHandler->onHandle(d, day.Tasks);
-            
+
 #if HAS_CPP_11
             if(m_cbTaskHandler)
                 m_cbTaskHandler(d, day.Tasks);
@@ -456,13 +456,14 @@ int CLunarCalendarModel::slotUpdate()
                 }
             }
             m_Day.push_back(day);
-            
+
             //qDebug() << "once time:" << tOnceStart.msecsTo(QTime::currentTime());
         }
+
         row++;
     } while(d.isValid());
     //qDebug() << "showMonth init totle time:" << tStart.msecsTo(QTime::currentTime());
-    
+
     internalUpdate();
     return 0;
 }
@@ -1075,6 +1076,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
         qCritical(Logger) << "Copy chinese_holidays.sql fail. from "
                       << m_UpdateSqlFile.fileName()
                       << "to" << sqlNative.fileName();
+
     if(m_Database.isOpen())
         m_Database.close();
 
@@ -1088,7 +1090,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
             qCritical(Logger) << "Remove database file fail:" << db.fileName();
     }
 
-    InitDatabase();    
+    InitDatabase();
 }
 
 void CLunarCalendarModel::slotDownloadError(int nErr, const QString szError)

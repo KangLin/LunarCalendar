@@ -48,16 +48,17 @@
  * \details 使用文档
  * - \ref RoleDefinitions
  * - \ref API
- * - \ref UssCLunarCalendar
  * - [使用文档](../Docs/User.md)
+ * - \ref UssCLunarCalendar
  * 
  * \defgroup DEVELOPER_DOC 开发文档
  * \details 开发文档
  * - \ref RoleDefinitions
+ * - [开发文档](../Docs/Developer.md)
+ * - [使用文档](../Docs/User.md)
  * - \ref UssCLunarCalendar
  * - \ref API
  * - \ref INTERNAL_API
- * - [开发文档](../Docs/Developer.md)
  * 
  * \defgroup API 应用程序接口
  * \details 应用程序接口
@@ -81,7 +82,7 @@
  * 
  *  |                  月视图                   |                 周视图               |
  *  |:----------------------------------------:|:-----------------------------------:|  
- *  |\image html Docs/image/ScreenShotUbunt.png| \image html Docs/image/ViewWeek.png |
+ *  |\image html Docs/image/ScreenShot.png| \image html Docs/image/ViewWeek.png |
  *   
  * - 日历头
  * \image html Docs/image/Head.png
@@ -146,8 +147,14 @@
  * 
  * \snippet App/MainWindow.cpp User defined tasks
  * 
+ * \subsection TaskPerformance 任务性能
+ * 默认的节日数量比较少，所以目前节日与周年纪念日都是保存在内存中。
+ * 提供了 CLunarCalendar::AddHoliday 、 CLunarCalendar::AddAnniversary 、 
+ * CLunarCalendar::AddLunarAnniversary 来增加使用者的少量自定义的节日与周年纪念日。
+ * **注意** 增加多了，会增加内存的使用量。
+ * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己保存并处理。
+ * 
  * \section 文档
- * - \ref UssCLunarCalendar
  * - [开发文档](Modules.html)
  * - \ref Example
  */
@@ -271,6 +278,7 @@ public:
     int AddAnniversary(int month, int day, const QString &szName);
     /*!
      * \brief 设置农历周年纪念日（例如：农历生日）
+     * \note 当前保存在全局变量中
      * \param month: 农历月
      * \param day: 农历日
      * \param szName: 纪念日名。不能为空或""
@@ -279,7 +287,7 @@ public:
     int AddLunarAnniversary(int month, int day, const QString &szName);
     
     /*!
-     * 自定义任务处理类
+     * \ref UserDefinedTasks 类
      * \see SetTaskHandle
      */
     class CGetTaskHandler
@@ -288,7 +296,7 @@ public:
         CGetTaskHandler() {}
         virtual ~CGetTaskHandler(){}
         /*!
-         * 处理自定义任务
+         * \ref UserDefinedTasks
          * \param date: 日期
          * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
          *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
@@ -297,7 +305,7 @@ public:
         virtual uint onHandle(/*in*/const QDate& date, /*out*/QStringList& tasks) = 0;
     };
     /*!
-     * \brief 处理使用者自定义任务
+     * \brief 处理 \ref UserDefinedTasks
      * \param handler
      * \return 
      * \see CGetTaskHandler
@@ -306,7 +314,7 @@ public:
 
 #if HAS_CPP_11
     /*!
-     * 处理使用者自定义任务
+     * 处理 \ref UserDefinedTasks
      *
      * \param cbHandler: 处理函数
      *      \param date: 要处理的日期
@@ -315,7 +323,7 @@ public:
      *      \return 任务数。目前忽略
      * 
      * \snippet App/MainWindow.cpp User defined tasks
-     * \note It is need c++ standard 11
+     * \note 需要 c++ 标准 11
      */
     virtual int SetTaskHandle(std::function<uint(/*in*/const QDate& date, /*out*/QStringList& tasks)> cbHandler);
 #endif

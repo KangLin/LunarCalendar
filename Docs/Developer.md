@@ -1,8 +1,18 @@
 # 开发文档
 
 ### 编译
+- 工具
+  + [cmake](https://cmake.org)
+  + [git](https://git-scm.com/)
+  + 编译器
+    - Linux
+      - gcc
+    - Windows
+      - msvc
+      - MinGW
+
 - 依赖  
-  + [Qt (LGPL v2.1)](http://qt.io/)
+  + [Qt (LGPL v2.1)](https://www.qt.io/)
   + [RabbitCommon](https://github.com/KangLin/RabbitCommon) 
   
         git clone https://github.com/KangLin/RabbitCommon.git

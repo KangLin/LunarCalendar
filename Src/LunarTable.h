@@ -33,12 +33,20 @@ public:
         qint8 nJq;
     };
 
+    /*!
+     * \brief 得到指定日期的农历
+     * \param date 要查询的日期
+     * \param lunar 相应的农历
+     * \return 0，成功；其它，失败
+     * \note 先从缓存表中查找。如果没有查到，则计算。
+     */
+    int GetLunar(const QDate &date, _LUNAR_DAY &lunar);
+
     int Load(const QString &file);
     int Save(const QString &file, bool bAll = true);
 
     int Generate(const QDate &min, const QDate &max, const QString& szFile, int nThread = 2, bool bClearCache = false, bool bSaveAllDate = true);
     int Generate(const QDate &min, const QDate &max, bool bUseCached);
-    int GetLunar(const QDate &date, _LUNAR_DAY &lunar);
 
 public Q_SLOTS:
     void slotGenerateFinished();
