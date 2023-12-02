@@ -368,20 +368,19 @@ public:
     //! \name 设置界面
     //! @{
     
-    enum _HEAD_position
-    {
-        Not,   //! 无
-        Top,   //! 上
-        Down,  //! 下
-        Left,  //! 左
-        Right  //! 右
+    enum class _HEAD_position {
+        Not = 0,   //! 无
+        Top,       //! 上
+        Down,      //! 下
+        Left,      //! 左
+        Right      //! 右
     };
     /*!
      * \brief 设置日历头的位置
      * \param pos
      * \return 
      */
-    int SetHeadposition(_HEAD_position pos = Top);
+    int SetHeadposition(_HEAD_position pos = _HEAD_position::Top);
     
 public Q_SLOTS:
     

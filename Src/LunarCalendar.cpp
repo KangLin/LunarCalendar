@@ -70,7 +70,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_pToolLayout(nullptr),
     m_pHeadLayout(nullptr),
     m_pMainLayout(nullptr),
-    m_Headposition(Top),
+    m_Headposition(_HEAD_position::Top),
     m_oldRow(0),
     m_oldCol(0),
     m_bShowToday(true),
@@ -307,11 +307,11 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
     setLayout(m_pMainLayout);
     
     switch (pos) {
-    case Not:
+    case _HEAD_position::Not:
         ShowHead(false);
         m_pMainLayout->addWidget(&m_View);
         break;
-    case Top:
+    case _HEAD_position::Top:
         ShowHead(true);
         m_pHeadLayout = new QVBoxLayout();
         m_pHeadLayout->addLayout(m_pToolLayout);
@@ -327,7 +327,7 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
         m_pMainLayout->addWidget(&m_View);
         break;
-    case Down:
+    case _HEAD_position::Down:
         ShowHead(true);
         m_pMainLayout->addWidget(&m_View);
         
@@ -344,7 +344,7 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
         
         m_pMainLayout->addLayout(m_pHeadLayout, 1, 0);
         break;
-    case Left:
+    case _HEAD_position::Left:
         ShowHead(true);
         m_pHeadLayout = new QVBoxLayout();
         m_pHeadLayout->addStretch();
@@ -362,7 +362,7 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
         m_pMainLayout->addLayout(m_pHeadLayout, 0, 0);
         m_pMainLayout->addWidget(&m_View, 0, 1);
         break;
-    case Right:
+    case _HEAD_position::Right:
         ShowHead(true);
         m_pMainLayout->addWidget(&m_View);
         m_pHeadLayout = new QVBoxLayout();
@@ -1429,13 +1429,13 @@ QSize CLunarCalendar::minimumSizeHint() const
     }
 
     switch (m_Headposition) {
-    case Top:
-    case Down:
+    case _HEAD_position::Top:
+    case _HEAD_position::Down:
         w = qMax(w, headerW);
         h += headerH;
         break;
-    case Left:
-    case Right:
+    case _HEAD_position::Left:
+    case _HEAD_position::Right:
         w += headerW;
         h = qMax(h, headerH);
         break;

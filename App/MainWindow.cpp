@@ -296,25 +296,25 @@ void MainWindow::slotViewWeek()
 
 void MainWindow::slotHeadpositionNot()
 {
-    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Not);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Not);
 }
 
 void MainWindow::slotHeadpositionTop()
 {
-    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Top);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Top);
 }
 
 void MainWindow::slotHeadpositionDown()
 {
-    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Down);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Down);
 }
 
 void MainWindow::slotHeadpositionLeft()
 {
-    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Left);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Left);
 }
 
 void MainWindow::slotHeadpositionRight()
 {
-    m_pLunarCalendar->SetHeadposition(CLunarCalendar::Right);
+    m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Right);
 }
