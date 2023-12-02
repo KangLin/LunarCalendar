@@ -32,11 +32,11 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_ShowWeek(1)
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
-                        CLunarCalendar::CalendarTypeLunar
-                        | CLunarCalendar::CalendarTypeSolar));
+        CLunarCalendar::_CalendarType::CalendarTypeLunar
+        | CLunarCalendar::_CalendarType::CalendarTypeSolar));
     
     SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
-                    CLunarCalendar::ViewTypeMonth));
+        CLunarCalendar::_VIEW_TYPE::ViewTypeMonth));
 
     EnableToolTip(true);
 
@@ -168,7 +168,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case SolarColorRole:
     {
         if(d.month() != m_ShownMonth
-            && CLunarCalendar::ViewTypeMonth == m_viewType)
+            && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
             return ColorDisable;
         
         if(d.dayOfWeek() == Qt::Saturday
@@ -189,7 +189,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case LunarColorRole:
     {
         if(d.month() != m_ShownMonth
-            && CLunarCalendar::ViewTypeMonth == m_viewType)
+            && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
             return ColorDisable;
 
         if(GetDay(row, column).LunarHoliday.isEmpty())
@@ -314,7 +314,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     }
     case WorkDayColorRole:
         if(d.month() != m_ShownMonth
-            && CLunarCalendar::ViewTypeMonth == m_viewType)
+            && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
              return ColorDisable;
         if(WORK == GetDay(row, column).WorkDay)
             return ColorHighlight;
@@ -381,10 +381,10 @@ int CLunarCalendarModel::slotUpdate()
 {
     switch(m_viewType)
     {
-    case CLunarCalendar::ViewTypeWeek:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeWeek:
         m_RowCount = 1;
         break;
-    case CLunarCalendar::ViewTypeMonth:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeMonth:
         m_RowCount = WeeksOfMonth();
         break;
     }
@@ -409,7 +409,7 @@ int CLunarCalendarModel::slotUpdate()
             
             day.Anniversary = m_SolarAnniversary[d.month()].value(d.day());
             
-            if(m_calendarType & CLunarCalendar::CalendarTypeLunar)
+            if(m_calendarType & CLunarCalendar::_CalendarType::CalendarTypeLunar)
             {
                 CCalendarLunar lunar(d);
                 day.nLunarMonth = lunar.GetMonth();
@@ -580,9 +580,9 @@ void CLunarCalendarModel::internalUpdate()
 QDate CLunarCalendarModel::dateForCell(int row, int column) const
 {
     switch (m_viewType) {
-    case CLunarCalendar::ViewTypeMonth:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeMonth:
         return dateForCellMonth(row, column);
-    case CLunarCalendar::ViewTypeWeek:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeWeek:
         return dateForCellWeek(row, column);
     }
     return QDate();
@@ -635,9 +635,9 @@ void CLunarCalendarModel::cellForDate(const QDate &date, int *row, int *column) 
         *column = -1;
     
     switch (m_viewType) {
-    case CLunarCalendar::ViewTypeMonth:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeMonth:
         return cellForDateMonth(date, row, column);
-    case CLunarCalendar::ViewTypeWeek:
+    case CLunarCalendar::_VIEW_TYPE::ViewTypeWeek:
         return cellForDateWeek(date, row, column);
     }
 }

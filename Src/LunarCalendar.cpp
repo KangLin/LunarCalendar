@@ -393,9 +393,9 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QString szDate;
-    if(CalendarTypeSolar & GetCalendarType())
+    if(_CalendarType::CalendarTypeSolar & GetCalendarType())
         szDate = d.toString(locale().dateFormat(QLocale::LongFormat));
-    if(CalendarTypeLunar & GetCalendarType())
+    if(_CalendarType::CalendarTypeLunar & GetCalendarType())
         szDate += " " + SelectedLunar();
     m_lbDate.setText(szDate);
     return 0;
@@ -480,7 +480,7 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
     m_View.selectionModel()->clear();
     switch (GetViewType())
     {
-    case ViewTypeMonth:
+    case _VIEW_TYPE::ViewTypeMonth:
     {
         pModel->showMonth(m_cmbYear.currentData().toInt(),
                           m_cmbMonth.currentData().toInt(),
@@ -488,14 +488,14 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
         if(pModel && m_bShowBackgroupImage)
         {
             QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
-            if(CalendarTypeLunar & GetCalendarType())
+            if(_CalendarType::CalendarTypeLunar & GetCalendarType())
                 szBackgrpup += "_zh_CN";
             SetBackgroup(szBackgrpup);    
         }
         
         break;
     }
-    case ViewTypeWeek:
+    case _VIEW_TYPE::ViewTypeWeek:
         pModel->showWeek(m_cmbYear.currentData().toInt(),
                          m_cmbMonth.currentData().toInt(),
                          bForce);
@@ -608,10 +608,10 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
     QDate newDate = pModel->GetDate();
     m_cmbYear.setCurrentIndex(m_cmbYear.findData(newDate.year()));
     switch (GetViewType()) {
-    case ViewTypeMonth:
+    case _VIEW_TYPE::ViewTypeMonth:
         m_cmbMonth.setCurrentIndex(m_cmbMonth.findData(newDate.month()));
         break;
-    case ViewTypeWeek:
+    case _VIEW_TYPE::ViewTypeWeek:
     {
         int week = 1;
         int year = 0;
@@ -632,7 +632,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
     if(row >= 0 && col >= 0)
     {
         CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-        if(pModel && m_bShowBackgroupImage && GetViewType() == ViewTypeMonth)
+        if(pModel && m_bShowBackgroupImage && GetViewType() == _VIEW_TYPE::ViewTypeMonth)
         {
             QString szJiQi = pModel->data(pModel->index(row, col),
                                 CLunarCalendarModel::BackgroupImage).toString();
@@ -707,7 +707,7 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     QDate oldDate = pModel->GetDate();
     pModel->SetMaximumDate(date);
     int year = date.year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
     {
         date.weekNumber(&year);
     }
@@ -743,7 +743,7 @@ void CLunarCalendar::SetMinimumDate(const QDate &date)
     QDate oldDate = pModel->GetDate();
     pModel->SetMinimumDate(date);
     int year = date.year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
     {
         date.weekNumber(&year);
     }
@@ -783,12 +783,12 @@ void CLunarCalendar::SetDateRange(const QDate &min, const QDate &max)
     pModel->setRange(min, max);
 
     int yearMin = min.year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
     {
         min.weekNumber(&yearMin);
     }
     int yearMax = max.year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
         max.weekNumber(&yearMax);
     
     SetYearRange(min.year(), max.year());
@@ -831,7 +831,7 @@ int CLunarCalendar::EnableMonthMenu()
 
     int minYear = pModel->GetMinimumDate().year();
     int maxYear = pModel->GetMaximumDate().year();
-    if (GetViewType() == ViewTypeWeek) {
+    if (GetViewType() == _VIEW_TYPE::ViewTypeWeek) {
         pModel->GetMinimumDate().weekNumber(&minYear);
         pModel->GetMaximumDate().weekNumber(&maxYear);
     }
@@ -839,11 +839,11 @@ int CLunarCalendar::EnableMonthMenu()
     if (pModel->GetShowYear() == minYear) {
         switch (GetViewType())
         {
-        case ViewTypeMonth:
+        case _VIEW_TYPE::ViewTypeMonth:
             if (pModel->GetShowMonth() == pModel->GetMinimumDate().month())
                 prevEnabled = false;
             break;
-        case ViewTypeWeek:
+        case _VIEW_TYPE::ViewTypeWeek:
             if (pModel->GetShowWeek() == pModel->GetMinimumDate().weekNumber())
                 prevEnabled = false;
             break;
@@ -852,11 +852,11 @@ int CLunarCalendar::EnableMonthMenu()
 
     if (pModel->GetShowYear() == maxYear) {
         switch (GetViewType()) {
-        case ViewTypeMonth:
+        case _VIEW_TYPE::ViewTypeMonth:
             if (pModel->GetShowMonth() == pModel->GetMaximumDate().month())
                 nextEnabled = false;
             break;
-        case ViewTypeWeek:
+        case _VIEW_TYPE::ViewTypeWeek:
             if(pModel->GetShowWeek() == pModel->GetMaximumDate().weekNumber())
                 nextEnabled = false;
             break;
@@ -880,7 +880,7 @@ int CLunarCalendar::UpdateMonthMenu()
     int minYear = pModel->GetMinimumDate().year();
     int maxYear = pModel->GetMaximumDate().year();
     
-    if (GetViewType() == ViewTypeWeek) {
+    if (GetViewType() == _VIEW_TYPE::ViewTypeWeek) {
         end = pModel->GetWeeksOfYear(m_cmbYear.currentData().toInt());
         pModel->GetMinimumDate().weekNumber(&minYear);
         pModel->GetMaximumDate().weekNumber(&maxYear);
@@ -889,10 +889,10 @@ int CLunarCalendar::UpdateMonthMenu()
     if (pModel->GetShowYear() == minYear) {
         switch (GetViewType())
         {
-        case ViewTypeMonth:
+        case _VIEW_TYPE::ViewTypeMonth:
             beg = pModel->GetMinimumDate().month();
             break;
-        case ViewTypeWeek:
+        case _VIEW_TYPE::ViewTypeWeek:
             beg = pModel->GetMinimumDate().weekNumber();
             break;
         }
@@ -900,10 +900,10 @@ int CLunarCalendar::UpdateMonthMenu()
     
     if (pModel->GetShowYear() == maxYear) {
         switch (GetViewType()) {
-        case ViewTypeMonth:
+        case _VIEW_TYPE::ViewTypeMonth:
             end = pModel->GetMaximumDate().month();
             break;
-        case ViewTypeWeek:
+        case _VIEW_TYPE::ViewTypeWeek:
             end = pModel->GetMaximumDate().weekNumber();
             break;
         }
@@ -915,10 +915,10 @@ int CLunarCalendar::UpdateMonthMenu()
     m_cmbMonth.clear();
     for (int i = beg; i <= end; i++) {
         switch (GetViewType()) {
-        case ViewTypeMonth:
+        case _VIEW_TYPE::ViewTypeMonth:
             m_cmbMonth.addItem(locale().monthName(i), i);
             break;
-        case ViewTypeWeek:
+        case _VIEW_TYPE::ViewTypeWeek:
             m_cmbMonth.addItem(QString::number(i), i);
             break;
         }
@@ -1027,17 +1027,17 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                     {
                         if(line.dy() > 0)
                         {
-                            if(GetViewType() != ViewTypeMonth
+                            if(GetViewType() != _VIEW_TYPE::ViewTypeMonth
                                     && m_TouchFunction == TouchChangeView)
-                                SetViewType(ViewTypeMonth);
+                                SetViewType(_VIEW_TYPE::ViewTypeMonth);
                             else
                                 on_tbPreviousMonth_clicked();
                         }
                         else
                         {
-                            if(GetViewType() != ViewTypeWeek
+                            if(GetViewType() != _VIEW_TYPE::ViewTypeWeek
                                     && m_TouchFunction == TouchChangeView)
-                                SetViewType(ViewTypeWeek);
+                                SetViewType(_VIEW_TYPE::ViewTypeWeek);
                             else
                                 on_tbNextMonth_clicked();
                         }
@@ -1089,10 +1089,10 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                     QDate d = pModel->dateForCell(index.row(), index.column());
                     if(index.row() == 0 && m_oldRow == 0)
                     {
-                        if(GetViewType() == ViewTypeMonth
+                        if(GetViewType() == _VIEW_TYPE::ViewTypeMonth
                                 && d.month() == m_cmbMonth.currentData())
                             d = d.addDays(-7);
-                        if(GetViewType() == ViewTypeWeek)
+                        if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
                             d = d.addDays(-7);
                     }
                     SetSelectedDate(d);
@@ -1108,11 +1108,11 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                     if(index.row() >= pModel->rowCount() -1
                             && m_oldRow == index.row())
                     {
-                        if(GetViewType() == ViewTypeMonth
+                        if(GetViewType() == _VIEW_TYPE::ViewTypeMonth
                                 && d.month() == m_cmbMonth.currentData())
                             d = d.addDays(7);
                         
-                        if(GetViewType() == ViewTypeWeek)
+                        if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
                             d = d.addDays(7);
                     }
                     SetSelectedDate(d);
@@ -1204,14 +1204,14 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     int nRet = pModel->SetViewType(type);
     
     int yearMin = pModel->GetMinimumDate().year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
     {
         pModel->GetMinimumDate().weekNumber(&yearMin);
         if(m_bShowBackgroupImage)
             m_View.setStyleSheet("border-image:none");
     }
     int yearMax = pModel->GetMaximumDate().year();
-    if(GetViewType() == ViewTypeWeek)
+    if(GetViewType() == _VIEW_TYPE::ViewTypeWeek)
         pModel->GetMaximumDate().weekNumber(&yearMax);
     
     SetYearRange(yearMin, yearMax);
@@ -1220,11 +1220,11 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     SetSelectedDate(QDate::currentDate(), true);
 
     switch (GetViewType()) {
-    case ViewTypeWeek:
+    case _VIEW_TYPE::ViewTypeWeek:
         m_cmbMonth.setToolTip(tr("Week"));
         m_cmbMonth.setStatusTip(tr("Week"));
         break;
-    case ViewTypeMonth:
+    case _VIEW_TYPE::ViewTypeMonth:
         m_cmbMonth.setToolTip(tr("Month"));
         m_cmbMonth.setStatusTip(tr("Month"));
         break;
@@ -1238,7 +1238,7 @@ CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
-        return ViewTypeMonth;
+        return _VIEW_TYPE::ViewTypeMonth;
     return pModel->GetViewType();
 }
 
@@ -1252,7 +1252,8 @@ CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
-        return static_cast<_CalendarType>(CalendarTypeLunar | CalendarTypeSolar);
+        return static_cast<_CalendarType>(_CalendarType::CalendarTypeLunar
+                                          | _CalendarType::CalendarTypeSolar);
     return pModel->GetCalendarType();
 }
 
@@ -1349,7 +1350,7 @@ QSize CLunarCalendar::minimumSizeHint() const
         w += m_View.verticalHeader()->sizeHint().width();
     }
     cm = m_View.verticalHeader()->contentsMargins();
-    if(ViewTypeMonth == GetViewType())
+    if(_VIEW_TYPE::ViewTypeMonth == GetViewType())
         h = (m_View.verticalHeader()->minimumSectionSize() + marginH) * rows;
     else
         h = (m_View.verticalHeader()->minimumSectionSize() + marginH);

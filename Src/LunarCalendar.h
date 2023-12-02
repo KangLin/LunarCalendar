@@ -450,7 +450,7 @@ public:
     _CalendarType GetCalendarType() const;
     
     //! 视图类型
-    enum _VIEW_TYPE{
+    enum class _VIEW_TYPE{
         ViewTypeMonth,  //! 月
         ViewTypeWeek    //! 周
     };

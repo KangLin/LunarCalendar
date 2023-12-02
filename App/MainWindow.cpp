@@ -286,12 +286,12 @@ void MainWindow::slotActionSolar(bool checked)
 
 void MainWindow::slotViewMonth()
 {
-    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeMonth);
+    m_pLunarCalendar->SetViewType(CLunarCalendar::_VIEW_TYPE::ViewTypeMonth);
 }
 
 void MainWindow::slotViewWeek()
 {
-    m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
+    m_pLunarCalendar->SetViewType(CLunarCalendar::_VIEW_TYPE::ViewTypeWeek);
 }
 
 void MainWindow::slotHeadpositionNot()
