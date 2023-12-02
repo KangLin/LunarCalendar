@@ -635,7 +635,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
         if(pModel && m_bShowBackgroupImage && GetViewType() == _VIEW_TYPE::ViewTypeMonth)
         {
             QString szJiQi = pModel->data(pModel->index(row, col),
-                                CLunarCalendarModel::BackgroupImage).toString();
+                                CLunarCalendarModel::ROLE::BackgroupImage).toString();
             if(!szJiQi.isEmpty())
                 SetBackgroup(szJiQi);
         }

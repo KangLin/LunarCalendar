@@ -163,48 +163,48 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
     case Qt::EditRole:
-    case SolarRole:
+    case ROLE::SolarRole:
         return d.day();
-    case SolarColorRole:
+    case ROLE::SolarColorRole:
     {
         if(d.month() != m_ShownMonth
             && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
-            return ColorDisable;
+            return _COLOR_ROLE::ColorDisable;
         
         if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             //|| d == QDate::currentDate()
             || !GetDay(row, column).SolarHoliday.isEmpty())
-            return ColorHighlight;
+            return _COLOR_ROLE::ColorHighlight;
         
-        return ColorNormal;
+        return _COLOR_ROLE::ColorNormal;
     }
-    case SolarFontRole:
+    case ROLE::SolarFontRole:
         if(GetDay(row, column).SolarHoliday.isEmpty())
-            return FontNormal;
+            return _FONT_ROLE::FontNormal;
         
-        return FontBold;
-    case TodayRole:
+        return _FONT_ROLE::FontBold;
+    case ROLE::TodayRole:
         return d == QDate::currentDate();
-    case LunarColorRole:
+    case ROLE::LunarColorRole:
     {
         if(d.month() != m_ShownMonth
             && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
-            return ColorDisable;
+            return _COLOR_ROLE::ColorDisable;
 
         if(GetDay(row, column).LunarHoliday.isEmpty())
-            return ColorNormal;
+            return _COLOR_ROLE::ColorNormal;
 
-        return ColorHighlight;
+        return _COLOR_ROLE::ColorHighlight;
     }
-    case LunarFontRole:
+    case ROLE::LunarFontRole:
     {
         if(GetDay(row, column).LunarHoliday.isEmpty())
-            return FontNormal;
+            return _FONT_ROLE::FontNormal;
 
-        return FontBold;
+        return _FONT_ROLE::FontBold;
     }
-    case LunarRole:
+    case ROLE::LunarRole:
     {
         //! - 农历位置取值: \ref HolidayPriority
         _DAY day = GetDay(row, column);
@@ -276,7 +276,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         }
         return szTip;
     }
-    case Anniversary:
+    case ROLE::Anniversary:
     {
         _DAY day = GetDay(row, column);
         if(!day.Anniversary.isEmpty()) {
@@ -287,7 +287,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         }
         break;
     }
-    case Tasks:
+    case ROLE::Tasks:
     {
         /*!
          * - 任务取值： 包括周年纪念日、任务、任务计数之和
@@ -295,35 +295,35 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         _DAY day = GetDay(row, column);
         return day.Anniversary.size() + day.Tasks.size();
     }
-    case TasksColorRole:
-        return ColorHighlight;
-    case BackgroupImage:
+    case ROLE::TasksColorRole:
+        return _COLOR_ROLE::ColorHighlight;
+    case ROLE::BackgroupImage:
         return GetDay(row, column).szImageBackgroup;
-    case WorkDayRole:
+    case ROLE::WorkDayRole:
     {
         switch(GetDay(row, column).WorkDay)
         {
-        case WORK:
+        case __WORK_DAY::WORK:
              return "班";
-        case REST:
+        case __WORK_DAY::REST:
              return "休";
         default:
              break;
         }
         return "";
     }
-    case WorkDayColorRole:
+    case ROLE::WorkDayColorRole:
         if(d.month() != m_ShownMonth
             && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
-             return ColorDisable;
-        if(WORK == GetDay(row, column).WorkDay)
-            return ColorHighlight;
+             return _COLOR_ROLE::ColorDisable;
+        if(__WORK_DAY::WORK == GetDay(row, column).WorkDay)
+            return _COLOR_ROLE::ColorHighlight;
         /*if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             //|| d == QDate::currentDate()
             || !GetDay(row, column).SolarHoliday.isEmpty())
              return ColorHighlight;//*/
-        return ColorNormal;
+        return _COLOR_ROLE::ColorNormal;
     default:
         break;
     };
@@ -433,7 +433,7 @@ int CLunarCalendarModel::slotUpdate()
                 m_cbTaskHandler(d, day.Tasks);
 #endif
 
-            day.WorkDay = NO;
+            day.WorkDay = __WORK_DAY::NO;
             if(m_Database.isOpen())
             {
                 QSqlQuery query(m_Database);
@@ -448,9 +448,9 @@ int CLunarCalendarModel::slotUpdate()
                         if(v.isValid())
                         {
                             if(v.toInt() == 1)
-                                day.WorkDay = WORK;
+                                day.WorkDay = __WORK_DAY::WORK;
                             else
-                                day.WorkDay = REST;
+                                day.WorkDay = __WORK_DAY::REST;
                         }
                     }
                 }

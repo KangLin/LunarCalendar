@@ -154,7 +154,7 @@ private:
     int m_ColumnCount, m_RowCount;
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;
-    enum __WORK_DAY{
+    enum class __WORK_DAY {
         NO,
         WORK,
         REST
