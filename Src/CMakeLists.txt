@@ -142,6 +142,11 @@ foreach(d ${LunarCalendar_DEFINITIONS})
 endforeach()
 
 # Install pc files
+if(CMAKE_BUILD_TYPE)
+    set(PC_POSTFIX ${CMAKE_${UPPER_CMAKE_BUILD_TYPE}_POSTFIX})
+elseif(CMAKE_CONFIGURATION_TYPES)
+    set(PC_POSTFIX ${CMAKE_${UPPER_PARA_CONFIG}_POSTFIX})
+endif()
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendar.pc.in
     ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc

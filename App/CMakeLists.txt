@@ -30,6 +30,9 @@ set(SOURCE_UI_FILES
 
 set(RESOURCE_FILES ${RESOURCE_FILES}
     Resource/Resource.qrc)
+if(WIN32)
+    list(APPEND RESOURCE_FILES AppIcon.rc)
+endif()
 
 ADD_TARGET(NAME ${PROJECT_NAME}
     ISEXE

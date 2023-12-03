@@ -44,9 +44,9 @@ set(CPACK_PACKAGE_VERSION ${${PROJECT_NAME}_VERSION})
 
 # 将在安装程序（由 GUI 安装程序使用）中显示的图标。
 if(WIN32)
-    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\App\\\\Resource\\\\image\\\\LunarCalendar.png")
+    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\App\\\\AppIcon.ico")
 else()
-    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/App/Resource/image/LunarCalendar.png")
+    set(CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}/App/AppIcon.ico")
 endif()
 
 # 项目描述，用于 CPack 生成的 Windows 安装程序的介绍屏幕等位置。如果未设置，则从 CPACK_PACKAGE_DESCRIPTION_FILE 命名的文件填充此变量的值。
@@ -179,10 +179,10 @@ if(WIN32)
     #set(CPACK_NSIS_INSTALL_ROOT "$LOCALAPPDATA")
     set(CPACK_NSIS_MODIFY_PATH ON)
     set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
-    set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\App\\\\Resource\\\\image\\\\LunarCalendar.png")
-    set(CPACK_NSIS_MUI_UNICON "${CMAKE_SOURCE_DIR}\\\\App\\\\Resource\\\\image\\\\LunarCalendar.png")
-    #set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\App\\\\Resource\\\\image\\\\LunarCalendar.bmp")
-    #set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\App\\\\Resource\\\\image\\\\LunarCalendar.bmp")
+    set(CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\App\\\\AppIcon.ico")
+    set(CPACK_NSIS_MUI_UNICON "${CMAKE_SOURCE_DIR}\\\\App\\\\AppIcon.ico")
+    #set(CPACK_NSIS_MUI_WELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\App\\\\AppIcon.ico")
+    #set(CPACK_NSIS_MUI_UNWELCOMEFINISHPAGE_BITMAP "${CMAKE_SOURCE_DIR}\\\\App\\\\AppIcon.ico")
     
     #set(CPACK_NSIS_EXTRA_PREINSTALL_COMMANDS )
     #set(CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS )
@@ -262,6 +262,7 @@ cpack_add_component(DependLibraries
     DESCRIPTION   "依赖库"
     INSTALL_TYPES All User Developer
     GROUP Runtimes
+    REQUIRED
     )
 
 cpack_add_component(Development
@@ -282,9 +283,9 @@ cpack_add_component(Runtime
     )
 
 cpack_add_component(Application
-    DISPLAY_NAME  "应用程序"
-    DESCRIPTION   "应用程序"
-    DEPENDS QtRuntime
+    DISPLAY_NAME  "示例程序"
+    DESCRIPTION   "示例程序"
+    DEPENDS Runtime
     INSTALL_TYPES All User
     GROUP Applications
     )

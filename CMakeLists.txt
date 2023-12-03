@@ -108,12 +108,10 @@ if(BUILD_APP)
     add_subdirectory(App)
 endif(BUILD_APP)
 
-if(WIN32)
-    INSTALL(FILES Install/Install.nsi
-        ${CMAKE_SOURCE_DIR}/App/AppIcon.ico
-        ${OTHER_FILES}
-        DESTINATION "${CMAKE_BINARY_DIR}" COMPONENT Runtime)
-endif(WIN32)
+IF(WIN32)
+    # 替换 Install.nsi 中的 MSVC_VERSION 和 BUILD_ARCH
+    configure_file(Install/Install.nsi ${CMAKE_BINARY_DIR}/Install.nsi @ONLY)
+ENDIF()
 include(Package/CMakeCPack.cmake)
 
 # 产生文档
