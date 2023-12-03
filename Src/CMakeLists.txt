@@ -53,6 +53,7 @@ if(LunarCalendar_REVISION)
         LunarCalendar_REVISION="${LunarCalendar_REVISION}")
 endif()
 
+set(QT_COMPONENTS )
 set(LunarCalendar_INSTALL_HEAD_FILES
     LunarCalendar.h
     )
@@ -67,6 +68,7 @@ set(LunarCalendar_HEAD_FILES
     ../3th_lib/sxtwl/src/XL.h
     LunarCalendarDelegate.h
     LunarTable.h
+    FrmLunarCalendarPlugin.h
     )
 set(LunarCalendar_SOURCE_FILES
     LunarCalendar.cpp
@@ -80,6 +82,15 @@ set(LunarCalendar_SOURCE_FILES
     LunarCalendarDelegate.cpp
     LunarTable.cpp
     )
+
+option(WITH_QT_DESIGENER "Add qt desigener plugin" ON)
+if(NOT ANDROID AND WITH_QT_DESIGENER)
+    list(APPEND QT_COMPONENTS Designer)
+    list(APPEND LunarCalendar_HEAD_FILES
+        FrmLunarCalendarPlugin.h)
+    list(APPEND LunarCalendar_SOURCE_FILES
+        FrmLunarCalendarPlugin.cpp)
+endif()
 
 #设置资源文件
 SET(RCC_FILES
@@ -95,7 +106,7 @@ if(BUILD_TYPE STREQUAL "debug")
 endif()
 
 #需要的QT组件
-SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets Sql Network)
+list(APPEND QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets Sql Network)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
 message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
 if(Qt${QT_VERSION_MAJOR}_FOUND)

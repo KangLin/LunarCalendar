@@ -314,6 +314,8 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-06',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-07',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-08',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2020-10-10',1,NULL);
+
+-- See: https://www.gov.cn/gongbao/content/2020/content_5567750.htm
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2021-01-01',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2021-01-02',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2021-01-03',0,NULL);

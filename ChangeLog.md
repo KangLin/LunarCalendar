@@ -6,6 +6,7 @@
   + 修改周年为列表
   + 重命名 YearShown 为 GetShowYear
   + 重命名 MonthShown 为 GetShowMonth
+  + 增加 Qt 设置师插件
   + TODO: 修复 pkg-config 
   + TODO: 增加使用测试（CMakeTest)
   
@@ -38,9 +39,9 @@
   + 修改自动化编译
 
 - v0.2.1
-  + 增加 2021 年中国节假日
-  + 增加 2022 年中国节假日
-  + 增加 2023 年中国节假日
+  + [增加 2021 年中国节假日](https://www.gov.cn/gongbao/content/2020/content_5567750.htm)
+  + [增加 2022 年中国节假日](http://www.gov.cn/zhengce/content/2021-10/25/content_5644835.htm)
+  + [增加 2023 年中国节假日](http://www.gov.cn/zhengce/content/2022-12/08/content_5730844.htm)
   + 修改 github action
   + 在 Windows 下，安装 MSVC 系统库。详见: RabbitCommon
   + 修复除 0 引起的崩溃。影响前面所有发行版本。此错误是 RabbitCommon 引起的。

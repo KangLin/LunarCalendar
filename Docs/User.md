@@ -65,3 +65,7 @@
   + 用库中提供的函数
 
         CLunarCalendar::InitResource();
+
+## 在 Qt 设计器中使用
+复制安装目录（bin、lib）下的所有动态库文件到 ${Qt_Install_Root}/plugins/designer 下。
+就可以在 qt 设计器的控件窗口中看到此插件。然后就与使用普通Qt控件一样。

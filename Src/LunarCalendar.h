@@ -115,7 +115,7 @@
  *
  * \subsection Holiday 节日（以年为周期的任务）
  * - 以年为周期的任务
- *   - 中国节假日，在左上角显示
+ *   - 中国节假日（一群闲得蛋疼的人搞出来和玩意），在左上角显示
  *   - 节日
  *     - 公历： CLunarCalendar::AddHoliday
  *     - 农历
@@ -152,7 +152,7 @@
  * 提供了 CLunarCalendar::AddHoliday 、 CLunarCalendar::AddAnniversary 、 
  * CLunarCalendar::AddLunarAnniversary 来增加使用者的少量自定义的节日与周年纪念日。
  * **注意** 增加多了，会增加内存的使用量。
- * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己保存并处理。
+ * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并持久化存储。
  * 
  * \section 文档
  * - [开发文档](Modules.html)
