@@ -7,6 +7,7 @@
   + 重命名 YearShown 为 GetShowYear
   + 重命名 MonthShown 为 GetShowMonth
   + 增加 Qt 设置师插件
+  + 增加 CPack 打包
   + TODO: 修复 pkg-config 
   + TODO: 增加使用测试（CMakeTest)
   

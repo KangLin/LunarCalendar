@@ -30,10 +30,18 @@ set(CPACK_PACKAGE_VENDOR "康林工作室")
 
 # 设置安装包的文件名
 string(TOLOWER ${CPACK_PACKAGE_NAME} CPACK_PACKAGE_NAME_lower)
-# 设置二进制安装包的文件名
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_lower}_${LunarCalendar_VERSION}_${CPACK_SYSTEM_NAME}_setup")
-# 设置源码安装包的文件名
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_lower}_${LunarCalendar_VERSION}_source")
+IF(WIN32)
+    # 设置二进制安装包的文件名
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${LunarCalendar_VERSION}_${CPACK_SYSTEM_NAME}_setup")
+    # 设置源码安装包的文件名
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}_${LunarCalendar_VERSION}_source")
+ELSE()
+    # 设置二进制安装包的文件名
+    set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_lower}_${LunarCalendar_VERSION}_${CPACK_SYSTEM_NAME}_setup")
+    # 设置源码安装包的文件名
+    set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME_lower}_${LunarCalendar_VERSION}_source")
+ENDIF()
+
 # 不设置，默认为编译目录
 #set(CPACK_PACKAGE_DIRECTORY ${CMAKE_BINARY_DIR})
 

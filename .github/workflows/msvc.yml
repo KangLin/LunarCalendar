@@ -174,3 +174,29 @@ jobs:
           name: ${{ env.artifact_name }}
           path: |
             ${{github.workspace}}\build_app\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe
+
+      - name: Package LunarCalendar
+        working-directory: ${{github.workspace}}\build
+        env:
+          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+        run: |
+          cmake ${{github.workspace}} ^
+              -A ${{matrix.CMAKE_GENERATOR_PLATFORM}} ^
+              -T ${{matrix.VCPKG_PLATFORM_TOOLSET}} ^
+              -DCMARK_SHARED=OFF ^
+              -DCMARK_TESTS=OFF ^
+              -DCMARK_STATIC=ON ^
+              -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
+              -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_app/install ^
+              -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
+              -DVCPKG_VERBOSE=ON ^
+              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
+          cmake --build . --config ${{ matrix.BUILD_TYPE }} --target package
+
+      - name: Update artifact for application
+        if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version != '5.12.12' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.artifact_name }}
+          path: |
+            ${{github.workspace}}\build_app\LunarCalendar_${{env.LunarCalendar_VERSION}}_*_setup.exe
