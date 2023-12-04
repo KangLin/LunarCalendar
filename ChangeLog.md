@@ -8,8 +8,7 @@
   + 重命名 MonthShown 为 GetShowMonth
   + 增加 Qt 设置师插件
   + 增加 CPack 打包
-  + TODO: 修复 pkg-config 
-  + TODO: 增加使用测试（CMakeTest)
+  + 修复 pkg-config ，由 RabbitCommonUtils.cmake 中的 ADD_TARGET 产生
   
 - v0.2.8
   + [增加 2024 年中国节假日](https://www.gov.cn/zhengce/content/202310/content_6911527.htm)

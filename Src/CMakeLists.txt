@@ -84,7 +84,7 @@ set(LunarCalendar_SOURCE_FILES
     )
 
 option(WITH_QT_DESIGENER "Add qt desigener plugin" ON)
-if(NOT ANDROID AND WITH_QT_DESIGENER)
+if((NOT ANDROID) AND WITH_QT_DESIGENER)
     list(APPEND QT_COMPONENTS Designer)
     list(APPEND LunarCalendar_HEAD_FILES
         FrmLunarCalendarPlugin.h)
