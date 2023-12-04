@@ -61,8 +61,9 @@ set(LunarCalendar_HEAD_FILES
     ${LunarCalendar_INSTALL_HEAD_FILES}
     LunarCalendarModel.h
     CalendarLunar.h
-    ../3th_lib/sxtwl/src/lunar.h
+    ../3th_lib/sxtwl/src/sxtwl.h
     ../3th_lib/sxtwl/src/eph.h
+    ../3th_lib/sxtwl/src/day.h
     ../3th_lib/sxtwl/src/JD.h
     ../3th_lib/sxtwl/src/SSQ.h
     ../3th_lib/sxtwl/src/XL.h
@@ -74,8 +75,9 @@ set(LunarCalendar_SOURCE_FILES
     LunarCalendar.cpp
     LunarCalendarModel.cpp
     CalendarLunar.cpp
-    ../3th_lib/sxtwl/src/lunar.cpp
+    ../3th_lib/sxtwl/src/sxtwl.cpp
     ../3th_lib/sxtwl/src/eph.cpp
+    ../3th_lib/sxtwl/src/day.cpp
     ../3th_lib/sxtwl/src/JD.cpp
     ../3th_lib/sxtwl/src/SSQ.cpp
     ../3th_lib/sxtwl/src/XL.cpp

@@ -34,6 +34,7 @@ private Q_SLOTS:
     void slotHeadpositionDown();
     void slotHeadpositionLeft();
     void slotHeadpositionRight();
+    void slotGenerateCalendarTable();
     
 private:
     Ui::MainWindow *ui;

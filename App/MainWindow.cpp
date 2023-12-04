@@ -122,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
+    pViewMenu->addAction(tr("Genetate cache table"), this, SLOT(slotGenerateCalendarTable()));
 
 #ifdef RABBITCOMMON
     QMenu* pHelp = menuBar()->addMenu(tr("Help"));
@@ -138,14 +139,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
     //m_pLunarCalendar->ShowGrid(true);
     
-    //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
-    /*
-    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
-    m_pLunarCalendar->GenerateCalendarTable(
-                qApp->applicationDirPath() + QDir::separator() + "cache.dat",
-                8, true, false); //*/
     
-    //m_pLunarCalendar->LoadCalendarTable(qApp->applicationDirPath() + QDir::separator() + "cache.dat");
+    
     //m_pLunarCalendar->ShowWeekHead(false);
     //m_pLunarCalendar->ShowWeeks(false);
     //m_pLunarCalendar->ShowHead(false);
@@ -317,4 +312,16 @@ void MainWindow::slotHeadpositionLeft()
 void MainWindow::slotHeadpositionRight()
 {
     m_pLunarCalendar->SetHeadposition(CLunarCalendar::_HEAD_position::Right);
+}
+
+void MainWindow::slotGenerateCalendarTable()
+{
+    //TODO：自动生成指定日期内的农历缓存表，生成完后，把cache.dat放到Src\Resource\Data目录下
+    //*
+    m_pLunarCalendar->SetDateRange(QDate(2000, 1, 1), QDate(2119, 1, 1));
+    QString szFileCache = qApp->applicationDirPath() + QDir::separator() + "cache.dat";
+    m_pLunarCalendar->GenerateCalendarTable(szFileCache, 1, true, false);
+    qInfo(Logger) << "Generate calendar cache table:" << szFileCache;
+    m_pLunarCalendar->LoadCalendarTable(szFileCache);
+    //*/
 }

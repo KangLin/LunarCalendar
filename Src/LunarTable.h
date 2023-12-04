@@ -27,7 +27,8 @@ public:
     {
         quint8 nTg;
         quint8 nDz;
-        bool bLeap;
+        bool bLeap; //是闰月
+        quint8 nYear;
         quint8 nMonth;
         quint8 nDay;
         qint8 nJq;
@@ -37,10 +38,12 @@ public:
      * \brief 得到指定日期的农历
      * \param date 要查询的日期
      * \param lunar 相应的农历
+     * \param cache 是否先从缓存查找
+     *        - true: 先从缓存查找，如果没查到，则计算。
+     *        - false: 不查缓存，直接计算。
      * \return 0，成功；其它，失败
-     * \note 先从缓存表中查找。如果没有查到，则计算。
      */
-    int GetLunar(const QDate &date, _LUNAR_DAY &lunar);
+    int GetLunar(const QDate &date, _LUNAR_DAY &lunar, bool cache = true);
 
     int Load(const QString &file);
     int Save(const QString &file, bool bAll = true);
@@ -59,7 +62,7 @@ private:
     QMap<qint64, _LUNAR_DAY> m_Lunar;
     QMutex m_GenerateMutex;
     QString m_szFile;
-    int m_nThreadNumber;
+    QBasicAtomicInt m_nThreadNumber;
     QDate m_minDate, m_maxDate;
     bool m_bSaveAllDate;
 };

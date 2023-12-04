@@ -17,20 +17,19 @@
 class CCalendarLunar : public QObject
 {
     Q_OBJECT
+
 public:
     explicit CCalendarLunar(QDate date, QObject *parent = nullptr);
 
     /*!
      * \brief 得到指定日期的农历年份
-     *
-     * TODO: Not implemented
      */
-    int GetYear(){return 0;}
+    int GetYear();
     //! 得到指定日期的农历月份
     int GetMonth();
     //! 得到指定日期的农历天数
     int GetDay();
-    
+
     //! 得到指定日期的农历（汉字）
     //! \note 编码：UTF-8 ，由文件编码决定
     QString GetLunar();
@@ -45,7 +44,7 @@ public:
     QString GetJieQi();
     //! 得到节气的图片
     QString GetJieQiImage();
-    
+
     //! \name 以年为周期的
     //! @{
     //! 节日是全局的，所以当多个实例时，每个实例都是一样的。
@@ -65,15 +64,15 @@ private:
      */
     int GetLunar(const QDate &date);
 
-    QString m_szLunar;
-    QString m_szLunarDay;
-    QStringList m_Holiday;
-    QStringList m_Anniversary;
-    QString m_szJieQi;
-    QString m_szImageJieQi;
     int m_Year;
     int m_Month;
     int m_Day;
+    QString m_szLunar;
+    QString m_szLunarDay;
+    QString m_szJieQi;
+    QString m_szImageJieQi;
+    QStringList m_Holiday;
+    QStringList m_Anniversary;
 };
 
 #endif // LUNAR_H
