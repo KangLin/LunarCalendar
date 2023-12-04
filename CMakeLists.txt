@@ -111,6 +111,7 @@ endif(BUILD_APP)
 IF(WIN32)
     # 替换 Install.nsi 中的 MSVC_VERSION 和 BUILD_ARCH
     configure_file(Install/Install.nsi ${CMAKE_BINARY_DIR}/Install.nsi @ONLY)
+    file(COPY App/AppIcon.ico DESTINATION ${CMAKE_BINARY_DIR})
 ENDIF()
 include(Package/CMakeCPack.cmake)
 
