@@ -137,21 +137,6 @@ ADD_TARGET(NAME ${PROJECT_NAME}
     INSTALL_CMAKE_CONFIG_IN_FILE ${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendarConfig.cmake.in
     )
 
-foreach(d ${LunarCalendar_DEFINITIONS})
-    SET(LunarCalendar_DEFINITIONS_PC "${LunarCalendar_DEFINITIONS_PC} -D${d}")
-endforeach()
-
-# Install pc files
-if(CMAKE_BUILD_TYPE)
-    set(PC_POSTFIX ${CMAKE_${UPPER_CMAKE_BUILD_TYPE}_POSTFIX})
-elseif(CMAKE_CONFIGURATION_TYPES)
-    set(PC_POSTFIX ${CMAKE_${UPPER_PARA_CONFIG}_POSTFIX})
-endif()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../cmake/LunarCalendar.pc.in
-    ${CMAKE_BINARY_DIR}/LunarCalendar.pc @ONLY)
-install(FILES ${CMAKE_BINARY_DIR}/LunarCalendar.pc
-    DESTINATION lib/pkgconfig)
-
 # Install dababase files
 INSTALL_FILE(
     SOURCES
