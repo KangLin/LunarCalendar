@@ -485,7 +485,7 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-04',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-05',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-06',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-07',0,NULL);
-INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-12',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2024-10-12',1,NULL);
 
 -- TODO: add holiday
 

@@ -134,24 +134,13 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
-    //m_pLunarCalendar->ShowToday(false);
-    //m_pLunarCalendar->ShowTools(false);
     //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
-    //m_pLunarCalendar->ShowGrid(true);
-    
-    
-    
-    //m_pLunarCalendar->ShowWeekHead(false);
-    //m_pLunarCalendar->ShowWeeks(false);
-    //m_pLunarCalendar->ShowHead(false);
-    //m_pLunarCalendar->ShowDate(false);
-    //m_pLunarCalendar->ShowTime(false);
-    //*
-    //! [Add Holiday]
+
+    /*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
-    //! [Add Holiday]
+    //! [Add Holiday] */
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
-    //! [Add Anniversary]
+    /*! [Add Anniversary]
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
     m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
@@ -159,9 +148,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
     m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
     m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");
-    //! [Add Anniversary]
+    //! [Add Anniversary] */
 
-    //! [User defined tasks]
+    /*! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
         if(d.day() == 10 && d.month() == 10)
         {
@@ -175,8 +164,8 @@ MainWindow::MainWindow(QWidget *parent) :
             return 1;
         }
         return tasks.size();});
-    //! [User defined tasks]
-    //*/
+    //! [User defined tasks] */
+
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
     //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
