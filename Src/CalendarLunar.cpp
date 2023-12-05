@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QTime>
 #include "LunarTable.h"
+#include "sxtwl.h"
 
 // 天干地支: https://baike.baidu.com/item/%E5%A4%A9%E5%B9%B2%E5%9C%B0%E6%94%AF/278140
 // 天干地支纪年法: https://zhuanlan.zhihu.com/p/616094910
@@ -72,7 +73,8 @@ int CCalendarLunar::GetLunar(const QDate &date)
 {
     if(!date.isValid())
         return -1;
-        
+    
+    m_Solar = date;
     CLunarTable::_LUNAR_DAY day;
     int nRet = CLunarTable::Instance()->GetLunar(date, day);
     if(nRet)
@@ -148,6 +150,12 @@ QString CCalendarLunar::GetJieQi()
 QString CCalendarLunar::GetJieQiImage()
 {
     return m_szImageJieQi;
+}
+
+QDate CCalendarLunar::GetSolar(int lunarYear, int lunarMonth, int lunarDay, bool isLeap)
+{
+    QSharedPointer<Day> day(sxtwl::fromLunar(lunarYear, lunarMonth, lunarDay, isLeap));
+    return QDate(day->getSolarYear(), day->getSolarMonth(), day->getSolarDay());
 }
 
 /*

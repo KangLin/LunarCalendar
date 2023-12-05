@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QMap>
 #include <QPixmap>
+#include <QDate>
 
 /*!
  * \brief 农历类
@@ -44,6 +45,18 @@ public:
     QString GetJieQi();
     //! 得到节气的图片
     QString GetJieQiImage();
+    
+    /*!
+     * \brief 得到指定农历的阳历
+     * \param lunarYear 农历年份
+     * \param lunarMonth 农历月份
+     * \param lunarDay 农历日
+     * \param bLeap
+     *          - true: 闰月
+     *          - false
+     * \return 
+     */
+    static QDate GetSolar(int lunarYear, int lunarMonth, int lunarDay, bool bLeap = false);
 
     //! \name 以年为周期的
     //! @{
@@ -63,7 +76,8 @@ private:
      * \return 成功返回 0，否则返回非 0
      */
     int GetLunar(const QDate &date);
-
+    
+    QDate m_Solar;
     int m_Year;
     int m_Month;
     int m_Day;
