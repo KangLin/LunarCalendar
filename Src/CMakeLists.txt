@@ -85,13 +85,15 @@ set(LunarCalendar_SOURCE_FILES
     LunarTable.cpp
     )
 
-option(WITH_QT_DESIGENER "Add qt desigener plugin" ON)
-if((NOT ANDROID) AND WITH_QT_DESIGENER)
-    list(APPEND QT_COMPONENTS Designer)
-    list(APPEND LunarCalendar_HEAD_FILES
-        FrmLunarCalendarPlugin.h)
-    list(APPEND LunarCalendar_SOURCE_FILES
-        FrmLunarCalendarPlugin.cpp)
+if(NOT ANDROID)
+    option(WITH_QT_DESIGENER "Add qt designer plugin" ON)
+    if(WITH_QT_DESIGENER)
+        list(APPEND QT_COMPONENTS Designer)
+        list(APPEND LunarCalendar_HEAD_FILES
+            FrmLunarCalendarPlugin.h)
+        list(APPEND LunarCalendar_SOURCE_FILES
+            FrmLunarCalendarPlugin.cpp)
+    endif()
 endif()
 
 #设置资源文件
