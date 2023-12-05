@@ -28,7 +28,7 @@ public:
         quint8 nTg;
         quint8 nDz;
         bool bLeap; //是闰月
-        quint8 nYear;
+        int nYear;
         quint8 nMonth;
         quint8 nDay;
         qint8 nJq;

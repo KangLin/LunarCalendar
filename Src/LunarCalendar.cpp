@@ -662,6 +662,18 @@ QString CLunarCalendar::SelectedLunar() const
     return l.GetLunar();
 }
 
+int CLunarCalendar::SelectedLunar(int &year, int &month, int &day)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return -1;
+    QDate date = pModel->GetDate();
+    CCalendarLunar l(date);
+    year = l.GetYear();
+    month = l.GetMonth();
+    day = l.GetDay();
+    return 0;
+}
+
 int CLunarCalendar::GetLunar(const QDate date, int &year, int &month, int &day)
 {
     CCalendarLunar l(date);

@@ -134,12 +134,13 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
-    //m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
+    m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
 
     /*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
-    //! [Add Holiday] */
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
+    //! [Add Holiday] */
+
     /*! [Add Anniversary]
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
     m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
@@ -229,9 +230,12 @@ void MainWindow::slotUpdate()
 //! [slotUpdateCalendar]
 void MainWindow::slotUpdateCalendar()
 {
+    int y, m, d;
+    m_pLunarCalendar->SelectedLunar(y, m, d);
     qDebug(Logger) << "\n"
         << "SelectedDate:" << m_pLunarCalendar->SelectedDate() << "\n"
-        << "SelectedLunar:" << m_pLunarCalendar->SelectedLunar() << "\n"
+        << "SelectedLunar:" << m_pLunarCalendar->SelectedLunar()
+        << "(" << y << "年" << m << "月" << d << "日" << ")\n"
         << "Year:" << m_pLunarCalendar->GetShowYear() << "\n"
         << "Month:" << m_pLunarCalendar->GetShowMonth() << "\n"
         << "MinimumDate:" << m_pLunarCalendar->MinimumDate() << "\n"

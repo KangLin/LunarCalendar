@@ -48,11 +48,12 @@ CLunarTable* CLunarTable::Instance()
 }
 
 #ifndef QT_NO_DATASTREAM
-QDataStream& operator<<(QDataStream& output, const CLunarTable::_LUNAR_DAY& data)
+QDataStream& operator << (QDataStream& output, const CLunarTable::_LUNAR_DAY& data)
 {
     output << data.nTg
            << data.nDz
            << data.bLeap
+           << data.nYear
            << data.nMonth
            << data.nDay
            << data.nJq;
@@ -64,6 +65,7 @@ QDataStream& operator >> (QDataStream& input, CLunarTable::_LUNAR_DAY& data)
     input >> data.nTg
           >> data.nDz
           >> data.bLeap
+          >> data.nYear
           >> data.nMonth
           >> data.nDay
           >> data.nJq;
@@ -80,13 +82,13 @@ int CLunarTable::Save(const QString &file, bool bAll)
     QFile f(file);
     if(!f.open(QIODevice::WriteOnly))
     {
-        qCritical() << "Open file fail: " << file;
+        qCritical(Logger) << "Open file fail: " << file;
         return -1;
     }
-    
+
     if(!bAll)
         CleanOutsideRange(m_minDate, m_maxDate);
-    
+
     QDataStream out(&f);
     out << g_Signature;
     out << nVersion;
@@ -202,8 +204,11 @@ void CLunarTable::slotGenerateFinished()
         qCritical(Logger()) << "Cache file is empty";
         return;
     }
-    if(Save(m_szFile, m_bSaveAllDate))
+    int nRet = Save(m_szFile, m_bSaveAllDate);
+    if(!nRet)
         qInfo(Logger) << "Generate finished: save to:" << m_szFile;
+    else
+        qCritical(Logger) << "Generate finished: save fail" << nRet << ";" << m_szFile ;
 }
 
 int CLunarTable::Generate(const QDate &min, const QDate &max, bool bUseCached)

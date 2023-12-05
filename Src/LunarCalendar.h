@@ -239,10 +239,17 @@ public:
      */
     void SetSelectedDate(const QDate &date, bool bForce = false);
     /*!
-     * \brief 得到当前选择的日期的农历
+     * \brief 得到当前选择的日期的农历的字符串
      */
     QString SelectedLunar() const;
-    //TODO:int SelectedLunar(int &year, int &month, int &day);
+    /*!
+     * \brief 得到当前选择的日期的农历
+     * \param year 农历年
+     * \param month 农历月
+     * \param day 农历日
+     * \return 
+     */
+    int SelectedLunar(int &year, int &month, int &day);
     /*!
      * \brief 得到给定日期的农历（公历转农历）
      * \param date: 日期
