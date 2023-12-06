@@ -69,7 +69,6 @@ set(LunarCalendar_HEAD_FILES
     ../3th_lib/sxtwl/src/XL.h
     LunarCalendarDelegate.h
     LunarTable.h
-    FrmLunarCalendarPlugin.h
     )
 set(LunarCalendar_SOURCE_FILES
     LunarCalendar.cpp
@@ -85,15 +84,13 @@ set(LunarCalendar_SOURCE_FILES
     LunarTable.cpp
     )
 
-if(NOT ANDROID)
-    option(WITH_QT_DESIGENER "Add qt designer plugin" ON)
-    if(WITH_QT_DESIGENER)
-        list(APPEND QT_COMPONENTS Designer)
-        list(APPEND LunarCalendar_HEAD_FILES
-            FrmLunarCalendarPlugin.h)
-        list(APPEND LunarCalendar_SOURCE_FILES
-            FrmLunarCalendarPlugin.cpp)
-    endif()
+option(WITH_QT_DESIGENER "Add qt designer plugin" ON)
+if(NOT ANDROID AND WITH_QT_DESIGENER)
+    list(APPEND QT_COMPONENTS Designer)
+    list(APPEND LunarCalendar_HEAD_FILES
+        FrmLunarCalendarPlugin.h)
+    list(APPEND LunarCalendar_SOURCE_FILES
+        FrmLunarCalendarPlugin.cpp)
 endif()
 
 #设置资源文件
