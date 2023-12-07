@@ -14,7 +14,7 @@ jobs:
       matrix:
         BUILD_TYPE: [Release]
         qt_arch: [android_arm64_v8a, android_armv7, android_x86_64]
-        qt_version: [6.5.1]
+        qt_version: [6.6.1]
         include:
           - BUILD_TYPE: Release
             qt_arch: android_arm64_v8a

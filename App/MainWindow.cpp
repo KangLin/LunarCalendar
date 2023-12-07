@@ -134,7 +134,7 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
-    m_pLunarCalendar->SetSelectedDate(QDate(2014, 5, 8));
+    m_pLunarCalendar->SetSelectedDate(QDate(2014, 10, 8));
 
     /*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
