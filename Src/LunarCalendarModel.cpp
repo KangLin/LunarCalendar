@@ -418,11 +418,11 @@ int CLunarCalendarModel::slotUpdate()
                 day.szLunar = lunar.GetLunar();
                 day.szLunarDay = lunar.GetLunarDay();
                 
-                day.LunarHoliday = lunar.GetHoliday();
+                day.LunarHoliday = m_LunarHoliday[lunar.GetMonth()].value(lunar.GetDay());
                 if(!lunar.GetJieQi().isEmpty())
                     day.LunarHoliday << lunar.GetJieQi();
                 
-                day.Anniversary += lunar.GetAnniversary();
+                day.Anniversary += m_LunarAnniversary[lunar.GetMonth()].value(lunar.GetDay());
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
 
@@ -850,50 +850,61 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName,
     }
     if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
         m_SolarHoliday[month][day] << szName;
+        int row = 0, col = 0;
+        QDate date(m_ShownYear, month, day);
+        cellForDate(date, &row, &col);
+        if(-1 == row || -1 == col || m_Day.isEmpty())
+            return -2;
+        m_Day[row * 7 + col].SolarHoliday.push_back(szName);
     }
     if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
-        CCalendarLunar::AddHoliday(month, day, szName);
+        m_LunarHoliday[month][day] << szName;
+        int row = 0, col = 0;
+        QDate date = CCalendarLunar::GetSolar(m_ShownYear, month, day);
+        cellForDate(date, &row, &col);
+        if(-1 == row || -1 == col || m_Day.isEmpty())
+            return -2;
+        m_Day[row * 7 + col].LunarHoliday.push_back(szName);
     }
-    return 0;
-    int row, col;
-    QDate date(m_ShownYear, month, day);
-    cellForDate(date, &row, &col);
-    if(-1 == row || -1 == col || m_Day.isEmpty())
-        return -2;
-    m_Day[row * 7 + col].SolarHoliday.push_back(szName);
     return 0;
 }
 
 int CLunarCalendarModel::ClearHoliday()
 {
     m_SolarHoliday.clear();
-    return CCalendarLunar::ClearHoliday();
+    m_LunarHoliday.clear();
+    return 0;
 }
 
-int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)
+int CLunarCalendarModel::AddAnniversary(int month, int day,
+                                        const QString &szName,
+                                        CLunarCalendar::_CalendarType type)
 {
     if(szName.isEmpty() || szName == "") {
         qCritical(Logger, "AddAnniversary parameter szName is empty");
         return -1;
     }
-    m_SolarAnniversary[month][day] << szName;
-    int row, col;
-    QDate date(m_ShownYear, month, day);
-    cellForDate(date, &row, &col);
-    if(-1 == row || -1 == col || m_Day.isEmpty())
-        return -2;
-    m_Day[row * 7 + col].Anniversary << szName;
-    return 0;
-}
 
-int CLunarCalendarModel::AddLunarAnniversary(int month, int day, const QString &szName)
-{
-    if(szName.isEmpty() || szName == ""){
-        qCritical(Logger, "AddLunarAnniversary parameter szName is empty");
-        return -1;
+    int row = 0, col = 0;
+    QDate date;
+    if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
+        m_SolarAnniversary[month][day] << szName;
+        date = QDate(m_ShownYear, month, day);
+        cellForDate(date, &row, &col);
+        if(-1 == row || -1 == col || m_Day.isEmpty())
+            return -2;
+        m_Day[row * 7 + col].Anniversary.push_back(szName);
+    }
+    if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
+        m_LunarAnniversary[month][day] << szName;
+        date = CCalendarLunar::GetSolar(m_ShownYear, month, day);
+        cellForDate(date, &row, &col);
+        if(-1 == row || -1 == col || m_Day.isEmpty())
+            return -2;
+        m_Day[row * 7 + col].Anniversary.push_back(szName);
     }
 
-    return CCalendarLunar::AddAnniversary(month, day, szName);
+    return 0;
 }
 
 int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler)
@@ -954,6 +965,51 @@ int CLunarCalendarModel::InitHoliday()
     AddHoliday(6, 1, "儿童节");
     AddHoliday(8, 1, "建军节");
     AddHoliday(10, 1, "国庆节");
+    
+    /*
+    https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BC%A0%E7%BB%9F%E8%8A%82%E6%97%A5/396100?fromModule=disambiguation
+    https://baike.baidu.com/item/中国传统节日
+    
+    节日名称 节日时间
+    春节 正月初一
+    元宵节（上元节）正月十五
+    龙抬头 二月初二
+    社日节（土地诞） 二月初二
+    花朝 南方一般2月12日，北方2月15日。但是新化叫“花烛节”为2月15日。难道祖先是从北方迁移过来的。
+    上巳节 三月初三
+    寒食节 清明节前一天
+    清明节 阳历4月5日前后
+    端午节 五月初五
+    天贶节 六月初六，晒衣节， 晒伏节“六月六，晒红绿。” “姑姑节”“六月六，请姑姑”。在古代还是另外一个节日，名叫天贶（赐赠的意思）节，六月六也是佛寺的一个节日，叫做翻经节，祭祀山神。
+    七夕节 七月初七
+    七月半（中元节） 七月十四/十五
+    中秋节 八月十五
+    重阳节 九月初九
+    寒衣节 十月初一
+    下元节 十月十五
+    冬至节 阳历12月22日前后
+    腊八节 腊月初八
+    祭灶节（小年） 腊月廿三或廿四
+    岁除（除夕）腊月廿九或三十
+    */
+    AddHoliday(1, 1, "春节", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(1, 15, "上元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(1, 15, "元宵", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(2, 2, "社日", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(2, 2, "龙抬头", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(2, 12, "花朝", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(3, 3, "上巳", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(5, 5, "端午", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(6, 6, "天贶", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(7, 7, "七夕", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(7, 15, "中元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(8, 15, "中秋", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(9, 9, "重阳", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(10, 1, "寒衣", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(10, 15, "下元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(12, 8, "腊八", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(12, 24, "祭灶", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    AddHoliday(12, 24, "小年", CLunarCalendar::_CalendarType::CalendarTypeLunar);
     return 0;
 }
 

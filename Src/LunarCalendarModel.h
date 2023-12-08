@@ -99,8 +99,9 @@ public:
                    CLunarCalendar::_CalendarType type
                    = CLunarCalendar::_CalendarType::CalendarTypeSolar);
     int ClearHoliday();
-    int AddAnniversary(int month, int day, const QString &szName);
-    int AddLunarAnniversary(int month, int day, const QString &szName);
+    int AddAnniversary(int month, int day, const QString &szName,
+                       CLunarCalendar::_CalendarType type
+                       = CLunarCalendar::_CalendarType::CalendarTypeSolar);
     int SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler);
 #if HAS_CPP_11
     /*!
@@ -166,13 +167,14 @@ private:
     struct _DAY
     {
         int Solar;
-        QStringList SolarHoliday;
-
+        
         int nLunarYear;
         int nLunarMonth;
         int nLunarDay;
         QString szLunar;
         QString szLunarDay;
+        
+        QStringList SolarHoliday;
         QStringList LunarHoliday;
 
         QStringList Anniversary;
@@ -186,6 +188,9 @@ private:
 
     QMap<int, QMap<int, QStringList> > m_SolarHoliday;
     QMap<int, QMap<int, QStringList> > m_SolarAnniversary;
+
+    QMap<int, QMap<int, QStringList> > m_LunarHoliday;
+    QMap<int, QMap<int, QStringList> > m_LunarAnniversary;
 
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;

@@ -135,25 +135,29 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
     
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
-    m_pLunarCalendar->SetSelectedDate(QDate(2014, 10, 8));
-
+    m_pLunarCalendar->SetSelectedDate(QDate(2015, 10, 8));
+    
     //*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
     m_pLunarCalendar->AddHoliday(10, 1, "holiday1",
                               CLunarCalendar::_CalendarType::CalendarTypeLunar);
     //! [Add Holiday] */
 
-    /*! [Add Anniversary]
-    m_pLunarCalendar->AddAnniversary(10, 1, "my birth");
-    m_pLunarCalendar->AddAnniversary(10, 1, "my birth1");
+    //*! [Add Anniversary]
+    m_pLunarCalendar->AddAnniversary(10, 1, "ann");
+    m_pLunarCalendar->AddAnniversary(10, 1, "ann1");
+    m_pLunarCalendar->AddAnniversary(9, 29, "ann2");
     m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
     m_pLunarCalendar->AddAnniversary(10, 26, "爸生日");
-    m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth");
-    m_pLunarCalendar->AddLunarAnniversary(8, 17, "My birth1");
-    m_pLunarCalendar->AddLunarAnniversary(9, 10, "you birth2");
+    m_pLunarCalendar->AddAnniversary(8, 17, "My birth",
+            CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    m_pLunarCalendar->AddAnniversary(8, 17, "My birth1",
+            CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    m_pLunarCalendar->AddAnniversary(9, 10, "you birth2",
+            CLunarCalendar::_CalendarType::CalendarTypeLunar);
     //! [Add Anniversary] */
 
-    /*! [User defined tasks]
+    //*! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
         if(d.day() == 10 && d.month() == 10)
         {

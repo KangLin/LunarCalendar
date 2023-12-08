@@ -118,12 +118,12 @@
  * - 以年为周期的任务
  *   - 中国节假日（一群闲得蛋疼的人搞出来和玩意），在左上角显示
  *   - 节日
- *     - 公历： CLunarCalendar::AddHoliday
- *     - 农历
+ *     - 公历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
+ *     - 农历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
  *     - 节气
  *   - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
- *     - 公历: CLunarCalendar::AddAnniversary
- *     - 农历: CLunarCalendar::AddLunarAnniversary
+ *     - 公历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
+ *     - 农历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
  *
  * \subsection TasksDisplay 任务显示
  * - 中国节假日，在左上角显示。
@@ -151,7 +151,7 @@
  * \subsection TaskPerformance 任务性能
  * 默认的节日数量比较少，所以目前节日与周年纪念日都是保存在内存中。
  * 提供了 CLunarCalendar::AddHoliday 、 CLunarCalendar::AddAnniversary 、 
- * CLunarCalendar::AddLunarAnniversary 来增加使用者的少量自定义的节日与周年纪念日。
+ * 来增加使用者的少量自定义的节日与周年纪念日。
  * **注意** 增加多了，会增加内存的使用量。
  * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并持久化存储。
  * 
@@ -292,19 +292,13 @@ public:
      * \param month: 月
      * \param day: 日
      * \param szName: 纪念日名。不能为空或""
+     * \param type: 周年纪念日类型
      * \image html Docs/image/Holiday.png
      */
-    int AddAnniversary(int month, int day, const QString &szName);
-    /*!
-     * \brief 设置农历周年纪念日（例如：农历生日）
-     * \note 当前保存在全局变量中
-     * \param month: 农历月
-     * \param day: 农历日
-     * \param szName: 纪念日名。不能为空或""
-     * \image html Docs/image/Holiday.png
-     */
-    int AddLunarAnniversary(int month, int day, const QString &szName);
-    
+    int AddAnniversary(int month, int day, const QString &szName,
+                       CLunarCalendar::_CalendarType type
+                       = CLunarCalendar::_CalendarType::CalendarTypeSolar);
+
     /*!
      * \ref UserDefinedTasks 类
      * \see SetTaskHandle

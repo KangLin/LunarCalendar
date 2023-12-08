@@ -1184,22 +1184,13 @@ void CLunarCalendar::ClearHoliday()
     pModel->ClearHoliday();
 }
 
-int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
+int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName, CLunarCalendar::_CalendarType type)
 {
     if(szName.isEmpty())
         return -1;
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
-    return pModel->AddAnniversary(month, day, szName);
-}
-
-int CLunarCalendar::AddLunarAnniversary(int month, int day, const QString &szName)
-{
-    if(szName.isEmpty())
-        return -1;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return -1;
-    return pModel->AddLunarAnniversary(month, day, szName);
+    return pModel->AddAnniversary(month, day, szName, type);
 }
 
 int CLunarCalendar::SetTaskHandle(QSharedPointer<CGetTaskHandler> handler)
