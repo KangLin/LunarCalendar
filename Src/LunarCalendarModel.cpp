@@ -32,8 +32,8 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
       m_ShowWeek(1)
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
-        CLunarCalendar::_CalendarType::CalendarTypeLunar
-        | CLunarCalendar::_CalendarType::CalendarTypeSolar));
+        static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar)
+        | static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar)));
     
     SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
         CLunarCalendar::_VIEW_TYPE::ViewTypeMonth));
@@ -409,7 +409,8 @@ int CLunarCalendarModel::slotUpdate()
             
             day.Anniversary = m_SolarAnniversary[d.month()].value(d.day());
             
-            if(m_calendarType & CLunarCalendar::_CalendarType::CalendarTypeLunar)
+            if(static_cast<int>(m_calendarType)
+                & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar))
             {
                 CCalendarLunar lunar(d);
                 day.nLunarMonth = lunar.GetMonth();
@@ -840,13 +841,20 @@ QColor CLunarCalendarModel::GetHeight() const
     return pal.color(cg, QPalette::Highlight);
 }
 
-int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
+int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName,
+                                    CLunarCalendar::_CalendarType type)
 {
     if(szName.isEmpty() || szName == "") {
         qCritical(Logger, "AddHoliday parameter szName is empty");
         return -1;
     }
-    m_SolarHoliday[month][day] << szName;
+    if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
+        m_SolarHoliday[month][day] << szName;
+    }
+    if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
+        CCalendarLunar::AddHoliday(month, day, szName);
+    }
+    return 0;
     int row, col;
     QDate date(m_ShownYear, month, day);
     cellForDate(date, &row, &col);
@@ -854,6 +862,12 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName)
         return -2;
     m_Day[row * 7 + col].SolarHoliday.push_back(szName);
     return 0;
+}
+
+int CLunarCalendarModel::ClearHoliday()
+{
+    m_SolarHoliday.clear();
+    return CCalendarLunar::ClearHoliday();
 }
 
 int CLunarCalendarModel::AddAnniversary(int month, int day, const QString &szName)

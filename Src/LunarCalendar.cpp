@@ -393,9 +393,11 @@ int CLunarCalendar::ShowSelectTitle()
     d = pModel->GetDate();
     if(d.isNull()) return -2;
     QString szDate;
-    if(_CalendarType::CalendarTypeSolar & GetCalendarType())
+    if(static_cast<int>(_CalendarType::CalendarTypeSolar)
+        & static_cast<int>(GetCalendarType()))
         szDate = d.toString(locale().dateFormat(QLocale::LongFormat));
-    if(_CalendarType::CalendarTypeLunar & GetCalendarType())
+    if(static_cast<int>(_CalendarType::CalendarTypeLunar)
+        & static_cast<int>(GetCalendarType()))
         szDate += " " + SelectedLunar();
     m_lbDate.setText(szDate);
     return 0;
@@ -488,7 +490,8 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
         if(pModel && m_bShowBackgroupImage)
         {
             QString szBackgrpup = ":/image/" + QString::number(pModel->GetShowMonth());
-            if(_CalendarType::CalendarTypeLunar & GetCalendarType())
+            if(static_cast<int>(_CalendarType::CalendarTypeLunar)
+                & static_cast<int>(GetCalendarType()))
                 szBackgrpup += "_zh_CN";
             SetBackgroup(szBackgrpup);    
         }
@@ -1167,11 +1170,18 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched, event);
 }
 
-int CLunarCalendar::AddHoliday(int month, int day, const QString &szName)
+int CLunarCalendar::AddHoliday(int month, int day, const QString &szName, _CalendarType type)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
-    return pModel->AddHoliday(month, day, szName);
+    return pModel->AddHoliday(month, day, szName, type);
+}
+
+void CLunarCalendar::ClearHoliday()
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return;
+    pModel->ClearHoliday();
 }
 
 int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName)
@@ -1264,8 +1274,9 @@ CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
-        return static_cast<_CalendarType>(_CalendarType::CalendarTypeLunar
-                                          | _CalendarType::CalendarTypeSolar);
+        return static_cast<_CalendarType>(
+            static_cast<int>(_CalendarType::CalendarTypeLunar)
+            | static_cast<int>(_CalendarType::CalendarTypeSolar));
     return pModel->GetCalendarType();
 }
 

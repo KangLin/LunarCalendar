@@ -119,7 +119,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadposition->addAction(pHeadLeft);
     pViewHeadposition->addAction(pHeadRight);
     //! [Set UI]
-
+    
+    pViewMenu->addAction(tr("Clear holidays"), m_pLunarCalendar, SLOT(ClearHoliday()));
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
     pViewMenu->addAction(tr("Genetate cache table"), this, SLOT(slotGenerateCalendarTable()));
@@ -136,9 +137,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
     m_pLunarCalendar->SetSelectedDate(QDate(2014, 10, 8));
 
-    /*/! [Add Holiday]
+    //*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
-    m_pLunarCalendar->AddHoliday(10, 1, "holiday1");
+    m_pLunarCalendar->AddHoliday(10, 1, "holiday1",
+                              CLunarCalendar::_CalendarType::CalendarTypeLunar);
     //! [Add Holiday] */
 
     /*! [Add Anniversary]
@@ -249,13 +251,13 @@ void MainWindow::slotActionLunar(bool checked)
     if(checked)
         m_pLunarCalendar->SetCalendarType(
             static_cast<CLunarCalendar::_CalendarType>(
-                CLunarCalendar::CalendarTypeLunar
-                | m_pLunarCalendar->GetCalendarType()));
+                static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar)
+                | static_cast<int>(m_pLunarCalendar->GetCalendarType())));
     else
         m_pLunarCalendar->SetCalendarType(
             static_cast<CLunarCalendar::_CalendarType>(
-                ~CLunarCalendar::CalendarTypeLunar
-                & m_pLunarCalendar->GetCalendarType()));
+                ~static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar)
+                & static_cast<int>(m_pLunarCalendar->GetCalendarType())));
 }
 
 void MainWindow::slotActionSolar(bool checked)
@@ -263,13 +265,13 @@ void MainWindow::slotActionSolar(bool checked)
     if(checked)
         m_pLunarCalendar->SetCalendarType(
             static_cast<CLunarCalendar::_CalendarType>(
-                CLunarCalendar::CalendarTypeSolar
-                | m_pLunarCalendar->GetCalendarType()));
+                static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar)
+                | static_cast<int>(m_pLunarCalendar->GetCalendarType())));
     else
         m_pLunarCalendar->SetCalendarType(
             static_cast<CLunarCalendar::_CalendarType>(
-                ~CLunarCalendar::CalendarTypeSolar
-                & m_pLunarCalendar->GetCalendarType()));
+                ~static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar)
+                & static_cast<int>(m_pLunarCalendar->GetCalendarType())));
 }
 
 void MainWindow::slotViewMonth()

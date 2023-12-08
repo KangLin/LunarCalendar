@@ -220,6 +220,12 @@ int CCalendarLunar::AddHoliday(int month, int day, const QString &szName)
     return 0;
 }
 
+int CCalendarLunar::ClearHoliday()
+{
+    g_Holiday.clear();
+    return 0;
+}
+
 int CCalendarLunar::AddAnniversary(int month, int day, const QString &szName)
 {
     if(szName.isEmpty())

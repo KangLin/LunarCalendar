@@ -60,8 +60,19 @@ public:
 
     //! \name 以年为周期的
     //! @{
-    //! 节日是全局的，所以当多个实例时，每个实例都是一样的。
+    
+    /*!
+     * \brief 增加农历节日
+     * \param month 农历月份
+     * \param day 农历日
+     * \param szName 节日名，不能为空
+     * \note 节日是全局的，所以当多个实例时，每个实例都是一样的。
+     */
     static int AddHoliday(int month, int day, const QString &szName);
+    /*!
+     * \brief 删除所有节日
+     */
+    static int ClearHoliday();
     //! 周年纪念日是全局的，所以当多个实例时，每个实例都是一样的。
     static int AddAnniversary(int month, int day, const QString &szName);
     //! @}

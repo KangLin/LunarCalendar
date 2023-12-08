@@ -95,7 +95,10 @@ public:
     QDate dateForCell(int row, int column) const;
     void cellForDate(const QDate &date, int *row, int *column) const;
     
-    int AddHoliday(int month, int day, const QString &szName);
+    int AddHoliday(int month, int day, const QString &szName,
+                   CLunarCalendar::_CalendarType type
+                   = CLunarCalendar::_CalendarType::CalendarTypeSolar);
+    int ClearHoliday();
     int AddAnniversary(int month, int day, const QString &szName);
     int AddLunarAnniversary(int month, int day, const QString &szName);
     int SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler);
@@ -155,9 +158,9 @@ private:
     Qt::DayOfWeek m_FirstDay;
     QLocale m_Locale;
     enum class __WORK_DAY {
-        NO,
-        WORK,
-        REST
+        NO = 0,    //!< 无
+        WORK,       //!< 工作
+        REST,      //!< 休息
     };
     // cached day
     struct _DAY

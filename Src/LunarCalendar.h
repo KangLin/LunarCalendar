@@ -201,6 +201,8 @@ public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
     
+    enum class _CalendarType;
+    
     //! \name 资源操作
     //! @{
     /*!
@@ -273,9 +275,18 @@ public:
      * \param month: 节日月份
      * \param day: 节日日期
      * \param szName: 节日名。不能为空或""
+     * \param type: 节日类型
      * \image html Docs/image/Holiday.png
      */
-    int AddHoliday(int month, int day, const QString &szName);
+    int AddHoliday(int month, int day, const QString &szName,
+                   _CalendarType type = _CalendarType::CalendarTypeSolar);
+public Q_SLOTS:
+    /*!
+     * \brief Clear all holiday
+     * \return 
+     */
+    void ClearHoliday();
+public:
     /*!
      * \brief 设置周年纪念日（例如：公历生日）
      * \param month: 月
@@ -385,11 +396,11 @@ public:
     //! @{
     
     enum class _HEAD_position {
-        Not = 0,   //! 无
-        Top,       //! 上
-        Down,      //! 下
-        Left,      //! 左
-        Right      //! 右
+        Not = 0,   //!< 无
+        Top,       //!< 上
+        Down,      //!< 下
+        Left,      //!< 左
+        Right      //!< 右
     };
     /*!
      * \brief 设置日历头的位置
@@ -455,9 +466,9 @@ public Q_SLOTS:
 public:
     
     //! 日历类型
-    enum _CalendarType {
-        CalendarTypeSolar = 0x01,  //! 阳历
-        CalendarTypeLunar = 0x02   //! 农历
+    enum class _CalendarType {
+        CalendarTypeSolar = 0x01,  //!< 阳历
+        CalendarTypeLunar = 0x02   //!< 农历
     };
     //! 设置日历类型（组合）
     int SetCalendarType(_CalendarType type);
@@ -466,8 +477,8 @@ public:
     
     //! 视图类型
     enum class _VIEW_TYPE {
-        ViewTypeMonth,  //! 月
-        ViewTypeWeek    //! 周
+        ViewTypeMonth,  //!< 月
+        ViewTypeWeek    //!< 周
     };
     //!　设置视图类型
     int SetViewType(_VIEW_TYPE type);

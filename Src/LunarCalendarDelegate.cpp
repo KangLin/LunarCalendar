@@ -62,8 +62,10 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
     
-    bool bSolar = pModel->GetCalendarType() & CLunarCalendar::_CalendarType::CalendarTypeSolar;
-    bool bLunar = pModel->GetCalendarType() & CLunarCalendar::_CalendarType::CalendarTypeLunar;
+    bool bSolar =  static_cast<int>(pModel->GetCalendarType())
+                  & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar);
+    bool bLunar = static_cast<int>(pModel->GetCalendarType())
+                  & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar);
    
     QFont fontSolar = option.font;
     QFont fontLunar = fontSolar;
