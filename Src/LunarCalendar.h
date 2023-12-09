@@ -144,24 +144,24 @@
  * 
  * 只需要使用下列方法之一：
  * 
- * - 使用 CLunarCalendar::SetTaskHandle(QSharedPointer<CTaskHandler> handler) 处理自定义任务
+ * - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务
  *
  *   - 定义 CTaskHandler 的派生类
- * \snippet App/MainWindow.h Define CTaskHandler derived class
+ *     \snippet App/MainWindow.h Define CTaskHandler derived class
  *   - 实现 onHandle 处理函数
- * \snippet App/MainWindow.cpp Implement the onHandle function
+ *     \snippet App/MainWindow.cpp Implement the onHandle function
  *   - 定义 CHandler 变量
- * \snippet App/MainWindow.h Defined CHandler variable
+ *     \snippet App/MainWindow.h Defined CHandler variable
  *   - 实例化 CHandler
- * \snippet App/MainWindow.cpp Instance CHandler
+ *     \snippet App/MainWindow.cpp Instance CHandler
  *   - 用 SetTaskHandle 设置处理类
- * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
+ *     \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
  *
  * - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。
  * 需要标准C++11及以后才支持。
- * 
- * \snippet App/MainWindow.cpp User defined tasks
- * 
+ *
+ *   \snippet App/MainWindow.cpp User defined tasks
+ *
  * \subsection TaskPerformance 任务性能
  * - 节日
  * 
@@ -180,7 +180,7 @@
  * - \ref UserDefinedTasks 时，回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
  * 
  * \section 文档
- * - [开发文档](modules.html)
+ * - [开发文档](topics.html)
  * - \ref Example
  */
 
@@ -204,8 +204,21 @@
  * \snippet  App/MainWindow.cpp Add Holiday
  * - [可选]设置周年纪念日
  * \snippet App/MainWindow.cpp Add Anniversary
- * - [可选]设置自定义任务
- * \snippet App/MainWindow.cpp User defined tasks
+ * - [可选]设置自定义任务  
+ *   使用下列方法之一：
+ *   - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。 需要标准C++11及以后才支持。
+ *     \snippet App/MainWindow.cpp User defined tasks
+ *   - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务
+ *     - 定义 CTaskHandler 的派生类
+ *       \snippet App/MainWindow.h Define CTaskHandler derived class
+ *     - 实现 onHandle 处理函数
+ *       \snippet App/MainWindow.cpp Implement the onHandle function
+ *     - 定义 CHandler 变量
+ *       \snippet App/MainWindow.h Defined CHandler variable
+ *     - 实例化 CHandler
+ *       \snippet App/MainWindow.cpp Instance CHandler
+ *     - 用 SetTaskHandle 设置处理类
+ *       \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
  * - [可选]处理选择事件
  *   - 连接选择信号
  *     \snippet App/MainWindow.cpp sigSelectionChanged
@@ -331,7 +344,8 @@ public:
 
     /*!
      * \ref UserDefinedTasks 类
-     * \see SetTaskHandle
+     * \snippet App/MainWindow.h Define CTaskHandler derived class
+     * \see SetTaskHandle \ref UserDefinedTasks
      */
     class CTaskHandler
     {
@@ -347,6 +361,9 @@ public:
          *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
          * \return 任务数。
          *    \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
+         * \details 例子：
+         * \snippet App/MainWindow.cpp Implement the onHandle function
+         * \see \ref UserDefinedTasks
          *
          * \image html Docs/image/Task.png
          */
@@ -355,10 +372,20 @@ public:
     /*!
      * \brief 处理 \ref UserDefinedTasks
      * \param handler 任务处理类（CTaskHandler）
-     *
+     * \details 使用方法：
+     * - 定义 CTaskHandler 的派生类
+     * \snippet App/MainWindow.h Define CTaskHandler derived class
+     * - 实现 onHandle 处理函数
+     * \snippet App/MainWindow.cpp Implement the onHandle function
+     * - 定义 CHandler 变量
+     * \snippet App/MainWindow.h Defined CHandler variable
+     * - 实例化 CHandler
+     * \snippet App/MainWindow.cpp Instance CHandler
+     * - 用 SetTaskHandle 设置处理类
+     * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
+     * 
+     * \see \ref UserDefinedTasks
      * \image html Docs/image/Task.png
-     *
-     * \see CTaskHandler
      */
     int SetTaskHandle(QSharedPointer<CTaskHandler> handler);
 
@@ -374,10 +401,12 @@ public:
      *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
      *      \return 任务数。
      *         \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
-     * 
+     * \details 例子：
      * \snippet App/MainWindow.cpp User defined tasks
      *
      * \note 需要 c++ 标准 11
+     * 
+     * \see \ref UserDefinedTasks
      *
      * \image html Docs/image/Task.png
      */

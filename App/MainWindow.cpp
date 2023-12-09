@@ -178,6 +178,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddHoliday(10, 1, "h1");
     m_pLunarCalendar->AddHoliday(10, 1, "lh1",
                               CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    m_pLunarCalendar->Update();
     //! [Add Holiday] */
 
     //*! [Add Anniversary]
@@ -192,6 +193,7 @@ MainWindow::MainWindow(QWidget *parent) :
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
     m_pLunarCalendar->AddAnniversary(9, 10, "l3",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    m_pLunarCalendar->Update();
     //! [Add Anniversary] */
     
     //! [Instance CHandler]
@@ -236,7 +238,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // 没有任务
         return 0;});
-    m_pLunarCalendar->Update();
     //! [User defined tasks] */
 
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);

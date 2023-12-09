@@ -3,7 +3,7 @@
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "LunarCalendar"
 !define PRODUCT_APP_NAME "LunarCalendarApp"
-!define PRODUCT_VERSION "v0.2.8"
+!define PRODUCT_VERSION "v0.3.0"
 !define PRODUCT_PUBLISHER "KangLin studio"
 !define PRODUCT_WEB_SITE "https://github.com/KangLin/${PRODUCT_NAME}"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\${PRODUCT_NAME}.exe"
