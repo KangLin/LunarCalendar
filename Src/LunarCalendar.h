@@ -522,6 +522,12 @@ public:
     //! 得到视图类型
     _VIEW_TYPE GetViewType() const;
     
+    /*!
+     * \brief 更新数据和视图
+     * \return 
+     */
+    int Update();
+    
     //! @} 设置界面
 
     enum class _TOUCH_UP_DOWN_FUNCTION {
@@ -532,8 +538,6 @@ public:
     
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
-    
-    int Update();
     
     //! \name 下列功能仅由开发者使用。客户不要使用。
     //! \ref RoleDefinitions

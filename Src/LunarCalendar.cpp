@@ -474,7 +474,7 @@ void CLunarCalendar::soltShowToday()
 
 /*!
  * \brief CLunarCalendar::UpdateViewModel
- * \param bForce ture：强制更新数据。
+ * \param bForce true：强制更新数据。
  *               false:当不是当前选择年月，才更新数据
  * \return 
  */

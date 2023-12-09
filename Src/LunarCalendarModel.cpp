@@ -856,21 +856,9 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName,
     }
     if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
         m_SolarHoliday[month][day] << szName;
-        int row = 0, col = 0;
-        QDate date(m_ShownYear, month, day);
-        cellForDate(date, &row, &col);
-        if(-1 == row || -1 == col || m_Day.isEmpty())
-            return -2;
-        m_Day[row * 7 + col].SolarHoliday.push_back(szName);
     }
     if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
         m_LunarHoliday[month][day] << szName;
-        int row = 0, col = 0;
-        QDate date = CCalendarLunar::GetSolar(m_ShownYear, month, day);
-        cellForDate(date, &row, &col);
-        if(-1 == row || -1 == col || m_Day.isEmpty())
-            return -2;
-        m_Day[row * 7 + col].LunarHoliday.push_back(szName);
     }
     return 0;
 }
@@ -891,23 +879,11 @@ int CLunarCalendarModel::AddAnniversary(int month, int day,
         return -1;
     }
 
-    int row = 0, col = 0;
-    QDate date;
     if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
         m_SolarAnniversary[month][day] << szName;
-        date = QDate(m_ShownYear, month, day);
-        cellForDate(date, &row, &col);
-        if(-1 == row || -1 == col || m_Day.isEmpty())
-            return -2;
-        m_Day[row * 7 + col].Anniversary.push_back(szName);
     }
     if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
         m_LunarAnniversary[month][day] << szName;
-        date = CCalendarLunar::GetSolar(m_ShownYear, month, day);
-        cellForDate(date, &row, &col);
-        if(-1 == row || -1 == col || m_Day.isEmpty())
-            return -2;
-        m_Day[row * 7 + col].Anniversary.push_back(szName);
     }
 
     return 0;
