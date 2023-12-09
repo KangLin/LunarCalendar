@@ -293,7 +293,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
          * - 任务取值： 包括周年纪念日、任务、任务计数之和
          */
         _DAY day = GetDay(row, column);
-        return day.Anniversary.size() + day.Tasks.size();
+        return day.TaskCounts + day.Anniversary.size() + day.Tasks.size();
     }
     case ROLE::TasksColorRole:
         return _COLOR_ROLE::ColorHighlight;
@@ -427,11 +427,11 @@ int CLunarCalendarModel::slotUpdate()
             }
 
             if(m_GetTaskHandler)
-                m_GetTaskHandler->onHandle(d, day.Tasks);
+                day.TaskCounts += m_GetTaskHandler->onHandle(d, day.Tasks);
 
 #if HAS_CPP_11
             if(m_cbTaskHandler)
-                m_cbTaskHandler(d, day.Tasks);
+                day.TaskCounts += m_cbTaskHandler(d, day.Tasks);
 #endif
 
             day.WorkDay = __WORK_DAY::NO;

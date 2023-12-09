@@ -313,7 +313,9 @@ public:
          * \param date: 日期
          * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
          *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
-         * \return 任务数。目前忽略
+         *                      或者不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+         * \return 任务数。
+         *    \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
          */
         virtual uint onHandle(/*in*/const QDate& date, /*out*/QStringList& tasks) = 0;
     };
@@ -333,7 +335,9 @@ public:
      *      \param date: 要处理的日期
      *      \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
      *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
-     *      \return 任务数。目前忽略
+     *                      或者不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+     *      \return 任务数。
+     *         \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
      * 
      * \snippet App/MainWindow.cpp User defined tasks
      * \note 需要 c++ 标准 11

@@ -179,6 +179,7 @@ private:
 
         QStringList Anniversary;
         QStringList Tasks;
+        uint TaskCounts;
 
         QString szImageBackgroup;
         __WORK_DAY WorkDay;

@@ -161,16 +161,33 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
         if(d.day() == 10 && d.month() == 10)
         {
+            // 表示显示圆点，也显示内容
             tasks << "辛亥革命纪念日";
+            return 0;
         }
-        
+
         if(d.day() == 11 && d.month() == 10)
+        {
+            // 表示只显示圆点，不显示内容。
+            return 1;
+        }
+
+        if(d.day() == 12 && d.month() == 10)
         {
             // 表示只显示圆点，不显示内容。
             tasks << QString();
             return 1;
         }
-        return tasks.size();});
+
+        // 清除设置过的所有任务
+        if(d.day() == 13 && d.month() == 10) {
+            tasks.clear();
+            return 0;
+        }
+
+        // 没有任务
+        return 0;});
+    m_pLunarCalendar->Update();
     //! [User defined tasks] */
 
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
