@@ -472,14 +472,23 @@ void CLunarCalendar::soltShowToday()
     SetSelectedDate(QDate::currentDate());
 }
 
+/*!
+ * \brief CLunarCalendar::UpdateViewModel
+ * \param bForce ture：强制更新数据。
+ *               false:当不是当前选择年月，才更新数据
+ * \return 
+ */
 int CLunarCalendar::UpdateViewModel(bool bForce)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -2;
-
-    //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
-    m_View.selectionModel()->clear();
+    
+    if (pModel->GetShowYear() != m_cmbYear.currentData().toInt()
+        || pModel->GetShowMonth() != m_cmbMonth.currentData().toInt()) {
+        //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
+        m_View.selectionModel()->clear();
+    }
     switch (GetViewType())
     {
     case _VIEW_TYPE::ViewTypeMonth:
@@ -1330,7 +1339,9 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
 
 int CLunarCalendar::Update()
 {
-    return UpdateViewModel(true);
+    int nRet = UpdateViewModel(true);
+
+    return nRet;
 }
 
 QSize CLunarCalendar::sizeHint() const
