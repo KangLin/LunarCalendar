@@ -1193,7 +1193,7 @@ int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName, CL
     return pModel->AddAnniversary(month, day, szName, type);
 }
 
-int CLunarCalendar::SetTaskHandle(QSharedPointer<CGetTaskHandler> handler)
+int CLunarCalendar::SetTaskHandle(QSharedPointer<CTaskHandler> handler)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;

@@ -4,11 +4,19 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSharedPointer>
 #include "LunarCalendar.h"
 
 namespace Ui {
 class MainWindow;
 }
+
+//! [Define CTaskHandler derived class]
+class CHandler : public CLunarCalendar::CTaskHandler
+{
+    virtual uint onHandle(/*in*/const QDate& d, /*out*/QStringList& tasks) override final;
+};
+//! [Define CTaskHandler derived class]
 
 /*!
  * \ingroup Example
@@ -42,6 +50,10 @@ private:
     //! [Instance CLunarCalendar]
     CLunarCalendar* m_pLunarCalendar;
     //! [Instance CLunarCalendar]
+    
+    //! [Defiend CHandler variable]
+    QSharedPointer<CHandler> m_Hnadler;
+    //! [Defiend CHandler variable]
 };
 
 #endif // MAINWINDOW_H

@@ -102,7 +102,7 @@ public:
     int AddAnniversary(int month, int day, const QString &szName,
                        CLunarCalendar::_CalendarType type
                        = CLunarCalendar::_CalendarType::CalendarTypeSolar);
-    int SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler);
+    int SetTaskHandle(QSharedPointer<CLunarCalendar::CTaskHandler> handler);
 #if HAS_CPP_11
     /*!
      * \note It is need c++ standard 11
@@ -197,8 +197,8 @@ private:
     CLunarCalendar::_CalendarType m_calendarType;
 
     bool m_bEnableToolTip;
-
-    QSharedPointer<CLunarCalendar::CGetTaskHandler> m_GetTaskHandler;
+    
+    QSharedPointer<CLunarCalendar::CTaskHandler> m_GetTaskHandler;
 #if HAS_CPP_11
     std::function<uint(const QDate& date, QStringList& tasks)> m_cbTaskHandler;
 #endif

@@ -907,7 +907,7 @@ int CLunarCalendarModel::AddAnniversary(int month, int day,
     return 0;
 }
 
-int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CGetTaskHandler> handler)
+int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CTaskHandler> handler)
 {
     m_GetTaskHandler = handler;
     return 0;

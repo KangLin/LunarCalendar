@@ -105,55 +105,79 @@
  * \section Tasks 任务
  * 
  * 任务可分为：
- *  - 年为周期。例如：节日；纪念日
+ *  - 年为周期。例如：节日；周年纪念日
  *  - 月为周期。例如：中国发工资；还贷款
  *  - 星期为周期。例如：开会；国外发工资
- *  - 以及其它周期性任务
+ *  - 其它周期性任务。例如：女性月经
+ *  - 非周期性任务
  *  - 单个任务
  *
  * 由于任务类型众多，所以本项目只处理以年为周期的任务。其它类型任务由使用者自行处理，
  * 参见： \ref UserDefinedTasks 。
  *
- * \subsection Holiday 节日（以年为周期的任务）
- * - 以年为周期的任务
- *   - 中国节假日（一群闲得蛋疼的人搞出来和玩意），在左上角显示
- *   - 节日
- *     - 公历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
- *     - 农历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
- *     - 节气
- *   - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
- *     - 公历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
- *     - 农历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
+ * \subsection Holiday 节日、周年纪念日（以年为周期的任务）
+ * - 中国节假日（一群闲得蛋疼的人搞出来和玩意），在左上角显示
+ * - 节日
+ *   - 公历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
+ *   - 农历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
+ *   - 节气
+ * - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
+ *   - 公历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
+ *   - 农历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
  *
  * \subsection TasksDisplay 任务显示
  * - 中国节假日，在左上角显示。
  * - 节日，放在农历位置上显示。最多显示最前一个。高亮加粗体
  * - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
  *
- * \subsubsection HolidayPriority 农历位置显示优先级
+ * \subsubsection HolidayPriority 农历位置显示类型优先级
  *   - 公历节日
  *   - 农历节日
  *   - 节气
  *   - 周年纪念日
- *     - 公历
- *     - 农历
  *   - 任务
  *   - 农历
  *
- * \image html Docs/image/Holiday.png
+ * \image html Docs/image/Task.png
  *
  * \subsection UserDefinedTasks 使用者自定义任务
  * 
- * 使用 CLunarCalendar::SetTaskHandle 处理自定义任务
+ * 只需要使用下列方法之一：
+ * 
+ * - 使用 CLunarCalendar::SetTaskHandle(QSharedPointer<CTaskHandler> handler) 处理自定义任务
+ *
+ *   - 定义 CTaskHandler 的派生类
+ * \snippet App/MainWindow.h Define CTaskHandler derived class
+ *   - 实现 onHandle 处理函数
+ * \snippet App/MainWindow.cpp Implement the onHandle function
+ *   - 定义 CHandler 变量
+ * \snippet App/MainWindow.h Defiend CHandler variable
+ *   - 实例化 CHandler
+ * \snippet App/MainWindow.cpp Instance CHandler
+ *   - 用 SetTaskHandle 设置处理类
+ * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
+ *
+ * - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。
+ * 需要标准C++11及以后才支持。
  * 
  * \snippet App/MainWindow.cpp User defined tasks
  * 
  * \subsection TaskPerformance 任务性能
- * 默认的节日数量比较少，所以目前节日与周年纪念日都是保存在内存中。
- * 提供了 CLunarCalendar::AddHoliday 、 CLunarCalendar::AddAnniversary 、 
- * 来增加使用者的少量自定义的节日与周年纪念日。
- * **注意** 增加多了，会增加内存的使用量。
- * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并持久化存储。
+ * - 节日
+ * 
+ * 在 CLunarCalendar 初始化时会加载默认的节日到内存中。
+ * 如果使用者不想使用默认的节日，使用者可以调用 CLunarCalendar::ClearHoliday 来清空所有节日（包括默认的节日）。
+ * 使用者可以使用 CLunarCalendar::AddHoliday 增加少量的节日。
+ * - 周年纪念日
+ * 
+ * 使用者可以使用 CLunarCalendar::AddAnniversary 来增加少量的周年纪念日。
+ * 
+ * **注意** 
+ * 
+ * - 节日和周年纪念日增加多了，会增加内存的使用量。
+ * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并做持久化存储。
+ * - 节日和周年纪念日只保存在内存中，没有做持久化存储。由使用者做持久化存储。
+ * - \ref UserDefinedTasks 时，回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
  * 
  * \section 文档
  * - [开发文档](modules.html)
@@ -176,6 +200,8 @@
  * \snippet App/MainWindow.cpp Instance CLunarCalendar
  * - [可选]设置界面 
  * \snippet App/MainWindow.cpp Set UI
+ * - [可选]设置节日
+ * \snippet  App/MainWindow.cpp Add Holiday
  * - [可选]设置周年纪念日
  * \snippet App/MainWindow.cpp Add Anniversary
  * - [可选]设置自定义任务
@@ -250,9 +276,8 @@ public:
      * \param year 农历年
      * \param month 农历月
      * \param day 农历日
-     * \return 
      */
-    int SelectedLunar(int &year, int &month, int &day);
+    int SelectedLunar(/*out*/int &year, /*out*/int &month, /*out*/int &day);
     /*!
      * \brief 得到给定日期的农历（公历转农历）
      * \param date: 日期
@@ -261,7 +286,7 @@ public:
      * \param day: 农历日
      * \return 
      */
-    static int GetLunar(const QDate date, int &year, int &month, int &day);
+    static int GetLunar(/*in*/const QDate date, /*out*/int &year, /*out*/int &month, /*out*/int &day);
     
     //! @} 日期操作
     
@@ -271,12 +296,14 @@ public:
     /*!
      * \brief 增加公历假日
      * \details
-     * \snippet App/MainWindow.cpp Add Holiday
      * \param month: 节日月份
      * \param day: 节日日期
      * \param szName: 节日名。不能为空或""
      * \param type: 节日类型
-     * \image html Docs/image/Holiday.png
+     *
+     * \snippet App/MainWindow.cpp Add Holiday
+     *
+     * \image html Docs/image/Task.png
      */
     int AddHoliday(int month, int day, const QString &szName,
                    _CalendarType type = _CalendarType::CalendarTypeSolar);
@@ -293,7 +320,10 @@ public:
      * \param day: 日
      * \param szName: 纪念日名。不能为空或""
      * \param type: 周年纪念日类型
-     * \image html Docs/image/Holiday.png
+     *
+     * \snippet App/MainWindow.cpp Add Anniversary
+     *
+     * \image html Docs/image/Task.png
      */
     int AddAnniversary(int month, int day, const QString &szName,
                        CLunarCalendar::_CalendarType type
@@ -303,29 +333,34 @@ public:
      * \ref UserDefinedTasks 类
      * \see SetTaskHandle
      */
-    class CGetTaskHandler
+    class CTaskHandler
     {
     public:
-        CGetTaskHandler() {}
-        virtual ~CGetTaskHandler(){}
+        CTaskHandler() {}
+        virtual ~CTaskHandler(){}
         /*!
          * \ref UserDefinedTasks
          * \param date: 日期
-         * \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
-         *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
-         *                      或者不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+         * \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
+         *          \note
+         *            - 加入空字符或"":表示只显示圆点，不显示内容。
+         *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
          * \return 任务数。
          *    \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
+         *
+         * \image html Docs/image/Task.png
          */
         virtual uint onHandle(/*in*/const QDate& date, /*out*/QStringList& tasks) = 0;
     };
     /*!
      * \brief 处理 \ref UserDefinedTasks
-     * \param handler
-     * \return 
-     * \see CGetTaskHandler
+     * \param handler 任务处理类（CTaskHandler）
+     *
+     * \image html Docs/image/Task.png
+     *
+     * \see CTaskHandler
      */
-    int SetTaskHandle(QSharedPointer<CGetTaskHandler> handler);
+    int SetTaskHandle(QSharedPointer<CTaskHandler> handler);
 
 #if HAS_CPP_11
     /*!
@@ -333,14 +368,18 @@ public:
      *
      * \param cbHandler: 处理函数
      *      \param date: 要处理的日期
-     *      \param tasks: 任务列表。如果使用者有新任务，则加入到些列表中。
-     *          \note tasks 加入空字符或""。表示只显示圆点，不显示内容。
-     *                      或者不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+     *      \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
+     *          \note 
+     *            - 加入空字符或"":表示只显示圆点，不显示内容。
+     *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
      *      \return 任务数。
      *         \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
      * 
      * \snippet App/MainWindow.cpp User defined tasks
+     *
      * \note 需要 c++ 标准 11
+     *
+     * \image html Docs/image/Task.png
      */
     virtual int SetTaskHandle(std::function<uint(/*in*/const QDate& date, /*out*/QStringList& tasks)> cbHandler);
 #endif
@@ -528,7 +567,10 @@ public:
 Q_SIGNALS:
     /*!
      * \brief 当前选择日期改变时触发
-     * 可以在相应的槽函数中调用 SelectedDate() 或　SelectedLunar() 得到选择的日期
+     * 可以在相应的槽函数中调用下列函数得到选择的日期：
+     *  - SelectedDate()
+     *  - SelectedLunar()
+     *  - SelectedLunar(int &year, int &month, int &day) 
      */
     void sigSelectionChanged();
     

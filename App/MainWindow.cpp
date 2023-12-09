@@ -15,6 +15,43 @@
 #endif
 
 static Q_LOGGING_CATEGORY(Logger, "App")
+    
+//! [Implement the onHandle function]
+uint CHandler::onHandle(/*in*/const QDate& d, /*out*/QStringList& tasks){
+    // 以年为周期
+    if(d.day() == 20 && d.month() == 10)
+    {
+        // 表示显示圆点，也显示内容
+        tasks << "t1";
+        return 0;
+    }
+    
+    // 以月为周期
+    if(d.day() == 21)
+    {
+        // 表示只显示圆点，不显示内容
+        return 1;
+    }
+    
+    // 以周为周期
+    if(Qt::Wednesday == d.dayOfWeek())
+    {
+        // 表示只显示圆点，不显示内容。建议用上面的方式
+        tasks << QString();
+        return 0;
+    }
+    
+    // 单个任务
+    if(d.day() == 22 && d.month() == 10 && d.year() == 2015)
+    {
+        // 表示只显示圆点，不显示内容
+        return 1;
+    }
+    
+    // 没有任务
+    return 0;
+}
+//! [Implement the onHandle function]
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -138,27 +175,36 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->SetSelectedDate(QDate(2015, 10, 8));
     
     //*/! [Add Holiday]
-    m_pLunarCalendar->AddHoliday(11, 11, "淘宝节");
-    m_pLunarCalendar->AddHoliday(10, 1, "holiday1",
+    m_pLunarCalendar->AddHoliday(10, 1, "h1");
+    m_pLunarCalendar->AddHoliday(10, 1, "lh1",
                               CLunarCalendar::_CalendarType::CalendarTypeLunar);
     //! [Add Holiday] */
 
     //*! [Add Anniversary]
-    m_pLunarCalendar->AddAnniversary(10, 1, "ann");
-    m_pLunarCalendar->AddAnniversary(10, 1, "ann1");
-    m_pLunarCalendar->AddAnniversary(9, 29, "ann2");
-    m_pLunarCalendar->AddAnniversary(10, 24, "you birth");
-    m_pLunarCalendar->AddAnniversary(10, 26, "爸生日");
-    m_pLunarCalendar->AddAnniversary(8, 17, "My birth",
+    m_pLunarCalendar->AddAnniversary(10, 1, "a1");
+    m_pLunarCalendar->AddAnniversary(10, 1, "a2");
+    m_pLunarCalendar->AddAnniversary(9, 29, "a3");
+    m_pLunarCalendar->AddAnniversary(10, 24, "a4");
+    m_pLunarCalendar->AddAnniversary(10, 26, "a5");
+    m_pLunarCalendar->AddAnniversary(8, 17, "l1",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->AddAnniversary(8, 17, "My birth1",
+    m_pLunarCalendar->AddAnniversary(8, 17, "l2",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->AddAnniversary(9, 10, "you birth2",
+    m_pLunarCalendar->AddAnniversary(9, 10, "l3",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
     //! [Add Anniversary] */
-
+    
+    //! [Instance CHandler]
+    m_Hnadler = QSharedPointer<CHandler>(new CHandler());
+    //! [Instance CHandler]
+    //! [Set user defined tasks with CTaskHandler]
+    m_pLunarCalendar->SetTaskHandle(m_Hnadler);
+    //! [Set user defined tasks with CTaskHandler]
+    
     //*! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
+
+        // 以年为周期
         if(d.day() == 10 && d.month() == 10)
         {
             // 表示显示圆点，也显示内容
@@ -166,23 +212,26 @@ MainWindow::MainWindow(QWidget *parent) :
             return 0;
         }
 
-        if(d.day() == 11 && d.month() == 10)
+        // 以月为周期
+        if(d.day() == 11)
         {
-            // 表示只显示圆点，不显示内容。
+            // 表示只显示圆点，不显示内容
             return 1;
         }
 
-        if(d.day() == 12 && d.month() == 10)
+        // 以周为周期
+        if(Qt::Monday == d.dayOfWeek())
         {
-            // 表示只显示圆点，不显示内容。
+            // 表示只显示圆点，不显示内容。建议用上面的方式
             tasks << QString();
-            return 1;
+            return 0;
         }
 
-        // 清除设置过的所有任务
-        if(d.day() == 13 && d.month() == 10) {
-            tasks.clear();
-            return 0;
+        // 单个任务
+        if(d.day() == 12 && d.month() == 10 && d.year() == 2015)
+        {
+            // 表示只显示圆点，不显示内容
+            return 1;
         }
 
         // 没有任务
