@@ -151,7 +151,7 @@
  *   - 实现 onHandle 处理函数
  * \snippet App/MainWindow.cpp Implement the onHandle function
  *   - 定义 CHandler 变量
- * \snippet App/MainWindow.h Defiend CHandler variable
+ * \snippet App/MainWindow.h Defined CHandler variable
  *   - 实例化 CHandler
  * \snippet App/MainWindow.cpp Instance CHandler
  *   - 用 SetTaskHandle 设置处理类

@@ -51,9 +51,9 @@ private:
     CLunarCalendar* m_pLunarCalendar;
     //! [Instance CLunarCalendar]
     
-    //! [Defiend CHandler variable]
+    //! [Defined CHandler variable]
     QSharedPointer<CHandler> m_Hnadler;
-    //! [Defiend CHandler variable]
+    //! [Defined CHandler variable]
 };
 
 #endif // MAINWINDOW_H
