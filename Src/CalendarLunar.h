@@ -13,6 +13,7 @@
 
 /*!
  * \brief 农历类
+ * \details 从阳历计算出农历
  * \ingroup INTERNAL_API
  */
 class CCalendarLunar : public QObject
@@ -37,10 +38,6 @@ public:
     //! 得到指定日期的农历当月的第几天（汉字）
     //! \note 编码：UTF-8 ，由文件编码决定
     QString GetLunarDay();
-    //! 得到节日
-    QStringList GetHoliday();
-    //! 得到周年纪念日（例如：生日）
-    QStringList GetAnniversary();
     //! 得到节气
     QString GetJieQi();
     //! 得到节气的图片
@@ -58,28 +55,8 @@ public:
      */
     static QDate GetSolar(int lunarYear, int lunarMonth, int lunarDay, bool bLeap = false);
 
-    //! \name 以年为周期的
-    //! @{
-    
-    /*!
-     * \brief 增加农历节日
-     * \param month 农历月份
-     * \param day 农历日
-     * \param szName 节日名，不能为空
-     * \note 节日是全局的，所以当多个实例时，每个实例都是一样的。
-     */
-    static int AddHoliday(int month, int day, const QString &szName);
-    /*!
-     * \brief 删除所有节日
-     */
-    static int ClearHoliday();
-    //! 周年纪念日是全局的，所以当多个实例时，每个实例都是一样的。
-    static int AddAnniversary(int month, int day, const QString &szName);
-    //! @}
-
 private:
     explicit CCalendarLunar(QObject *parent = nullptr);
-    int InitHoliday();
 
     /*!
      * \brief 得到指定日期的农历。
@@ -96,8 +73,6 @@ private:
     QString m_szLunarDay;
     QString m_szJieQi;
     QString m_szImageJieQi;
-    QStringList m_Holiday;
-    QStringList m_Anniversary;
 };
 
 #endif // LUNAR_H

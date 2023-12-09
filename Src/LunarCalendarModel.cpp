@@ -417,8 +417,14 @@ int CLunarCalendarModel::slotUpdate()
                 day.nLunarDay = lunar.GetDay();
                 day.szLunar = lunar.GetLunar();
                 day.szLunarDay = lunar.GetLunarDay();
-                
-                day.LunarHoliday = m_LunarHoliday[lunar.GetMonth()].value(lunar.GetDay());
+
+                // 除夕
+                if(12 == day.nLunarMonth && 29 <= day.nLunarDay) {
+                    CCalendarLunar l(d.addDays(1));
+                    if(1 == l.GetMonth())
+                        day.LunarHoliday << "除夕";
+                }
+                day.LunarHoliday << m_LunarHoliday[lunar.GetMonth()].value(lunar.GetDay());
                 if(!lunar.GetJieQi().isEmpty())
                     day.LunarHoliday << lunar.GetJieQi();
                 
