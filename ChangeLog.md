@@ -1,3 +1,7 @@
+- v0.3.1
+  + 自动化编译
+    - 为 android 包增加签名
+
 - v0.3.0
   + 修改　org.Rabbit.Calendar.desktop　中的 MimeType　值
   + 修改节日为列表
