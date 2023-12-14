@@ -50,7 +50,7 @@ before_install:
   - sudo Xvfb :99 -ac &
   - export DISPLAY=:99.0
   - mkdir -p ${SOURCE_DIR}/Tools
-  - export VERSION="v0.3.0"
+  - export VERSION="v0.3.1"
 
 install:
   - cd ${SOURCE_DIR}

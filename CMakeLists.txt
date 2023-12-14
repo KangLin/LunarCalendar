@@ -98,7 +98,7 @@ endif()
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
     OUT_REVISION LunarCalendar_REVISION)
 if(NOT LunarCalendar_VERSION)
-    SET(LunarCalendar_VERSION "v0.3.0")
+    SET(LunarCalendar_VERSION "v0.3.1")
 endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
 

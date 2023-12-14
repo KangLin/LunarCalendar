@@ -25,7 +25,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}\.cache\tools
       INSTALL_DIR: ${{github.workspace}}\.cache\install_mingw
       artifact_name: build_mingw
-      LunarCalendar_VERSION: v0.3.0
+      LunarCalendar_VERSION: v0.3.1
 
     # Map the job outputs to step outputs
     outputs:
