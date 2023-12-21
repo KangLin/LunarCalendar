@@ -12,6 +12,7 @@ Author: Kang Lin <kl222@126.com>
     - https://gitee.com/kl222/LunarCalendar
     - https://gitlab.com/kl222/LunarCalendar
     - https://sourceforge.net/projects/lunarcalendar/
+    - https://invent.kde.org/kanglin/LunarCalendar
 - [Project home](https://kanglin.github.io/LunarCalendar/html/index.html)
 
 ------------------------------------------------
