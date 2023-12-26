@@ -81,38 +81,39 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     setWindowTitle(tr("Lunar calendar"));
 
     //setLocale(QLocale("zh_CN"));
-    
+
     m_tbPreYear.setArrowType(Qt::UpArrow);
+    m_tbPreYear.setToolTip(tr("Previous year"));
+    m_tbPreYear.setStatusTip(tr("Previous year"));
     m_tbNextYear.setArrowType(Qt::DownArrow);
+    m_tbNextYear.setToolTip(tr("Next year"));
+    m_tbNextYear.setStatusTip(tr("Next year"));
     m_tbPreMonth.setArrowType(Qt::UpArrow);
+    m_tbPreMonth.setToolTip(tr("Previous month"));
+    m_tbPreMonth.setStatusTip(tr("Previous month"));
     m_tbNextMonth.setArrowType(Qt::DownArrow);
-    
-//    QLineEdit *yearEdit = new QLineEdit;
-//    yearEdit->setAlignment(Qt::AlignCenter);
-//    m_cmbYear.setLineEdit(yearEdit);
-//    QLineEdit *monthEdit = new QLineEdit;
-//    monthEdit->setReadOnly(true);
-//    monthEdit->setAlignment(Qt::AlignCenter);
-//    m_cmbMonth.setLineEdit(monthEdit);
-    
-    m_lbDate.setAlignment(Qt::AlignCenter);
-    m_lbTime.setAlignment(Qt::AlignCenter);
+    m_tbNextMonth.setToolTip(tr("Next month"));
+    m_tbNextMonth.setStatusTip(tr("Next month"));
+
+    //    QLineEdit *yearEdit = new QLineEdit;
+    //    yearEdit->setAlignment(Qt::AlignCenter);
+    //    m_cmbYear.setLineEdit(yearEdit);
+    //    QLineEdit *monthEdit = new QLineEdit;
+    //    monthEdit->setReadOnly(true);
+    //    monthEdit->setAlignment(Qt::AlignCenter);
+    //    m_cmbMonth.setLineEdit(monthEdit);
+
     //m_pbToday.setText(tr("Today"));
     m_pbToday.setIcon(QIcon::fromTheme("today"));
     m_pbToday.setToolTip(tr("Today"));
     m_pbToday.setStatusTip(tr("Today"));
-    m_pbToday.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Preferred);
-    
-//    m_tbPreYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-//    m_cmbYear.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-//    m_tbNextYear.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-//    m_tbPreMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-//    m_cmbMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-//    m_tbNextMonth.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-//    m_pbToday.setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    m_lbDate.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-    
+    m_pbToday.setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    m_lbDate.setAlignment(Qt::AlignCenter);
+    m_lbTime.setAlignment(Qt::AlignCenter);
+//    m_lbDate.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+//    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     m_View.setModel(pModel);
     m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
@@ -126,7 +127,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.setSelectionMode(QAbstractItemView::SingleSelection);
     m_View.setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_View.horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    
+    //m_View.horizontalHeader()->setStretchLastSection(true); //行头自适应表格
+
     /*
     m_View.horizontalHeader()->setMinimumSize(cell.size());
     m_View.horizontalHeader()->setMinimumSectionSize(cell.width());

@@ -159,6 +159,8 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return QVariant();
     
     switch (role) {
+    case Qt::FontRole:
+        return QFont();
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
@@ -296,6 +298,9 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return day.TaskCounts + day.Anniversary.size() + day.Tasks.size();
     }
     case ROLE::TasksColorRole:
+        if(d.month() != m_ShownMonth
+            && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
+            return _COLOR_ROLE::ColorDisable;
         return _COLOR_ROLE::ColorHighlight;
     case ROLE::BackgroupImage:
         return GetDay(row, column).szImageBackgroup;

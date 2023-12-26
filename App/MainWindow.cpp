@@ -244,10 +244,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-    m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_pLunarCalendar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setCentralWidget(m_pLunarCalendar);
     
+    QFont font = m_pLunarCalendar->font();
+    font.setItalic(true);
+    font.setStrikeOut(true);
+    //m_pLunarCalendar->setFont(font);
+
     //! [sigSelectionChanged]
     bool check = connect(m_pLunarCalendar, SIGNAL(sigSelectionChanged()),
                          this, SLOT(slotUpdateCalendar()));

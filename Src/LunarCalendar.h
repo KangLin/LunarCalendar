@@ -235,7 +235,7 @@ class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
     //Q_PROPERTY(Qt::DayOfWeek firstDayOfWeek READ FirstDayOfWeek WRITE SetFirstDayOfWeek)
     Q_PROPERTY(QDate minimumDate READ MinimumDate WRITE SetMinimumDate)
     Q_PROPERTY(QDate maximumDate READ MaximumDate WRITE SetMaximumDate)
-    
+
 public:
     explicit CLunarCalendar(QWidget *parent = nullptr);
     virtual ~CLunarCalendar() override;
@@ -556,7 +556,7 @@ public:
      * \return 
      */
     int Update();
-    
+
     //! @} 设置界面
 
     enum class _TOUCH_UP_DOWN_FUNCTION {
