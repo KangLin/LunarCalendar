@@ -186,6 +186,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddAnniversary(10, 1, "a2");
     m_pLunarCalendar->AddAnniversary(9, 29, "a3");
     m_pLunarCalendar->AddAnniversary(10, 24, "a4");
+    m_pLunarCalendar->AddAnniversary(10, 25, "老婆生日");
     m_pLunarCalendar->AddAnniversary(10, 26, "a5");
     m_pLunarCalendar->AddAnniversary(8, 17, "l1",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
@@ -238,12 +239,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
         // 没有任务
         return 0;});
+    m_pLunarCalendar->Update();
     //! [User defined tasks] */
 
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-    //m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);
-    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    m_pLunarCalendar->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     setCentralWidget(m_pLunarCalendar);
     
     //! [sigSelectionChanged]

@@ -57,7 +57,6 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     initStyleOption(&option, index);
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
-    QPalette paletteLunar = palette;
     QColor solarColor, lunarColor, tasksColor, workColor;
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
@@ -137,8 +136,11 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         fontLunar = GetFontRole(fontLunar,
                         index.data(CLunarCalendarModel::ROLE::LunarFontRole).toInt());
-        szLunar = index.data(CLunarCalendarModel::ROLE::LunarRole).toString();  
-        
+        szLunar = index.data(CLunarCalendarModel::ROLE::LunarRole).toString();
+        if(szLunar.length() > 3)
+        {
+            szLunar = szLunar.left(2) + "...";
+        }
         painter->setFont(fontLunar);
         QFontMetrics m = painter->fontMetrics();
         lunarHeight = m.height();
@@ -152,7 +154,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         height = qMax(height, lunarHeight);
         nRow++;
     }
-        
+
     if(pView->horizontalHeader()->minimumSectionSize() < width)
     {
 //        qDebug() << "pView->horizontalHeader()->minimumSectionSize():" << width;
@@ -177,7 +179,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         //painter->drawEllipse(option.rect);
         painter->drawRect(option.rect.adjusted(1, 1, -1, -1));
     }
-    
+
     if(pView->currentIndex() == index)
     {
         painter->setPen(QPen(Qt::NoPen));
@@ -287,7 +289,6 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
                                          const QModelIndex &index) const
 {
     QPalette palette = option.palette;
-    QPalette paletteLunar = palette;
     QColor color = GetColorRole(palette,
                       index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());
     QString szText = index.data(Qt::DisplayRole).toString();
