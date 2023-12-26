@@ -45,7 +45,7 @@ public:
         else
             qCritical(Logger) << "Load translator fail: %s" << szFile;
     }
-    ~CLunarCalendarPrivate()
+    virtual ~CLunarCalendarPrivate()
     {
         qApp->removeTranslator(&m_Translator);
     }
@@ -127,7 +127,6 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     m_View.setSelectionMode(QAbstractItemView::SingleSelection);
     m_View.setEditTriggers(QAbstractItemView::NoEditTriggers);
     m_View.horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //m_View.horizontalHeader()->setStretchLastSection(true); //行头自适应表格
 
     /*
     m_View.horizontalHeader()->setMinimumSize(cell.size());
@@ -150,7 +149,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     //m_View.setAlternatingRowColors(true); //设置奇偶行颜色
 //    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
 //    qApp->setAttribute(Qt::AA_SynthesizeTouchForUnhandledMouseEvents, true);
-    
+
     /*
     int nFontSize = 5;
     QFont font = m_View.font();
@@ -245,20 +244,19 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     check = connect(&m_View, SIGNAL(pressed(const QModelIndex&)),
                     this, SLOT(on_tvMonth_pressed(const QModelIndex&)));
     Q_ASSERT(check);
-    
+
     updateGeometry();
 }
 
 CLunarCalendar::~CLunarCalendar()
-{
-}
+{}
 
 void CLunarCalendar::InitResource()
 {
     if(nullptr == g_pLunarCalendarPrivate)
         g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
 
-    Q_INIT_RESOURCE(ResourceLunarCalendar);    
+    Q_INIT_RESOURCE(ResourceLunarCalendar);
 #if _DEBUG
     Q_INIT_RESOURCE(ResourceSql);
     Q_INIT_RESOURCE(translations_LunarCalendar);
@@ -298,7 +296,7 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
         delete m_pHeadLayout;
         m_pHeadLayout = nullptr;
     }
-    
+
     m_pMainLayout = new QGridLayout(this);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     m_pMainLayout->setMargin(0);
@@ -307,7 +305,7 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
 #endif
     m_pMainLayout->setSpacing(0);
     setLayout(m_pMainLayout);
-    
+
     switch (pos) {
     case _HEAD_position::Not:
         ShowHead(false);
@@ -334,9 +332,9 @@ int CLunarCalendar::SetHeadposition(_HEAD_position pos)
         m_pMainLayout->addWidget(&m_View);
         
         m_pHeadLayout = new QVBoxLayout();
-        m_pHeadLayout->addLayout(m_pToolLayout);
         m_pHeadLayout->addWidget(&m_lbDate);
         m_pHeadLayout->addWidget(&m_lbTime);
+        m_pHeadLayout->addLayout(m_pToolLayout);
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
         m_pHeadLayout->setMargin(0);
 #else
@@ -1342,9 +1340,17 @@ int CLunarCalendar::SetBackgroup(const QString &szFile)
 int CLunarCalendar::Update()
 {
     int nRet = UpdateViewModel(true);
-
     return nRet;
 }
+
+//*
+void CLunarCalendar::setFont(const QFont& font)
+{
+    QWidget::setFont(font);
+    m_View.setFont(font);
+    m_View.horizontalHeader()->setFont(font);
+    m_View.verticalHeader()->setFont(font);
+}//*/
 
 QSize CLunarCalendar::sizeHint() const
 {

@@ -149,6 +149,8 @@ private:
     int DownloadFile(const QVector<QUrl> &urls);
 
 private:
+    QFont m_Font;
+    
     QDate m_Date;
     QDate m_MinimumDate;
     QDate m_MaximumDate;

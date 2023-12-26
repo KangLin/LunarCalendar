@@ -557,6 +557,8 @@ public:
      */
     int Update();
 
+    void setFont(const QFont& font);
+
     //! @} 设置界面
 
     enum class _TOUCH_UP_DOWN_FUNCTION {

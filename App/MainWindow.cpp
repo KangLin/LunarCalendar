@@ -156,7 +156,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadposition->addAction(pHeadLeft);
     pViewHeadposition->addAction(pHeadRight);
     //! [Set UI]
-    
+
     pViewMenu->addAction(tr("Clear holidays"), m_pLunarCalendar, SLOT(ClearHoliday()));
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
@@ -170,10 +170,10 @@ MainWindow::MainWindow(QWidget *parent) :
     pHelp->addAction(windowIcon(), tr("About"), this, SLOT(slotAbout()));
     pHelp->addMenu(RabbitCommon::CTools::Instance()->GetLogMenu(this));
 #endif
-    
+
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
     m_pLunarCalendar->SetSelectedDate(QDate(2015, 10, 8));
-    
+
     //*/! [Add Holiday]
     m_pLunarCalendar->AddHoliday(10, 1, "h1");
     m_pLunarCalendar->AddHoliday(10, 1, "lh1",
@@ -196,14 +196,14 @@ MainWindow::MainWindow(QWidget *parent) :
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
     m_pLunarCalendar->Update();
     //! [Add Anniversary] */
-    
+
     //! [Instance CHandler]
     m_Hnadler = QSharedPointer<CHandler>(new CHandler());
     //! [Instance CHandler]
     //! [Set user defined tasks with CTaskHandler]
     m_pLunarCalendar->SetTaskHandle(m_Hnadler);
     //! [Set user defined tasks with CTaskHandler]
-    
+
     //*! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
 
@@ -251,6 +251,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QFont font = m_pLunarCalendar->font();
     font.setItalic(true);
     font.setStrikeOut(true);
+    int nFontSize = 5;
+    font.setPointSize(nFontSize);
     //m_pLunarCalendar->setFont(font);
 
     //! [sigSelectionChanged]

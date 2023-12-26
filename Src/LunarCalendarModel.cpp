@@ -160,7 +160,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     
     switch (role) {
     case Qt::FontRole:
-        return QFont();
+        return m_Font;
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
@@ -330,6 +330,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
              return ColorHighlight;//*/
         return _COLOR_ROLE::ColorNormal;
     default:
+        qDebug(Logger) << "role:" << role << index;
         break;
     };
     return QVariant();
@@ -337,11 +338,22 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
 
 bool CLunarCalendarModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    if (data(index, role) != value) {
-        emit dataChanged(index, index, QVector<int>() << role);
-        return true;
+    if (data(index, role) == value)
+    {
+        qDebug(Logger) << role << value << "value is same.";
+        return false;
     }
-    return false;
+
+    switch(role){
+    case Qt::FontRole:
+        m_Font = value.value<QFont>();
+        break;
+    default:
+        break;
+    }
+
+    emit dataChanged(index, index, QVector<int>() << role);
+    return true;
 }
 
 Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const

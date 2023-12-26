@@ -46,8 +46,7 @@ QFont GetFontRole(QFont &font, int role)
 
 CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent)
     : QStyledItemDelegate (parent)
-{
-}
+{}
 
 void CLunarCalendarDelegate::paint(QPainter *painter,
                                    const QStyleOptionViewItem &o,
@@ -60,17 +59,17 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QColor solarColor, lunarColor, tasksColor, workColor;
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
-    
+
     bool bSolar =  static_cast<int>(pModel->GetCalendarType())
                   & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar);
     bool bLunar = static_cast<int>(pModel->GetCalendarType())
                   & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar);
-   
+
     QFont fontSolar = option.font;
     QFont fontLunar = fontSolar;
     QFont fontTasks = fontSolar;
     QFont fontWork = fontSolar;
-    
+
     if(-1 == fontWork.pointSize())
         fontWork.setPixelSize(fontWork.pixelSize() / 2);
     else
@@ -95,9 +94,9 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     int height = 0;
     int nRow = 0;
     int nHadRow = 0;
-    
+
     painter->save();
-        
+
     if(!szAnniversary.isEmpty() || nTasks)
     {
         painter->setFont(fontTasks);
@@ -112,13 +111,13 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         height = tasksHeight;
         nRow++;
     }
-    
+
     if(bSolar)
     {
         fontSolar = GetFontRole(fontSolar,
                         index.data(CLunarCalendarModel::ROLE::SolarFontRole).toInt());
         szSolar = index.data(CLunarCalendarModel::ROLE::SolarRole).toString();
-        
+
         painter->setFont(fontSolar);
         QFontMetrics m = painter->fontMetrics();
         solarHeight = m.height();
@@ -131,7 +130,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         height = qMax(height, solarHeight);
         nRow++;
     }
-    
+
     if(bLunar)
     {
         fontLunar = GetFontRole(fontLunar,
@@ -149,7 +148,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 #else
         lunarWidth = m.width(szLunar); 
 #endif
-        
+
         width = qMax(width, lunarWidth);
         height = qMax(height, lunarHeight);
         nRow++;
@@ -205,9 +204,9 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
     if(!szWork.isEmpty())
     {
-        workColor =  GetColorRole(palette,
-                     index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());   
-        
+        workColor = GetColorRole(palette,
+                     index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());
+
         painter->setFont(fontWork);
         painter->setPen(workColor);
         painter->drawText(option.rect.left(),
@@ -217,19 +216,19 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           Qt::AlignLeft| Qt::AlignTop,
                           szWork);
     }
-    
+
     if(!szAnniversary.isEmpty() || nTasks)
     {
         painter->setFont(fontTasks);
         int h = qMax(tasksWidth, tasksHeight);
         painter->setBrush(QBrush(tasksColor, Qt::SolidPattern));
         painter->setPen(tasksColor);
-        
+
         QRect rect(option.rect.left() + (width - h) / 2,
                    option.rect.top() + (height - h) / 2,
                    h, h);
         /*painter->drawArc(rect, 0, 5760);//*/
-        
+
         painter->drawEllipse(rect);//*/
 
         if(nTasks > 0 && nTasks < 10)
@@ -247,7 +246,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           Qt::AlignHCenter | Qt::AlignVCenter,
                           QString::number(nTasks));//*/
         }
-        
+
         nHadRow++;
     }
 
@@ -263,7 +262,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           szSolar);
         nHadRow++;
     }
-    
+
     if(bLunar)
     {
         painter->setFont(fontLunar);
@@ -275,7 +274,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           Qt::AlignHCenter | Qt::AlignVCenter,
                           szLunar);
     }
-    
+
     painter->restore();
 }
 
@@ -296,7 +295,7 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
     painter->save();
     painter->setFont(option.font);
     painter->setPen(color);
-    
+
     QFontMetrics m = painter->fontMetrics();
     QPoint pos;
     pos.setX(option.rect.left()
