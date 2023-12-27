@@ -21,6 +21,7 @@
 #include <QLoggingCategory>
 
 static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar.Model")
+static Q_LOGGING_CATEGORY(LogDB, "Rabbit.LunarCalendar.Model.Database")
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
@@ -60,7 +61,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
          << QUrl("https://github.com/KangLin/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
          << QUrl("https://gitlab.com/kl222/LunarCalendar/-/raw/master/Src/Resource/database/chinese_holidays.sql");
     DownloadFile(urls);
-    InitDatabase();
+    OpenDatabase();
     
     slotUpdate();
 }
@@ -461,7 +462,8 @@ int CLunarCalendarModel::slotUpdate()
             if(m_Database.isOpen())
             {
                 QSqlQuery query(m_Database);
-                QString szSql = "select * from chinese_holidays where date='" + d.toString("yyyy-MM-dd") + "'";
+                QString szSql = "select * from chinese_holidays where date='"
+                                + d.toString("yyyy-MM-dd") + "'";
                 //qDebug() << "Sql:" << szSql;
                 if(query.exec(szSql))
                 {
@@ -1012,8 +1014,9 @@ int CLunarCalendarModel::InitHoliday()
     return 0;
 }
 
-int CLunarCalendarModel::InitDatabase()
+int CLunarCalendarModel::OpenDatabase()
 {
+    int nRet = 0;
     QString szDatabaseFile;
     szDatabaseFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                            + QDir::separator() + "db.sqlite";
@@ -1021,120 +1024,145 @@ int CLunarCalendarModel::InitDatabase()
     m_Database.setDatabaseName(szDatabaseFile);
     QDir d;
     if(d.exists(szDatabaseFile))
-        qDebug(Logger) << "Database file is exists:" << szDatabaseFile;
+        qDebug(LogDB) << "Database file is exists:" << szDatabaseFile;
     else
     {
-        qDebug(Logger) << "Database file isn't exists:" << szDatabaseFile;
+        qDebug(LogDB) << "Database file isn't exists:" << szDatabaseFile;
         if(!m_Database.open())
         {
-            qCritical(Logger) << "Open database fail:" << m_Database.lastError()
+            qCritical(LogDB) << "Open database fail:" << m_Database.lastError()
                               << "database file: " << szDatabaseFile;
             return m_Database.lastError().type();
         }
-#if defined (_DEBUG) || defined(DEBUG)
-        QFile sqlFile(":/database/ChineseHolidays");
-#else
-        QString szUserSql = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
-                + QDir::separator() + "chinese_holidays.sql";
-        if(!QFile::exists(szUserSql))
-        {
-            QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
-                       + QDir::separator() + "chinese_holidays.sql");
-            file.copy(szUserSql);
-        }
-        QFile sqlFile(szUserSql);
-#endif
-        if(sqlFile.open(QFile::ReadOnly))
-        {
-            QSqlQuery query(m_Database);
-            QString szSql(sqlFile.readAll());
-            QStringList sql = szSql.split(";");
-            for(int i = 0; i < sql.size(); i++)
-            {
-                qDebug(Logger) << "sql:" << sql[i];
-                if(!query.exec(sql[i])
-                        && m_Database.lastError().type() != QSqlError::NoError)
-                {
-                    qCritical(Logger) << "Create database fail:" << m_Database.lastError();
-                    sqlFile.close();
-                    m_Database.close();
-                    QDir d;
-                    d.remove(szDatabaseFile);
-                    return -2;
-                }
-            }
-            sqlFile.close();
-        }
+
+        nRet = InitTableChineseHolidays();
+
         m_Database.close();
     }
 
     if(!m_Database.open())
     {
-        qCritical(Logger) << "Open datebase fail. database name:" << m_Database.databaseName()
+        qCritical(LogDB) << "Open datebase fail. database name:" << m_Database.databaseName()
                           << "database file:" << szDatabaseFile;
         return -3;
     }
 
+    return nRet;
+}
+
+int CLunarCalendarModel::ExecSqlFile(const QString& szFile)
+{
+    QFile sqlFile(szFile);
+    if(!sqlFile.open(QFile::ReadOnly))
+    {
+        qCritical(LogDB) << "Open sql file fail:" << szFile;
+        return -1;
+    }
+
+    QSqlQuery query(m_Database);
+    QString szSql(sqlFile.readAll());
+    QStringList sql = szSql.split(";");
+    for(int i = 0; i < sql.size(); i++)
+    {
+        qDebug(LogDB) << "sql:" << sql[i];
+        if(!query.exec(sql[i])
+            && m_Database.lastError().type() != QSqlError::NoError)
+        {
+            qCritical(LogDB) << "Exec sql fail:" << m_Database.lastError();
+            sqlFile.close();
+            return -2;
+        }
+    }
+
+    sqlFile.close();
+
     return 0;
 }
 
-void CLunarCalendarModel::CheckUpdateDatabase()
+int CLunarCalendarModel::InitTableChineseHolidays()
 {
-    bool bSame = false;
+    if(!m_Database.isOpen())
+    {
+        qCritical(LogDB) << "The database isn't open." << m_Database.databaseName();
+        return -1;
+    }
+
+    QString szSqlFile = ":/database/ChineseHolidays";
+#if !(defined (_DEBUG) || defined(DEBUG))
+    szSqlFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
+                        + QDir::separator() + "chinese_holidays.sql";
+    if(!QFile::exists(szSqlFile))
+    {
+        QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
+                   + QDir::separator() + "chinese_holidays.sql");
+        file.copy(szSqlFile);
+    }
+#endif
+
+    return ExecSqlFile(szSqlFile);
+}
+
+void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
+{
+    bool bSame = true;
     QString szNativeSqlFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
                         + QDir::separator() + "chinese_holidays.sql"; 
 
     QFile sqlNative(szNativeSqlFile);
-    
+
     do{
-        if(sqlNative.exists())
-        {            
-            if(!m_UpdateSqlFile.isOpen())
-                m_UpdateSqlFile.open(QIODevice::ReadOnly);
+        if(m_UpdateSqlFile.size() == 0)
+            break;
 
-            if(!sqlNative.isOpen())
-                sqlNative.open(QIODevice::ReadOnly);
-
-            if(m_UpdateSqlFile.size() == 0) break;
-//            if(m_UpdateSqlFile.size() <= sql.size())
-//            {
-//                 qCritical(Logger) << "update sql file size is little old sql";
-//                break;
-//            }
-
-            QCryptographicHash md5Update(QCryptographicHash::Md5);
-            if(!md5Update.addData(&m_UpdateSqlFile))
+        if(!m_UpdateSqlFile.isOpen())
+            if(!m_UpdateSqlFile.open(QIODevice::ReadOnly))
             {
-                 qCritical(Logger) << "Update sql file md5sum fail";
+                qCritical(LogDB) << "Open update sql file fail."
+                                 << m_UpdateSqlFile.fileName();
                 break;
             }
 
-            QCryptographicHash md5Native(QCryptographicHash::Md5);
-            if(md5Native.addData(&sqlNative))
-            {
-                if(md5Update.result() == md5Native.result())
-                {
-                    qDebug(Logger) << "The files is same:"
-                                   << sqlNative.fileName()
-                                   << m_UpdateSqlFile.fileName();
-                    break;
-                }
-            }
+        QCryptographicHash md5Update(QCryptographicHash::Md5);
+        if(!md5Update.addData(&m_UpdateSqlFile))
+        {
+            qCritical(Logger) << "Update sql file md5sum fail";
+            break;
         }
-        
-        qDebug(Logger) << "Update chinese_holidays.sql:"
-                       << sqlNative.fileName()
-                       << m_UpdateSqlFile.fileName();
-        bSame = true;
+
+        if(!sqlNative.isOpen())
+            if(!sqlNative.open(QIODevice::ReadOnly))
+            {
+                qCritical(LogDB) << "Open native sql file fail."
+                                 << sqlNative.fileName();
+                bSame = false;
+                break;
+            }
+
+        QCryptographicHash md5Native(QCryptographicHash::Md5);
+        if(md5Native.addData(&sqlNative))
+        {
+            if(md5Update.result() == md5Native.result())
+            {
+                qDebug(Logger) << "The files is same:"
+                               << sqlNative.fileName()
+                               << m_UpdateSqlFile.fileName();
+                break;
+            }
+            bSame = false;
+        }
     }while(0);
-    
+
     if(sqlNative.isOpen())
         sqlNative.close();
     if(m_UpdateSqlFile.isOpen())
         m_UpdateSqlFile.close();
-    
+
     if(!bSame) return;
-    
+
+    qDebug(Logger) << "Update chinese_holidays.sql:"
+                   << sqlNative.fileName()
+                   << m_UpdateSqlFile.fileName();
+
     if(QFile::exists(szNativeSqlFile))
         QFile::remove(szNativeSqlFile);
     if(m_UpdateSqlFile.copy(szNativeSqlFile))
@@ -1146,20 +1174,7 @@ void CLunarCalendarModel::CheckUpdateDatabase()
                       << m_UpdateSqlFile.fileName()
                       << "to" << sqlNative.fileName();
 
-    if(m_Database.isOpen())
-        m_Database.close();
-
-    QFile db(RabbitCommon::CDir::Instance()->GetDirUserDatabase()
-                               + QDir::separator() + "db.sqlite");
-    if(db.exists())
-    {
-        if(db.remove())
-            qInfo(Logger) << "Remove database file:" << db.fileName();
-        else
-            qCritical(Logger) << "Remove database file fail:" << db.fileName();
-    }
-
-    InitDatabase();
+    InitTableChineseHolidays();
 }
 
 void CLunarCalendarModel::slotDownloadError(int nErr, const QString szError)
@@ -1184,7 +1199,7 @@ void CLunarCalendarModel::slotDownloadFileFinished(const QString szFile)
     else
         qCritical(Logger) << "Download chinese_holidays.sql success. but rename fail from"
                        << szFile << "to" << f;
-    CheckUpdateDatabase();
+    CheckUpdateChineseHolidaysTable();
     internalUpdate();
 }
 

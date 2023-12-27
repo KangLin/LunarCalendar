@@ -244,8 +244,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //m_pLunarCalendar->SetCalendarType(CLunarCalendar::CalendarTypeLunar);
     //m_pLunarCalendar->SetViewType(CLunarCalendar::ViewTypeWeek);
-    m_pLunarCalendar->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-    this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_pLunarCalendar->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
+    this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     setCentralWidget(m_pLunarCalendar);
     
     QFont font = m_pLunarCalendar->font();

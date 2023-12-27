@@ -138,9 +138,12 @@ private:
     QColor GetHeight() const;
 
     int InitHoliday();
-
-    int InitDatabase();
-    void CheckUpdateDatabase();
+    
+    int OpenDatabase();
+    int InitTableChineseHolidays();
+    int ExecSqlFile(const QString& szFile);
+    
+    void CheckUpdateChineseHolidaysTable();
     /**
      * @brief DownloadFile
      * @param url: Download url
