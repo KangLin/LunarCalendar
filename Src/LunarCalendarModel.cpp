@@ -245,14 +245,23 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
          */
         if(!m_bEnableToolTip)
             break;
+        int nTotals = 5;
+        int nCounts = 0;
         QString szTip;
         _DAY day = GetDay(row, column);
         szTip = d.toString(m_Locale.dateFormat(QLocale::LongFormat));
         szTip += "\n" + day.szLunar;
+        nCounts = 2;
         if(!day.SolarHoliday.isEmpty()) {
             foreach(auto h, day.SolarHoliday) {
                 if(h.isEmpty() || "" == h)
                     break;
+                if(nCounts == nTotals)
+                {
+                    szTip += "\n……";
+                    break;
+                }
+                nCounts++;
                 szTip += "\n" + h;
             }
         }
@@ -260,6 +269,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             foreach (auto h, day.LunarHoliday) {
                 if(h.isEmpty() || "" == h)
                     break;
+                if(nCounts == nTotals)
+                {
+                    szTip += "\n……";
+                    break;
+                }
+                nCounts++;
                 szTip += "\n" + h;
             }
         }
@@ -267,6 +282,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             foreach (auto h, day.Anniversary) {
                 if(h.isEmpty() || "" == h)
                     break;
+                if(nCounts == nTotals)
+                {
+                    szTip += "\n……";
+                    break;
+                }
+                nCounts++;
                 szTip += "\n" + h;
             }
         }
@@ -274,6 +295,12 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
             foreach (auto h, day.Tasks) {
                 if(h.isEmpty() || "" == h)
                     break;
+                if(nCounts == nTotals)
+                {
+                    szTip += "\n……";
+                    break;
+                }
+                nCounts++;
                 szTip += "\n" + h;
             }
         }
