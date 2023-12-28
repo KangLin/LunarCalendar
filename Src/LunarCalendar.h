@@ -96,60 +96,74 @@
  * \image html Docs/image/Date.png
  * - 周
  * \image html Docs/image/Week.png
- * 
+ * - 日历显示
+ *   - 中国节假日，在左上角显示。
+ *   - 上面中间圆点表示任务
+ *   - 中间为阳历
+ *   - 底下为农历、节气或是任务。
+ *     - 节日，放在农历位置上显示。最多显示最前一个。高亮加粗体
+ *     - 节气
+ *     - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
+ *   - 详细提示（ToolTip）
+ * \image html Docs/image/Task.png
+ *
  * \section RoleDefinitions 角色定义
  * - 开发者(Developer)：开发本项目的人员
  * - 使用者(User)：使用本项目进行二次开发的人员
  * - 客户(Client)：使用本项目最终程序的人员
  *
  * \section Tasks 任务
- * 
+ *
  * 任务可分为：
  *  - 年为周期。例如：节日；周年纪念日
  *  - 月为周期。例如：中国发工资；还贷款
  *  - 星期为周期。例如：开会；国外发工资
  *  - 其它周期性任务。例如：女性月经
- *  - 非周期性任务
+ *  - 非周期性任务。例如：中国节假日（一群闲得蛋疼的人搞出来的玩意）
  *  - 单个任务
  *
- * 由于任务类型众多，所以本项目只处理以年为周期的任务。其它类型任务由使用者自行处理，
+ * 由于任务类型众多，所以本项目任务由使用者自行处理，
  * 参见： \ref UserDefinedTasks 。
  *
  * \subsection Holiday 节日、周年纪念日（以年为周期的任务）
- * - 中国节假日（一群闲得蛋疼的人搞出来和玩意），在左上角显示
+ * - 中国节假日（一群闲得蛋疼的人搞出来的非周期性的玩意），在左上角显示。在项目内维护。
  * - 节日
- *   - 公历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
- *   - 农历： CLunarCalendar::AddHoliday type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
- *   - 节气
+ *   - 公历
+ *   - 农历
+ *   - 节气：在项目内维护
  * - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
- *   - 公历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
- *   - 农历: CLunarCalendar::AddAnniversary type参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
- *
- * \subsection TasksDisplay 任务显示
- * - 中国节假日，在左上角显示。
- * - 节日，放在农历位置上显示。最多显示最前一个。高亮加粗体
- * - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
- *
- * \subsubsection HolidayPriority 农历位置显示类型优先级
- *   - 公历节日
- *   - 农历节日
- *   - 节气
- *   - 周年纪念日
- *   - 任务
+ *   - 公历
  *   - 农历
  *
  * \image html Docs/image/Task.png
  *
- * \subsection UserDefinedTasks 使用者自定义任务
+ * \subsection HolidayPriority 农历位置显示类型优先级
  * 
+ * - 公历节日
+ * - 农历节日
+ * - 节气
+ * - 周年纪念日
+ * - 任务
+ * - 农历
+ *
+ * \image html Docs/image/Task.png
+ *
+ * \subsection TaskInterfaces 任务接口
+ * \subsubsection UserDefinedTasks 使用者自定义任务接口
+ *
  * 只需要使用下列方法之一：
- * 
+ *
  * - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务
  *
  *   - 定义 CTaskHandler 的派生类
  *     \snippet App/MainWindow.h Define CTaskHandler derived class
  *   - 实现 onHandle 处理函数
  *     \snippet App/MainWindow.cpp Implement the onHandle function
+ *     **注意：** 
+ *     - 处理函数应尽快返回。不要在函数中做过多复杂的处理。防止阻塞 UI 线程。
+ *     - 如果不需要在任务显示在农历位置，则只要返回任务数。不要设置 tasks 参数。
+ *     - 如果需要任务显示在农历位置，则需要设置 tasks 参数。最前面的一个显示。
+ *     参见： \ref HolidayPriority
  *   - 定义 CHandler 变量
  *     \snippet App/MainWindow.h Defined CHandler variable
  *   - 实例化 CHandler
@@ -162,21 +176,34 @@
  *
  *   \snippet App/MainWindow.cpp User defined tasks
  *
- * \subsection TaskPerformance 任务性能
- * - 节日
- * 
- * 在 CLunarCalendar 初始化时会加载默认的节日到内存中。
- * 如果使用者不想使用默认的节日，使用者可以调用 CLunarCalendar::ClearHoliday 来清空所有节日（包括默认的节日）。
- * 使用者可以使用 CLunarCalendar::AddHoliday 增加少量的节日。
- * - 周年纪念日
- * 
- * 使用者可以使用 CLunarCalendar::AddAnniversary 来增加少量的周年纪念日。
- * 
+ * **注意：** 
+ * - 回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
+ * - 如果不需要在任务显示在农历位置，则只要返回任务数。不要设置 tasks 参数。
+ * - 如果需要任务显示在农历位置，则需要设置 tasks 参数。最前面的一个显示。
+ *   参见： \ref HolidayPriority
+ *
+ * \subsubsection HolidaysAndAnniversaryInterfaces 节日、周年纪念日（以年为周期的任务）接口
+ *
+ * 不建议使用者使用它们。请使用者使用 \ref UserDefinedTasks 。
+ * - 节日接口： CLunarCalendar::AddHoliday
+ *   - 公历：
+ *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar  
+ *   - 农历：
+ *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
+ *   
+ *   如果你不需要本项目默认节日。请调用 CLunarCalendar::ClearHoliday 。然后使用 \ref UserDefinedTasks 。
+ * - 周年纪念日接口：
+ *   - 公历:
+ *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar  
+ *   - 农历:
+ *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
+ *
  * **注意** 
  * 
- * - 节日和周年纪念日增加多了，会增加内存的使用量。
- * 如果使用者的节日与周年纪念日很多。不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并做持久化存储。
- * - 节日和周年纪念日只保存在内存中，没有做持久化存储。由使用者做持久化存储。
+ * - 使用接口增加任务多了，会增加内存的使用量。如果使用者的节日与周年纪念日很多。
+ * 不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并做持久化存储。
+ * - 接口增加的任务只保存在内存中，没有做持久化存储。由使用者做持久化存储。
+ * - 只接供了增加接口，未提供删除接口。
  * - \ref UserDefinedTasks 时，回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
  * 
  * \section 文档
@@ -200,10 +227,6 @@
  * \snippet App/MainWindow.cpp Instance CLunarCalendar
  * - [可选]设置界面 
  * \snippet App/MainWindow.cpp Set UI
- * - [可选]设置节日
- * \snippet  App/MainWindow.cpp Add Holiday
- * - [可选]设置周年纪念日
- * \snippet App/MainWindow.cpp Add Anniversary
  * - [可选]设置自定义任务  
  *   使用下列方法之一：
  *   - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。 需要标准C++11及以后才支持。
@@ -224,6 +247,10 @@
  *     \snippet App/MainWindow.cpp sigSelectionChanged
  *   - 处理选择事件
  *     \snippet App/MainWindow.cpp slotUpdateCalendar
+ * - [废弃]设置节日。不建议使用。请使用 \ref UserDefinedTasks
+ * \snippet  App/MainWindow.cpp Add Holiday
+ * - [废弃]设置周年纪念日。不建议使用。请使用 \ref UserDefinedTasks
+ * \snippet App/MainWindow.cpp Add Anniversary
  */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
@@ -313,11 +340,13 @@ public:
      * \param day: 节日日期
      * \param szName: 节日名。不能为空或""
      * \param type: 节日类型
+     * \note 不建议使用者使用它。请使用者使用 \ref UserDefinedTasks 。
      *
      * \snippet App/MainWindow.cpp Add Holiday
      *
      * \image html Docs/image/Task.png
      */
+    QT_DEPRECATED_X("Use SetTaskHandle")
     int AddHoliday(int month, int day, const QString &szName,
                    _CalendarType type = _CalendarType::CalendarTypeSolar);
 public Q_SLOTS:
@@ -333,11 +362,13 @@ public:
      * \param day: 日
      * \param szName: 纪念日名。不能为空或""
      * \param type: 周年纪念日类型
+     * \note 不建议使用者使用它。请使用者使用 \ref UserDefinedTasks 。
      *
      * \snippet App/MainWindow.cpp Add Anniversary
      *
      * \image html Docs/image/Task.png
      */
+    QT_DEPRECATED_X("Use SetTaskHandle")
     int AddAnniversary(int month, int day, const QString &szName,
                        CLunarCalendar::_CalendarType type
                        = CLunarCalendar::_CalendarType::CalendarTypeSolar);

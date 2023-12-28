@@ -21,7 +21,7 @@ uint CHandler::onHandle(/*in*/const QDate& d, /*out*/QStringList& tasks){
     // 以年为周期
     if(d.day() == 20 && d.month() == 10)
     {
-        // 表示显示圆点，也显示内容
+        // 表示显示圆点，也显示内容。
         tasks << "t1";
         return 0;
     }

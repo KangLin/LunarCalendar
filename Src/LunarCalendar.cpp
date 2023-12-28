@@ -1067,8 +1067,11 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
                         }
                     } 
                 }
-
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                on_tvMonth_pressed(m_View.indexAt(t.lastPosition().toPoint()));
+#else
                 on_tvMonth_pressed(m_View.indexAt(t.lastPos().toPoint()));
+#endif
             }
 
             break;
