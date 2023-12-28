@@ -3,7 +3,12 @@
 
 #include <QObject>
 
-#include <QDesignerCustomWidgetInterface>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    #include <QtUiPlugin/QDesignerCustomWidgetInterface>
+#else
+    #include <QDesignerCustomWidgetInterface>
+#endif
+
 class CFrmLunarCalendarPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT

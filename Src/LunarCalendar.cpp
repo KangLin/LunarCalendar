@@ -1029,12 +1029,20 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
         {
             event->accept();
             QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+            QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->points();
+#else
             QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
+#endif
             //qDebug(Logger) << "touch end points:" << touchPoints.length() << touchPoints;
             if(touchPoints.length() == 1)
             {
                 QTouchEvent::TouchPoint t = touchPoints.first();
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                QLineF line(QLineF(t.pressPosition(), t.lastPosition()));
+#else
                 QLineF line(QLineF(t.startPos(), t.lastPos()));
+#endif
                 if(qAbs(line.dx()) > qAbs(line.dy()))
                 {
                     //qDebug(Logger) << "dx:" << line.dx() << "hor:" << m_View.horizontalHeader()->minimumSectionSize();
