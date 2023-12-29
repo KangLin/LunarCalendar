@@ -1,5 +1,6 @@
 BEGIN TRANSACTION;
 
+-- 节气
 DROP TABLE IF EXISTS "solar_term";
 CREATE TABLE "solar_term" (
 	"name"	TEXT NOT NULL UNIQUE,
@@ -31,11 +32,12 @@ INSERT INTO "solar_term" ("name", "comment") VALUES ("立冬", "");
 INSERT INTO "solar_term" ("name", "comment") VALUES ("小雪", "");
 INSERT INTO "solar_term" ("name", "comment") VALUES ("大雪", "");
 
+-- 节日
 DROP TABLE IF EXISTS "holidays";
 CREATE TABLE "holidays" (
 	"month"	INTEGER NOT NULL,
 	"day"	INTEGER NOT NULL,
-	"level"	INTEGER NOT NULL DEFAULT 1,   --- 1. 基本节日 2. 其它节日
+	"level"	INTEGER NOT NULL DEFAULT 1,   -- 1. 基本节日 2. 其它节日
 	"name"	TEXT NOT NULL,
 	"comment" TEXT
 );
@@ -47,8 +49,8 @@ INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("6",
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("8", "1", "1", "建军节", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("10", "1", "1", "国庆节", "");
 
-/*
-https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BC%A0%E7%BB%9F%E8%8A%82%E6%97%A5/396100?fromModule=disambiguation
+
+/*https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BC%A0%E7%BB%9F%E8%8A%82%E6%97%A5/396100?fromModule=disambiguation
 https://baike.baidu.com/item/中国传统节日
 
 节日名称 节日时间
@@ -71,9 +73,9 @@ https://baike.baidu.com/item/中国传统节日
 冬至节 阳历12月22日前后
 腊八节 腊月初八
 祭灶节（小年） 腊月廿三或廿四
-岁除（除夕）腊月廿九或三十
-*/
+岁除（除夕）腊月廿九或三十*/
 
+-- 农历节日
 DROP TABLE IF EXISTS "holidays_lunnar";
 CREATE TABLE "holidays_lunnar" (
 	"month"	INTEGER NOT NULL,
@@ -101,6 +103,5 @@ INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (1
 INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,8,1,"腊八","");
 INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,24,1,"祭灶","");
 INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,24,1,"小年","");
-
 
 COMMIT;

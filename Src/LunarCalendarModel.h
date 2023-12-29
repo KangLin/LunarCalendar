@@ -22,6 +22,17 @@
 /*!
  * \brief 农历模型
  * \ingroup INTERNAL_API
+ *
+ * \section database 数据库
+ * \subsection ChineseHolidaysTable 中国节假日表
+ * 
+ * - 中国节假日表 SQL 文件: Src/Resource/database/chinese_holidays.sql
+ * 
+ *   当有新的中国节假日时，修此表，加入新的即可。
+ * \subsection HolidaysTabl 节日表
+ * 
+ * 节日表 SQL 文件: Src/Resource/database/holidays.sql
+ * 
  */
 class CLunarCalendarModel : public QAbstractTableModel
 {

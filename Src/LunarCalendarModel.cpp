@@ -47,7 +47,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_Locale = QLocale::system();
     m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
-    
+
     QString szSqlFile = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
                             + QDir::separator() + "Rabbit" 
             + QDir::separator() + "LunarCalendar";
@@ -1128,6 +1128,9 @@ int CLunarCalendarModel::ExecSqlFile(const QString& szFile)
     return 0;
 }
 
+/*!
+ * 初始化中国节假日表
+ */
 int CLunarCalendarModel::InitTableChineseHolidays()
 {
     if(!m_Database.isOpen())
