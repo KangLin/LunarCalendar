@@ -16,10 +16,10 @@ jobs:
       matrix:
         # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
         BUILD_TYPE: [Release, Debug]
-        qt_version: [6.5.1, 5.15.2, 5.12.12]
+        qt_version: [6.6.1, 5.15.2, 5.12.12]
         qt_arch: [clang_64]
         include:
-          - qt_version: 6.5.1
+          - qt_version: 6.6.1
             qt_modules: qtscxml qtwebchannel qtwebsockets qtwebview qtpositioning
 
           - qt_version: 5.15.2
