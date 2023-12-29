@@ -25,12 +25,15 @@ static Q_LOGGING_CATEGORY(LogDB, "Rabbit.LunarCalendar.Model.Database")
 
 CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     : QAbstractTableModel(parent),
-      m_Date(QDate::currentDate()),
-      m_MinimumDate(-2000, 1, 1), //儒略日数（Julian Day Number，JDN）的计算是从格林威治标准时间的中午开始，包含一个整天的时间，起点的时间（0日）回溯至儒略历的公元前4713年1月1日中午12点（在格里历是公元前4714年11月24日）
-      m_MaximumDate(3000, 12, 31),
-      m_ShownYear(m_Date.year()),
-      m_ShownMonth(m_Date.month()),
-      m_ShowWeek(1)
+    m_Date(QDate::currentDate()),
+    m_MinimumDate(-2000, 1, 1), //儒略日数（Julian Day Number，JDN）的计算是从格林威治标准时间的中午开始，包含一个整天的时间，起点的时间（0日）回溯至儒略历的公元前4713年1月1日中午12点（在格里历是公元前4714年11月24日）
+    m_MaximumDate(3000, 12, 31),
+    m_ShownYear(m_Date.year()),
+    m_ShownMonth(m_Date.month()),
+    m_ShowWeek(1),
+    m_bEnableHolidays(true),
+    m_bEnableSolarTerm(true),
+    m_bEnableToolTip(true)
 {
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
         static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar)
@@ -38,8 +41,6 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     
     SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
         CLunarCalendar::_VIEW_TYPE::ViewTypeMonth));
-
-    EnableToolTip(true);
 
     m_RowCount = 5;
     m_ColumnCount = 7;
@@ -158,7 +159,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     QDate d = dateForCell(row, column);
     if(!d.isValid())
         return QVariant();
-    
+
     switch (role) {
     case Qt::FontRole:
         return m_Font;
@@ -173,19 +174,19 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(d.month() != m_ShownMonth
             && CLunarCalendar::_VIEW_TYPE::ViewTypeMonth == m_viewType)
             return _COLOR_ROLE::ColorDisable;
-        
+
         if(d.dayOfWeek() == Qt::Saturday
             || Qt::Sunday == d.dayOfWeek()
             //|| d == QDate::currentDate()
             || !GetDay(row, column).SolarHoliday.isEmpty())
             return _COLOR_ROLE::ColorHighlight;
-        
+
         return _COLOR_ROLE::ColorNormal;
     }
     case ROLE::SolarFontRole:
         if(GetDay(row, column).SolarHoliday.isEmpty())
             return _FONT_ROLE::FontNormal;
-        
+
         return _FONT_ROLE::FontBold;
     case ROLE::TodayRole:
         return d == QDate::currentDate();
@@ -448,12 +449,14 @@ int CLunarCalendarModel::slotUpdate()
                 break;
             _DAY day = {0};
             day.Solar = d.day();
-            day.SolarHoliday << m_SolarHoliday[d.month()].value(d.day());
+
+            if(m_bEnableHolidays)
+                day.SolarHoliday << m_SolarHoliday[d.month()].value(d.day());
 
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
             day.Anniversary = m_SolarAnniversary[d.month()].value(d.day());
-            
+
             if(static_cast<int>(m_calendarType)
                 & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar))
             {
@@ -462,16 +465,19 @@ int CLunarCalendarModel::slotUpdate()
                 day.nLunarDay = lunar.GetDay();
                 day.szLunar = lunar.GetLunar();
                 day.szLunarDay = lunar.GetLunarDay();
-
-                // 除夕
-                if(12 == day.nLunarMonth && 29 <= day.nLunarDay) {
-                    CCalendarLunar l(d.addDays(1));
-                    if(1 == l.GetMonth())
-                        day.LunarHoliday << "除夕";
+                
+                if(m_bEnableHolidays){
+                    // 除夕
+                    if(12 == day.nLunarMonth && 29 <= day.nLunarDay) {
+                        CCalendarLunar l(d.addDays(1));
+                        if(1 == l.GetMonth())
+                            day.LunarHoliday << "除夕";
+                    }
+                    day.LunarHoliday << m_LunarHoliday[lunar.GetMonth()].value(lunar.GetDay());
                 }
-                day.LunarHoliday << m_LunarHoliday[lunar.GetMonth()].value(lunar.GetDay());
-                if(!lunar.GetJieQi().isEmpty())
+                if(m_bEnableSolarTerm && !lunar.GetJieQi().isEmpty()) {
                     day.LunarHoliday << lunar.GetJieQi();
+                }
                 
                 day.Anniversary += m_LunarAnniversary[lunar.GetMonth()].value(lunar.GetDay());
                 day.szImageBackgroup = lunar.GetJieQiImage();    
@@ -909,11 +915,25 @@ int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName,
     return 0;
 }
 
-int CLunarCalendarModel::ClearHoliday()
+int CLunarCalendarModel::ClearHolidays()
 {
     m_SolarHoliday.clear();
     m_LunarHoliday.clear();
     return 0;
+}
+
+bool CLunarCalendarModel::EnableHolidays(bool bEnable)
+{
+    bool old = m_bEnableHolidays;
+    m_bEnableHolidays = bEnable;
+    return old;
+}
+
+bool CLunarCalendarModel::EnableSolarTerm(bool bEnable)
+{
+    bool old = m_bEnableSolarTerm;
+    m_bEnableSolarTerm = bEnable;
+    return old;
 }
 
 int CLunarCalendarModel::AddAnniversary(int month, int day,
@@ -945,7 +965,9 @@ int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CTaskHandl
 /*!
      * \note It is need c++ standard 11
      */
-int CLunarCalendarModel::SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler)
+int CLunarCalendarModel::SetTaskHandle(
+    std::function<uint (/*in*/const QDate &,
+                       /*out*/QStringList &)> cbHandler)
 {
     m_cbTaskHandler = cbHandler;
     return 0;

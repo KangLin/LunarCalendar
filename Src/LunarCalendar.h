@@ -82,7 +82,7 @@
  * 
  *  |                  月视图                   |                 周视图               |
  *  |:----------------------------------------:|:-----------------------------------:|  
- *  |\image html Docs/image/ScreenShot.png| \image html Docs/image/ViewWeek.png |
+ *  |\image html Docs/image/ScreenShot.png     | \image html Docs/image/ViewWeek.png |
  *   
  * - 日历头
  * \image html Docs/image/Head.png
@@ -191,10 +191,12 @@
  *   - 农历：
  *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
  *   
- *   如果你不需要本项目默认节日。请调用 CLunarCalendar::ClearHoliday 。然后使用 \ref UserDefinedTasks 。
+ *   如果你不需要本项目默认节日，请调用 CLunarCalendar::EnableHolidays 禁止节日
+ *   或者 CLunarCalendar::ClearHolidays 清除节日。然后使用 \ref UserDefinedTasks 。
+ *
  * - 周年纪念日接口：
  *   - 公历:
- *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar  
+ *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
  *   - 农历:
  *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
  *
@@ -247,6 +249,8 @@
  *     \snippet App/MainWindow.cpp sigSelectionChanged
  *   - 处理选择事件
  *     \snippet App/MainWindow.cpp slotUpdateCalendar
+ * - [可选] 允许节日、节气
+ * \snippet App/MainWindow.cpp Enable holidays and solar term
  * - [废弃]设置节日。不建议使用。请使用 \ref UserDefinedTasks
  * \snippet  App/MainWindow.cpp Add Holiday
  * - [废弃]设置周年纪念日。不建议使用。请使用 \ref UserDefinedTasks
@@ -312,6 +316,11 @@ public:
      */
     QString SelectedLunar() const;
     /*!
+     * \brief 得到当前选的节气
+     * \return 如果有，则返回节气。否则返回空。
+     */
+    QString SelectedSolarTerm() const;
+    /*!
      * \brief 得到当前选择的日期的农历
      * \param year 农历年
      * \param month 农历月
@@ -351,10 +360,23 @@ public:
                    _CalendarType type = _CalendarType::CalendarTypeSolar);
 public Q_SLOTS:
     /*!
-     * \brief Clear all holiday
+     * \brief 清空节日。
      * \return 
      */
-    void ClearHoliday();
+    void ClearHolidays();
+    /*!
+     * \brief 允许或禁用节日
+     * \param bUse
+     * \return 
+     */
+    bool EnableHolidays(bool bEnable = true);
+    /*!
+     * \brief 允许或禁用节气
+     * \param bEnable
+     * \return 
+     */
+    bool EnableSolarTerm(bool bEnable = true);
+
 public:
     /*!
      * \brief 设置周年纪念日（例如：公历生日）
@@ -385,20 +407,21 @@ public:
         virtual ~CTaskHandler(){}
         /*!
          * \ref UserDefinedTasks
-         * \param date: 日期
+         * \param sloar: 日期
          * \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
          *          \note
          *            - 加入空字符或"":表示只显示圆点，不显示内容。
          *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
-         * \return 任务数。
-         *    \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
+         * \return 任务数。不包括 tasks 中的任务数。
+         * \note 数据在 tasks 中增加了新值，则不计入返回值中，所以返回 0。否则返回新的任务数。
          * \details 例子：
          * \snippet App/MainWindow.cpp Implement the onHandle function
          * \see \ref UserDefinedTasks
          *
          * \image html Docs/image/Task.png
          */
-        virtual uint onHandle(/*in*/const QDate& date, /*out*/QStringList& tasks) = 0;
+        virtual uint onHandle(/*in*/const QDate& sloar,
+                              /*out*/QStringList& tasks) = 0;
     };
     /*!
      * \brief 处理 \ref UserDefinedTasks
@@ -425,13 +448,6 @@ public:
      * 处理 \ref UserDefinedTasks
      *
      * \param cbHandler: 处理函数
-     *      \param date: 要处理的日期
-     *      \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
-     *          \note 
-     *            - 加入空字符或"":表示只显示圆点，不显示内容。
-     *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
-     *      \return 任务数。
-     *         \note 数据在 tasks 中增加了新值。则返回0。否则返回新的任务数
      * \details 例子：
      * \snippet App/MainWindow.cpp User defined tasks
      *
@@ -441,7 +457,17 @@ public:
      *
      * \image html Docs/image/Task.png
      */
-    virtual int SetTaskHandle(std::function<uint(/*in*/const QDate& date, /*out*/QStringList& tasks)> cbHandler);
+    virtual int SetTaskHandle(
+        /*! \param date: 要处理的日期
+         *  \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
+         *  \note 
+         *    - 加入空字符或"":表示只显示圆点，不显示内容。
+         *    - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+         *  \return 任务数。不包括 tasks 中的任务数。
+         *  \note 数据在 tasks 中增加了新值，则不计入返回值中，所以返回 0。否则返回新的任务数。
+         */
+        std::function<uint(/*in*/const QDate& date,
+                           /*out*/QStringList& tasks)> cbHandler);
 #endif
     
     //! @} 节日、周年纪念日、任务操作

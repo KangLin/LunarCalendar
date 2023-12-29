@@ -52,22 +52,22 @@
         <translation>今天</translation>
     </message>
     <message>
+        <location filename="../../LunarCalendar.cpp" line="197"/>
         <location filename="../../LunarCalendar.cpp" line="198"/>
-        <location filename="../../LunarCalendar.cpp" line="199"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1248"/>
-        <location filename="../../LunarCalendar.cpp" line="1249"/>
+        <location filename="../../LunarCalendar.cpp" line="1282"/>
+        <location filename="../../LunarCalendar.cpp" line="1283"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
+        <location filename="../../LunarCalendar.cpp" line="187"/>
         <location filename="../../LunarCalendar.cpp" line="188"/>
-        <location filename="../../LunarCalendar.cpp" line="189"/>
-        <location filename="../../LunarCalendar.cpp" line="1252"/>
-        <location filename="../../LunarCalendar.cpp" line="1253"/>
+        <location filename="../../LunarCalendar.cpp" line="1286"/>
+        <location filename="../../LunarCalendar.cpp" line="1287"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
@@ -75,7 +75,7 @@
 <context>
     <name>CLunarCalendarModel</name>
     <message>
-        <location filename="../../LunarCalendarModel.cpp" line="1169"/>
+        <location filename="../../LunarCalendarModel.cpp" line="1233"/>
         <source>Download file fail</source>
         <translation>下載文件失敗</translation>
     </message>

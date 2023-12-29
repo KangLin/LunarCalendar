@@ -98,7 +98,9 @@ public:
     int AddHoliday(int month, int day, const QString &szName,
                    CLunarCalendar::_CalendarType type
                    = CLunarCalendar::_CalendarType::CalendarTypeSolar);
-    int ClearHoliday();
+    int ClearHolidays();
+    bool EnableHolidays(bool bEnable = true);
+    bool EnableSolarTerm(bool bEnable = true);
     int AddAnniversary(int month, int day, const QString &szName,
                        CLunarCalendar::_CalendarType type
                        = CLunarCalendar::_CalendarType::CalendarTypeSolar);
@@ -107,8 +109,7 @@ public:
     /*!
      * \note It is need c++ standard 11
      */
-    virtual int SetTaskHandle(
-        std::function<uint(const QDate& date, QStringList& tasks)> cbHandler);
+    virtual int SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler);
 #endif
     int SetCalendarType(CLunarCalendar::_CalendarType type);
     CLunarCalendar::_CalendarType GetCalendarType();
@@ -191,7 +192,9 @@ private:
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
-
+    
+    bool m_bEnableHolidays;
+    bool m_bEnableSolarTerm;
     QMap<int, QMap<int, QStringList> > m_SolarHoliday;
     QMap<int, QMap<int, QStringList> > m_SolarAnniversary;
 
@@ -205,7 +208,8 @@ private:
     
     QSharedPointer<CLunarCalendar::CTaskHandler> m_GetTaskHandler;
 #if HAS_CPP_11
-    std::function<uint(const QDate& date, QStringList& tasks)> m_cbTaskHandler;
+    std::function<uint(/*in*/const QDate& date,
+                       /*out*/QStringList& tasks)> m_cbTaskHandler;
 #endif
     
     QSqlDatabase m_Database;

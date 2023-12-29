@@ -1,13 +1,17 @@
-- v0.3.2
-  + 农历位置超过3个字符，则用...表示
+- v0.4.0
+  + 农历位置超过 3 个字符，则用 ... 表示
   + 修复任务颜色
   + 增加设置字体
   + 重构数据流程
   + 增加节日数据库 SQL 文件
-  + 设置 ToolTip 显示长度
+  + 设置 ToolTip 显示长度(5)，超过则用 …… 表示
   + 增加废弃警告：
-    - AddAnniversary
-    - AddHoliday
+    - CLunarCalendar::AddAnniversary
+    - CLunarCalendar::AddHoliday
+  + 增加
+    - CLunarCalendar::EnableHolidays
+    - CLunarCalendar::EnableSolarTerm
+    - CLunarCalendar::SelectedSolarTerm
 
 - v0.3.1
   + 自动化编译

@@ -14,7 +14,8 @@ class MainWindow;
 //! [Define CTaskHandler derived class]
 class CHandler : public CLunarCalendar::CTaskHandler
 {
-    virtual uint onHandle(/*in*/const QDate& d, /*out*/QStringList& tasks) override final;
+    virtual uint onHandle(/*in*/const QDate& d,
+                          /*out*/QStringList& tasks) override final;
 };
 //! [Define CTaskHandler derived class]
 

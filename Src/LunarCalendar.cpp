@@ -674,6 +674,15 @@ QString CLunarCalendar::SelectedLunar() const
     return l.GetLunar();
 }
 
+QString CLunarCalendar::SelectedSolarTerm() const
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return QString();
+    QDate date = pModel->GetDate();
+    CCalendarLunar l(date);
+    return l.GetJieQi();
+}
+
 int CLunarCalendar::SelectedLunar(int &year, int &month, int &day)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
@@ -1197,11 +1206,25 @@ int CLunarCalendar::AddHoliday(int month, int day, const QString &szName, _Calen
     return pModel->AddHoliday(month, day, szName, type);
 }
 
-void CLunarCalendar::ClearHoliday()
+void CLunarCalendar::ClearHolidays()
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return;
-    pModel->ClearHoliday();
+    pModel->ClearHolidays();
+}
+
+bool CLunarCalendar::EnableHolidays(bool bEnable)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return true;
+    return pModel->EnableHolidays(bEnable);
+}
+
+bool CLunarCalendar::EnableSolarTerm(bool bEnable)
+{
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
+    if(!pModel) return true;
+    return pModel->EnableSolarTerm(bEnable);
 }
 
 int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName, CLunarCalendar::_CalendarType type)
@@ -1221,7 +1244,9 @@ int CLunarCalendar::SetTaskHandle(QSharedPointer<CTaskHandler> handler)
 }
 
 #if HAS_CPP_11
-int CLunarCalendar::SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler)
+int CLunarCalendar::SetTaskHandle(
+    std::function<uint (/*in*/const QDate&,
+                       /*out*/QStringList &)> cbHandler)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;

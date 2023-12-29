@@ -17,7 +17,8 @@
 static Q_LOGGING_CATEGORY(Logger, "App")
     
 //! [Implement the onHandle function]
-uint CHandler::onHandle(/*in*/const QDate& d, /*out*/QStringList& tasks){
+uint CHandler::onHandle(/*in*/const QDate& d,
+                        /*out*/QStringList& tasks){
     // 以年为周期
     if(d.day() == 20 && d.month() == 10)
     {
@@ -156,8 +157,17 @@ MainWindow::MainWindow(QWidget *parent) :
     pViewHeadposition->addAction(pHeadLeft);
     pViewHeadposition->addAction(pHeadRight);
     //! [Set UI]
+    
+    //! [Enable holidays and solar term]
+    pViewMenu->addAction(tr("Clear holidays"), m_pLunarCalendar, SLOT(ClearHolidays()));
+    pAction = pViewMenu->addAction(tr("Enable holidays"), m_pLunarCalendar, SLOT(EnableHolidays(bool)));
+    pAction->setChecked(true);
+    pAction->setCheckable(true);
+    pAction = pViewMenu->addAction(tr("Enable solar term"), m_pLunarCalendar, SLOT(EnableSolarTerm(bool)));
+    pAction->setChecked(true);
+    pAction->setCheckable(true);
+    //! [Enable holidays and solar term]
 
-    pViewMenu->addAction(tr("Clear holidays"), m_pLunarCalendar, SLOT(ClearHoliday()));
     pViewMenu->addSeparator();
     pViewMenu->addAction(RabbitCommon::CTools::Instance()->AddStyleMenu(pViewMenu));
     pViewMenu->addAction(tr("Genetate cache table"), this, SLOT(slotGenerateCalendarTable()));
@@ -205,7 +215,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //! [Set user defined tasks with CTaskHandler]
 
     //*! [User defined tasks]
-    m_pLunarCalendar->SetTaskHandle([](const QDate& d, QStringList& tasks)->uint {
+    m_pLunarCalendar->SetTaskHandle([](const QDate& d,
+                                       QStringList& tasks)->uint {
 
         // 以年为周期
         if(d.day() == 10 && d.month() == 10)
@@ -315,13 +326,14 @@ void MainWindow::slotUpdateCalendar()
     int y, m, d;
     m_pLunarCalendar->SelectedLunar(y, m, d);
     qDebug(Logger) << "\n"
-        << "SelectedDate:" << m_pLunarCalendar->SelectedDate() << "\n"
-        << "SelectedLunar:" << m_pLunarCalendar->SelectedLunar()
-        << "(" << y << "年" << m << "月" << d << "日" << ")\n"
-        << "Year:" << m_pLunarCalendar->GetShowYear() << "\n"
-        << "Month:" << m_pLunarCalendar->GetShowMonth() << "\n"
-        << "MinimumDate:" << m_pLunarCalendar->MinimumDate() << "\n"
-        << "MaximumDate:" << m_pLunarCalendar->MaximumDate()
+                   << tr("Solar:") << m_pLunarCalendar->SelectedDate() << "\n"
+                   << tr("Lunar:") << m_pLunarCalendar->SelectedLunar()
+                   << "(" << y << "年" << m << "月" << d << "日" << ")\n"
+                   << tr("SolarTerm:") << m_pLunarCalendar->SelectedSolarTerm() << "\n"
+                   << tr("Year:") << m_pLunarCalendar->GetShowYear() << "\n"
+                   << tr("Month:") << m_pLunarCalendar->GetShowMonth() << "\n"
+                   << tr("MinimumDate:") << m_pLunarCalendar->MinimumDate() << "\n"
+                   << tr("MaximumDate:") << m_pLunarCalendar->MaximumDate()
         ;
 }
 //! [slotUpdateCalendar]
