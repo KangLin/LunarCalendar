@@ -57,9 +57,9 @@ The lunar calendar written by Qt. It provides:
 - A lunar calendar library of Qt GUI, support QSS.
    + Solar calendar
    + Lunar calendar
-   + Solar and Lunar holiday(eg: chinese holidays)
+   + Solar and Lunar holiday(eg: chinese holidays. solar term etc.)
    + Solar and Lunar anniversary (eg: birthday, wedding anniversary, etc.)
-   + User-defined task prompts on the calendar (highlighted)
+   + User-defined task prompts on the calendar (Displayed with highlighted dots)
    + ToolTip shows detailed tooltip content
    + Month view
    + Week view
@@ -96,6 +96,10 @@ please compile and test the students with the corresponding equipment.
 
 ![Android Screenshots](Docs/image/ScreenShotAndroid.png "Android Screenshots")
 
+- Task
+
+![Task](Docs/image/Task.png "Task")
+
 ### [Download setup package](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - Develop library: *.zip
@@ -103,6 +107,7 @@ please compile and test the students with the corresponding equipment.
   - Ubuntu: *.deb
   - Windows: *.exe
   - Android: *.apk
+- Documents: [LunarCalendar_v0.3.1_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.3.1/LunarCalendar_v0.3.1_document.zip)
 
 ### Compile
 

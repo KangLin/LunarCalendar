@@ -7,7 +7,7 @@
 [:us: English](README.md)
 
 - 项目位置: 
-  - 主库：　https://github.com/KangLin/LunarCalendar
+  - 主库: https://github.com/KangLin/LunarCalendar
   - 镜像库：
     - https://gitee.com/kl222/LunarCalendar
     - https://gitlab.com/kl222/LunarCalendar
@@ -58,7 +58,7 @@ Qt 写的农历。它提供：
 - 一个Qt界面的农历日历库，支持 QSS (换肤功能）。
   + 阳历
   + 农历
-  + 阳历和农历节日（例如：中国节假日(一群闲得蛋疼的人搞出来的玩意，节气）
+  + 阳历和农历节日（例如：中国节假日(一群闲得蛋疼的人搞出来的玩意)，节气）
   + 阳历和农历周年纪念日（例如：生日，结婚纪念日等）
   + 在日历上显示用户自定义任务提示（用高亮圆点显示）
   + 工具提示(ToolTip)显示详细的提示内容
@@ -95,17 +95,26 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 
 ![Android 屏幕截图](Docs/image/ScreenShotAndroid.png "Android 屏幕截图")
 
-### [下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
+- 任务
+
+![任务](Docs/image/Task.png "任务")
+
+### 下载安装包
+
+[下载安装包](https://github.com/KangLin/LunarCalendar/releases/latest)
 
 - 开发包： *.zip
 - 示例程序安装包：
   - Ubuntu: *.deb
   - Windows: *.exe
   - Android: *.apk
+- 文档：[LunarCalendar_v0.3.1_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.3.1/LunarCalendar_v0.3.1_document.zip)
 
 ### 文档
-- [使用文档](Docs/User.md)
-- [开发文档](Docs/Developer.md)
+
+- [在线文档](https://kanglin.github.io/LunarCalendar/html/index.html)
+  - [使用文档](Docs/User.md)
+  - [开发文档](Docs/Developer.md)
 
 ### 贡献
 
@@ -113,7 +122,9 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 - [项目位置](https://github.com/KangLin/LunarCalendar)
 - [贡献者](https://github.com/KangLin/LunarCalendar/graphs/contributors)
 
-### [许可协议](License.md "License.md")
+### 许可协议
+
+[许可协议](License.md "License.md")
 
 请遵守本协议和下列第三方库的许可协议，并感谢第三方库的作者。
 

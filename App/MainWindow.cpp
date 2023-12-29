@@ -18,17 +18,28 @@ static Q_LOGGING_CATEGORY(Logger, "App")
     
 //! [Implement the onHandle function]
 uint CHandler::onHandle(/*in*/const QDate& d,
-                        /*out*/QStringList& tasks){
-    // 以年为周期
-    if(d.day() == 20 && d.month() == 10)
+                        /*out*/QStringList& tasks) {
+
+    // 纪念日（以年为周期）
+    if(10 == d.month() && 25 == d.day())
     {
-        // 表示显示圆点，也显示内容。
-        tasks << "t1";
+        tasks << "抗美援朝纪念日";
         return 0;
     }
-    
+
+    int lunarYear = 0;
+    int lunarMonth = 0;
+    int lunarDay = 0;
+    CLunarCalendar::GetLunar(d, lunarYear, lunarMonth, lunarDay);    
+    // 纪念日（以农历年为周期）
+    if(8 == lunarMonth && 22 == lunarDay)
+    {
+        tasks << "结婚纪念日";
+        return 0;
+    }
+
     // 以月为周期
-    if(d.day() == 21)
+    if(21 == d.day())
     {
         // 表示只显示圆点，不显示内容
         return 1;
@@ -43,7 +54,7 @@ uint CHandler::onHandle(/*in*/const QDate& d,
     }
     
     // 单个任务
-    if(d.day() == 22 && d.month() == 10 && d.year() == 2015)
+    if(2015 == d.year() && 10 == d.month() && 22 == d.day())
     {
         // 表示只显示圆点，不显示内容
         return 1;
@@ -196,8 +207,7 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pLunarCalendar->AddAnniversary(10, 1, "a2");
     m_pLunarCalendar->AddAnniversary(9, 29, "a3");
     m_pLunarCalendar->AddAnniversary(10, 24, "a4");
-    m_pLunarCalendar->AddAnniversary(10, 25, "老婆生日");
-    m_pLunarCalendar->AddAnniversary(10, 26, "a5");
+    m_pLunarCalendar->AddAnniversary(10, 15, "老婆生日");
     m_pLunarCalendar->AddAnniversary(8, 17, "l1",
             CLunarCalendar::_CalendarType::CalendarTypeLunar);
     m_pLunarCalendar->AddAnniversary(8, 17, "l2",
@@ -217,12 +227,37 @@ MainWindow::MainWindow(QWidget *parent) :
     //*! [User defined tasks]
     m_pLunarCalendar->SetTaskHandle([](const QDate& d,
                                        QStringList& tasks)->uint {
+        int lunarYear = 0;
+        int lunarMonth = 0;
+        int lunarDay = 0;
+        CLunarCalendar::GetLunar(d, lunarYear, lunarMonth, lunarDay);
 
-        // 以年为周期
+        // 节日（以年为周期）
+        if(d.month() == 10 && d.day() == 26)
+        {
+            tasks << "环卫工人节";
+            return 0;
+        }
+        
+        // 农历节日（以农历年为周期）
+        if(9 == lunarMonth && 9 == lunarDay)
+        {
+            tasks << "老人节";
+            return 0;
+        }
+        
+        // 纪念日（以年为周期）
         if(d.day() == 10 && d.month() == 10)
         {
             // 表示显示圆点，也显示内容
             tasks << "辛亥革命纪念日";
+            return 0;
+        }
+          
+        // 生日（纪念日：以农历年为周期）
+        if(8 == lunarMonth && 23 == lunarDay)
+        {
+            tasks << "爸生日";
             return 0;
         }
 

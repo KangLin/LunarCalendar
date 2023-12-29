@@ -100,7 +100,7 @@
  *   - 中国节假日，在左上角显示。
  *   - 上面中间圆点表示任务
  *   - 中间为阳历
- *   - 底下为农历、节气或是任务。
+ *   - 底下为农历、节气或是任务。 \ref HolidayPriority
  *     - 节日，放在农历位置上显示。最多显示最前一个。高亮加粗体
  *     - 节气
  *     - 周年纪念日、其它任务，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
@@ -156,20 +156,20 @@
  *
  * - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务
  *
- *   - 定义 CTaskHandler 的派生类
+ *   - 声明 CLunarCalendar::CTaskHandler 的派生类
  *     \snippet App/MainWindow.h Define CTaskHandler derived class
- *   - 实现 onHandle 处理函数
+ *   - 实现 CLunarCalendar::CTaskHandler::onHandle 处理函数
  *     \snippet App/MainWindow.cpp Implement the onHandle function
  *     **注意：** 
  *     - 处理函数应尽快返回。不要在函数中做过多复杂的处理。防止阻塞 UI 线程。
  *     - 如果不需要在任务显示在农历位置，则只要返回任务数。不要设置 tasks 参数。
  *     - 如果需要任务显示在农历位置，则需要设置 tasks 参数。最前面的一个显示。
  *     参见： \ref HolidayPriority
- *   - 定义 CHandler 变量
+ *   - 定义变量
  *     \snippet App/MainWindow.h Defined CHandler variable
- *   - 实例化 CHandler
+ *   - 实例化对象
  *     \snippet App/MainWindow.cpp Instance CHandler
- *   - 用 SetTaskHandle 设置处理类
+ *   - 用 CLunarCalendar::SetTaskHandle 设置处理类
  *     \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
  *
  * - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。
@@ -185,7 +185,8 @@
  *
  * \subsubsection HolidaysAndAnniversaryInterfaces 节日、周年纪念日（以年为周期的任务）接口
  *
- * 不建议使用者使用它们。请使用者使用 \ref UserDefinedTasks 。
+ * 不建议使用者使用它们。请使用者使用 \ref UserDefinedTasks ，
+ * 同时请遵守 \ref HolidayPriority 。
  * - 节日接口： CLunarCalendar::AddHoliday
  *   - 公历：
  *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar  
@@ -208,9 +209,13 @@
  * - 接口增加的任务只保存在内存中，没有做持久化存储。由使用者做持久化存储。
  * - 只接供了增加接口，未提供删除接口。
  * - \ref UserDefinedTasks 时，回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
- * 
+ * - \ref UserDefinedTasks 时，请遵守 \ref HolidayPriority 。
  * \section 文档
- * - [开发文档](topics.html)
+ * - [使用文档](../Docs/User.md)
+ * - [开发文档](../Docs/Developer.md)
+ * - [主题](topics.html)
+ * - [主页](https://github.com/KangLin/LunarCalendar)
+ * - [说明](../README_zh_CN.md)
  * - \ref Example
  */
 
@@ -233,8 +238,10 @@
  * - [可选]设置自定义任务  
  *   使用下列方法之一：
  *   - 使用 CLunarCalendar::SetTaskHandle(std::function<uint(const QDate& date, QStringList& tasks)> cbHandler) 处理自定义任务。 需要标准C++11及以后才支持。
+ *   请遵守 \ref HolidayPriority 。
  *     \snippet App/MainWindow.cpp User defined tasks
- *   - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务
+ *   - 使用 CLunarCalendar::SetTaskHandle() 处理自定义任务。
+ *     请遵守 \ref HolidayPriority 。
  *     - 定义 CTaskHandler 的派生类
  *       \snippet App/MainWindow.h Define CTaskHandler derived class
  *     - 实现 onHandle 处理函数
@@ -398,8 +405,20 @@ public:
 
     /*!
      * \ref UserDefinedTasks 类
+     * \details
+     * 用法：
+     * - 定义其派生类
      * \snippet App/MainWindow.h Define CTaskHandler derived class
-     * \see SetTaskHandle \ref UserDefinedTasks
+     * - 实现接口 CTaskHandler::onHandle
+     * \snippet App/MainWindow.cpp Implement the onHandle function
+     * - 定义变量
+     * \snippet App/MainWindow.h Defined CHandler variable
+     * - 实例化对象
+     * \snippet App/MainWindow.cpp Instance CHandler
+     * - 用 SetTaskHandle 设置处理类
+     * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
+     * 
+     * \see SetTaskHandle \ref UserDefinedTasks \ref HolidayPriority
      */
     class CTaskHandler
     {
@@ -407,66 +426,74 @@ public:
         CTaskHandler() {}
         virtual ~CTaskHandler(){}
         /*!
-         * \ref UserDefinedTasks
-         * \param sloar: 日期
+         * \ref UserDefinedTasks 。请遵守 \ref HolidayPriority 。
+         * \param date: 日期
          * \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
          *          \note
          *            - 加入空字符或"":表示只显示圆点，不显示内容。
          *            - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
-         * \return 任务数。不包括 tasks 中的任务数。
-         * \note 数据在 tasks 中增加了新值，则不计入返回值中，所以返回 0。否则返回新的任务数。
+         *            - 请遵守 \ref HolidayPriority 。
+         * \return 未加入到 tasks 的任务数。不包括 tasks 中的任务数。
+         * \note 在 tasks 中增加的新任务，则不计入返回值中，
+         *       如果没有其它的未加入 tasks 的任务，则返回 0。
+         *       否则返回未加入到 tasks 中的任务数。
          * \details 例子：
          * \snippet App/MainWindow.cpp Implement the onHandle function
-         * \see \ref UserDefinedTasks
+         * \see \ref UserDefinedTasks \ref HolidayPriority SetTaskHandle
          *
          * \image html Docs/image/Task.png
          */
-        virtual uint onHandle(/*in*/const QDate& sloar,
+        virtual uint onHandle(/*in*/const QDate& date,
                               /*out*/QStringList& tasks) = 0;
     };
     /*!
-     * \brief 处理 \ref UserDefinedTasks
+     * \brief 设置 \ref UserDefinedTasks
      * \param handler 任务处理类（CTaskHandler）
      * \details 使用方法：
-     * - 定义 CTaskHandler 的派生类
+     * - 声明 CTaskHandler 派生类
      * \snippet App/MainWindow.h Define CTaskHandler derived class
-     * - 实现 onHandle 处理函数
+     * - 实现接口 CTaskHandler::onHandle
      * \snippet App/MainWindow.cpp Implement the onHandle function
-     * - 定义 CHandler 变量
+     * - 定义变量
      * \snippet App/MainWindow.h Defined CHandler variable
-     * - 实例化 CHandler
+     * - 实例化对象
      * \snippet App/MainWindow.cpp Instance CHandler
      * - 用 SetTaskHandle 设置处理类
      * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
-     * 
-     * \see \ref UserDefinedTasks
+     *
+     * \see \ref UserDefinedTasks \ref HolidayPriority CTaskHandler CTaskHandler::onHandle
+     *
      * \image html Docs/image/Task.png
      */
     int SetTaskHandle(QSharedPointer<CTaskHandler> handler);
 
 #if HAS_CPP_11
     /*!
-     * 处理 \ref UserDefinedTasks
+     * 设置 \ref UserDefinedTasks
      *
-     * \param cbHandler: 处理函数
+     * \param date: 要处理的日期
+     *  \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
+     *  \note 
+     *    - 加入空字符或"":表示只显示圆点，不显示内容。
+     *    - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
+     *    - 请遵守 \ref HolidayPriority 。
+     *  \return 未加入到 tasks 的任务数。不包括 tasks 中的任务数。
+     *  \note 在 tasks 中增加的新任务，则不计入返回值中，
+     *       如果没有其它的未加入 tasks 的任务，则返回 0。
+     *       否则返回未加入到 tasks 中的任务数。
+     *
      * \details 例子：
      * \snippet App/MainWindow.cpp User defined tasks
      *
      * \note 需要 c++ 标准 11
      * 
-     * \see \ref UserDefinedTasks
+     * \see 
+     * - \ref UserDefinedTasks
+     * - \ref HolidayPriority
      *
      * \image html Docs/image/Task.png
      */
     virtual int SetTaskHandle(
-        /*! \param date: 要处理的日期
-         *  \param tasks: 任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。
-         *  \note 
-         *    - 加入空字符或"":表示只显示圆点，不显示内容。
-         *    - 不设置此值。只返回任务数。表示只显示圆点，不显示内容。
-         *  \return 任务数。不包括 tasks 中的任务数。
-         *  \note 数据在 tasks 中增加了新值，则不计入返回值中，所以返回 0。否则返回新的任务数。
-         */
         std::function<uint(/*in*/const QDate& date,
                            /*out*/QStringList& tasks)> cbHandler);
 #endif
