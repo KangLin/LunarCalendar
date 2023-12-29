@@ -149,7 +149,13 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     //m_View.setAlternatingRowColors(true); //设置奇偶行颜色
 //    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
 //    qApp->setAttribute(Qt::AA_SynthesizeTouchForUnhandledMouseEvents, true);
-
+#if defined(Q_OS_ANDROID)
+    float nFontSize = 8, nPixSize = 8;
+    QFont font = m_View.font();
+    font.setPointSize(nFontSize);
+    font.setPixelSize(nPixSize);
+    m_View.setFont(font);
+#endif 
     /*
     int nFontSize = 5;
     QFont font = m_View.font();
