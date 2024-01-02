@@ -1446,7 +1446,7 @@ QSize CLunarCalendar::minimumSizeHint() const
 //             << "marginH:" << marginH << cm
 //             << "ver height:" << m_View.verticalHeader()->sizeHint()
 //             << "hor width:" << m_View.horizontalHeader()->sizeHint();
-    
+
     //add the size of the header.
     int headerH = 0;
     int headerW = 0;

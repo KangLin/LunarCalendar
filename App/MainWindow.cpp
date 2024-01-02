@@ -14,7 +14,7 @@
 #include "RabbitCommonTools.h"
 #endif
 
-static Q_LOGGING_CATEGORY(Logger, "App")
+static Q_LOGGING_CATEGORY(Logger, "App.MainWindow")
     
 //! [Implement the onHandle function]
 uint CHandler::onHandle(/*in*/const QDate& d,
@@ -297,7 +297,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QFont font = m_pLunarCalendar->font();
     font.setItalic(true);
     font.setStrikeOut(true);
-    int nFontSize = 5;
+    int nFontSize = 12;
     font.setPointSize(nFontSize);
     //m_pLunarCalendar->setFont(font);
 
