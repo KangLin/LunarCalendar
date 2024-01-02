@@ -150,9 +150,11 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 //    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
 //    qApp->setAttribute(Qt::AA_SynthesizeTouchForUnhandledMouseEvents, true);
 #if defined(Q_OS_ANDROID)
-    float nFontSize = 8, nPixSize = 8;
+    float nFontSize = 10, nPixSize = 10;
     QFont font = m_View.font();
-    font.setPointSize(nFontSize);
+    qDebug(Logger) << "font point size:" << font.pointSize()
+        << "pixel size:" << font.pixelSize();
+    //font.setPointSize(nFontSize);
     font.setPixelSize(nPixSize);
     m_View.setFont(font);
 #endif 
@@ -1444,7 +1446,7 @@ QSize CLunarCalendar::minimumSizeHint() const
 //             << "marginH:" << marginH << cm
 //             << "ver height:" << m_View.verticalHeader()->sizeHint()
 //             << "hor width:" << m_View.horizontalHeader()->sizeHint();
-    
+
     //add the size of the header.
     int headerH = 0;
     int headerW = 0;

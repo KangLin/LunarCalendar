@@ -3,8 +3,10 @@ project(LunarCalendarApp LANGUAGES CXX)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Core)
 #需要的QT组件
 SET(QT_COMPONENTS ${QT_COMPONENTS} Core Gui Widgets)
-if(${QT_VERSION_MAJOR} LESS 6 AND ANDROID)
-    LIST(APPEND QT_COMPONENTS AndroidExtras)
+if(ANDROID)
+    if(${QT_VERSION_MAJOR} VERSION_LESS 6.0.0)
+        LIST(APPEND QT_COMPONENTS AndroidExtras)
+    endif()
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS ${QT_COMPONENTS})
 message("QT_VERSION:${Qt${QT_VERSION_MAJOR}_VERSION}")
@@ -40,7 +42,7 @@ ADD_TARGET(NAME ${PROJECT_NAME}
     VERSION ${LunarCalendar_VERSION}
     SOURCE_FILES ${SOURCE_FILES} ${HEAD_FILES} ${SOURCE_UI_FILES}
         ${RESOURCE_FILES}
-    PRIVATE_LIBS RabbitCommon LunarCalendar
+    PRIVATE_LIBS RabbitCommon LunarCalendar ${QT_LIBRARIES}
     PRIVATE_DEFINITIONS RABBITCOMMON
         LunarCalendar_VERSION="${LunarCalendar_VERSION}"
         LunarCalendar_REVISION="${LunarCalendar_REVISION}"

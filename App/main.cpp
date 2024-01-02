@@ -8,8 +8,15 @@
 #include <QTranslator>
 #include <QDir>
 #include <QScreen>
-#if defined(Q_OS_ANDROID) && QT_VERSION >= QT_VERSION_CHECK(5, 7, 0) && QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-#include <QtAndroid>
+#include <QLoggingCategory>
+#if defined(Q_OS_ANDROID)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    
+#elif QT_VERSION >= QT_VERSION_CHECK(5, 7, 0)
+    #include <QtAndroid>
+#endif
+#else
+    
 #endif
 #ifdef RABBITCOMMON
     #include "RabbitCommonTools.h"
@@ -17,6 +24,8 @@
     #include "RabbitCommonDir.h"
 #endif
 #include <QLocale>
+
+static Q_LOGGING_CATEGORY(Logger, "App.main")
 
 /*!
  * \defgroup Example 示例程序
@@ -26,7 +35,7 @@
  * \ingroup Example
  */
 int main(int argc, char *argv[])
-{
+{   
     QApplication a(argc, argv);
     a.setApplicationVersion(LunarCalendar_VERSION);
     a.setApplicationName("LunarCalendar");
@@ -57,11 +66,11 @@ int main(int argc, char *argv[])
     bool bRetTranslator = tApp.load(szFile);
     if(bRetTranslator)
     {
-        qDebug() << "Load translation file:" << szFile;
+        qDebug(Logger) << "Load translation file:" << szFile;
         a.installTranslator(&tApp);
     }
     else
-        qCritical() << "Load translation file fail:" << szFile;
+        qCritical(Logger) << "Load translation file fail:" << szFile;
     
     //! [CLunarCalendar::InitResource()]
     CLunarCalendar::InitResource();
