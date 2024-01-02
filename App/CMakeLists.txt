@@ -64,3 +64,15 @@ SET(OTHER_FILES
     ${CMAKE_SOURCE_DIR}/ChangeLog.md
     )
 INSTALL_FILE(SOURCES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
+
+if(ANDROID)
+    INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+        DESTINATION assets/etc
+            COMPONENT Runtime
+        RENAME LunarCalendar_logqt.ini)
+else()
+    INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+        DESTINATION etc
+            COMPONENT Runtime
+        RENAME LunarCalendar_logqt.ini)
+endif()
