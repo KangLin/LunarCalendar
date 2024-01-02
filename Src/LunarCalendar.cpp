@@ -150,12 +150,20 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 //    qApp->setAttribute(Qt::AA_SynthesizeMouseForUnhandledTouchEvents, false);
 //    qApp->setAttribute(Qt::AA_SynthesizeTouchForUnhandledMouseEvents, true);
 
-    /*
-    int nFontSize = 5;
     QFont font = m_View.font();
-    font.setPointSize(nFontSize);
+    float nFontSize = 0, nPixSize = 0;
+    nFontSize = font.pointSize();
+    nPixSize = font.pixelSize();
+    qDebug(Logger) << "Font point size:" << nFontSize
+                   << "pixel size:" << nPixSize;
+    if(nFontSize > 0)
+        font.setPointSize(nFontSize * 2 / 3);
+    if(nPixSize > 0)
+        font.setPixelSize(nPixSize * 2 / 3);
+#if defined(Q_OS_ANDRD)
     m_View.setFont(font);
-    
+#endif
+    /*
     font = m_lbDate.font();
     font.setPointSize(nFontSize);
     m_lbDate.setFont(font);

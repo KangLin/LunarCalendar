@@ -38,7 +38,7 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     SetCalendarType(static_cast<CLunarCalendar::_CalendarType>(
         static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar)
         | static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar)));
-    
+
     SetViewType(static_cast<CLunarCalendar::_VIEW_TYPE>(
         CLunarCalendar::_VIEW_TYPE::ViewTypeMonth));
 
@@ -48,22 +48,22 @@ CLunarCalendarModel::CLunarCalendarModel(QObject *parent)
     m_FirstDay = Qt::Monday; // m_Locale.firstDayOfWeek();
     InitHoliday();
 
-    QString szSqlFile = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
+    QString szSqlPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation)
                             + QDir::separator() + "Rabbit" 
             + QDir::separator() + "LunarCalendar";
     QDir d;
-    if(!d.exists(szSqlFile))
-        d.mkpath(szSqlFile);
-    szSqlFile = szSqlFile + QDir::separator() + "chinese_holidays.sql";
-    m_UpdateSqlFile.setFileName(szSqlFile);
+    if(!d.exists(szSqlPath))
+        d.mkpath(szSqlPath);
+    QString szChineseHolidaysSql = szSqlPath + QDir::separator() + "chinese_holidays.sql";
+    m_ChineseHolidaysSql.setFileName(szChineseHolidaysSql);
     QVector<QUrl> urls;
     urls << QUrl("https://sourceforge.net/p/lunarcalendar/code/ci/master/tree/Src/Resource/database/chinese_holidays.sql?format=raw")
          << QUrl("https://gitee.com/kl222/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
          << QUrl("https://github.com/KangLin/LunarCalendar/raw/master/Src/Resource/database/chinese_holidays.sql")
          << QUrl("https://gitlab.com/kl222/LunarCalendar/-/raw/master/Src/Resource/database/chinese_holidays.sql");
-    DownloadFile(urls);
+    DownloadChineseHolidaysSqlFile(urls);
     OpenDatabase();
-    
+
     slotUpdate();
 }
 
@@ -1147,7 +1147,12 @@ int CLunarCalendarModel::InitTableChineseHolidays()
     {
         QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
                    + QDir::separator() + "chinese_holidays.sql");
-        file.copy(szSqlFile);
+        if(file.copy(szSqlFile))
+            qInfo(Logger) << "InitTableChineseHolidays. Copy file success."
+                           << file.fileName() << "from" << szSqlFile;
+        else
+            qCritical(Logger) << "InitTableChineseHolidays. Copy file success."
+                              << file.fileName() << "from" << szSqlFile;
     }
 #endif
 
@@ -1163,19 +1168,19 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
     QFile sqlNative(szNativeSqlFile);
 
     do{
-        if(m_UpdateSqlFile.size() == 0)
+        if(m_ChineseHolidaysSql.size() == 0)
             break;
 
-        if(!m_UpdateSqlFile.isOpen())
-            if(!m_UpdateSqlFile.open(QIODevice::ReadOnly))
+        if(!m_ChineseHolidaysSql.isOpen())
+            if(!m_ChineseHolidaysSql.open(QIODevice::ReadOnly))
             {
                 qCritical(LogDB) << "Open update sql file fail."
-                                 << m_UpdateSqlFile.fileName();
+                                 << m_ChineseHolidaysSql.fileName();
                 break;
             }
 
         QCryptographicHash md5Update(QCryptographicHash::Md5);
-        if(!md5Update.addData(&m_UpdateSqlFile))
+        if(!md5Update.addData(&m_ChineseHolidaysSql))
         {
             qCritical(Logger) << "Update sql file md5sum fail";
             break;
@@ -1197,7 +1202,7 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
             {
                 qDebug(Logger) << "The files is same:"
                                << sqlNative.fileName()
-                               << m_UpdateSqlFile.fileName();
+                               << m_ChineseHolidaysSql.fileName();
                 break;
             }
             bSame = false;
@@ -1206,43 +1211,43 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
 
     if(sqlNative.isOpen())
         sqlNative.close();
-    if(m_UpdateSqlFile.isOpen())
-        m_UpdateSqlFile.close();
+    if(m_ChineseHolidaysSql.isOpen())
+        m_ChineseHolidaysSql.close();
 
     if(!bSame) return;
 
     qDebug(Logger) << "Update chinese_holidays.sql:"
                    << sqlNative.fileName()
-                   << m_UpdateSqlFile.fileName();
+                   << m_ChineseHolidaysSql.fileName();
 
     if(QFile::exists(szNativeSqlFile))
         QFile::remove(szNativeSqlFile);
-    if(m_UpdateSqlFile.copy(szNativeSqlFile))
+    if(m_ChineseHolidaysSql.copy(szNativeSqlFile))
         qInfo(Logger) << "Copy chinese_holidays.sql success. from "
-                      << m_UpdateSqlFile.fileName()
+                      << m_ChineseHolidaysSql.fileName()
                       << "to" << sqlNative.fileName();
     else
         qCritical(Logger) << "Copy chinese_holidays.sql fail. from "
-                      << m_UpdateSqlFile.fileName()
+                      << m_ChineseHolidaysSql.fileName()
                       << "to" << sqlNative.fileName();
 
     InitTableChineseHolidays();
 }
 
-void CLunarCalendarModel::slotDownloadError(int nErr, const QString szError)
+void CLunarCalendarModel::slotDownloadChineseHolidaysSqlFileError(int nErr, const QString szError)
 {
-    qDebug(Logger) << "CFrmUpdater::slotDownloadError:" << nErr << szError;
+    qDebug(Logger) << "Download chinese holidays sql file error:" << nErr << szError;
     QString szMsg = szError;
     if(szMsg.isEmpty()) szMsg = tr("Download file fail");
-    m_UpdateSqlFile.close();
+    m_ChineseHolidaysSql.close();
 }
 
-void CLunarCalendarModel::slotDownloadFileFinished(const QString szFile)
+void CLunarCalendarModel::slotDownloadChineseHolidaysFileFinished(const QString szFile)
 {
-    if(m_UpdateSqlFile.isOpen())
-        m_UpdateSqlFile.close();
+    if(m_ChineseHolidaysSql.isOpen())
+        m_ChineseHolidaysSql.close();
 
-    QString f = m_UpdateSqlFile.fileName();
+    QString f = m_ChineseHolidaysSql.fileName();
     if(QFile::exists(f))
         QFile::remove(f);
     if(QFile::rename(szFile, f))
@@ -1255,21 +1260,21 @@ void CLunarCalendarModel::slotDownloadFileFinished(const QString szFile)
     internalUpdate();
 }
 
-int CLunarCalendarModel::DownloadFile(const QVector<QUrl> &urls)
+int CLunarCalendarModel::DownloadChineseHolidaysSqlFile(const QVector<QUrl> &urls)
 {
     int nRet = 0;
 
-    if(m_UpdateSqlFile.isOpen())
-        m_UpdateSqlFile.close();
+    if(m_ChineseHolidaysSql.isOpen())
+        m_ChineseHolidaysSql.close();
     if(!urls.isEmpty())
     {
-        m_Download = QSharedPointer<RabbitCommon::CDownloadFile>(
+        m_DownloadChineseHolidaysSql = QSharedPointer<RabbitCommon::CDownloadFile>(
                     new RabbitCommon::CDownloadFile(urls));
-        bool check = connect(m_Download.data(), SIGNAL(sigFinished(const QString)),
-                this, SLOT(slotDownloadFileFinished(const QString)));
+        bool check = connect(m_DownloadChineseHolidaysSql.data(), SIGNAL(sigFinished(const QString)),
+                this, SLOT(slotDownloadChineseHolidaysFileFinished(const QString)));
         Q_ASSERT(check);
-        check = connect(m_Download.data(), SIGNAL(sigError(int, const QString)),
-                        this, SLOT(slotDownloadError(int, const QString)));
+        check = connect(m_DownloadChineseHolidaysSql.data(), SIGNAL(sigError(int, const QString)),
+                        this, SLOT(slotDownloadChineseHolidaysSqlFileError(int, const QString)));
         Q_ASSERT(check);
     }
     return nRet;

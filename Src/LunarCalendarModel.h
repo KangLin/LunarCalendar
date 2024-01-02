@@ -132,9 +132,6 @@ public:
 private Q_SLOTS:
     int slotUpdate();
 
-    void slotDownloadError(int nErr, const QString szError);
-    void slotDownloadFileFinished(const QString szFile);
-
 private:
     void internalUpdate();
     QDate firstDateMonth() const;
@@ -150,18 +147,6 @@ private:
     QColor GetHeight() const;
 
     int InitHoliday();
-    
-    int OpenDatabase();
-    int InitTableChineseHolidays();
-    int ExecSqlFile(const QString& szFile);
-    
-    void CheckUpdateChineseHolidaysTable();
-    /**
-     * @brief DownloadFile
-     * @param url: Download url
-     * @return 
-     */
-    int DownloadFile(const QVector<QUrl> &urls);
 
 private:
     QFont m_Font;
@@ -222,10 +207,25 @@ private:
     std::function<uint(/*in*/const QDate& date,
                        /*out*/QStringList& tasks)> m_cbTaskHandler;
 #endif
-    
+
     QSqlDatabase m_Database;
-    QSharedPointer<RabbitCommon::CDownloadFile> m_Download;
-    QFile m_UpdateSqlFile;
+    int OpenDatabase();
+    int ExecSqlFile(const QString& szFile);
+    
+    // Chinese holidays sql
+    QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadChineseHolidaysSql;
+    QFile m_ChineseHolidaysSql;
+    int InitTableChineseHolidays();
+    void CheckUpdateChineseHolidaysTable();
+    /**
+     * @brief Download chinese holidays sql file
+     * @param url: Download url
+     * @return 
+     */
+    int DownloadChineseHolidaysSqlFile(const QVector<QUrl> &urls);
+private Q_SLOTS:
+    void slotDownloadChineseHolidaysSqlFileError(int nErr, const QString szError);
+    void slotDownloadChineseHolidaysFileFinished(const QString szFile);
 };
 
 #endif // CCALENDARMODEL_H
