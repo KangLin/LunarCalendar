@@ -39,7 +39,7 @@ jobs:
     env:
       SOURCE_DIR:  ${{github.workspace}}\.cache\source
       TOOSL_DIR:   ${{github.workspace}}\.cache\tools
-      INSTALL_DIR: ${{github.workspace}}\.cache\install_msvc_qt${{matrix.qt_version}}_${{matrix.triplet}}_${{matrix.BUILD_TYPE}}
+      INSTALL_DIR: ${{github.workspace}}\.cache\install_msvc_installed_qt${{matrix.qt_version}}_${{matrix.qt_arch}}-${{matrix.triplet}}_${{matrix.BUILD_TYPE}}
       CMAKE_GENERATOR: "Visual Studio 17 2022"
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
@@ -78,23 +78,32 @@ jobs:
             ${{env.INSTALL_DIR}}
           key: cache-installed-msvc
 
+      - name: Cache vcpkg
+        #if: false
+        uses: actions/cache@v2
+        id: cache-vcpkg
+        with:
+          path: |
+            ${{ runner.workspace }}/vcpkg/
+          key: cache-vcpkg
+
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: ${{env.VCPKGGITCOMMITID}}
           vcpkgDirectory: ${{runner.workspace}}/vcpkg/
-          # Since the cache must be invalidated when content of the vcpkg.json file changes, let's
-          # compute its hash and append this to the computed cache's key.
-          #appendedCacheKey: cache-vcpkg-msvc-${{matrix.os}}-vc${{matrix.VCPKG_PLATFORM_TOOLSET}}-${{matrix.triplet}}-qt${{matrix.qt_version}}-${{matrix.BUILD_TYPE}}-${{env.VCPKGGITCOMMITID}}
-          #vcpkgTriplet: '${{matrix.triplet}}'
-          #vcpkgArguments: 'zlib openssl sqlite3'
+
+      - name: run vcpkg
+        run: |
+          vcpkg install --triplet=${{matrix.triplet}}
 
       - name: Cache Qt
+        if: false
         id: cache-qt
         uses: actions/cache@v1  # not v2!
         with:
           path: ${{env.TOOSL_DIR}}/qt
-          key: qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
+          key: qt${{matrix.qt_version}}_${{matrix.qt_arch}}-${{matrix.triplet}}
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
@@ -103,7 +112,8 @@ jobs:
           version: '${{matrix.qt_version}}' # optional, default is 5.15.2
           arch: '${{matrix.qt_arch}}' # optional
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
-          cached: '${{steps.cache-qt.outputs.cache-hit}}' # optional, default is false
+          cache: true
+          cache-key-prefix: install-qt-action
  
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}

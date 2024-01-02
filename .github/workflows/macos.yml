@@ -18,6 +18,7 @@ jobs:
         BUILD_TYPE: [Release, Debug]
         qt_version: [6.6.1, 5.15.2, 5.12.12]
         qt_arch: [clang_64]
+        triplet: [x64-osx]
         include:
           - qt_version: 6.6.1
             qt_modules: qtscxml qtwebchannel qtwebsockets qtwebview qtpositioning
@@ -63,23 +64,32 @@ jobs:
             ${{env.INSTALL_DIR}}
           key: Cache-installed-macos
 
+      - name: Cache vcpkg
+        if: false
+        uses: actions/cache@v2
+        id: cache-vcpkg
+        with:
+          path: |
+            ${{ runner.workspace }}/vcpkg/
+          key: cache-vcpkg
+
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgGitCommitId: ${{env.VCPKGGITCOMMITID}}
           vcpkgDirectory: ${{runner.workspace}}/vcpkg/
-          # Since the cache must be invalidated when content of the vcpkg.json file changes, let's
-          # compute its hash and append this to the computed cache's key.
-          #appendedCacheKey: cache-vcpkg-msvc-${{matrix.os}}-vc${{matrix.VCPKG_PLATFORM_TOOLSET}}-${{matrix.triplet}}-qt${{matrix.qt_version}}-${{matrix.BUILD_TYPE}}-${{env.VCPKGGITCOMMITID}}
-          #vcpkgTriplet: '${{matrix.triplet}}'
-          #vcpkgArguments: 'zlib openssl sqlite3'
+
+      - name: run vcpkg
+        run: |
+          vcpkg install --triplet ${{matrix.triplet}}
 
       - name: Cache Qt
+        if: false
         id: cache-qt
         uses: actions/cache@v1  # not v2!
         with:
           path: ${{env.TOOSL_DIR}}/qt
-          key: qt${{matrix.qt_version}}-${{matrix.qt_arch}}
+          key: qt${{matrix.qt_version}}-${{matrix.qt_arch}}-${{matrix.triplet}}
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
@@ -88,7 +98,8 @@ jobs:
           version: '${{matrix.qt_version}}' # optional, default is 5.15.2
           arch: '${{matrix.qt_arch}}' # optional
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
-          cached: '${{steps.cache-qt.outputs.cache-hit}}' # optional, default is false
+          cache: true
+          cache-key-prefix: install-qt-action
 
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}
