@@ -1236,7 +1236,7 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
 
 void CLunarCalendarModel::slotDownloadChineseHolidaysSqlFileError(int nErr, const QString szError)
 {
-    qDebug(Logger) << "Download chinese holidays sql file error:" << nErr << szError;
+    qCritical(Logger) << "Download chinese holidays sql file error:" << nErr << szError;
     QString szMsg = szError;
     if(szMsg.isEmpty()) szMsg = tr("Download file fail");
     m_ChineseHolidaysSql.close();
