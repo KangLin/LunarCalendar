@@ -2,6 +2,7 @@
   + 删除：
     - CLunarCalendar::AddAnniversary
     - CLunarCalendar::AddHoliday
+  + 使用节日数据库 SQL 文件
 
 - v0.3.2
   + 农历位置超过 3 个字符，则用 ... 表示

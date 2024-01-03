@@ -204,7 +204,15 @@ private:
     int InitTableHolidays();
     QStringList GetHoliday(const QDate& d);
     QStringList GetLunarHoliday(int month, int day);
-
+    QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadHolidaysSql;
+    QFile m_HolidaysSql;
+    int DownloadHolidaysSqlFile(const QVector<QUrl> &urls);
+    void CheckUpdateHolidaysTable();
+private Q_SLOTS:
+    void slotDownloadHolidaysSqlFileError(int nErr, const QString szError);
+    void slotDownloadHolidaysSqlFileFinished(const QString szFile);
+    
+private:
     // Chinese holidays sql
     QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadChineseHolidaysSql;
     QFile m_ChineseHolidaysSql;
@@ -220,7 +228,7 @@ private:
 
 private Q_SLOTS:
     void slotDownloadChineseHolidaysSqlFileError(int nErr, const QString szError);
-    void slotDownloadChineseHolidaysFileFinished(const QString szFile);
+    void slotDownloadChineseHolidaysSqlFileFinished(const QString szFile);
 };
 
 #endif // CCALENDARMODEL_H
