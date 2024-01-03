@@ -113,8 +113,9 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
 ### 文档
 
 - [在线文档](https://kanglin.github.io/LunarCalendar/html/index.html)
-  - [使用文档](Docs/User.md)
-  - [开发文档](Docs/Developer.md)
+
+- [使用文档](Docs/User.md)
+- [开发文档](Docs/Developer.md)
 
 ### 贡献
 
