@@ -191,10 +191,7 @@ private:
     
     bool m_bEnableHolidays;
     bool m_bEnableSolarTerm;
-    QMap<int, QMap<int, QStringList> > m_SolarHoliday;
     QMap<int, QMap<int, QStringList> > m_SolarAnniversary;
-
-    QMap<int, QMap<int, QStringList> > m_LunarHoliday;
     QMap<int, QMap<int, QStringList> > m_LunarAnniversary;
 
     CLunarCalendar::_VIEW_TYPE m_viewType;
@@ -211,7 +208,10 @@ private:
     QSqlDatabase m_Database;
     int OpenDatabase();
     int ExecSqlFile(const QString& szFile);
-    
+    int InitTableHolidays();
+    QStringList GetHoliday(const QDate& d);
+    QStringList GetLunarHoliday(int month, int day);
+
     // Chinese holidays sql
     QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadChineseHolidaysSql;
     QFile m_ChineseHolidaysSql;
@@ -223,6 +223,8 @@ private:
      * @return 
      */
     int DownloadChineseHolidaysSqlFile(const QVector<QUrl> &urls);
+    __WORK_DAY GetChineseHolidays(const QDate& d);
+
 private Q_SLOTS:
     void slotDownloadChineseHolidaysSqlFileError(int nErr, const QString szError);
     void slotDownloadChineseHolidaysFileFinished(const QString szFile);

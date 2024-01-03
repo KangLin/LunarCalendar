@@ -38,7 +38,7 @@ CREATE TABLE "holidays" (
 	"month"	INTEGER NOT NULL,
 	"day"	INTEGER NOT NULL,
 	"level"	INTEGER NOT NULL DEFAULT 1,   -- 1. 基本节日 2. 其它节日
-	"name"	TEXT NOT NULL,
+	"name"	TEXT NOT NULL UNIQUE,
 	"comment" TEXT
 );
 
@@ -76,8 +76,8 @@ https://baike.baidu.com/item/中国传统节日
 岁除（除夕）腊月廿九或三十*/
 
 -- 农历节日
-DROP TABLE IF EXISTS "holidays_lunnar";
-CREATE TABLE "holidays_lunnar" (
+DROP TABLE IF EXISTS "holidays_lunar";
+CREATE TABLE "holidays_lunar" (
 	"month"	INTEGER NOT NULL,
 	"day"	INTEGER NOT NULL,
 	"level"	INTEGER NOT NULL DEFAULT 1,   --- 1. 基本节日 2. 其它节日
@@ -85,23 +85,23 @@ CREATE TABLE "holidays_lunnar" (
 	"comment" TEXT
 );
 
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (1,1,1,"春节","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (1,15,1,"元宵","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (1,15,1,"上元","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (2,2,1,"社日","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (2,2,1,"龙抬头","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (2,12,1,"花朝","“花朝节”有游春扑蝶、种花挖野菜、制作花糕等节日风俗。同时，这天也称为女儿节。这天，女孩子们相聚玩耍，结交好友。未出阁的女子最爱赏红拜花神，吃花糕，行花令，祈祷自己像花一样朝气与美丽。从宋代开始，花朝节成为了民间大节，也是中国十分重要的传统节日之一。");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (3,3,1,"上巳","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (5,5,1,"端午","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (6,6,1,"天贶","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (7,7,1,"七夕","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (7,15,1,"中元","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (8,15,1,"中秋","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (9,9,1,"重阳","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (10,1,1,"寒衣","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (10,15,1,"下元","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,8,1,"腊八","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,24,1,"祭灶","");
-INSERT INTO "holidays_lunnar" ("month","day","level","name","comment") VALUES (12,24,1,"小年","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (1,1,1,"春节","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (1,15,1,"元宵","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (1,15,1,"上元","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (2,2,1,"社日","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (2,2,1,"龙抬头","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (2,12,1,"花朝","“花朝节”有游春扑蝶、种花挖野菜、制作花糕等节日风俗。同时，这天也称为女儿节。这天，女孩子们相聚玩耍，结交好友。未出阁的女子最爱赏红拜花神，吃花糕，行花令，祈祷自己像花一样朝气与美丽。从宋代开始，花朝节成为了民间大节，也是中国十分重要的传统节日之一。");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (3,3,1,"上巳","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (5,5,1,"端午","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (6,6,1,"天贶","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (7,7,1,"七夕","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (7,15,1,"中元","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (8,15,1,"中秋","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (9,9,1,"重阳","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (10,1,1,"寒衣","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (10,15,1,"下元","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (12,8,1,"腊八","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (12,24,1,"祭灶","");
+INSERT INTO "holidays_lunar" ("month","day","level","name","comment") VALUES (12,24,1,"小年","");
 
 COMMIT;

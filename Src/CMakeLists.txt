@@ -142,6 +142,7 @@ ADD_TARGET(NAME ${PROJECT_NAME}
 INSTALL_FILE(
     SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
+        ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/holidays.sql
     DESTINATION "data/db")
 
 INSTALL_ICON_THEME(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/icons)
