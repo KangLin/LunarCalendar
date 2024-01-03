@@ -1214,7 +1214,7 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
     if(m_ChineseHolidaysSql.isOpen())
         m_ChineseHolidaysSql.close();
 
-    if(!bSame) return;
+    if(bSame) return;
 
     qDebug(Logger) << "Update chinese_holidays.sql:"
                    << sqlNative.fileName()
