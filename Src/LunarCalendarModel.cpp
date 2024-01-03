@@ -1148,11 +1148,11 @@ int CLunarCalendarModel::InitTableChineseHolidays()
         QFile file(RabbitCommon::CDir::Instance()->GetDirDatabase(true)
                    + QDir::separator() + "chinese_holidays.sql");
         if(file.copy(szSqlFile))
-            qInfo(Logger) << "InitTableChineseHolidays. Copy file success."
-                           << file.fileName() << "from" << szSqlFile;
+            qInfo(Logger) << "Copy chinese holidays sql file success. from"
+                           << file.fileName() << "to" << szSqlFile;
         else
-            qCritical(Logger) << "InitTableChineseHolidays. Copy file success."
-                              << file.fileName() << "from" << szSqlFile;
+            qCritical(Logger) << "Copy chinese holidays sql file fail. from"
+                              << file.fileName() << "to" << szSqlFile;
     }
 #endif
 
@@ -1200,7 +1200,7 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
         {
             if(md5Update.result() == md5Native.result())
             {
-                qDebug(Logger) << "The files is same:"
+                qInfo(Logger) << "The files is same:"
                                << sqlNative.fileName()
                                << m_ChineseHolidaysSql.fileName();
                 break;
@@ -1217,17 +1217,17 @@ void CLunarCalendarModel::CheckUpdateChineseHolidaysTable()
     if(bSame) return;
 
     qDebug(Logger) << "Update chinese_holidays.sql:"
-                   << sqlNative.fileName()
+                   << sqlNative.fileName() << "from"
                    << m_ChineseHolidaysSql.fileName();
 
     if(QFile::exists(szNativeSqlFile))
         QFile::remove(szNativeSqlFile);
     if(m_ChineseHolidaysSql.copy(szNativeSqlFile))
-        qInfo(Logger) << "Copy chinese_holidays.sql success. from "
+        qInfo(Logger) << "Update chinese_holidays.sql success. from"
                       << m_ChineseHolidaysSql.fileName()
                       << "to" << sqlNative.fileName();
     else
-        qCritical(Logger) << "Copy chinese_holidays.sql fail. from "
+        qCritical(Logger) << "Update chinese_holidays.sql fail. from"
                       << m_ChineseHolidaysSql.fileName()
                       << "to" << sqlNative.fileName();
 
