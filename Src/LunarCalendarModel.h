@@ -105,16 +105,11 @@ public:
 
     QDate dateForCell(int row, int column) const;
     void cellForDate(const QDate &date, int *row, int *column) const;
-    
-    int AddHoliday(int month, int day, const QString &szName,
-                   CLunarCalendar::_CalendarType type
-                   = CLunarCalendar::_CalendarType::CalendarTypeSolar);
-    int ClearHolidays();
+
+    void EnableToolTip(bool enable);    
     bool EnableHolidays(bool bEnable = true);
     bool EnableSolarTerm(bool bEnable = true);
-    int AddAnniversary(int month, int day, const QString &szName,
-                       CLunarCalendar::_CalendarType type
-                       = CLunarCalendar::_CalendarType::CalendarTypeSolar);
+
     int SetTaskHandle(QSharedPointer<CLunarCalendar::CTaskHandler> handler);
 #if HAS_CPP_11
     /*!
@@ -126,8 +121,6 @@ public:
     CLunarCalendar::_CalendarType GetCalendarType();
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
     CLunarCalendar::_VIEW_TYPE GetViewType();
-    
-    void EnableToolTip(bool enable);
     
 private Q_SLOTS:
     int slotUpdate();

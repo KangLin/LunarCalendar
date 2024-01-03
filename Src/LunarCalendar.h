@@ -128,11 +128,17 @@
  * \subsection Holiday 节日、周年纪念日（以年为周期的任务）
  * - 中国节假日（一群闲得蛋疼的人搞出来的非周期性的玩意），在左上角显示。
  *   在项目内维护。详见： \ref ChineseHolidaysTable 。
- * - 节日
- *   - 公历：在项目中有默认的
- *   - 农历：在项目中有默认的
- *   - 节气：在项目内维护
+ * - 节日。
+ *   - 公历
+ *   - 农历
+ *   - 节气
+ *
+ *   在项目内维护。详见： \ref HolidaysTabl 。
+ *   如果使用者不需要默认的，使用者也可以自己维护，
+ *   \see \ref UserDefinedTasks CLunarCalendar::EnableHolidays
+ *   CLunarCalendar::EnableSolarTerm 。
  * - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
+ *   参见： \ref UserDefinedTasks 
  *   - 公历
  *   - 农历
  *
@@ -183,33 +189,6 @@
  * - 如果需要任务显示在农历位置，则需要设置 tasks 参数。最前面的一个显示。
  *   参见： \ref HolidayPriority
  *
- * \subsubsection HolidaysAndAnniversaryInterfaces 节日、周年纪念日（以年为周期的任务）接口
- *
- * 不建议使用者使用它们。请使用者使用 \ref UserDefinedTasks ，
- * 同时请遵守 \ref HolidayPriority 。
- * - 节日接口： CLunarCalendar::AddHoliday
- *   - 公历：
- *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar  
- *   - 农历：
- *   CLunarCalendar::AddHoliday type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
- *   
- *   如果你不需要本项目默认节日，请调用 CLunarCalendar::EnableHolidays 禁止节日
- *   或者 CLunarCalendar::ClearHolidays 清除节日。然后使用 \ref UserDefinedTasks 。
- *
- * - 周年纪念日接口：
- *   - 公历:
- *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeSolar
- *   - 农历:
- *   CLunarCalendar::AddAnniversary type 参数为 CLunarCalendar::_CalendarType::CalendarTypeLunar
- *
- * **注意** 
- * 
- * - 使用接口增加任务多了，会增加内存的使用量。如果使用者的节日与周年纪念日很多。
- * 不建议使用这些接口。请使用者使用 \ref UserDefinedTasks 来自己处理并做持久化存储。
- * - 接口增加的任务只保存在内存中，没有做持久化存储。由使用者做持久化存储。
- * - 只接供了增加接口，未提供删除接口。
- * - \ref UserDefinedTasks 时，回调函数应尽快返回。不要在回调函数中做过多复杂的处理。防止阻塞 UI 线程。
- * - \ref UserDefinedTasks 时，请遵守 \ref HolidayPriority 。
  * \section 文档
  * - [使用文档](../Docs/User.md)
  * - [开发文档](../Docs/Developer.md)
@@ -259,10 +238,6 @@
  *     \snippet App/MainWindow.cpp slotUpdateCalendar
  * - [可选] 允许节日、节气
  * \snippet App/MainWindow.cpp Enable holidays and solar term
- * - [废弃]设置节日。不建议使用。请使用 \ref UserDefinedTasks
- * \snippet  App/MainWindow.cpp Add Holiday
- * - [废弃]设置周年纪念日。不建议使用。请使用 \ref UserDefinedTasks
- * \snippet App/MainWindow.cpp Add Anniversary
  */
 class LUNARCALENDAR_EXPORT CLunarCalendar : public QWidget
 {
@@ -350,28 +325,7 @@ public:
     //! \name 节日、周年纪念日、任务操作
     //! @{
     
-    /*!
-     * \brief 增加公历假日
-     * \details
-     * \param month: 节日月份
-     * \param day: 节日日期
-     * \param szName: 节日名。不能为空或""
-     * \param type: 节日类型
-     * \note 不建议使用者使用它。请使用者使用 \ref UserDefinedTasks 。
-     *
-     * \snippet App/MainWindow.cpp Add Holiday
-     *
-     * \image html Docs/image/Task.png
-     */
-    QT_DEPRECATED_X("Use SetTaskHandle")
-    int AddHoliday(int month, int day, const QString &szName,
-                   _CalendarType type = _CalendarType::CalendarTypeSolar);
 public Q_SLOTS:
-    /*!
-     * \brief 清空节日。
-     * \return 
-     */
-    void ClearHolidays();
     /*!
      * \brief 允许或禁用节日
      * \param bUse
@@ -386,23 +340,6 @@ public Q_SLOTS:
     bool EnableSolarTerm(bool bEnable = true);
 
 public:
-    /*!
-     * \brief 设置周年纪念日（例如：公历生日）
-     * \param month: 月
-     * \param day: 日
-     * \param szName: 纪念日名。不能为空或""
-     * \param type: 周年纪念日类型
-     * \note 不建议使用者使用它。请使用者使用 \ref UserDefinedTasks 。
-     *
-     * \snippet App/MainWindow.cpp Add Anniversary
-     *
-     * \image html Docs/image/Task.png
-     */
-    QT_DEPRECATED_X("Use SetTaskHandle")
-    int AddAnniversary(int month, int day, const QString &szName,
-                       CLunarCalendar::_CalendarType type
-                       = CLunarCalendar::_CalendarType::CalendarTypeSolar);
-
     /*!
      * \ref UserDefinedTasks 类
      * \details

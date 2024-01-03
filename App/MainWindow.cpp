@@ -195,28 +195,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //m_pLunarCalendar->setLocale(QLocale("zh_CN"));
     m_pLunarCalendar->SetSelectedDate(QDate(2015, 10, 8));
 
-    //*/! [Add Holiday]
-    m_pLunarCalendar->AddHoliday(10, 1, "h1");
-    m_pLunarCalendar->AddHoliday(10, 1, "lh1",
-                              CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->Update();
-    //! [Add Holiday] */
-
-    //*! [Add Anniversary]
-    m_pLunarCalendar->AddAnniversary(10, 1, "a1");
-    m_pLunarCalendar->AddAnniversary(10, 1, "a2");
-    m_pLunarCalendar->AddAnniversary(9, 29, "a3");
-    m_pLunarCalendar->AddAnniversary(10, 24, "a4");
-    m_pLunarCalendar->AddAnniversary(10, 15, "老婆生日");
-    m_pLunarCalendar->AddAnniversary(8, 17, "l1",
-            CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->AddAnniversary(8, 17, "l2",
-            CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->AddAnniversary(9, 10, "l3",
-            CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    m_pLunarCalendar->Update();
-    //! [Add Anniversary] */
-
     //! [Instance CHandler]
     m_Hnadler = QSharedPointer<CHandler>(new CHandler());
     //! [Instance CHandler]

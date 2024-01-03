@@ -1207,20 +1207,6 @@ bool CLunarCalendar::eventFilter(QObject *watched, QEvent *event)
     return QWidget::eventFilter(watched, event);
 }
 
-int CLunarCalendar::AddHoliday(int month, int day, const QString &szName, _CalendarType type)
-{
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return -1;
-    return pModel->AddHoliday(month, day, szName, type);
-}
-
-void CLunarCalendar::ClearHolidays()
-{
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return;
-    pModel->ClearHolidays();
-}
-
 bool CLunarCalendar::EnableHolidays(bool bEnable)
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
@@ -1233,15 +1219,6 @@ bool CLunarCalendar::EnableSolarTerm(bool bEnable)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return true;
     return pModel->EnableSolarTerm(bEnable);
-}
-
-int CLunarCalendar::AddAnniversary(int month, int day, const QString &szName, CLunarCalendar::_CalendarType type)
-{
-    if(szName.isEmpty())
-        return -1;
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
-    if(!pModel) return -1;
-    return pModel->AddAnniversary(month, day, szName, type);
 }
 
 int CLunarCalendar::SetTaskHandle(QSharedPointer<CTaskHandler> handler)

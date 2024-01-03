@@ -1,3 +1,8 @@
+- v1.0.0
+  + 删除：
+    - CLunarCalendar::AddAnniversary
+    - CLunarCalendar::AddHoliday
+
 - v0.3.2
   + 农历位置超过 3 个字符，则用 ... 表示
   + 修复任务颜色
@@ -5,10 +10,10 @@
   + 重构数据流程
   + 增加节日数据库 SQL 文件
   + 设置 ToolTip 显示长度(5)，超过则用 …… 表示
-  + 增加废弃警告：
+  + 增加废弃警告:
     - CLunarCalendar::AddAnniversary
     - CLunarCalendar::AddHoliday
-  + 增加
+  + 增加：
     - CLunarCalendar::EnableHolidays
     - CLunarCalendar::EnableSolarTerm
     - CLunarCalendar::SelectedSolarTerm

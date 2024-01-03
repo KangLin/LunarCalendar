@@ -894,51 +894,6 @@ QColor CLunarCalendarModel::GetHeight() const
     return pal.color(cg, QPalette::Highlight);
 }
 
-int CLunarCalendarModel::AddHoliday(int month, int day, const QString &szName,
-                                    CLunarCalendar::_CalendarType type)
-{
-    if(szName.isEmpty() || szName == "") {
-        qCritical(Logger, "AddHoliday parameter szName is empty");
-        return -1;
-    }
-
-    if(!m_Database.isOpen())
-    {
-        qCritical(Logger) << "The dababase isn't open."
-                          << m_Database.databaseName();
-        return -2;
-    }
-
-    if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
-        QSqlQuery query(m_Database);
-        QString szSql = "INSERT INTO 'holidays' ('month', 'day', 'level', 'name', 'comment') VALUES ('"
-                        + QString::number(month)
-                        + "','" + QString::number(day) + "', '100', '" + szName + "','')";
-        qDebug(Logger) << "Sql:" << szSql;
-        if(!query.exec(szSql))
-        {
-            qCritical(Logger) << "Add holiday fail." << query.lastError() << szSql;
-        }
-    }
-    if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
-        QSqlQuery query(m_Database);
-        QString szSql = "INSERT INTO 'holidays_lunar' ('month', 'day', 'level', 'name', 'comment') VALUES ('"
-                        + QString::number(month)
-                        + "','" + QString::number(day) + "', '100', '" + szName + "','')";
-        qDebug(Logger) << "Sql:" << szSql;
-        if(!query.exec(szSql))
-        {
-            qCritical(Logger) << "Add lunar holiday fail." << query.lastError() << szSql;
-        }
-    }
-    return 0;
-}
-
-int CLunarCalendarModel::ClearHolidays()
-{
-    return 0;
-}
-
 bool CLunarCalendarModel::EnableHolidays(bool bEnable)
 {
     bool old = m_bEnableHolidays;
@@ -951,25 +906,6 @@ bool CLunarCalendarModel::EnableSolarTerm(bool bEnable)
     bool old = m_bEnableSolarTerm;
     m_bEnableSolarTerm = bEnable;
     return old;
-}
-
-int CLunarCalendarModel::AddAnniversary(int month, int day,
-                                        const QString &szName,
-                                        CLunarCalendar::_CalendarType type)
-{
-    if(szName.isEmpty() || szName == "") {
-        qCritical(Logger, "AddAnniversary parameter szName is empty");
-        return -1;
-    }
-
-    if(CLunarCalendar::_CalendarType::CalendarTypeSolar == type) {
-        m_SolarAnniversary[month][day] << szName;
-    }
-    if(CLunarCalendar::_CalendarType::CalendarTypeLunar == type) {
-        m_LunarAnniversary[month][day] << szName;
-    }
-
-    return 0;
 }
 
 int CLunarCalendarModel::SetTaskHandle(QSharedPointer<CLunarCalendar::CTaskHandler> handler)
@@ -1026,13 +962,7 @@ CLunarCalendar::_CalendarType CLunarCalendarModel::GetCalendarType()
 
 int CLunarCalendarModel::InitHoliday()
 {
-    AddHoliday(1, 1, "元旦");
-    AddHoliday(3, 8, "妇女节");
-    AddHoliday(5, 1, "劳动节");
-    AddHoliday(6, 1, "儿童节");
-    AddHoliday(8, 1, "建军节");
-    AddHoliday(10, 1, "国庆节");
-    
+        
     /*
     https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BC%A0%E7%BB%9F%E8%8A%82%E6%97%A5/396100?fromModule=disambiguation
     https://baike.baidu.com/item/中国传统节日
@@ -1059,24 +989,7 @@ int CLunarCalendarModel::InitHoliday()
     祭灶节（小年） 腊月廿三或廿四
     岁除（除夕）腊月廿九或三十
     */
-    AddHoliday(1, 1, "春节", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(1, 15, "上元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(1, 15, "元宵", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(2, 2, "社日", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(2, 2, "龙抬头", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(2, 12, "花朝", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(3, 3, "上巳", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(5, 5, "端午", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(6, 6, "天贶", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(7, 7, "七夕", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(7, 15, "中元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(8, 15, "中秋", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(9, 9, "重阳", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(10, 1, "寒衣", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(10, 15, "下元", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(12, 8, "腊八", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(12, 24, "祭灶", CLunarCalendar::_CalendarType::CalendarTypeLunar);
-    AddHoliday(12, 24, "小年", CLunarCalendar::_CalendarType::CalendarTypeLunar);
+   
     return 0;
 }
 

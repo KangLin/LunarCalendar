@@ -150,9 +150,10 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
        |- Resource
              |- database
                    |- chinese_holidays.sql 中国假期 SQL 文件
+                   |- holidays.sql         节日及节气 SQL 文件
 ```
 
 - 中国假日更新  
   1. 从中国政府网 “首页 > 信息公开 > 国务院文件 > 综合政务 > 其他” 找到假期文件  
 例如： 2020年假期 http://www.gov.cn/zhengce/content/2019-11/21/content_5454164.htm
-  2. 修改中国假期 SQL 文件：Src/Resource/database/chinese_holidays.sql
+  2. 修改中国假期 SQL 文件： Src/Resource/database/chinese_holidays.sql
