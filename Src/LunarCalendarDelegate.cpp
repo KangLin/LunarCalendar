@@ -56,7 +56,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     //initStyleOption(&option, index);
     QTableView *pView = dynamic_cast<QTableView*>(this->parent());
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
-    QColor solarColor, lunarColor, tasksColor, workColor;
+    QColor solarColor, lunarColor, tasksColor, taskNumberColor, workColor;
     CLunarCalendarModel* pModel
             = dynamic_cast<CLunarCalendarModel*>(pView->model());
 
@@ -177,7 +177,8 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         //painter->drawEllipse(option.rect);
         painter->drawRect(option.rect.adjusted(1, 1, -1, -1));
     }
-
+    
+    // 是当前选择，反显字体
     if(pView->currentIndex() == index)
     {
         painter->setPen(QPen(Qt::NoPen));
@@ -186,26 +187,36 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
         solarColor = palette.color(QPalette::Active, QPalette::HighlightedText);
         lunarColor = solarColor;
+        tasksColor = solarColor;
+        taskNumberColor = palette.color(QPalette::Active, QPalette::Highlight);
+        workColor = solarColor;
     }
     else
     {
         if(bSolar)
             solarColor = GetColorRole(palette,
-                       index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());    
+                 index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());    
         if(bLunar)
             lunarColor = GetColorRole(palette,
-                       index.data(CLunarCalendarModel::ROLE::LunarColorRole).toInt());
+                 index.data(CLunarCalendarModel::ROLE::LunarColorRole).toInt());
 //        qDebug() << "Color:" << solarColor << index.data(CLunarCalendarModel::SolarColorRole).toInt()
 //                 << lunarColor << index.data(CLunarCalendarModel::LunarColorRole).toInt();
+
+        tasksColor = GetColorRole(palette,
+                 index.data(CLunarCalendarModel::ROLE::TasksColorRole).toInt());
+        if(CLunarCalendarModel::_COLOR_ROLE::ColorHighlight
+            == index.data(CLunarCalendarModel::ROLE::TasksColorRole))
+            taskNumberColor
+                = palette.color(QPalette::Active, QPalette::HighlightedText);
+        else
+            taskNumberColor = GetColorRole(palette, CLunarCalendarModel::_COLOR_ROLE::ColorNormal);
+
+        workColor = GetColorRole(palette,
+               index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());
     }
-    tasksColor = GetColorRole(palette,
-                       index.data(CLunarCalendarModel::ROLE::TasksColorRole).toInt());
 
     if(!szWork.isEmpty() && bLunar)
     {
-        workColor = GetColorRole(palette,
-                     index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());
-
         painter->setFont(fontWork);
         painter->setPen(workColor);
         painter->drawText(option.rect.left(),
@@ -232,12 +243,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
         if(nTasks > 0 && nTasks < 10)
         {
-            unsigned char r = ~(unsigned char)tasksColor.red();
-            unsigned char g = ~(unsigned char)tasksColor.green();
-            unsigned char b = ~(unsigned char)tasksColor.blue();
-            QColor clr(r, g, b, tasksColor.alpha());
-            painter->setBrush(clr);
-            painter->setPen(clr);
+            painter->setPen(taskNumberColor);
             painter->drawText(option.rect.left(),
                           option.rect.top(),
                           width,
