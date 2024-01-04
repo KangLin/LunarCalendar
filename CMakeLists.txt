@@ -121,7 +121,7 @@ if(BUILD_DOCS)
     find_package(Doxygen)
     if(DOXYGEN_FOUND)
         file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Doxygen)
-        configure_file(${CMAKE_SOURCE_DIR}/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
+        configure_file(${CMAKE_SOURCE_DIR}/Docs/doxygen/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
         add_custom_target(doc ALL
             ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile # &> doxygen.log
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
