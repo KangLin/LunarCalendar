@@ -1007,7 +1007,7 @@ int CLunarCalendarModel::OpenDatabase()
     int nRet = 0;
     QString szDatabaseFile;
     szDatabaseFile = RabbitCommon::CDir::Instance()->GetDirUserDatabase()
-                           + QDir::separator() + "db.sqlite";
+                           + QDir::separator() + "holidays.sqlite";
     m_Database = QSqlDatabase::addDatabase("QSQLITE");
     m_Database.setDatabaseName(szDatabaseFile);
     QDir d;
