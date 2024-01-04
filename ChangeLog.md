@@ -2,6 +2,8 @@
   + 删除：
     - CLunarCalendar::AddAnniversary
     - CLunarCalendar::AddHoliday
+  + 由公有函数变为私有函数：
+    - CLunarCalendar::InitResource
   + 使用节日数据库 SQL 文件
   + 修复当前选择字体反显颜色
 

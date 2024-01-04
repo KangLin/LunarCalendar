@@ -202,12 +202,8 @@
  * \ingroup API
  * 
  * \section UssCLunarCalendar CLunarCalendar 类的使用
- * 
- * - 初始化资源
- * \snippet App/main.cpp CLunarCalendar::InitResource()
- * - 释放资源
- * \snippet App/main.cpp CLunarCalendar::CLeanResource()
- * - 实例化 CLunarCalendar 对象
+ *
+ * - 实例化 CLunarCalendar 对象。必须在 QApplication a(argc, argv) 之后。
  * \snippet App/MainWindow.h Instance CLunarCalendar
  * \snippet App/MainWindow.cpp Instance CLunarCalendar
  * - [可选]设置界面 
@@ -253,21 +249,7 @@ public:
     virtual ~CLunarCalendar() override;
     
     enum class _CalendarType;
-    
-    //! \name 资源操作
-    //! @{
-    /*!
-     * \brief 初始化程序资源，仅在在程序开始处, QApplication a(argc, argv); 之后调用一次.
-     * \snippet App/main.cpp CLunarCalendar::InitResource()
-     */
-    static void InitResource();
-    /*!
-     * \brief 释放程序资源。仅在程序退出前调用一次
-     * \snippet App/main.cpp CLunarCalendar::CLeanResource()
-     */
-    static void CLeanResource();
-    //! @} 资源操作
-    
+
     //! \name 日期操作
     //! @{
     
@@ -647,6 +629,9 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event) Q_DECL_OVERRIDE;
     
 private:
+    static void InitResource();
+    static void CLeanResource();
+    
     int ShowSelectTitle();
     int UpdateViewModel(bool bForce = false);
     int UpdateMonthMenu();

@@ -38,6 +38,10 @@ class CLunarCalendarPrivate
 public:
     CLunarCalendarPrivate()
     {
+        if(!qApp) {
+            qCritical(Logger) << "Please instantiate the CLunarCalendar object after QApplication a(argc, argv) in main()";
+            return;
+        }
         QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
                          + "/LunarCalendar_" + QLocale::system().name() + ".qm";
         if(m_Translator.load(szFile))
@@ -261,8 +265,9 @@ CLunarCalendar::~CLunarCalendar()
 
 void CLunarCalendar::InitResource()
 {
-    if(nullptr == g_pLunarCalendarPrivate)
-        g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
+    if(g_pLunarCalendarPrivate) return;
+
+    g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
 
     Q_INIT_RESOURCE(ResourceLunarCalendar);
 #if _DEBUG

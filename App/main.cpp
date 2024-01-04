@@ -35,7 +35,7 @@ static Q_LOGGING_CATEGORY(Logger, "App.main")
  * \ingroup Example
  */
 int main(int argc, char *argv[])
-{   
+{
     QApplication a(argc, argv);
     a.setApplicationVersion(LunarCalendar_VERSION);
     a.setApplicationName("LunarCalendar");
@@ -72,10 +72,6 @@ int main(int argc, char *argv[])
     else
         qCritical(Logger) << "Load translation file fail:" << szFile;
     
-    //! [CLunarCalendar::InitResource()]
-    CLunarCalendar::InitResource();
-    //! [CLunarCalendar::InitResource()]
-    
     MainWindow w;
 
 #if defined (Q_OS_ANDROID)
@@ -90,10 +86,6 @@ int main(int argc, char *argv[])
     w.show();
 #endif
     int nRet = a.exec();
-    
-    //! [CLunarCalendar::CLeanResource()]
-    CLunarCalendar::CLeanResource();
-    //! [CLunarCalendar::CLeanResource()]
 
     if(bRetTranslator) a.removeTranslator(&tApp);
 

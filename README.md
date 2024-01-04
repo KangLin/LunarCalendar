@@ -321,23 +321,6 @@ please compile and test the students with the corresponding equipment.
                 endif()
                 target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
-- Load translator
-    + Use library function
-
-            CLunarCalendar::InitResource();
-
-    + Customize
-
-            QString szPre;
-            #if defined(Q_OS_ANDROID) || _DEBUG
-                szPre = ":/Translations";
-            #else
-                szPre = qApp->applicationDirPath() + QDir::separator() + ".." + QDir::separator() + "translations";
-            #endif
-            m_Translator.load(szPre + "/LunarCalendar_" + QLocale::system().name() + ".qm");
-            qApp->installTranslator(&m_Translator);
-
-
 ### Contribution
 
 - [Question](https://github.com/KangLin/LunarCalendar/issues)
