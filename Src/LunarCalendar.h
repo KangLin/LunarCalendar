@@ -153,8 +153,6 @@
  * - 任务
  * - 农历
  *
- * \image html Docs/image/Task.png
- *
  * \subsection TaskInterfaces 任务接口
  * \subsubsection UserDefinedTasks 使用者自定义任务接口
  *

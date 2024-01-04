@@ -34,19 +34,12 @@
             message("   ag:")
             message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
         endif()
-                
+
   + 在使用者的工程目录 CMakeLists.txt 中添加
-          
-        SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+
         if(TARGET LunarCalendar)
-            target_compile_definitions(${PROJECT_NAME}
-                                        PRIVATE -DLunarCalendar)
-            target_include_directories(${PROJECT_NAME}
-                                        PRIVATE "${LunarCalendar_DIR}/Src"
-                                                "${LunarCalendar_DIR}/Src/export")
-            set(APP_LIBS ${APP_LIBS} LunarCalendar)
+            target_link_libraries(${PROJECT_NAME} LunarCalendar)
         endif()
-        target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 #### 以库方式使用使用
 
@@ -54,12 +47,10 @@
   cmake 参数 LunarCalendar_DIR 指定安装根目录
 
       find_package(LunarCalendar)
-      SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+      
       if(LunarCalendar_FOUND)
-          target_compile_definitions(${PROJECT_NAME}
-                                     PRIVATE -DLunarCalendar)
+          target_link_libraries(${PROJECT_NAME} LunarCalendar)
       endif()
-      target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
 
 - 加载翻译资源
   + 用库中提供的函数
