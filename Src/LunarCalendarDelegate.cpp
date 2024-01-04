@@ -79,8 +79,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     else
         fontTasks.setPointSizeF(fontTasks.pointSizeF() / 3);
 
-    QString szSolar, szLunar, szAnniversary, szWork;
-    szAnniversary = index.data(CLunarCalendarModel::ROLE::Anniversary).toString();
+    QString szSolar, szLunar, szWork;
     uint nTasks = index.data(CLunarCalendarModel::ROLE::Tasks).toUInt();
     szWork = index.data(CLunarCalendarModel::ROLE::WorkDayRole).toString();
 
@@ -97,7 +96,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
     painter->save();
 
-    if(!szAnniversary.isEmpty() || nTasks)
+    if(nTasks)
     {
         painter->setFont(fontTasks);
         QFontMetrics m = painter->fontMetrics();
@@ -202,7 +201,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     tasksColor = GetColorRole(palette,
                        index.data(CLunarCalendarModel::ROLE::TasksColorRole).toInt());
 
-    if(!szWork.isEmpty())
+    if(!szWork.isEmpty() && bLunar)
     {
         workColor = GetColorRole(palette,
                      index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());
@@ -217,7 +216,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           szWork);
     }
 
-    if(!szAnniversary.isEmpty() || nTasks)
+    if(nTasks)
     {
         painter->setFont(fontTasks);
         int h = qMax(tasksWidth, tasksHeight);
