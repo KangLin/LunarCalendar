@@ -3,6 +3,7 @@
     - CLunarCalendar::AddAnniversary
     - CLunarCalendar::AddHoliday
   + 使用节日数据库 SQL 文件
+  + 修复当前选择字体反显颜色
 
 - v0.3.2
   + 农历位置超过 3 个字符，则用 ... 表示
