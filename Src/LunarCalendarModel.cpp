@@ -124,6 +124,7 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
         }
         break;
     default:
+        qDebug(Logger) << "headerData:section:" << section << "role:" << role;
         break;
     };
     return QVariant();
@@ -132,6 +133,7 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
 bool CLunarCalendarModel::setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role)
 {
     if (value != headerData(section, orientation, role)) {
+        return QAbstractTableModel::setHeaderData(section, orientation, value, role);
         emit headerDataChanged(orientation, section, section);
         return true;
     }
@@ -170,8 +172,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     switch (role) {
-    case Qt::FontRole:
-        return m_Font;
     case Qt::TextAlignmentRole:
         return static_cast<int>(Qt::AlignCenter);
     case Qt::DisplayRole:
@@ -361,16 +361,7 @@ bool CLunarCalendarModel::setData(const QModelIndex &index, const QVariant &valu
         return false;
     }
 
-    switch(role){
-    case Qt::FontRole:
-        m_Font = value.value<QFont>();
-        break;
-    default:
-        break;
-    }
-
-    emit dataChanged(index, index, QVector<int>() << role);
-    return true;
+    return QAbstractTableModel::setData(index, value, role);
 }
 
 Qt::ItemFlags CLunarCalendarModel::flags(const QModelIndex &index) const

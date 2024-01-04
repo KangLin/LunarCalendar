@@ -151,9 +151,7 @@ private:
 
     int InitHoliday();
 
-private:
-    QFont m_Font;
-    
+private:    
     QDate m_Date;
     QDate m_MinimumDate;
     QDate m_MaximumDate;
