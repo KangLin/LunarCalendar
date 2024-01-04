@@ -109,7 +109,7 @@ Mac os 和 IOS ，本人没有相应设备，请有相应设备的同学自己�
   - Ubuntu: *.deb
   - Windows: *.exe
   - Android: *.apk
-- 文档：[LunarCalendar_v0.3.2_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v0.3.2/LunarCalendar_v0.3.2_document.zip)
+- 文档：[LunarCalendar_v1.0.0_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v1.0.0/LunarCalendar_v1.0.0_document.zip)
 
 ### 文档
 

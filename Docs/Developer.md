@@ -141,7 +141,7 @@ Qt因为版权原因，没有提供openssl动态库，所以必须自己复制op
 
       sudo apt-get install libssl1.1
 
-**注意:** Qt6.5.1 以前版本使用 openssl 1.1X 。Qt6.5.1 及以后版本使用 openssl 3.x.x 版本。
+**注意:** Qt6.2.4 以前版本使用 openssl 1.1X 。Qt6.2.4 及以后版本使用 openssl 3.x.x 版本。
 
 ## 开发
 

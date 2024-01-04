@@ -47,7 +47,6 @@
   cmake 参数 LunarCalendar_DIR 指定安装根目录
 
       find_package(LunarCalendar)
-      
       if(LunarCalendar_FOUND)
           target_link_libraries(${PROJECT_NAME} LunarCalendar)
       endif()

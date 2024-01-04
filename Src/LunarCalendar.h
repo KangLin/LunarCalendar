@@ -203,7 +203,7 @@
  * 
  * \section UssCLunarCalendar CLunarCalendar 类的使用
  *
- * - 实例化 CLunarCalendar 对象。必须在 QApplication a(argc, argv) 之后。
+ * - 实例化 CLunarCalendar 对象。必须在 QApplication 实例化对象之后。
  * \snippet App/MainWindow.h Instance CLunarCalendar
  * \snippet App/MainWindow.cpp Instance CLunarCalendar
  * - [可选]设置界面 
@@ -604,10 +604,13 @@ public:
 Q_SIGNALS:
     /*!
      * \brief 当前选择日期改变时触发
-     * 可以在相应的槽函数中调用下列函数得到选择的日期：
-     *  - SelectedDate()
-     *  - SelectedLunar()
-     *  - SelectedLunar(int &year, int &month, int &day) 
+     * 可以在相应的槽函数中调用下列函数
+     * - 得到选择的日期：
+     *   - SelectedDate()
+     *   - SelectedLunar()
+     *   - SelectedLunar(int &year, int &month, int &day)
+     * - 得到节气：
+     *   - SelectedSolarTerm()
      */
     void sigSelectionChanged();
     

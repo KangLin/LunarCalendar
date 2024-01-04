@@ -35,7 +35,7 @@ jobs:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.BUILD_TYPE}}
-      LunarCalendar_VERSION: v0.3.2
+      LunarCalendar_VERSION: v1.0.0
       VCPKGGITCOMMITID: f1c6efee2245009540dde947e0e3d008f3aa7dbb
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
