@@ -21,7 +21,7 @@ test.xml
 .vs/
 CMakeSettings.json
 build-*/
-build/
+build*/
 build_android/
 build_unix_mingw/
 build_windows_mingw/

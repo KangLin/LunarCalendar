@@ -160,7 +160,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
         font.setPointSize(nFontSize * 2 / 3);
     if(nPixSize > 0)
         font.setPixelSize(nPixSize * 2 / 3);
-#if defined(Q_OS_ANDRD)
+#if defined(Q_OS_ANDROID)
     m_View.setFont(font);
 #endif
     /*

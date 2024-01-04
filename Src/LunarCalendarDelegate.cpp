@@ -286,13 +286,15 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
                                          const QStyleOptionViewItem &option,
                                          const QModelIndex &index) const
 {
-    QPalette palette = option.palette;
+    QStyleOptionViewItem o = option;
+    //initStyleOption(&o, index);
+    QPalette palette = o.palette;
     QColor color = GetColorRole(palette,
                       index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());
     QString szText = index.data(Qt::DisplayRole).toString();
 
     painter->save();
-    painter->setFont(option.font);
+    painter->setFont(o.font);
     painter->setPen(color);
 
     QFontMetrics m = painter->fontMetrics();
