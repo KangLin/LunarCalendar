@@ -32,6 +32,16 @@ INSERT INTO "solar_term" ("name", "comment") VALUES ("立冬", "");
 INSERT INTO "solar_term" ("name", "comment") VALUES ("小雪", "");
 INSERT INTO "solar_term" ("name", "comment") VALUES ("大雪", "");
 
+/*
+节日过滤表
+*/
+DROP TABLE IF EXISTS "holiday_filter";
+CREATE TABLE "holiday_filter" (
+	"table_name"	TEXT NOT NULL,
+	"filter" TEXT
+);
+INSERT INTO "holiday_filter" ("table_name", "filter") VALUES ("holidays", "and level=1");
+
 -- 节日
 DROP TABLE IF EXISTS "holidays";
 CREATE TABLE "holidays" (
@@ -45,6 +55,7 @@ CREATE TABLE "holidays" (
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("1", "1", "1", "元旦", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("3", "8", "1", "妇女节", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("5", "1", "1", "劳动节", "");
+INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("5", "12", "2", "护士节", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("6", "1", "1", "儿童节", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("8", "1", "1", "建军节", "");
 INSERT INTO "holidays" ("month", "day", "level", "name", "comment") VALUES ("10", "1", "1", "国庆节", "");

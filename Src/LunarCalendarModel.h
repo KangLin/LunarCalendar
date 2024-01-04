@@ -31,8 +31,19 @@
  *   当有新的中国节假日时，修此表，加入新的即可。
  * \subsection HolidaysTabl 节日表
  * 
- * 节日表 SQL 文件: Src/Resource/database/holidays.sql
- * 
+ * - 节日表 SQL 文件: Src/Resource/database/holidays.sql
+ * - holiday_filter 可以控制节日的显示
+ *   + 显示所有节日。过滤器设置为空
+ *   + 显示基本的节日(level=1)
+ *     \code
+ *     INSERT INTO "holiday_filter" ("table_name", "filter") VALUES ("holidays", "and level=1");
+ *     \endcode
+ *   + 显示 level=1 或者 level=2 的节日
+ *     \code
+ *     INSERT INTO "holiday_filter" ("table_name", "filter") VALUES ("holidays","and (level=1 or level=2)");
+ *     \endcode
+ *     
+ * \see GetHoliday 
  */
 class CLunarCalendarModel : public QAbstractTableModel
 {
@@ -72,7 +83,6 @@ public:
         LunarColorRole,
         LunarFontRole,
         BackgroupImage,
-        Anniversary,
         Tasks,
         TasksColorRole,
         TodayRole,
@@ -172,7 +182,6 @@ private:
         QStringList SolarHoliday;
         QStringList LunarHoliday;
 
-        QStringList Anniversary;
         QStringList Tasks;
         uint TaskCounts;
 
@@ -184,8 +193,6 @@ private:
     
     bool m_bEnableHolidays;
     bool m_bEnableSolarTerm;
-    QMap<int, QMap<int, QStringList> > m_SolarAnniversary;
-    QMap<int, QMap<int, QStringList> > m_LunarAnniversary;
 
     CLunarCalendar::_VIEW_TYPE m_viewType;
     CLunarCalendar::_CalendarType m_calendarType;
@@ -202,6 +209,11 @@ private:
     int OpenDatabase();
     int ExecSqlFile(const QString& szFile);
     int InitTableHolidays();
+    /*!
+     * \brief 得到指定日期的节日
+     * \param d
+     * \return 返回节日列表
+     */
     QStringList GetHoliday(const QDate& d);
     QStringList GetLunarHoliday(int month, int day);
     QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadHolidaysSql;

@@ -233,12 +233,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                     return h;
             }
         }
-        if(!day.Anniversary.isEmpty()) {
-            foreach (auto h, day.Anniversary) {
-                if(!h.isEmpty() && "" != h)
-                    return h;
-            }
-        }
         if(!day.Tasks.isEmpty()) {
             foreach (auto h, day.Tasks) {
                 if(!h.isEmpty() && "" != h)
@@ -294,22 +288,6 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
                 szTip += "\n" + h;
             }
         }
-        if(!day.Anniversary.isEmpty()) {
-            foreach (auto h, day.Anniversary) {
-                if(h.isEmpty() || "" == h)
-                    break;
-                if(nCounts > nTotals)
-                    break;
-                if(nCounts == nTotals)
-                {
-                    nCounts++;
-                    szTip += "\n……";
-                    break;
-                }
-                nCounts++;
-                szTip += "\n" + h;
-            }
-        }
         if(!day.Tasks.isEmpty()) {
             foreach (auto h, day.Tasks) {
                 if(h.isEmpty() || "" == h)
@@ -328,24 +306,13 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         }
         return szTip;
     }
-    case ROLE::Anniversary:
-    {
-        _DAY day = GetDay(row, column);
-        if(!day.Anniversary.isEmpty()) {
-            foreach (auto h, day.Anniversary) {
-                if(!h.isEmpty() && "" != h)
-                    return h;
-            }
-        }
-        break;
-    }
     case ROLE::Tasks:
     {
         /*!
          * - 任务取值： 包括周年纪念日、任务、任务计数之和
          */
         _DAY day = GetDay(row, column);
-        return day.TaskCounts + day.Anniversary.size() + day.Tasks.size();
+        return day.TaskCounts + day.Tasks.size();
     }
     case ROLE::TasksColorRole:
         if(d.month() != m_ShownMonth
@@ -479,8 +446,6 @@ int CLunarCalendarModel::slotUpdate()
 
             //qDebug() << "exec dateForCell time:" << tOnceStart.msecsTo(QTime::currentTime());
             
-            day.Anniversary = m_SolarAnniversary[d.month()].value(d.day());
-
             if(static_cast<int>(m_calendarType)
                 & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar))
             {
@@ -504,8 +469,7 @@ int CLunarCalendarModel::slotUpdate()
                 if(m_bEnableSolarTerm && !lunar.GetJieQi().isEmpty()) {
                     day.LunarHoliday << lunar.GetJieQi();
                 }
-                
-                day.Anniversary += m_LunarAnniversary[lunar.GetMonth()].value(lunar.GetDay());
+
                 day.szImageBackgroup = lunar.GetJieQiImage();    
             }
 
@@ -1255,7 +1219,7 @@ CLunarCalendarModel::__WORK_DAY CLunarCalendarModel::GetChineseHolidays(const QD
     __WORK_DAY day = __WORK_DAY::NO;
     if(!m_Database.isOpen())
     {
-        qCritical(Logger) << "The dababase isn't open."
+        qCritical(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return day;
     }
@@ -1263,13 +1227,13 @@ CLunarCalendarModel::__WORK_DAY CLunarCalendarModel::GetChineseHolidays(const QD
     QSqlQuery query(m_Database);
     QString szSql = "select * from chinese_holidays where date='"
                     + d.toString("yyyy-MM-dd") + "'";
-    //qDebug(Logger) << "Sql:" << szSql;
+    //qDebug(LogDB) << "Sql:" << szSql;
     if(query.exec(szSql))
     {
         while(query.next())
         {
             QVariant v = query.value("iswork");
-            //qDebug() << query.value("date") << "isWork:" << v;
+            //qDebug(LogDB) << query.value("date") << "isWork:" << v;
             if(v.isValid())
             {
                 if(v.toInt() == 1)
@@ -1279,7 +1243,7 @@ CLunarCalendarModel::__WORK_DAY CLunarCalendarModel::GetChineseHolidays(const QD
             }
         }
     } else
-        qCritical(Logger) << "Get chinese holiday fail."
+        qCritical(LogDB) << "Get chinese holiday fail."
                           << query.lastError() << szSql;
     
     return day;
@@ -1290,22 +1254,40 @@ QStringList CLunarCalendarModel::GetHoliday(const QDate &d)
     QStringList lstHolidays;
     if(!m_Database.isOpen())
     {
-        qCritical(Logger) << "The dababase isn't open."
+        qCritical(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return QStringList();
     }
     
+    QString szFilter; //! \ref HolidaysTabl
     QSqlQuery query(m_Database);
-    QString szSql = "select * from holidays where month="
+    QString szSql = "select * from holiday_filter where table_name='holidays'";
+    //qDebug(LogDB) << "Sql:" << szSql;
+    if(query.exec(szSql))
+    {
+        while(query.next())
+        {
+            QVariant v = query.value("filter");
+            if(v.isValid())
+            {
+                szFilter = v.toString();
+            }
+        }
+    } else
+        qWarning(LogDB) << "Get holiday filter fail."
+                          << query.lastError() << szSql;
+    
+    szSql = "select * from holidays where month="
                     + QString::number(d.month())
                     + " and day=" + QString::number(d.day());
-    //qDebug(Logger) << "Sql:" << szSql;
+    if(!szFilter.isEmpty())
+        szSql += " " + szFilter;
+    //qDebug(LogDB) << "Sql:" << szSql;
     if(query.exec(szSql))
     {
         while(query.next())
         {
             QVariant v = query.value("name");
-            //qDebug() << query.value("date") << "isWork:" << v;
             if(v.isValid())
             {
                 QString szHoliday = v.toString();
@@ -1314,7 +1296,7 @@ QStringList CLunarCalendarModel::GetHoliday(const QDate &d)
             }
         }
     } else
-        qCritical(Logger) << "Get holiday fail."
+        qCritical(LogDB) << "Get holiday fail."
                           << query.lastError() << szSql;
 
     return lstHolidays;
@@ -1325,22 +1307,39 @@ QStringList CLunarCalendarModel::GetLunarHoliday(int month, int day)
     QStringList lstHolidays;
     if(!m_Database.isOpen())
     {
-        qCritical(Logger) << "The dababase isn't open."
+        qCritical(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return QStringList();
     }
     
+    QString szFilter; //! \ref HolidaysTabl
     QSqlQuery query(m_Database);
-    QString szSql = "select * from holidays_lunar where month="
+    QString szSql = "select * from holiday_filter where table_name='holidays_lunar'";
+    //qDebug(LogDB) << "Sql:" << szSql;
+    if(query.exec(szSql))
+    {
+        while(query.next())
+        {
+            QVariant v = query.value("filter");
+            if(v.isValid())
+            {
+                szFilter = v.toString();
+            }
+        }
+    } else
+        qWarning(LogDB) << "Get holiday filter fail."
+                         << query.lastError() << szSql;
+    szSql = "select * from holidays_lunar where month="
                     + QString::number(month)
                     + " and day=" + QString::number(day);
-    //qDebug(Logger) << "Sql:" << szSql;
+    if(!szFilter.isEmpty())
+        szSql += " " + szFilter;
+    //qDebug(LogDB) << "Sql:" << szSql;
     if(query.exec(szSql))
     {
         while(query.next())
         {
             QVariant v = query.value("name");
-            //qDebug() << query.value("date") << "isWork:" << v;
             if(v.isValid())
             {
                 QString szHoliday = v.toString();
@@ -1349,7 +1348,7 @@ QStringList CLunarCalendarModel::GetLunarHoliday(int month, int day)
             }
         }
     } else
-        qCritical(Logger) << "Get lunar holiday fail."
+        qCritical(LogDB) << "Get lunar holiday fail."
                           << query.lastError() << szSql;
     
     return lstHolidays;
