@@ -10,12 +10,14 @@
 #include <QTableView>
 #include <QHeaderView>
 #include <QPalette>
-#include <QDebug>
+#include <QLoggingCategory>
 #include <QColor>
 #include <QFont>
 #include <QFontInfo>
 #include <QFontMetrics>
 
+static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar.Delegate")
+    
 QColor GetColorRole(const QPalette &palette, int role)
 {
     switch (role) {
@@ -48,17 +50,31 @@ CLunarCalendarDelegate::CLunarCalendarDelegate(QObject *parent)
     : QStyledItemDelegate (parent)
 {}
 
+//! \see \ref LunarUI
 void CLunarCalendarDelegate::paint(QPainter *painter,
                                    const QStyleOptionViewItem &o,
                                    const QModelIndex &index) const
 {
     QStyleOptionViewItem option = o;
     //initStyleOption(&option, index);
-    QTableView *pView = dynamic_cast<QTableView*>(this->parent());
+    //qDebug(Logger) << "Option:" << option << o;
+    //qDebug(Logger) << "Optioin.text:" << o.text;
+
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QColor solarColor, lunarColor, tasksColor, taskNumberColor, workColor;
-    CLunarCalendarModel* pModel
-            = dynamic_cast<CLunarCalendarModel*>(pView->model());
+
+    QTableView *pView = dynamic_cast<QTableView*>(option.styleObject);
+    if(!pView)
+    {
+        qCritical(Logger) << "The style object is null";
+        return;
+    }
+    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(pView->model());
+    if(!pModel)
+    {
+        qCritical(Logger) << "The model is null";
+        return;
+    }
 
     bool bSolar =  static_cast<int>(pModel->GetCalendarType())
                   & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar);
@@ -66,18 +82,18 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                   & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar);
 
     QFont fontSolar = option.font;
-    QFont fontLunar = fontSolar;
-    QFont fontTasks = fontSolar;
-    QFont fontWork = fontSolar;
+    QFont fontLunar = option.font;
+    QFont fontTasks = option.font;
+    QFont fontWork = option.font;
 
-    if(-1 == fontWork.pointSize())
-        fontWork.setPixelSize(fontWork.pixelSize() / 2);
-    else
-        fontWork.setPointSizeF(fontWork.pointSizeF() / 2);
-    if(-1 == fontTasks.pointSize())
-        fontTasks.setPixelSize(fontTasks.pixelSize() / 3);
-    else
-        fontTasks.setPointSizeF(fontTasks.pointSizeF() / 3);
+    if(-1 != fontWork.pointSize())
+        fontWork.setPointSizeF(fontWork.pointSize() >> 1);
+    if(-1 != fontWork.pixelSize())
+        fontWork.setPixelSize(fontWork.pixelSize() >> 1);
+    if(-1 != fontTasks.pointSize())
+        fontTasks.setPointSizeF(fontTasks.pointSize() >> 1);
+    if(-1 != fontTasks.pixelSize())
+        fontTasks.setPixelSize(fontTasks.pixelSize() >> 1);
 
     QString szSolar, szLunar, szWork;
     uint nTasks = index.data(CLunarCalendarModel::ROLE::Tasks).toUInt();
@@ -85,31 +101,16 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
     int solarHeight = 0;
     int solarWidth = 0;
-    int tasksHeight = 0;
-    int tasksWidth = 0;
     int lunarHeight = 0;
     int lunarWidth = 0;
+    int taskHeight = 0;
+    int taskWidth = 0;
     int width = 0;
     int height = 0;
     int nRow = 0;
     int nHadRow = 0;
 
     painter->save();
-
-    if(nTasks)
-    {
-        painter->setFont(fontTasks);
-        QFontMetrics m = painter->fontMetrics();
-        tasksHeight = m.height();
-#if QT_VERSION >= QT_VERSION_CHECK(5, 11, 0)
-        tasksWidth = m.horizontalAdvance(QString::number(nTasks));
-#else
-        tasksWidth = m.width(QString::number(nTasks));
-#endif
-        width = tasksWidth;
-        height = tasksHeight;
-        nRow++;
-    }
 
     if(bSolar)
     {
@@ -152,32 +153,49 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         height = qMax(height, lunarHeight);
         nRow++;
     }
-
+    
+    // 顶行（中国节假日，任务)
+    if(bSolar || bLunar)
+    {
+        taskHeight = height;
+        taskWidth = width;
+        nRow++;
+    }
+    
     if(pView->horizontalHeader()->minimumSectionSize() < width)
     {
-//        qDebug() << "pView->horizontalHeader()->minimumSectionSize():" << width;
+        //qDebug(Logger) << "Set pView->horizontalHeader()->minimumSectionSize() =" << width;
         pView->horizontalHeader()->setMinimumSectionSize(width);
-        pView->updateGeometry();
+        //pView->updateGeometry();
+        //qDebug(Logger) << "Set pView->horizontalHeader()->minimumSectionSize() ok";
     }
+    /*
+    qDebug(Logger) << "pView->horizontalHeader()->minimumSectionSize():"
+                   << pView->horizontalHeader()->minimumSectionSize();//*/
     if(pView->verticalHeader()->minimumSectionSize() < nRow * height)
     {
-//        qDebug() << "pView->verticalHeader()->minimumSectionSize() :" << nRow * height;
+        //qDebug(Logger) << "Set pView->verticalHeader()->minimumSectionSize() =" << nRow * height;
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
-        pView->updateGeometry();
+        //pView->updateGeometry();
+        //qDebug(Logger) << "Set pView->verticalHeader()->minimumSectionSize() ok";
     }
-
+    /*
+    qDebug(Logger) << "pView->verticalHeader()->minimumSectionSize():"
+                   << pView->verticalHeader()->minimumSectionSize();//*/
+    
     if(option.rect.width() > width)
         width = option.rect.width();
     if(option.rect.height() > height * nRow && nRow)
         height = option.rect.height() / nRow;
-
+    
+    // 是今日
     if(index.data(CLunarCalendarModel::ROLE::TodayRole).toBool())
     {
         painter->setPen(palette.brush(QPalette::Active, QPalette::Highlight).color());
         //painter->drawEllipse(option.rect);
         painter->drawRect(option.rect.adjusted(1, 1, -1, -1));
     }
-    
+
     // 是当前选择，反显字体
     if(pView->currentIndex() == index)
     {
@@ -199,7 +217,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         if(bLunar)
             lunarColor = GetColorRole(palette,
                  index.data(CLunarCalendarModel::ROLE::LunarColorRole).toInt());
-//        qDebug() << "Color:" << solarColor << index.data(CLunarCalendarModel::SolarColorRole).toInt()
+//        qDebug(Logger) << "Color:" << solarColor << index.data(CLunarCalendarModel::SolarColorRole).toInt()
 //                 << lunarColor << index.data(CLunarCalendarModel::LunarColorRole).toInt();
 
         tasksColor = GetColorRole(palette,
@@ -230,17 +248,18 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     if(nTasks)
     {
         painter->setFont(fontTasks);
-        int h = qMax(tasksWidth, tasksHeight);
+        int h = qMin(taskHeight, taskWidth) >> 1;
         painter->setBrush(QBrush(tasksColor, Qt::SolidPattern));
         painter->setPen(tasksColor);
 
         QRect rect(option.rect.left() + (width - h) / 2,
                    option.rect.top() + (height - h) / 2,
                    h, h);
-        /*painter->drawArc(rect, 0, 5760);//*/
+        //painter->drawArc(rect, 0, 5760);//*/
 
         painter->drawEllipse(rect);//*/
-
+        
+        /*
         if(nTasks > 0 && nTasks < 10)
         {
             painter->setPen(taskNumberColor);
@@ -249,12 +268,13 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           width,
                           height,
                           Qt::AlignHCenter | Qt::AlignVCenter,
-                          QString::number(nTasks));//*/
-        }
-
-        nHadRow++;
+                          QString::number(nTasks));
+        }//*/    
     }
-
+    
+    if(bSolar || bLunar)
+        nHadRow++; // 第一行（中国节假日，任务)
+    
     if(bSolar)
     {
         painter->setFont(fontSolar);
@@ -285,8 +305,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
 
 CLunarCalendarHeaderDelegate::CLunarCalendarHeaderDelegate(QObject *parent)
     : QStyledItemDelegate (parent)
-{
-}
+{}
 
 void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
                                          const QStyleOptionViewItem &option,
@@ -294,6 +313,8 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
 {
     QStyleOptionViewItem o = option;
     //initStyleOption(&o, index);
+    qDebug(Logger) << "Option:" << option << o;
+    qDebug(Logger) << "Optioin.text:" << o.text;
     QPalette palette = o.palette;
     QColor color = GetColorRole(palette,
                       index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());

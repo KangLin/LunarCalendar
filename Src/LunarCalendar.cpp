@@ -40,6 +40,7 @@ public:
     {
         if(!qApp) {
             qCritical(Logger) << "Please instantiate the CLunarCalendar object after QApplication a(argc, argv) in main()";
+            Q_ASSERT(false);
             return;
         }
         QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
@@ -121,8 +122,8 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     m_View.setModel(pModel);
     m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
-    m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
-    m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    //m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    //m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
     m_View.setAttribute(Qt::WA_AcceptTouchEvents);
     ShowGrid(false);
 

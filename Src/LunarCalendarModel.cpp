@@ -347,7 +347,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
              return ColorHighlight;//*/
         return _COLOR_ROLE::ColorNormal;
     default:
-        qDebug(Logger) << "role:" << role << index;
+        qDebug(Logger) << "index:" << index << "role:" << role;
         break;
     };
     return QVariant();
