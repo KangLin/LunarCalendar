@@ -58,7 +58,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     QStyleOptionViewItem option = o;
     //initStyleOption(&option, index);
     //qDebug(Logger) << "Option:" << option << o;
-    //qDebug(Logger) << "Optioin.text:" << o.text;
+    //qDebug(Logger) << "Option.text:" << o.text;
 
     QPalette palette = option.palette; // QApplication::style()->standardPalette();
     QColor solarColor, lunarColor, tasksColor, taskNumberColor, workColor;
@@ -166,7 +166,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         //qDebug(Logger) << "Set pView->horizontalHeader()->minimumSectionSize() =" << width;
         pView->horizontalHeader()->setMinimumSectionSize(width);
-        //pView->updateGeometry();
+        pView->updateGeometry();
         //qDebug(Logger) << "Set pView->horizontalHeader()->minimumSectionSize() ok";
     }
     /*
@@ -176,7 +176,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
     {
         //qDebug(Logger) << "Set pView->verticalHeader()->minimumSectionSize() =" << nRow * height;
         pView->verticalHeader()->setMinimumSectionSize(nRow * height);
-        //pView->updateGeometry();
+        pView->updateGeometry();
         //qDebug(Logger) << "Set pView->verticalHeader()->minimumSectionSize() ok";
     }
     /*
@@ -314,7 +314,7 @@ void CLunarCalendarHeaderDelegate::paint(QPainter *painter,
     QStyleOptionViewItem o = option;
     //initStyleOption(&o, index);
     qDebug(Logger) << "Option:" << option << o;
-    qDebug(Logger) << "Optioin.text:" << o.text;
+    qDebug(Logger) << "Option.text:" << o.text;
     QPalette palette = o.palette;
     QColor color = GetColorRole(palette,
                       index.data(CLunarCalendarModel::ROLE::SolarColorRole).toInt());
