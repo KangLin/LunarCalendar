@@ -69,17 +69,17 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
         qCritical(Logger) << "The style object is null";
         return;
     }
-    CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(pView->model());
-    if(!pModel)
-    {
-        qCritical(Logger) << "The model is null";
-        return;
-    }
-
-    bool bSolar =  static_cast<int>(pModel->GetCalendarType())
-                  & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar);
-    bool bLunar = static_cast<int>(pModel->GetCalendarType())
-                  & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar);
+    // CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(pView->model());
+    // if(!pModel)
+    // {
+    //     qCritical(Logger) << "The model is null";
+    //     return;
+    // }
+    
+    bool bSolar = index.data(CLunarCalendarModel::ROLE::CalendarTypeRole).toInt()
+           & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeSolar);
+    bool bLunar = index.data(CLunarCalendarModel::ROLE::CalendarTypeRole).toInt()
+           & static_cast<int>(CLunarCalendar::_CalendarType::CalendarTypeLunar);
 
     QFont fontSolar = option.font;
     QFont fontLunar = option.font;

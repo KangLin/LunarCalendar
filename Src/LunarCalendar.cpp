@@ -501,7 +501,7 @@ int CLunarCalendar::UpdateViewModel(bool bForce)
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
         return -2;
-    
+
     if (pModel->GetShowYear() != m_cmbYear.currentData().toInt()
         || pModel->GetShowMonth() != m_cmbMonth.currentData().toInt()) {
         //m_View.selectionModel()->setCurrentIndex(QModelIndex(), QItemSelectionModel::Clear);
@@ -616,7 +616,7 @@ void CLunarCalendar::ShowDate(bool bShow)
     updateGeometry();
 }
 
-QDate CLunarCalendar::SelectedDate() const
+const QDate CLunarCalendar::SelectedDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
@@ -683,7 +683,7 @@ void CLunarCalendar::SetSelectedDate(const QDate &date, bool bForce)
     emit sigSelectionChanged();
 }
 
-QString CLunarCalendar::SelectedLunar() const
+const QString CLunarCalendar::SelectedLunar() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QString();
@@ -692,7 +692,7 @@ QString CLunarCalendar::SelectedLunar() const
     return l.GetLunar();
 }
 
-QString CLunarCalendar::SelectedSolarTerm() const
+const QString CLunarCalendar::SelectedSolarTerm() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QString();
@@ -722,21 +722,21 @@ int CLunarCalendar::GetLunar(const QDate date, int &year, int &month, int &day)
     return 0;
 }
 
-int CLunarCalendar::GetShowYear() const
+const int CLunarCalendar::GetShowYear() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->GetShowYear();
 }
 
-int CLunarCalendar::GetShowMonth() const
+const int CLunarCalendar::GetShowMonth() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return -1;
     return pModel->GetShowMonth();
 }
 
-QDate CLunarCalendar::MaximumDate() const
+const QDate CLunarCalendar::MaximumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
@@ -773,7 +773,7 @@ void CLunarCalendar::SetMaximumDate(const QDate &date)
     }
 }
 
-QDate CLunarCalendar::MinimumDate() const
+const QDate CLunarCalendar::MinimumDate() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return QDate();
@@ -986,7 +986,7 @@ int CLunarCalendar::UpdateMonthMenu()
     return 0;
 }
 
-Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
+const Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel) return locale().firstDayOfWeek();
@@ -1287,7 +1287,7 @@ int CLunarCalendar::SetViewType(_VIEW_TYPE type)
     return nRet;
 }
 
-CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType() const
+const CLunarCalendar::_VIEW_TYPE CLunarCalendar::GetViewType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)
@@ -1301,7 +1301,7 @@ int CLunarCalendar::SetTouchUpDownFunction(_TOUCH_UP_DOWN_FUNCTION f)
     return 0;
 }
 
-CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const
+const CLunarCalendar::_CalendarType CLunarCalendar::GetCalendarType() const
 {
     CLunarCalendarModel* pModel = dynamic_cast<CLunarCalendarModel*>(m_View.model());
     if(!pModel)

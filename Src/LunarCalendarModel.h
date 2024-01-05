@@ -87,7 +87,8 @@ public:
         TasksColorRole,
         TodayRole,
         WorkDayRole,
-        WorkDayColorRole
+        WorkDayColorRole,
+        CalendarTypeRole
     };
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     
@@ -99,21 +100,21 @@ public:
     
     int showMonth(int year, int month, bool bForce = false);
     int showWeek(int year, int week, bool bForce = false);
-    int GetShowWeek();
-    int GetShowMonth();
-    int GetShowYear();
-    int GetWeeksOfYear(int year = QDate::currentDate().day());
+    const int GetShowWeek() const;
+    const int GetShowMonth() const;
+    const int GetShowYear() const;
+    const int GetWeeksOfYear(int year = QDate::currentDate().day()) const;
     int setDate(const QDate &d);
-    QDate GetDate() const;
+    const QDate GetDate() const;
     int SetMinimumDate(const QDate &date);
-    QDate GetMinimumDate();
+    const QDate GetMinimumDate() const;
     int SetMaximumDate(const QDate &date);
-    QDate GetMaximumDate();
+    const QDate GetMaximumDate() const;
     int setRange(const QDate &min, const QDate &max);
-    Qt::DayOfWeek firstDayOfWeek() const;
+    const Qt::DayOfWeek firstDayOfWeek() const;
     //void setFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
 
-    QDate dateForCell(int row, int column) const;
+    const QDate dateForCell(int row, int column) const;
     void cellForDate(const QDate &date, int *row, int *column) const;
 
     void EnableToolTip(bool enable);    
@@ -128,26 +129,26 @@ public:
     virtual int SetTaskHandle(std::function<uint (const QDate &, QStringList &)> cbHandler);
 #endif
     int SetCalendarType(CLunarCalendar::_CalendarType type);
-    CLunarCalendar::_CalendarType GetCalendarType();
+    const CLunarCalendar::_CalendarType GetCalendarType() const;
     int SetViewType(CLunarCalendar::_VIEW_TYPE type);
-    CLunarCalendar::_VIEW_TYPE GetViewType();
+    const CLunarCalendar::_VIEW_TYPE GetViewType() const;
     
 private Q_SLOTS:
     int slotUpdate();
 
 private:
     void internalUpdate();
-    QDate firstDateMonth() const;
-    QDate endDateMonth() const;
-    int WeeksOfMonth();
-    QDate dateForCellMonth(int row, int column) const;
+    const QDate firstDateMonth() const;
+    const QDate endDateMonth() const;
+    const int WeeksOfMonth() const;
+    const QDate dateForCellMonth(int row, int column) const;
     void cellForDateMonth(const QDate &date, int *row, int *column) const;
-    QDate dateForCellWeek(int row, int column) const;
+    const QDate dateForCellWeek(int row, int column) const;
     void cellForDateWeek(const QDate &date, int *row, int *column) const;
-    int columnForFirstOfMonth(const QDate &date) const;
-    int columnForDayOfWeek(Qt::DayOfWeek day) const;
-    QTextCharFormat formatForCell(QDate d, int row, int col) const;
-    QColor GetHeight() const;
+    const int columnForFirstOfMonth(const QDate &date) const;
+    const int columnForDayOfWeek(Qt::DayOfWeek day) const;
+    const QTextCharFormat formatForCell(QDate d, int row, int col) const;
+    const QColor GetHeight() const;
 
     int InitHoliday();
 
@@ -212,8 +213,8 @@ private:
      * \param d
      * \return 返回节日列表
      */
-    QStringList GetHoliday(const QDate& d);
-    QStringList GetLunarHoliday(int month, int day);
+    const QStringList GetHoliday(const QDate& d) const;
+    const QStringList GetLunarHoliday(int month, int day) const;
     QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadHolidaysSql;
     QFile m_HolidaysSql;
     int DownloadHolidaysSqlFile(const QVector<QUrl> &urls);

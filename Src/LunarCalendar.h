@@ -260,7 +260,7 @@ public:
      * \see MinimumDate()
      * \see MaximumDate()
      */
-    QDate SelectedDate() const;
+    const QDate SelectedDate() const;
     /*!
      * \brief 设置当前选择的日期
      * \param date: 将选择的日期。
@@ -277,12 +277,12 @@ public:
     /*!
      * \brief 得到当前选择的日期的农历的字符串
      */
-    QString SelectedLunar() const;
+    const QString SelectedLunar() const;
     /*!
      * \brief 得到当前选的节气
      * \return 如果有，则返回节气。否则返回空。
      */
-    QString SelectedSolarTerm() const;
+    const QString SelectedSolarTerm() const;
     /*!
      * \brief 得到当前选择的日期的农历
      * \param year 农历年
@@ -423,7 +423,7 @@ public:
     /*!
      * \brief 得到日历的支持最小日期
      */
-    QDate MinimumDate() const;
+    const QDate MinimumDate() const;
     /*!
      * \brief 设置日历的支持最小日期
      */
@@ -431,7 +431,7 @@ public:
     /*!
      * \brief 得到日历的支持最大日期
      */
-    QDate MaximumDate() const;
+    const QDate MaximumDate() const;
     /*!
      * \brief 设置日历的支持最大日期
      */
@@ -445,17 +445,17 @@ public:
      * \brief 得到当前界面显示的年份
      * \return 显示的年份
      */
-    int GetShowYear() const;
+    const int GetShowYear() const;
     /*!
      * \brief 得到当前界面显示的月份
      * \return 得到显示的月份
      */
-    int GetShowMonth() const;
+    const int GetShowMonth() const;
     /*!
      * \brief 得到年周从哪天开始
      * \return 
      */
-    Qt::DayOfWeek FirstDayOfWeek() const;
+    const Qt::DayOfWeek FirstDayOfWeek() const;
     //void SetFirstDayOfWeek(Qt::DayOfWeek dayOfWeek);
     
     //! @} 日期操作
@@ -541,7 +541,7 @@ public:
     //! 设置日历类型（组合）
     int SetCalendarType(_CalendarType type);
     //! 得到日历类型
-    _CalendarType GetCalendarType() const;
+    const _CalendarType GetCalendarType() const;
     
     //! 视图类型
     enum class _VIEW_TYPE {
@@ -551,7 +551,7 @@ public:
     //!　设置视图类型
     int SetViewType(_VIEW_TYPE type);
     //! 得到视图类型
-    _VIEW_TYPE GetViewType() const;
+    const _VIEW_TYPE GetViewType() const;
     
     /*!
      * \brief 更新数据和视图
