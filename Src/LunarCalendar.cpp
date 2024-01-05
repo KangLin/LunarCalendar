@@ -122,8 +122,12 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
     CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
     m_View.setModel(pModel);
     m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
-    //m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
-    //m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    /* TODO: 未能生效
+    if(m_View.horizontalHeader())
+        m_View.horizontalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    if(m_View.verticalHeader())
+        m_View.verticalHeader()->setItemDelegate(new CLunarCalendarHeaderDelegate(&m_View));
+    //*/
     m_View.setAttribute(Qt::WA_AcceptTouchEvents);
     ShowGrid(false);
 
