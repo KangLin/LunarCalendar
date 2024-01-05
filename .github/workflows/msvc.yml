@@ -43,7 +43,7 @@ jobs:
       CMAKE_GENERATOR: "Visual Studio 17 2022"
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
-      LunarCalendar_VERSION: v1.0.10
+      LunarCalendar_VERSION: v1.0.0
       VCPKGGITCOMMITID: f1c6efee2245009540dde947e0e3d008f3aa7dbb
       qt_modules: qtwebengine ${{matrix.qt_modules}}
       artifact_name: build_msvc
