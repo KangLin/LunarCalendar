@@ -124,7 +124,7 @@ QVariant CLunarCalendarModel::headerData(int section, Qt::Orientation orientatio
         }
         break;
     default:
-        qDebug(Logger) << "headerData:section:" << section << "role:" << role;
+        //qDebug(Logger) << "headerData:section:" << section << "role:" << role;
         break;
     };
     return QVariant();
@@ -349,7 +349,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
     case ROLE::CalendarTypeRole:
         return static_cast<int>(GetCalendarType());
     default:
-        qDebug(Logger) << "index:" << index << "role:" << role;
+        //qDebug(Logger) << "index:" << index << "role:" << role;
         break;
     };
     return QVariant();
@@ -1220,7 +1220,7 @@ CLunarCalendarModel::__WORK_DAY CLunarCalendarModel::GetChineseHolidays(const QD
     __WORK_DAY day = __WORK_DAY::NO;
     if(!m_Database.isOpen())
     {
-        qCritical(LogDB) << "The dababase isn't open."
+        qWarning(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return day;
     }
@@ -1255,7 +1255,7 @@ const QStringList CLunarCalendarModel::GetHoliday(const QDate &d) const
     QStringList lstHolidays;
     if(!m_Database.isOpen())
     {
-        qCritical(LogDB) << "The dababase isn't open."
+        qWarning(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return QStringList();
     }
@@ -1308,7 +1308,7 @@ const QStringList CLunarCalendarModel::GetLunarHoliday(int month, int day) const
     QStringList lstHolidays;
     if(!m_Database.isOpen())
     {
-        qCritical(LogDB) << "The dababase isn't open."
+        qWarning(LogDB) << "The dababase isn't open."
                           << m_Database.databaseName();
         return QStringList();
     }
