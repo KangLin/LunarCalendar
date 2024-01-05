@@ -233,7 +233,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                index.data(CLunarCalendarModel::ROLE::WorkDayColorRole).toInt());
     }
 
-    if(!szWork.isEmpty() && bLunar)
+    if(!szWork.isEmpty() && bSolar)
     {
         painter->setFont(fontWork);
         painter->setPen(workColor);
@@ -245,7 +245,7 @@ void CLunarCalendarDelegate::paint(QPainter *painter,
                           szWork);
     }
 
-    if(nTasks)
+    if(nTasks && (bSolar || bLunar))
     {
         painter->setFont(fontTasks);
         int h = qMin(taskHeight, taskWidth) >> 1;
