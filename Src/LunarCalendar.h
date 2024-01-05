@@ -334,8 +334,9 @@ public:
      * \snippet App/MainWindow.cpp Instance CHandler
      * - 用 SetTaskHandle 设置处理类
      * \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
-     * 
      * \see SetTaskHandle \ref UserDefinedTasks \ref HolidayPriority
+     *
+     * \image html Docs/image/Task.png
      */
     class CTaskHandler
     {

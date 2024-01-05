@@ -6,6 +6,11 @@
     - CLunarCalendar::InitResource
   + 使用节日数据库 SQL 文件
   + 修复当前选择字体反显颜色
+  + 修改日历项目位置
+  + 称动 Doxyfile.in -> Docs/doxygen/Doxyfile.in
+  + 修复：
+    - 详细提示错误
+    - 中国节假日仅当阳历显示时才显示。任务为阳历或阴历显示时显示
 
 - v0.3.2
   + 农历位置超过 3 个字符，则用 ... 表示

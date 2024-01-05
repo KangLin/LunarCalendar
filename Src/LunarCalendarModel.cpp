@@ -259,7 +259,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(!day.SolarHoliday.isEmpty()) {
             foreach(auto h, day.SolarHoliday) {
                 if(h.isEmpty() || "" == h)
-                    break;
+                    continue;
                 if(nCounts > nTotals)
                     break;
                 if(nCounts == nTotals)
@@ -275,7 +275,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(!day.LunarHoliday.isEmpty()) {
             foreach (auto h, day.LunarHoliday) {
                 if(h.isEmpty() || "" == h)
-                    break;
+                    continue;
                 if(nCounts > nTotals)
                     break;
                 if(nCounts == nTotals)
@@ -291,7 +291,7 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         if(!day.Tasks.isEmpty()) {
             foreach (auto h, day.Tasks) {
                 if(h.isEmpty() || "" == h)
-                    break;
+                    continue;
                 if(nCounts > nTotals)
                     break;
                 if(nCounts == nTotals)

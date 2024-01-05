@@ -220,7 +220,7 @@ MainWindow::MainWindow(QWidget *parent) :
         // 农历节日（以农历年为周期）
         if(9 == lunarMonth && 9 == lunarDay)
         {
-            tasks << "老人节";
+            tasks << "老人节" << "老年节" << "登高节" << "踏秋";
             return 0;
         }
         
