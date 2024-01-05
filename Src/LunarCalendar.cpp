@@ -119,7 +119,7 @@ CLunarCalendar::CLunarCalendar(QWidget *parent) :
 //    m_lbDate.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 //    m_lbTime.setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
-    CLunarCalendarModel* pModel = new CLunarCalendarModel(this);
+    CLunarCalendarModel* pModel = new CLunarCalendarModel(&m_View);
     m_View.setModel(pModel);
     m_View.setItemDelegate(new CLunarCalendarDelegate(&m_View));
     /* TODO: 未能生效
