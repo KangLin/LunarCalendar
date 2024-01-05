@@ -22,7 +22,8 @@ INSTALL_ROOT=/opt/LunarCalendar
 case "$1" in
     configure)
         mkdir -p $INSTALL_ROOT/log
-        chmod 777 $INSTALL_ROOT/log
+        chmod -R 777 $INSTALL_ROOT/log
+        chmod -R a+w $INSTALL_ROOT/etc
         if [ ! -d $INSTALL_ROOT/bin/log ]; then
             ln -s $INSTALL_ROOT/log $INSTALL_ROOT/bin/log
         fi
