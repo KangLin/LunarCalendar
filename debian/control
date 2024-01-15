@@ -1,19 +1,28 @@
+# https://www.debian.org/doc/manuals/maint-guide/dreq.zh-cn.html#control
+# https://www.debian.org/doc/debian-policy/ch-controlfields.html
+
 Source: lunarcalendar
-Section: main
+Section: libs
 Priority: optional
 Maintainer: Kang Lin <kl222@126.com>
-Build-Depends: debhelper (>= 6), cmake
-Standards-Version:"v1.0.0"
+Standards-Version: 1.0.1
+Build-Depends: debhelper (>=13~), debhelper-compat (=13), fakeroot,
+ rabbitcommon-dev (>=2), qt6-tools-dev, qt6-tools-dev-tools,
+ qt6-base-dev, qt6-base-dev-tools, qt6-qpa-plugins, qt6-l10n-tools,
+ qt6-translations-l10n, qt6-scxml-dev, qt6-webengine-dev,
+ qt6-webengine-dev-tools, libsqlite3-dev
 Homepage: https://github.com/KangLin/LunarCalendar
 Vcs-Git: https://github.com/KangLin/LunarCalendar.git
 Vcs-Browser: https://github.com/KangLin/LunarCalendar
+Rules-Requires-Root: binary-targets
 
 Package: lunarcalendar
+Section: libs
 Architecture: any
-Recommends: qt6-qpa-plugins, libqt6svg6, libqt6svgwidgets6, libqt6webenginecore6-bin
-#Pre-Depends: ${misc:Pre-Depends}
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: The lunar calendar 
+Description: The lunar calendar library using Qt
   - A lunar calendar library of Qt GUI, support QSS.
      + solar calendar
      + Lunar calendar
@@ -21,3 +30,22 @@ Description: The lunar calendar
      + solar and Lunar Day (eg birthday, wedding anniversary, etc.)
      + month view
      + week view
+  .
+  Author: Kang Lin <kl222@126.com>
+
+Package: lunarcalendar-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Recommends: rabbitcommon-dev (>=2)
+Depends: lunarcalendar (= ${binary:Version}), ${misc:Depends}
+Description: The lunar calendar devel library using Qt
+  - A lunar calendar devel library of Qt GUI, support QSS.
+     + solar calendar
+     + Lunar calendar
+     + solar and Lunar holiday
+     + solar and Lunar Day (eg birthday, wedding anniversary, etc.)
+     + month view
+     + week view
+  .
+  Author: Kang Lin <kl222@126.com>

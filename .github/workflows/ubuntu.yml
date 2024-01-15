@@ -100,7 +100,7 @@ jobs:
         run: |
           export Qt6_DIR=/usr/lib/`uname -a`-linux-gnu/cmake/Qt6
           ./build_debpackage.sh
-          cp ../lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb lunarcalendar_${{env.LunarCalendar_VERSION}}_amd64.deb
+          cp ../lunarcalendar_*.deb .
 
       - name:  Update artifact for application
         if: ${{ matrix.BUILD_TYPE == 'Release' }}

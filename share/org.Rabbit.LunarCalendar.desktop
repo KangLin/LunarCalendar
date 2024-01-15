@@ -6,7 +6,7 @@ Terminal=false
 StartupNotify=true
 Categories=Application;Development;Tools
 MimeType=application/calendar+json;application/calendar+xml;application/octet-stream;text/calendar;text/x-vcalendar;application/vnd.sus-calendar;text/plain;
-X-KDE-Protocols=ftp,http,https,mms,rtmp,rtsp,sftp,smb
+X-KDE-Protocols=http,https,smb
 
 Name=Lunar calendar
 GenericName=Lunar calendar

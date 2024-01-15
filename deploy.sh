@@ -48,7 +48,6 @@ sed -i "s/^\!define PRODUCT_VERSION.*/\!define PRODUCT_VERSION \"${VERSION}\"/g"
 sed -i "s/^version: '.*{build}'/version: '${VERSION}.{build}'/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/^\  - export VERSION=.*/\  - export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/.travis.yml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/appveyor.yml
-sed -i "s/^\Standards-Version:.*/\Standards-Version:\"${VERSION}\"/g" ${SOURCE_DIR}/debian/control
 sed -i "s/export VERSION=".*"/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
 sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
@@ -61,12 +60,21 @@ sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/README*.md
 
 DEBIAN_VERSION=`echo ${VERSION}|cut -d "v" -f 2`
 #sed -i "s/lunarcalendar_[0-9]\+\.[0-9]\+\.[0-9]\+/lunarcalendar_${DEBIAN_VERSION}/g" ${SOURCE_DIR}/README*.md
+sed -i "s/^\Standards-Version:.*/\Standards-Version: ${DEBIAN_VERSION}/g" ${SOURCE_DIR}/debian/control
 sed -i "s/lunarcalendar (.*)/lunarcalendar (${DEBIAN_VERSION})/g" ${SOURCE_DIR}/debian/changelog
 sed -i "s/[0-9]\+\.[0-9]\+\.[0-9]\+/${DEBIAN_VERSION}/g" ${SOURCE_DIR}/App/android/AndroidManifest.xml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${DEBIAN_VERSION}/g" ${SOURCE_DIR}/.github/workflows/ubuntu.yml
 if [ -f ${SOURCE_DIR}/vcpkg.json ]; then
     sed -i "s/\"version-string\":[0-9]\+\.[0-9]\+\.[0-9]\+\".*\"/\"version-string\":\"${DEBIAN_VERSION}\"/g" ${SOURCE_DIR}/vcpkg.json
 fi
+
+CHANGLOG_TMP=${SOURCE_DIR}/debian/changelog.tmp
+CHANGLOG_FILE=${SOURCE_DIR}/debian/changelog
+echo "rabbitremotecontrol (${DEBIAN_VERSION}) unstable; urgency=medium" > ${CHANGLOG_FILE}
+echo "" >> ${CHANGLOG_FILE}
+echo "`git log --pretty=format:'    * %s' ${PRE_TAG}..HEAD`" >> ${CHANGLOG_FILE}
+echo "" >> ${CHANGLOG_FILE}
+echo " -- `git log --pretty=format:'%an <%ae>' HEAD^..HEAD`  `date --rfc-email`" >> ${CHANGLOG_FILE}
 
 MAJOR_VERSION=`echo ${DEBIAN_VERSION}|cut -d "." -f 1`
 sed -i "s/android:versionCode=.*android/android:versionCode=\"${MAJOR_VERSION}\" android/g"  ${SOURCE_DIR}/App/android/AndroidManifest.xml
