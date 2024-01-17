@@ -65,14 +65,16 @@ SET(OTHER_FILES
     )
 INSTALL_FILE(SOURCES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
 
-if(ANDROID)
-    INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
-        DESTINATION assets/etc
-            COMPONENT Runtime
-        RENAME LunarCalendar_logqt.ini)
-else()
-    INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
-        DESTINATION etc
-            COMPONENT Runtime
-        RENAME LunarCalendar_logqt.ini)
+if(EXISTS ${RabbitCommon_DIR}/Src/etc/logqt.ini)
+    if(ANDROID)
+        INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+            DESTINATION assets/etc
+                COMPONENT Runtime
+            RENAME LunarCalendar_logqt.ini)
+    else()
+        INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+            DESTINATION etc
+                COMPONENT Runtime
+            RENAME LunarCalendar_logqt.ini)
+    endif()
 endif()
