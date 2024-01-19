@@ -1,5 +1,5 @@
 - v1.0.1
-  + 修改 postinst ，为了安装目录权限
+  + 删除了 debian 脚本
   + 修改 debian 打包
   
 - v1.0.0
