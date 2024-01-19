@@ -33,6 +33,11 @@ Description: The lunar calendar library using Qt
      + week view
   .
   Author: Kang Lin <kl222@126.com>
+  .
+  Donation:
+  https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png
+  https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png
+  https://gitlab.com/kl222/RabbitCommon/-/raw/master/Src/Resource/image/Contribute.png
 
 Package: lunarcalendar-dev
 Section: libdevel
@@ -50,3 +55,8 @@ Description: The lunar calendar devel library using Qt
      + week view
   .
   Author: Kang Lin <kl222@126.com>
+  .
+  Donation:
+  https://github.com/KangLin/RabbitCommon/raw/master/Src/Resource/image/Contribute.png
+  https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png
+  https://gitlab.com/kl222/RabbitCommon/-/raw/master/Src/Resource/image/Contribute.png
