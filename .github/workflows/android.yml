@@ -36,7 +36,7 @@ jobs:
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.BUILD_TYPE}}
       LunarCalendar_VERSION: v1.0.0
-      VCPKGGITCOMMITID: f1c6efee2245009540dde947e0e3d008f3aa7dbb
+      VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
       qt_modules: 'qtimageformats qtmultimedia qtscxml'
