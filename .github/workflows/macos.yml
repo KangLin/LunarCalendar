@@ -64,15 +64,6 @@ jobs:
             ${{env.INSTALL_DIR}}
           key: Cache-installed-macos
 
-      - name: Cache vcpkg
-        if: false
-        uses: actions/cache@v2
-        id: cache-vcpkg
-        with:
-          path: |
-            ${{ runner.workspace }}/vcpkg/
-          key: cache-vcpkg
-
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
