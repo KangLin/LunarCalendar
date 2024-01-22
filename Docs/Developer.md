@@ -1,5 +1,9 @@
 # 开发文档
 
+## 版本号说明：
+
+- 版本号说明： [https://semver.org/lang/zh-CN/](https://semver.org/lang/zh-CN/)
+
 ## 工具
 
 + [cmake](https://cmake.org)

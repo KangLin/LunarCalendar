@@ -53,6 +53,7 @@
  * 
  * \defgroup DEVELOPER_DOC 开发文档
  * \details 开发文档
+ * - 版本号说明： [https://semver.org/lang/zh-CN/](https://semver.org/lang/zh-CN/)
  * - \ref RoleDefinitions
  * - [开发文档](../Docs/Developer.md)
  * - [使用文档](../Docs/User.md)
