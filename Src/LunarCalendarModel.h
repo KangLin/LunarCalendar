@@ -17,7 +17,7 @@
 #include <QFile>
 
 #include "LunarCalendar.h"
-#include "DownloadFile.h"
+#include "Download.h"
 
 /*!
  * \brief 农历模型
@@ -215,7 +215,7 @@ private:
      */
     const QStringList GetHoliday(const QDate& d) const;
     const QStringList GetLunarHoliday(int month, int day) const;
-    QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadHolidaysSql;
+    QSharedPointer<RabbitCommon::CDownload> m_DownloadHolidaysSql;
     QFile m_HolidaysSql;
     int DownloadHolidaysSqlFile(const QVector<QUrl> &urls);
     void CheckUpdateHolidaysTable();
@@ -225,7 +225,7 @@ private Q_SLOTS:
     
 private:
     // Chinese holidays sql
-    QSharedPointer<RabbitCommon::CDownloadFile> m_DownloadChineseHolidaysSql;
+    QSharedPointer<RabbitCommon::CDownload> m_DownloadChineseHolidaysSql;
     QFile m_ChineseHolidaysSql;
     int InitTableChineseHolidays();
     void CheckUpdateChineseHolidaysTable();

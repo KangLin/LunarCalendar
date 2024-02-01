@@ -56,8 +56,13 @@ int main(int argc, char *argv[])
             pUpdate->SetTitle(p.toImage());
         }
     }
-    if(!pUpdate->GenerateUpdateXml())
-        return 0;
+
+    if(a.arguments().size() > 1) {
+        if(!pUpdate->GenerateUpdateJson())
+            return 0;
+        if(!pUpdate->GenerateUpdateXml())
+            return 0;
+    }
 #endif
 
     QTranslator tApp;

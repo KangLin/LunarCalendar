@@ -1,7 +1,8 @@
 - v1.0.1
   + 删除了 debian 脚本
   + 修改 debian 打包
-  
+  + 重命名 RabbitCommon::CDownloadFile 为 RabbitCommon::CDownload
+
 - v1.0.0
   + 删除：
     - CLunarCalendar::AddAnniversary

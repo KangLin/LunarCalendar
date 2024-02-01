@@ -1203,14 +1203,15 @@ int CLunarCalendarModel::DownloadChineseHolidaysSqlFile(const QVector<QUrl> &url
         m_ChineseHolidaysSql.close();
     if(!urls.isEmpty())
     {
-        m_DownloadChineseHolidaysSql = QSharedPointer<RabbitCommon::CDownloadFile>(
-                    new RabbitCommon::CDownloadFile(urls));
+        m_DownloadChineseHolidaysSql = QSharedPointer<RabbitCommon::CDownload>(
+                    new RabbitCommon::CDownload());
         bool check = connect(m_DownloadChineseHolidaysSql.data(), SIGNAL(sigFinished(const QString)),
                 this, SLOT(slotDownloadChineseHolidaysSqlFileFinished(const QString)));
         Q_ASSERT(check);
         check = connect(m_DownloadChineseHolidaysSql.data(), SIGNAL(sigError(int, const QString)),
                         this, SLOT(slotDownloadChineseHolidaysSqlFileError(int, const QString)));
         Q_ASSERT(check);
+        m_DownloadChineseHolidaysSql->Start(urls);
     }
     return nRet;
 }
@@ -1363,14 +1364,15 @@ int CLunarCalendarModel::DownloadHolidaysSqlFile(const QVector<QUrl> &urls)
         m_ChineseHolidaysSql.close();
     if(!urls.isEmpty())
     {
-        m_DownloadHolidaysSql = QSharedPointer<RabbitCommon::CDownloadFile>(
-            new RabbitCommon::CDownloadFile(urls));
+        m_DownloadHolidaysSql = QSharedPointer<RabbitCommon::CDownload>(
+            new RabbitCommon::CDownload());
         bool check = connect(m_DownloadHolidaysSql.data(), SIGNAL(sigFinished(const QString)),
                              this, SLOT(slotDownloadHolidaysSqlFileFinished(const QString)));
         Q_ASSERT(check);
         check = connect(m_DownloadHolidaysSql.data(), SIGNAL(sigError(int, const QString)),
                         this, SLOT(slotDownloadHolidaysSqlFileError(int, const QString)));
         Q_ASSERT(check);
+        m_DownloadHolidaysSql->Start(urls);
     }
     return nRet;
 }
