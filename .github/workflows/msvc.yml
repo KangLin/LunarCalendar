@@ -92,7 +92,7 @@ jobs:
           arch: '${{matrix.qt_arch}}' # optional
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           cache: true
-          cache-key-prefix: install-qt-action
+          cache-key-prefix: cached_qt
  
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}
@@ -131,7 +131,7 @@ jobs:
           name: ${{ env.artifact_name }}
           path: |
             ${{github.workspace}}\build\LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip
-      
+
       - name: Build LunarCalendar application
         if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '5.12.12' }}
         working-directory: ${{github.workspace}}\build_app
@@ -148,6 +148,7 @@ jobs:
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_app/install ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
+              -DBUILD_APP=ON ^
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
@@ -180,6 +181,7 @@ jobs:
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
+          cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target package
 
       - name: Update artifact for application

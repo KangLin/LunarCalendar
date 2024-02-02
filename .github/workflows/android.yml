@@ -77,7 +77,7 @@ jobs:
           arch: 'gcc_64'
           set-env: false
           cache: true
-          cache-key-prefix: install-qt-action
+          cache-key-prefix: cached_qt
 
       - name: Install Qt of android
         uses: jurplel/install-qt-action@v3
@@ -96,7 +96,7 @@ jobs:
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           # Whether or not to actually download Qt
           cache: true
-          cache-key-prefix: install-qt-action
+          cache-key-prefix: cached_qt
 
       - name: run vcpkg
         if: false

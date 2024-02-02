@@ -85,11 +85,14 @@ jobs:
           echo "文件签名:" >> ${{github.workspace}}/Notes.md
           for file in *
           do
-              #echo $file
-              if [ -f $file ] && [ "${file##*.}" != "xml" ]; then
-                  #echo "md5sum $file"
-                  md5sum $file > $file.md5sum
-                  cat $file.md5sum >> ${{github.workspace}}/Notes.md
+              echo "$file"
+              if [ -f $file ]; then
+                  if [ "${file##*.}" != "xml" ] && [ "${file##*.}" != "json" ]; then
+                      md5sum $file > $file.md5sum
+                      cat $file.md5sum >> ${{github.workspace}}/Notes.md
+                  fi
+              else
+                 rm -fr $file
               fi
           done
 
