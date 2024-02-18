@@ -69,6 +69,7 @@ jobs:
           cmake -E make_directory ${{env.INSTALL_DIR}}
           cmake -E make_directory ${{github.workspace}}/build
           cmake -E make_directory ${{github.workspace}}/build_app
+          cmake -E make_directory ${{github.workspace}}/build_package
 
       - name: Cache installed
         uses: actions/cache@v3
@@ -167,7 +168,7 @@ jobs:
             ${{github.workspace}}\build_app\LunarCalendar_Setup_${{env.LunarCalendar_VERSION}}.exe
 
       - name: Package LunarCalendar
-        working-directory: ${{github.workspace}}\build
+        working-directory: ${{github.workspace}}\build_package
         env:
           RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
@@ -178,7 +179,7 @@ jobs:
               -DCMARK_TESTS=OFF ^
               -DCMARK_STATIC=ON ^
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
-              -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_app/install ^
+              -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_package/install ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
@@ -191,4 +192,4 @@ jobs:
         with:
           name: ${{ env.artifact_name }}
           path: |
-            ${{github.workspace}}\build_app\LunarCalendar_${{env.LunarCalendar_VERSION}}_*_setup.exe
+            ${{github.workspace}}\build_package\LunarCalendar_${{env.LunarCalendar_VERSION}}_*_setup.exe
