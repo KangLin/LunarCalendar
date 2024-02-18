@@ -76,8 +76,8 @@ jobs:
               -DCMARK_STATIC=ON ^
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} ^
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build/install ^
-              -DINSTALL_QT=OFF ^
-              -DBUILD_APP=OFF
+              -DINSTALL_QT=ON ^
+              -DBUILD_APP=ON
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
           7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_mingw_${{matrix.BUILD_TYPE}}.zip .\install\*

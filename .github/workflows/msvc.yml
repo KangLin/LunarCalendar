@@ -148,6 +148,7 @@ jobs:
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_app/install ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
+              -DINSTALL_QT=ON ^
               -DBUILD_APP=ON ^
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
