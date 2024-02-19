@@ -87,13 +87,9 @@
  *   
  * - 日历头
  * \image html Docs/image/Head.png
- * - 日期工具按钮
+ * - 工具栏和今日按钮
  * \image html Docs/image/Tool.png
- * - 今日工具按钮
- * \image html Docs/image/Tool.png
- * - 选择日期
- * \image html Docs/image/Date.png
- * - 当前时间
+ * - 选择日期和当前时间
  * \image html Docs/image/Date.png
  * - 周
  * \image html Docs/image/Week.png
@@ -136,8 +132,10 @@
  *
  *   在项目内维护。详见： \ref HolidaysTabl 。
  *   如果使用者不需要默认的，使用者也可以自己维护，
- *   \see \ref UserDefinedTasks CLunarCalendar::EnableHolidays
- *   CLunarCalendar::EnableSolarTerm 。
+ *   \see
+ *     - \ref UserDefinedTasks
+ *     - CLunarCalendar::EnableHolidays
+ *     - CLunarCalendar::EnableSolarTerm
  * - 周年纪念日，在阳历上面中间用圆点表示。如果可能同时放在农历位置显示。
  *   参见： \ref UserDefinedTasks 
  *   - 公历
