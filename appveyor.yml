@@ -1,8 +1,8 @@
 version: 'v1.0.0.{build}'
 
 cache:
-    - Package
-    
+  - C:\projects\other_source
+  
 environment:
   STOREPASS:
     secure: l9BZEU39F1a4vSkhwl0CHR+yh6CD1c7byGzMv+1NUa4=
@@ -12,92 +12,15 @@ environment:
     secure: ejAYGgB+3sBispRxUSr0xw==
 
   matrix:
-  ##### msvc 2013 ########
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 12 2013"
-    TOOLCHAIN_VERSION: 12
-    QT_ROOT: C:\Qt\5.6\msvc2013
-    BUILD_ARCH: x86
-    
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 12 2013 Win64"
-    TOOLCHAIN_VERSION: 12
-    QT_ROOT: C:\Qt\5.6\msvc2013_64
-    BUILD_ARCH: x64
-
   ##### msvc 2015 ########
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 14 2015"
-    TOOLCHAIN_VERSION: 14
-    QT_ROOT: C:\Qt\5.10\msvc2015
-    BUILD_ARCH: x86
-
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 14 2015 Win64"
-    TOOLCHAIN_VERSION: 14
-    QT_ROOT: C:\Qt\5.10\msvc2015_64
-    BUILD_ARCH: x64
-  
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 14 2015"
+  - GENERATORS: "Visual Studio 14 2015"
     TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.6\msvc2015
     BUILD_ARCH: x86
 
-  - BUILD_TARGERT: windows_msvc
-    GENERATORS: "Visual Studio 14 2015 Win64"
+  - GENERATORS: "Visual Studio 14 2015 Win64"
     TOOLCHAIN_VERSION: 14
     QT_ROOT: C:\Qt\5.6\msvc2015_64
-    BUILD_ARCH: x64
-
-  ##### msvc 2017 ########
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    GENERATORS: "Visual Studio 15 2017"
-    BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
-    QT_ROOT: C:\Qt\5.12\msvc2017
-    BUILD_ARCH: x86
-    STATIC: ON
-        
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    GENERATORS: "Visual Studio 15 2017 Win64"
-    BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
-    QT_ROOT: C:\Qt\5.12\msvc2017_64
-    BUILD_ARCH: x64
-    STATIC: ON
-    
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    GENERATORS: "Visual Studio 15 2017 Win64"
-    BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
-    QT_ROOT: C:\Qt\5.10\msvc2017_64
-    BUILD_ARCH: x64
-  
-  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-    GENERATORS: "Visual Studio 15 2017 Win64"
-    BUILD_TARGERT: windows_msvc
-    TOOLCHAIN_VERSION: 15
-    QT_ROOT: C:\Qt\5.9\msvc2017_64
-    BUILD_ARCH: x64
-
-  ##### mingw ########
-  - BUILD_TARGERT: windows_mingw
-    GENERATORS: "MSYS Makefiles"
-    TOOLCHAIN_VERSION: 492_32
-    QT_ROOT: C:\Qt\5.6\mingw49_32
-    BUILD_ARCH: x86
-
-  - BUILD_TARGERT: windows_mingw
-    GENERATORS: "MSYS Makefiles"
-    TOOLCHAIN_VERSION: 530_32
-    QT_ROOT: C:\Qt\5.10\mingw53_32
-    BUILD_ARCH: x86
-    
-  - BUILD_TARGERT: windows_mingw
-    GENERATORS: "MSYS Makefiles"
-    TOOLCHAIN_VERSION: 730_64
-    QT_ROOT: C:\Qt\5.12\mingw73_64
     BUILD_ARCH: x64
 
 matrix:
@@ -106,74 +29,81 @@ matrix:
 init:
   - set varch=%BUILD_ARCH%
   - if "%BUILD_ARCH%" == "x64" set varch=amd64
-  - if "%BUILD_TARGERT%" == "windows_msvc" if %TOOLCHAIN_VERSION% LSS 15 (call "C:\Program Files (x86)\Microsoft Visual Studio %TOOLCHAIN_VERSION%.0\VC\vcvarsall.bat" %varch%) else (call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %varch%)  
+  - if %TOOLCHAIN_VERSION% LSS 15 (call "C:\Program Files (x86)\Microsoft Visual Studio %TOOLCHAIN_VERSION%.0\VC\vcvarsall.bat" %varch%) else (call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" %varch%)
   - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
   - echo PROCESSOR_IDENTIFIER=%PROCESSOR_IDENTIFIER%
   - if NOT "%QT_ROOT%" == "NO" for /f "delims=" %%i in ('%QT_ROOT%/bin/qmake -query QT_VERSION') do (set QT_VERSION=%%i)
   - echo QT_ROOT=%QT_ROOT%
   - echo QT_VERSION=%QT_VERSION%
-  - del C:\msys64\usr\bin\link.exe
   - set LunarCalendar_VERSION=v0.2.3
 
 install:
-  - C:\msys64\autorebase.bat
-  - C:\msys64\usr\bin\pacman.exe -S --noconfirm unzip
-  #- if "%BUILD_TARGERT%"=="windows_mingw" set PATH=C:\Qt\Tools\mingw%TOOLCHAIN_VERSION%_32\bin;%PATH%
-  - if "%BUILD_TARGERT%" == "windows_mingw" set MSYSTEM=MINGW32  #设置编译系统为MINGW32
-
-before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - git submodule update --init --recursive
   - git clone https://github.com/KangLin/RabbitCommon.git
   - set RabbitCommon_DIR=%APPVEYOR_BUILD_FOLDER%/RabbitCommon
-  - if "%BUILD_TARGERT%" == "android" C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build-install-tools-windows.sh
+
   - set OTHER_SOURCE=%APPVEYOR_BUILD_FOLDER%\..\other_source
   - set INSTALL_DIR=%OTHER_SOURCE%\install_dir
-  - set VCPKG_DIR=%OTHER_SOURCE%\vcpkg
   - if not exist "%OTHER_SOURCE%" ( mkdir "%OTHER_SOURCE%" )
+  - if not exist "%INSTALL_DIR%" (mkdir "%INSTALL_DIR%")
 
   - cd %OTHER_SOURCE%
-  - set CMAKE_VERSION=3.25.0
+  - set CMAKE_VERSION=3.28.3
   - if not exist cmake-%CMAKE_VERSION%-windows-i386 (curl -fsSL -o cmake-%CMAKE_VERSION%-windows-i386.zip https://github.com/Kitware/CMake/releases/download/v%CMAKE_VERSION%/cmake-%CMAKE_VERSION%-windows-i386.zip && 7z x cmake-%CMAKE_VERSION%-windows-i386.zip)
   - cd cmake-%CMAKE_VERSION%-windows-i386
   - set PATH="%CD%/bin";%PATH%
 
   - cd %OTHER_SOURCE%
-  - if not exist "%INSTALL_DIR%" (mkdir "%INSTALL_DIR%")
-  - cd %OTHER_SOURCE%
-  - if not exist vcpkg (git clone "https://github.com/microsoft/vcpkg.git" && cd "%VCPKG_DIR%" && git checkout -b a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6 a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6 )
-  - cd %VCPKG_DIR%
-  - bootstrap-vcpkg.bat
-  - vcpkg --triplet %BUILD_ARCH%-windows install zlib openssl
+  - set VCPKG_DIR=%OTHER_SOURCE%\vcpkg
+  - if not exist %VCPKG_DIR% (git clone "https://github.com/microsoft/vcpkg.git" && cd "%VCPKG_DIR%" && git checkout -b a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6 a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6 && bootstrap-vcpkg.bat)
+
+before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%
-  - C:\msys64\usr\bin\bash.exe %APPVEYOR_BUILD_FOLDER%\ci\build.sh
+  - mkdir build
+  - cd build
+  - cmake %APPVEYOR_BUILD_FOLDER% ^
+        -DCMARK_SHARED=OFF ^
+        -DCMARK_TESTS=OFF ^
+        -DCMARK_STATIC=ON ^
+        -DCMAKE_BUILD_TYPE=Release ^
+        -DCMAKE_INSTALL_PREFIX=%CD%/install ^
+        -DCMAKE_TOOLCHAIN_FILE=%OTHER_SOURCE%/vcpkg/scripts/buildsystems/vcpkg.cmake ^
+        -DVCPKG_VERBOSE=ON ^
+        -DX_VCPKG_APPLOCAL_DEPS_INSTALL=OFF ^
+        -DVCPKG_APPLOCAL_DEPS=OFF ^
+        -DBUILD_QUIWidget=OFF ^
+        -DINSTALL_QT=OFF ^
+        -DBUILD_APP=OFF ^
+        -DQT_DIR=%QT_ROOT%/lib/cmake/qt5 ^
+        -DQt5_DIR=%QT_ROOT%/lib/cmake/qt5
+  - cmake --build . --config Release
+  - cmake --build . --config Release --target install
 
 artifacts:
-  - path: build_${BUILD_TARGERT}/LunarCalendar_Setup_*.exe
-    name: LunarCalendar_$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
+  - path: build/install
+    name: LunarCalendar_$(LunarCalendar_VERSION)_msvc$(TOOLCHAIN_VERSION)_Qt$(QT_VERSION)
     type: zip
-
-  - path: build_${BUILD_TARGERT}/update_windows.xml
 
 test: off
 
 #See:https://www.appveyor.com/docs/deployment/github/
-#deploy:
-#  - provider: GitHub
-#    #release: LunarCalendar_$(appveyor_build_version)
-#    description: 'Release LunarCalendar $(APPVEYOR_REPO_TAG_NAME) on windows'
-#    #token : https://github.com/settings/tokens password encrypt: https://ci.appveyor.com/tools/encrypt
-#    auth_token:
-#      secure: aPr1U6S1RtXZiK2mCWtAAIOMjuiBR0yPsD2kaYIADtx2ulIitdp336kFqmfKwM9x
-#    #artifact: LunarCalendar$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
-#    #draft: true
-#    #prerelease: true
-#    on:
-#      BUILD_TARGERT: windows_msvc
-#      TOOLCHAIN_VERSION: 14
-#      GENERATORS: "Visual Studio 14 2015"
-#      QT_VERSION: 5.6.3
-#      BUILD_ARCH: x86
-#      appveyor_repo_tag: true        # deploy on tag push only
+deploy:
+  - provider: GitHub
+    #release: LunarCalendar_$(appveyor_build_version)
+    description: 'Release LunarCalendar $(APPVEYOR_REPO_TAG_NAME) on windows'
+    #token : https://github.com/settings/tokens password encrypt: https://ci.appveyor.com/tools/encrypt
+    auth_token:
+      secure: aPr1U6S1RtXZiK2mCWtAAIOMjuiBR0yPsD2kaYIADtx2ulIitdp336kFqmfKwM9x
+    #artifact: LunarCalendar$(BUILD_TARGERT)$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_$(QT_VERSION)_$(appveyor_build_version)
+    #draft: true
+    #prerelease: true
+    on:
+      BUILD_TARGERT: windows_msvc
+      TOOLCHAIN_VERSION: 14
+      GENERATORS: "Visual Studio 14 2015"
+      QT_VERSION: 5.6.3
+      BUILD_ARCH: x86
+      appveyor_repo_tag: true        # deploy on tag push only

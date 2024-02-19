@@ -124,7 +124,7 @@ jobs:
           copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
           copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
           copy /Y ${{env.RUNVCPKG_VCPKG_ROOT}}\installed\${{env.RUNVCPKG_VCPKG_TRIPLET_OUT}}\bin\*.dll install\bin
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip .\install\*
+          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip install\*
 
       - name: Update artifact for develop library
         uses: actions/upload-artifact@v3
