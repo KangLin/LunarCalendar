@@ -14,7 +14,7 @@ jobs:
       matrix:
         BUILD_TYPE: [Release]
         qt_arch: [android_arm64_v8a, android_armv7, android_x86_64]
-        qt_version: [6.6.1]
+        qt_version: [6.6.2]
         include:
           - BUILD_TYPE: Release
             qt_arch: android_arm64_v8a
@@ -138,7 +138,7 @@ jobs:
           APK_FILE=`find . -name "android-*.apk"`
           cp $APK_FILE LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.apk
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target install
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip install/*
+          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip ./install/*
 
       - name: Update artifact
         #if: ${{ matrix.BUILD_TYPE == 'Release' }}

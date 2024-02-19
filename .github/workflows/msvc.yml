@@ -13,9 +13,9 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: [Release, Debug]
-        qt_version: [6.6.1, 5.15.2, 5.12.12]
+        qt_version: [6.6.2, 5.15.2, 5.12.12]
         include:
-          - qt_version: 6.6.1
+          - qt_version: 6.6.2
             triplet: x64-windows
             VCPKG_PLATFORM_TOOLSET: v142
             qt_arch: win64_msvc2019_64
@@ -37,13 +37,13 @@ jobs:
     runs-on: windows-latest
 
     env:
+      LunarCalendar_VERSION: v1.0.1
       SOURCE_DIR:  ${{github.workspace}}\.cache\source
       TOOSL_DIR:   ${{github.workspace}}\.cache\tools
       INSTALL_DIR: ${{github.workspace}}\.cache\install_msvc_installed_qt${{matrix.qt_version}}_${{matrix.qt_arch}}-${{matrix.triplet}}_${{matrix.BUILD_TYPE}}
       CMAKE_GENERATOR: "Visual Studio 17 2022"
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
-      LunarCalendar_VERSION: v1.0.1
       VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
       qt_modules: qtwebengine ${{matrix.qt_modules}}
       artifact_name: build_msvc
@@ -124,7 +124,7 @@ jobs:
           copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
           copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
           copy /Y ${{env.RUNVCPKG_VCPKG_ROOT}}\installed\${{env.RUNVCPKG_VCPKG_TRIPLET_OUT}}\bin\*.dll install\bin
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip install\*
+          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip .\install\*
 
       - name: Update artifact for develop library
         uses: actions/upload-artifact@v3
@@ -187,7 +187,7 @@ jobs:
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target package
 
       - name: Update artifact for application
-        if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version != '5.12.12' }}
+        if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '6.6.2' }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.artifact_name }}

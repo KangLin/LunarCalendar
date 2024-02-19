@@ -47,14 +47,14 @@ sed -i "s/    SET(LunarCalendar_VERSION.*/    SET(LunarCalendar_VERSION \"${VERS
 sed -i "s/^\!define PRODUCT_VERSION.*/\!define PRODUCT_VERSION \"${VERSION}\"/g" ${SOURCE_DIR}/Install/Install.nsi
 sed -i "s/^version: '.*{build}'/version: '${VERSION}.{build}'/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/^\  - export VERSION=.*/\  - export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/.travis.yml
-sed -i "s/LunarCalendar_VERSION=.*/LunarCalendar_VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/appveyor.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/build.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/macos.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/mingw.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/android.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/doxygen.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/build.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/macos.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/mingw.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/android.yml
+sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/.github/workflows/doxygen.yml
 sed -i "s/v[0-9]\+\.[0-9]\+\.[0-9]\+/${VERSION}/g" ${SOURCE_DIR}/README*.md
 
 DEBIAN_VERSION=`echo ${VERSION}|cut -d "v" -f 2`

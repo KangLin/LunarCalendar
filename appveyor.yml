@@ -1,9 +1,12 @@
 version: 'v1.0.1.{build}'
 
 cache:
-  - C:\projects\other_source
+  - ..\other_source
+# Clean cached
+# https://www.appveyor.com/docs/build-cache/#cleaning-up-cache
   
 environment:
+  LunarCalendar_VERSION: "v1.0.1"
   STOREPASS:
     secure: l9BZEU39F1a4vSkhwl0CHR+yh6CD1c7byGzMv+1NUa4=
   QT_USER:
@@ -35,7 +38,6 @@ init:
   - if NOT "%QT_ROOT%" == "NO" for /f "delims=" %%i in ('%QT_ROOT%/bin/qmake -query QT_VERSION') do (set QT_VERSION=%%i)
   - echo QT_ROOT=%QT_ROOT%
   - echo QT_VERSION=%QT_VERSION%
-  - set LunarCalendar_VERSION="v1.0.1"
 
 install:
   - cd %APPVEYOR_BUILD_FOLDER%
@@ -65,6 +67,7 @@ build_script:
   - mkdir build
   - cd build
   - cmake %APPVEYOR_BUILD_FOLDER% ^
+        -G"%GENERATORS%" ^
         -DCMARK_SHARED=OFF ^
         -DCMARK_TESTS=OFF ^
         -DCMARK_STATIC=ON ^
@@ -81,11 +84,10 @@ build_script:
         -DQt5_DIR=%QT_ROOT%/lib/cmake/qt5
   - cmake --build . --config Release
   - cmake --build . --config Release --target install
+  - 7z a LunarCalendar_%LunarCalendar_VERSION%_msvc%TOOLCHAIN_VERSION%_%BUILD_ARCH%_Qt%QT_VERSION%.zip install\*
 
 artifacts:
-  - path: build/install
-    name: LunarCalendar_$(LunarCalendar_VERSION)_msvc$(TOOLCHAIN_VERSION)_Qt$(QT_VERSION)
-    type: zip
+  - path: build/LunarCalendar_$(LunarCalendar_VERSION)_msvc$(TOOLCHAIN_VERSION)_$(BUILD_ARCH)_Qt$(QT_VERSION).zip
 
 test: off
 
@@ -101,7 +103,6 @@ deploy:
     #draft: true
     #prerelease: true
     on:
-      BUILD_TARGERT: windows_msvc
       TOOLCHAIN_VERSION: 14
       GENERATORS: "Visual Studio 14 2015"
       QT_VERSION: 5.6.3

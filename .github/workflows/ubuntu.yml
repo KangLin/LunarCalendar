@@ -84,14 +84,14 @@ jobs:
             -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install \
             -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_ubuntu.zip ./install/*
+          7z a LunarCalendar_v${{env.LunarCalendar_VERSION}}_ubuntu_${{matrix.BUILD_TYPE}}.zip ./install/*
 
       - name:  Update artifact for develop library
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.artifact_name }}
           path: |
-            ${{github.workspace}}/build/LunarCalendar_${{env.LunarCalendar_VERSION}}_ubuntu.zip
+            ${{github.workspace}}/build/LunarCalendar_v${{env.LunarCalendar_VERSION}}_ubuntu_${{matrix.BUILD_TYPE}}.zip
       
       - name: build_debpackage.sh
         working-directory: ${{github.workspace}}
