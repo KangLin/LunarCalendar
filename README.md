@@ -108,7 +108,7 @@ please compile and test the students with the corresponding equipment.
   - Ubuntu: *.deb
   - Windows: *.exe
   - Android: *.apk
-- Documents: [LunarCalendar_v1.0.0_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v1.0.0/LunarCalendar_v1.0.0_document.zip)
+- Documents: [LunarCalendar_v1.0.1_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v1.0.1/LunarCalendar_v1.0.1_document.zip)
 
 ### Compile
 

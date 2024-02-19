@@ -47,8 +47,7 @@ sed -i "s/    SET(LunarCalendar_VERSION.*/    SET(LunarCalendar_VERSION \"${VERS
 sed -i "s/^\!define PRODUCT_VERSION.*/\!define PRODUCT_VERSION \"${VERSION}\"/g" ${SOURCE_DIR}/Install/Install.nsi
 sed -i "s/^version: '.*{build}'/version: '${VERSION}.{build}'/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/^\  - export VERSION=.*/\  - export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/.travis.yml
-sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: \"${VERSION}\"/g" ${SOURCE_DIR}/appveyor.yml
-sed -i "s/export VERSION=".*"/export VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/ci/build.sh
+sed -i "s/LunarCalendar_VERSION=.*/LunarCalendar_VERSION=\"${VERSION}\"/g" ${SOURCE_DIR}/appveyor.yml
 sed -i "s/<VERSION>.*</<VERSION>${VERSION}</g" ${SOURCE_DIR}/Update/update.xml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/msvc.yml
 sed -i "s/LunarCalendar_VERSION:.*/LunarCalendar_VERSION: ${VERSION}/g" ${SOURCE_DIR}/.github/workflows/build.yml
