@@ -40,7 +40,7 @@ jobs:
       LunarCalendar_VERSION: v1.0.1
       SOURCE_DIR:  ${{github.workspace}}\.cache\source
       TOOSL_DIR:   ${{github.workspace}}\.cache\tools
-      INSTALL_DIR: ${{github.workspace}}\.cache\install_msvc_installed_qt${{matrix.qt_version}}_${{matrix.qt_arch}}-${{matrix.triplet}}_${{matrix.BUILD_TYPE}}
+      INSTALL_DIR: ${{github.workspace}}\.cache\install
       CMAKE_GENERATOR: "Visual Studio 17 2022"
       VCPKG_PLATFORM_TOOLSET: ${{matrix.VCPKG_PLATFORM_TOOLSET}}
       CMAKE_GENERATOR_PLATFORM: ${{matrix.CMAKE_GENERATOR_PLATFORM}}
@@ -77,7 +77,7 @@ jobs:
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: cache-installed-msvc
+          key: install_msvc_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.BUILD_TYPE}}
 
       - name: run vcpkg
         uses: lukka/run-vcpkg@v11

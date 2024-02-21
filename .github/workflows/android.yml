@@ -34,7 +34,7 @@ jobs:
       artifact_name: build_android
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
-      INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.BUILD_TYPE}}
+      INSTALL_DIR: ${{github.workspace}}/.cache/install
       LunarCalendar_VERSION: v1.0.1
       VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
       ANDROID_PLATFORM: android-23
@@ -65,7 +65,7 @@ jobs:
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: installed-qt${{matrix.qt_version}}-${{matrix.qt_arch}}-${{matrix.VCPKG_TARGET_TRIPLET}}
+          key: install_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.VCPKG_TARGET_TRIPLET}}_${{matrix.BUILD_TYPE}}
 
       - name: Install Qt of gcc_64
         uses: jurplel/install-qt-action@v3
