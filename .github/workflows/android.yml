@@ -31,12 +31,15 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      artifact_name: build_android
+      LunarCalendar_VERSION: v1.0.1
+      VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+      VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
+      VCPKG_HOST_TRIPLET: x64-linux
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install
-      LunarCalendar_VERSION: v1.0.1
-      VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
+      STOREPASS: ${{secrets.STOREPASS}}
+      artifact_name: build_android
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
       qt_modules: 'qtimageformats qtmultimedia qtscxml qtwebchannel qtwebsockets qtwebview'
