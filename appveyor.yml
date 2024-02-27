@@ -1,4 +1,4 @@
-version: 'v1.0.1.{build}'
+version: 'v1.0.2.{build}'
 
 cache:
   - ..\other_source
@@ -6,7 +6,7 @@ cache:
 # https://www.appveyor.com/docs/build-cache/#cleaning-up-cache
   
 environment:
-  LunarCalendar_VERSION: "v1.0.1"
+  LunarCalendar_VERSION: "v1.0.2"
   STOREPASS:
     secure: l9BZEU39F1a4vSkhwl0CHR+yh6CD1c7byGzMv+1NUa4=
   QT_USER:
