@@ -116,7 +116,7 @@ jobs:
         run: |
           git clone https://github.com/KangLin/RabbitCommon.git
 
-      - name: build LunarCalendar
+      - name: build LunarCalendar library
         working-directory: ${{github.workspace}}/build
         env:
           RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
@@ -131,8 +131,30 @@ jobs:
               -DCMARK_STATIC=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
-              -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
-              -DANDROID_NATIVE_API_LEVEL=${{env.ANDROID_NATIVE_API_LEVEL}} \
+              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
+              -DQT_ANDROID_SIGN_APK=ON \
+              -DQT_ENABLE_VERBOSE_DEPLOYMENT=OFF \
+              -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+              -DBUILD_APP=OFF
+          cmake --build . --config ${{matrix.BUILD_TYPE}} --target install
+          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip ./install/*
+            
+      - name: build LunarCalendar
+        working-directory: ${{github.workspace}}/build
+        env:
+          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+          QT_ANDROID_KEYSTORE_PATH: ${{env.SOURCE_DIR}}/RabbitCommon/RabbitCommon.keystore
+          QT_ANDROID_KEYSTORE_ALIAS: rabbitcommon
+          QT_ANDROID_KEYSTORE_STORE_PASS: ${{secrets.STOREPASS}}
+        run: |
+          rm -fr *
+          sudo chmod 777 ${Qt6_DIR}/bin/qt-cmake
+          ${Qt6_DIR}/bin/qt-cmake .. \
+              -DCMARK_SHARED=OFF \
+              -DCMARK_TESTS=OFF \
+              -DCMARK_STATIC=ON \
+              -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
+              -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
               -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DQT_ANDROID_SIGN_APK=ON \
               -DQT_ENABLE_VERBOSE_DEPLOYMENT=OFF \
@@ -140,8 +162,6 @@ jobs:
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target all
           APK_FILE=`find . -name "android-*.apk"`
           cp $APK_FILE LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.apk
-          cmake --build . --config ${{matrix.BUILD_TYPE}} --target install
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip ./install/*
 
       - name: Update artifact
         #if: ${{ matrix.BUILD_TYPE == 'Release' }}
