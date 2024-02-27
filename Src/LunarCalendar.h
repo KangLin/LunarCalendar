@@ -225,9 +225,11 @@
  *     - 用 SetTaskHandle 设置处理类
  *       \snippet App/MainWindow.cpp Set user defined tasks with CTaskHandler
  * - [可选]处理选择事件
- *   - 连接选择信号
+ *   - 定义选择事件槽
+ *     \snippet App/MainWindow.h slotUpdateCalendar
+ *   - 连接选择事件信号
  *     \snippet App/MainWindow.cpp sigSelectionChanged
- *   - 处理选择事件
+ *   - 实现选择事件
  *     \snippet App/MainWindow.cpp slotUpdateCalendar
  * - [可选] 允许节日、节气
  * \snippet App/MainWindow.cpp Enable holidays and solar term
@@ -572,7 +574,7 @@ public:
     virtual QSize sizeHint() const override;
     virtual QSize minimumSizeHint() const override;
     
-    //! \name 下列功能仅由开发者使用。客户不要使用。
+    //! \name 下列功能仅由开发者使用。客户和使用者禁止使用。
     //! \ref RoleDefinitions
     //! @{
     
@@ -580,7 +582,7 @@ public:
      * \brief 从缓存文件中得到农历
      * \param szFile: 缓存文件
      * \return 成功返回　0　；其它失败
-     * \note 仅由开发者使用。普通用户不要使用。
+     * \note 仅由开发者使用。客户和使用者禁止使用。
      * \see CLunarTable
      */
     int LoadCalendarTable(const QString& szFile);
@@ -591,7 +593,7 @@ public:
      * \param bClearCache: 是否清除以前的缓存
      * \param bSaveAllDate: 是否保存所有日期
      * \return 成功返回 0　；其它失败
-     * \note 仅由开发者使用。普通用户不要使用。
+     * \note 仅由开发者使用。客户和使用者禁止使用。
      * \see CLunarTable
      */
     int GenerateCalendarTable(const QString& szFile,
@@ -599,7 +601,7 @@ public:
                               bool bClearCache = false,
                               bool bSaveAllDate = true);
     
-    //! @}  上面功能仅由开发者使用。客户不要使用。
+    //! @}  上面功能仅由开发者使用。客户和使用者禁止使用。
 
 Q_SIGNALS:
     /*!

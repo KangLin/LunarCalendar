@@ -58,6 +58,13 @@
 
     cd build
     # 如果是 Qt6
+    
+    # 使用 qt-cmake
+    qt-cmake .. -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+        -DRabbitCommon_DIR=......
+
+    # 使用 cmake
     cmake .. -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
         -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
@@ -68,7 +75,7 @@
         -DRabbitCommon_DIR=......
     cmake --build . --target all
 
-    # If is Qt5
+    # 如果是 Qt5
     cmake .. -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
         -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
@@ -81,7 +88,27 @@
     cmake --build . --target APK
     
 ##### 主机是 windows
-    
+
+    ; 如果是 Qt6
+    ; 使用 qt-cmake
+    qt-cmake .. -DCMAKE_BUILD_TYPE=Release ^
+        -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+        -DRabbitCommon_DIR=......
+
+    ; 使用 cmake
+    cmake .. -G"Unix Makefiles" ^
+        -DCMAKE_BUILD_TYPE=Release ^
+        -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+        -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+        -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+        -DANDROID_PLATFORM=android-18 ^
+        -DANDROID_ABI=arm64-v8a ^
+        -DANDROID_ARM_NEON=ON ^
+        -DQT_DIR= ^
+        -DQt6_DIR= ^
+        -DRabbitCommon_DIR=......
+    cmake --build . --target all
+
     cd build
     ; 如果是 Qt5
     cmake .. -G"Unix Makefiles" ^
@@ -97,21 +124,7 @@
         -DRabbitCommon_DIR=......
     cmake --build . --config Release --target install
     cmake --build . --target APK
-            
-    ; If is Qt6
-    cmake .. -G"Unix Makefiles" ^
-        -DCMAKE_BUILD_TYPE=Release ^
-        -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
-        -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
-        -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
-        -DANDROID_PLATFORM=android-18 ^
-        -DANDROID_ABI=arm64-v8a ^
-        -DANDROID_ARM_NEON=ON ^
-        -DQT_DIR= ^
-        -DQt6_DIR= ^
-        -DRabbitCommon_DIR=......
-    cmake --build . --target all
-    
+
 - 参数说明：https://developer.android.google.cn/ndk/guides/cmake
   + ANDROID_ABI: 可取下列值：  
 目标 ABI。如果未指定目标 ABI，则 CMake 默认使用 armeabi-v7a。
@@ -135,7 +148,7 @@
     
       adb install android-build-debug.apk 
 
-## 安装注意
+## 在 v1.0.2 以前，安装注意
 
 Qt因为版权原因，没有提供openssl动态库，所以必须自己复制openssl的动态库到安装目录下。
 

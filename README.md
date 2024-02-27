@@ -18,6 +18,8 @@ Author: Kang Lin <kl222@126.com>
 
 ------------------------------------------------
 
+- [![Documentation](https://img.shields.io/badge/documentation-online-blue)](https://kanglin.github.io/LunarCalendar/html/index.html)
+
 - master
 
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)
@@ -228,13 +230,16 @@ please compile and test the students with the corresponding equipment.
     
            adb install android-build-debug.apk 
 
-- Note
-    + windows
+- Note:
+
+before v1.0.2 and qt6
+
+  + windows
        If you build app. Qt does not provide openssl dynamic library for copyright reasons, so you must copy the dynamic library of openssl to the installation directory.
         - If it is 32, you can find the dynamic library of openssl (libeay32.dll, ssleay32.dll) in the Qt installer Tools\QtCreator\bin directory.
         - If it is 64-bit, you will need to download the binary installation package for openssl yourself.
 
-    + linux
+  + linux
 
      ```
      sudo apt-get install libssl1.1

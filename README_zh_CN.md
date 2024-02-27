@@ -18,6 +18,8 @@
 
 ------------------------------------------------
 
+- [![Documentation](https://img.shields.io/badge/documentation-online-blue)](https://kanglin.github.io/LunarCalendar/html/index.html)
+
 - 主分支
 
 [![build](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml)

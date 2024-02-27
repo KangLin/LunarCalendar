@@ -31,7 +31,9 @@ public:
     ~MainWindow();
     
 private Q_SLOTS:
+    // [slotUpdateCalendar]
     void slotUpdateCalendar();
+    // [slotUpdateCalendar]
     void slotAbout();
     void slotUpdate();
     void slotActionLunar(bool checked);
