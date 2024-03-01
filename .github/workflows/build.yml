@@ -29,8 +29,9 @@ jobs:
 
   doxygen:
     uses: ./.github/workflows/doxygen.yml
+    secrets: inherit
     #if: ${{ startsWith(github.ref, 'refs/tags/') }}
-    
+
   deploy:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     runs-on: ubuntu-latest
@@ -70,13 +71,13 @@ jobs:
         with:
           name: ${{ needs.android.outputs.name }}
           path: ${{ env.artifact_path }}
-      
+
       - name: Download doxygen
         uses: actions/download-artifact@v3
         with:
           name: ${{ needs.doxygen.outputs.name }}
           path: ${{ env.artifact_path }}
-          
+
       - name: Make Notes.md file
         run: |
           cd ${{ env.artifact_path }}

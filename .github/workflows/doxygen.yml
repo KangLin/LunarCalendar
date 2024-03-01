@@ -47,12 +47,12 @@ jobs:
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: doxygen-cache-installed
+          key: install-doxygen
 
       - name: install apt packages
         run: |
-          sudo apt update
-          sudo apt upgrade
+          sudo apt update -y -q
+          sudo apt upgrade -y -q
           sudo apt install -y -q cmake build-essential graphviz \
               qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools
 
@@ -107,3 +107,12 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: build/Doxygen
+
+      - name: Deploy to sourceforge.io
+        if: startsWith(github.ref, 'refs/tags/')
+        working-directory: ${{env.SOURCE_DIR}}
+        run: |
+          echo "${{secrets.GIT_SSH_PRIVATE_KEY}}" > id_rsa
+          chmod 600 id_rsa
+          scp -i id_rsa -o StrictHostKeyChecking=no -r ${{github.workspace}}/build/Doxygen/. kl222@web.sourceforge.net:/home/project-web/lunarlalendar/htdocs/${{env.LunarCalendar_VERSION}}
+      
