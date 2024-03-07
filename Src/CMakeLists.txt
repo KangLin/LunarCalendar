@@ -143,6 +143,6 @@ INSTALL_FILE(
     SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/chinese_holidays.sql
         ${CMAKE_CURRENT_SOURCE_DIR}/Resource/database/holidays.sql
-    DESTINATION "data/db")
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/db")
 
 INSTALL_ICON_THEME(SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/icons)
