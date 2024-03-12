@@ -63,7 +63,16 @@ SET(OTHER_FILES
     ${CMAKE_SOURCE_DIR}/Authors_zh_CN.md
     ${CMAKE_SOURCE_DIR}/ChangeLog.md
     )
-INSTALL_FILE(SOURCES ${OTHER_FILES} DESTINATION "." COMPONENT Runtime)
+INSTALL_FILE(SOURCES ${OTHER_FILES}
+    DESTINATION ${CMAKE_INSTALL_DOCDIR}
+        COMPONENT Runtime)
+
+IF(WIN32)
+    # 替换 Install.nsi 中的 MSVC_VERSION 和 BUILD_ARCH
+    configure_file(${CMAKE_SOURCE_DIR}/Install/Install.nsi
+        ${CMAKE_BINARY_DIR}/Install.nsi @ONLY)
+    file(COPY AppIcon.ico DESTINATION ${CMAKE_BINARY_DIR})
+ENDIF()
 
 if(EXISTS ${RabbitCommon_DIR}/Src/etc/logqt.ini)
     if(ANDROID)
