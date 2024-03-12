@@ -26,10 +26,10 @@ PACKAGE_lunarcalendar_dev_DIR = "debian/lunarcalendar-dev"
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
 	dh_auto_configure -B$(BUILD_DIR) -- \
-            -DCMAKE_BUILD_TYPE=Release -DBUILD_APP=OFF -DBUILD_TESTS=OFF
+            -DCMAKE_BUILD_TYPE=Release -DBUILD_APP=OFF
 
 override_dh_auto_build:
-	cmake  --build $(BUILD_DIR) --config Release
+	cmake --build $(BUILD_DIR) --config Release
 
 override_dh_auto_install:
 	cmake --install $(BUILD_DIR) --config Release --component Runtime --prefix $(PACKAGE_lunarcalendar_DIR)/usr

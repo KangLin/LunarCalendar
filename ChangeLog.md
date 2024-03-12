@@ -1,5 +1,5 @@
 - v1.0.3
-  - 使用 RabbitCommon v2.1.0
+  - 使用 [RabbitCommon v2.1.0](https://github.com/KangLin/RabbitCommon/releases/tag/v2.1.0)
 
 - v1.0.2
   - 修改自动化编译

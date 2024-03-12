@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      LunarCalendar_VERSION: "v1.0.2"
+      LunarCalendar_VERSION: "v1.0.3"
       VCPKGGITCOMMITID: a1a1cbc975abf909a6c8985a6a2b8fe20bbd9bd6
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_HOST_TRIPLET: x64-linux
