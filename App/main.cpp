@@ -24,6 +24,7 @@
     #include "RabbitCommonDir.h"
 #endif
 #include <QLocale>
+#include "LunarCalendar.h"
 
 static Q_LOGGING_CATEGORY(Logger, "App.main")
 
@@ -45,6 +46,10 @@ int main(int argc, char *argv[])
 #endif
 
     a.setApplicationDisplayName(QObject::tr("Calendar"));
+    
+    qInfo(Logger) << QObject::tr("Calendar") + " " + CLunarCalendar::Version()
+                  << QObject::tr("Rabbit Common: ")
+                         + RabbitCommon::CTools::Version();
 
 #ifdef RABBITCOMMON
     CFrmUpdater *pUpdate = new CFrmUpdater();

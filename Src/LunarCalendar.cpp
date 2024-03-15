@@ -1515,3 +1515,20 @@ QSize CLunarCalendar::minimumSizeHint() const
 
     return QSize(w, h);
 }
+
+const QString CLunarCalendar::Version()
+{
+    QString szVersion(tr("Version:"));
+
+#ifdef LunarCalendar_VERSION
+    szVersion += LunarCalendar_VERSION;
+#endif
+
+#ifdef LunarCalendar_REVISION
+    szVersion += " (" + tr("Revision: [") + LunarCalendar_REVISION
+                 + "](https://github.com/KangLin/LunarCalendar/tree/"
+                 + LunarCalendar_REVISION + "))";
+#endif
+
+    return szVersion;
+}

@@ -1,6 +1,6 @@
 {
   "name": "lunarcalendar",
-  "version-string":"0.3.1",
+  "version-string": "1.0.3",
   "dependencies": [
     "openssl"
   ],

@@ -250,6 +250,8 @@ public:
     virtual ~CLunarCalendar() override;
     
     enum class _CalendarType;
+    
+    static const QString Version();
 
     //! \name 日期操作
     //! @{
