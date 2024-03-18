@@ -22,6 +22,8 @@ PACKAGE_dev_DIR = "debian/lunarcalendar-dev"
 %:
 	dh $@
 
+# Debian 维护者指南: https://www.debian.org/doc/manuals/debmake-doc/index.zh-cn.html
+# Debian 新维护者手册: https://www.debian.org/doc/manuals/maint-guide/dreq.zh-cn.html#rules
 # https://www.debian.org/doc/manuals/maint-guide/dreq.zh-cn.html#rules
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
@@ -29,7 +31,7 @@ override_dh_auto_configure:
             -DCMAKE_BUILD_TYPE=Release -DBUILD_APP=OFF
 
 override_dh_auto_build:
-	cmake --build $(BUILD_DIR) --config Release --parallel
+	cmake --build $(BUILD_DIR) --config Release --parallel $(if "`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`", `cat /proc/cpuinfo |grep 'cpu cores' |wc -l`, 1)
 
 override_dh_auto_install:
 	cmake --install $(BUILD_DIR) --config Release \
