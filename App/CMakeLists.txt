@@ -50,11 +50,11 @@ ADD_TARGET(NAME ${PROJECT_NAME}
 
 if(UNIX AND NOT ANDROID)
     INSTALL(PROGRAMS ${CMAKE_SOURCE_DIR}/share/LunarCalendar.sh
-        DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Runtime)
+        DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Application)
     INSTALL(FILES ${CMAKE_SOURCE_DIR}/share/org.Rabbit.LunarCalendar.desktop
-        DESTINATION "share/applications" COMPONENT Runtime)
+        DESTINATION "share/applications" COMPONENT Application)
     INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png
-        DESTINATION "share/pixmaps" COMPONENT Runtime)
+        DESTINATION "share/pixmaps" COMPONENT Application)
 endif()
 
 SET(OTHER_FILES
@@ -65,7 +65,7 @@ SET(OTHER_FILES
     )
 INSTALL_FILE(SOURCES ${OTHER_FILES}
     DESTINATION ${CMAKE_INSTALL_DOCDIR}
-        COMPONENT Runtime)
+        COMPONENT Application)
 
 IF(WIN32)
     # 替换 Install.nsi 中的 MSVC_VERSION 和 BUILD_ARCH
@@ -75,15 +75,8 @@ IF(WIN32)
 ENDIF()
 
 if(EXISTS ${RabbitCommon_DIR}/Src/etc/logqt.ini)
-    if(ANDROID)
-        INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
-            DESTINATION assets/etc
-                COMPONENT Runtime
-            RENAME LunarCalendar_logqt.ini)
-    else()
-        INSTALL(FILES ${RabbitCommon_DIR}/Src/etc/logqt.ini
-            DESTINATION etc
-                COMPONENT Runtime
-            RENAME LunarCalendar_logqt.ini)
-    endif()
+    INSTALL_FILE(SOURCES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+        DESTINATION etc
+            COMPONENT Application
+        RENAME LunarCalendar_logqt.ini)
 endif()
