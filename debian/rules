@@ -16,8 +16,8 @@ export DH_VERBOSE = 1
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 BUILD_DIR = "build_$(DEB_HOST_MULTIARCH)"
-PACKAGE_lunarcalendar_DIR = "debian/lunarcalendar"
-PACKAGE_lunarcalendar_dev_DIR = "debian/lunarcalendar-dev"
+PACKAGE_DIR = "debian/lunarcalendar"
+PACKAGE_dev_DIR = "debian/lunarcalendar-dev"
 
 %:
 	dh $@
@@ -32,9 +32,13 @@ override_dh_auto_build:
 	cmake --build $(BUILD_DIR) --config Release --parallel
 
 override_dh_auto_install:
-	cmake --install $(BUILD_DIR) --config Release --component Runtime --prefix $(PACKAGE_lunarcalendar_DIR)/usr
-	cmake --install $(BUILD_DIR) --config Release --component Development --prefix $(PACKAGE_lunarcalendar_dev_DIR)/usr
+	cmake --install $(BUILD_DIR) --config Release \
+		--component Runtime \
+		--prefix $(PACKAGE_DIR)/usr
+	cmake --install $(BUILD_DIR) --config Release \
+		--component Development \
+		--prefix $(PACKAGE_dev_DIR)/usr
 
 override_dh_builddeb:
-	dh_builddeb --package=lunarcalendar -P$(PACKAGE_lunarcalendar_DIR)
-	dh_builddeb --package=lunarcalendar-dev -P$(PACKAGE_lunarcalendar_dev_DIR)
+	dh_builddeb --package=lunarcalendar -P$(PACKAGE_DIR)
+	dh_builddeb --package=lunarcalendar-dev -P$(PACKAGE_dev_DIR)
