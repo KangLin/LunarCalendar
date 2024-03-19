@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 #ifdef RABBITCOMMON
     RabbitCommon::CTools::Instance()->Init();
 #endif
+    RabbitCommon::CTools::Instance()->InstallTranslator("LunarCalendarApp");
 
     a.setApplicationDisplayName(QObject::tr("Calendar"));
     
@@ -70,18 +71,6 @@ int main(int argc, char *argv[])
     }
 #endif
 
-    QTranslator tApp;
-    QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
-            + "/LunarCalendarApp_" + QLocale::system().name() + ".qm";
-    bool bRetTranslator = tApp.load(szFile);
-    if(bRetTranslator)
-    {
-        qDebug(Logger) << "Load translation file:" << szFile;
-        a.installTranslator(&tApp);
-    }
-    else
-        qCritical(Logger) << "Load translation file fail:" << szFile;
-    
     MainWindow w;
 
 #if defined (Q_OS_ANDROID)
@@ -96,8 +85,6 @@ int main(int argc, char *argv[])
     w.show();
 #endif
     int nRet = a.exec();
-
-    if(bRetTranslator) a.removeTranslator(&tApp);
 
     return nRet;
 }

@@ -30,35 +30,12 @@
 #include "CalendarLunar.h"
 #include "LunarTable.h"
 #include "RabbitCommonDir.h"
+#include "RabbitCommonTools.h"
 
-static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar");
+static Q_LOGGING_CATEGORY(Logger, "Rabbit.LunarCalendar")
 
-class CLunarCalendarPrivate
-{
-public:
-    CLunarCalendarPrivate()
-    {
-        if(!qApp) {
-            qCritical(Logger) << "Please instantiate the CLunarCalendar object after QApplication a(argc, argv) in main()";
-            Q_ASSERT(false);
-            return;
-        }
-        QString szFile = RabbitCommon::CDir::Instance()->GetDirTranslations()
-                         + "/LunarCalendar_" + QLocale::system().name() + ".qm";
-        if(m_Translator.load(szFile))
-            qApp->installTranslator(&m_Translator);
-        else
-            qCritical(Logger) << "Load translator fail: %s" << szFile;
-    }
-    virtual ~CLunarCalendarPrivate()
-    {
-        qApp->removeTranslator(&m_Translator);
-    }
-private:
-    QTranslator m_Translator;
-};
-
-static CLunarCalendarPrivate* g_pLunarCalendarPrivate = nullptr;
+static bool g_bLundarCalendarInit = false;
+static QSharedPointer<QTranslator> g_Translator;
 
 CLunarCalendar::CLunarCalendar(QWidget *parent) :
     QWidget(parent),
@@ -270,9 +247,12 @@ CLunarCalendar::~CLunarCalendar()
 
 void CLunarCalendar::InitResource()
 {
-    if(g_pLunarCalendarPrivate) return;
+    if(g_bLundarCalendarInit) return;
+    
+    g_bLundarCalendarInit = true;
 
-    g_pLunarCalendarPrivate = new CLunarCalendarPrivate();
+    g_Translator = RabbitCommon::CTools::Instance()->InstallTranslator(
+        "LunarCalendar", RabbitCommon::CTools::TranslationType::Library);
 
     Q_INIT_RESOURCE(ResourceLunarCalendar);
 #if _DEBUG
@@ -283,13 +263,8 @@ void CLunarCalendar::InitResource()
 
 void CLunarCalendar::CLeanResource()
 {
-    if(g_pLunarCalendarPrivate)
-    {
-        delete g_pLunarCalendarPrivate;
-        g_pLunarCalendarPrivate = nullptr;
-    }
-
-    Q_CLEANUP_RESOURCE(ResourceLunarCalendar);    
+    RabbitCommon::CTools::Instance()->RemoveTranslator(g_Translator);
+    Q_CLEANUP_RESOURCE(ResourceLunarCalendar);
 #if _DEBUG
     Q_CLEANUP_RESOURCE(ResourceSql);
     Q_CLEANUP_RESOURCE(translations_LunarCalendar);

@@ -638,7 +638,7 @@ protected:
 private:
     static void InitResource();
     static void CLeanResource();
-    
+
     int ShowSelectTitle();
     int UpdateViewModel(bool bForce = false);
     int UpdateMonthMenu();
