@@ -14,6 +14,7 @@
     - https://sourceforge.net/projects/lunarcalendar/
     - https://invent.kde.org/kanglin/LunarCalendar
     - https://launchpad.net/lunarcalendar
+    - https://bitbucket.org/kl222/lunarcalendar
 - [项目主页](https://kanglin.github.io/LunarCalendar/html/index.html)
 
 ------------------------------------------------
