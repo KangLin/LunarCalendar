@@ -68,7 +68,7 @@ INSTALL_FILE(SOURCES ${OTHER_FILES}
         COMPONENT Application)
 
 IF(WIN32)
-    # 替换 Install.nsi 中的 MSVC_VERSION 和 BUILD_ARCH
+    # 替换 Install.nsi 中的 CMAKE_INSTALL_PREFIX 等
     configure_file(${CMAKE_SOURCE_DIR}/Install/Install.nsi
         ${CMAKE_BINARY_DIR}/Install.nsi @ONLY)
     file(COPY AppIcon.ico DESTINATION ${CMAKE_BINARY_DIR})

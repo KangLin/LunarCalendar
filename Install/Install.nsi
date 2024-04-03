@@ -33,7 +33,7 @@ SetCompressor lzma
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-!insertmacro MUI_PAGE_LICENSE "share\doc\LunarCalendar\License.md"
+!insertmacro MUI_PAGE_LICENSE "@CMAKE_INSTALL_PREFIX@\share\doc\LunarCalendar\License.md"
 ; Components page
 !insertmacro MUI_PAGE_COMPONENTS
 ; Directory page
