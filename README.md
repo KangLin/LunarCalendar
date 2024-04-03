@@ -111,7 +111,7 @@ please compile and test the students with the corresponding equipment.
   - Ubuntu: *.deb
   - Windows: *.exe
   - Android: *.apk
-- Documents: [LunarCalendar_v1.0.3_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v1.0.3/LunarCalendar_v1.0.3_document.zip)
+- Documents: [LunarCalendar_v1.0.4_document.zip](https://github.com/KangLin/LunarCalendar/releases/download/v1.0.4/LunarCalendar_v1.0.4_document.zip)
 
 ### Compile
 
@@ -233,7 +233,7 @@ please compile and test the students with the corresponding equipment.
 
 - Note:
 
-before v1.0.3 and qt6
+before v1.0.4 and qt6
 
   + windows
        If you build app. Qt does not provide openssl dynamic library for copyright reasons, so you must copy the dynamic library of openssl to the installation directory.

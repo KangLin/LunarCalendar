@@ -37,7 +37,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      LunarCalendar_VERSION: "v1.0.3"
+      LunarCalendar_VERSION: "v1.0.4"
       SOURCE_DIR:  ${{github.workspace}}\.cache\source
       TOOSL_DIR:   ${{github.workspace}}\.cache\tools
       INSTALL_DIR: ${{github.workspace}}\.cache\install
