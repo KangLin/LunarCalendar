@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: CLunarCalendar::CTaskHandler类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="classCLunarCalendar.html">CLunarCalendar</a></li><li class="navelem"><a class="el" href="classCLunarCalendar_1_1CTaskHandler.html">CTaskHandler</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classCLunarCalendar_1_1CTaskHandler-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">CLunarCalendar::CTaskHandler类 参考<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> 类  
+ <a href="classCLunarCalendar_1_1CTaskHandler.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a>&gt;</code></p>
+<div class="dynheader">
+类 CLunarCalendar::CTaskHandler 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classCLunarCalendar_1_1CTaskHandler.png" usemap="#CLunarCalendar::CTaskHandler_map" alt=""/>
+  <map id="CLunarCalendar::CTaskHandler_map" name="CLunarCalendar::CTaskHandler_map">
+<area href="classCHandler.html" title="[Define CTaskHandler derived class]" alt="CHandler" shape="rect" coords="0,56,192,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:ad1c81754b6c56ed65679936c7d92b0be" id="r_ad1c81754b6c56ed65679936c7d92b0be"><td class="memItemLeft" align="right" valign="top">virtual uint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar_1_1CTaskHandler.html#ad1c81754b6c56ed65679936c7d92b0be">onHandle</a> (const QDate &amp;date, QStringList &amp;tasks)=0</td></tr>
+<tr class="memdesc:ad1c81754b6c56ed65679936c7d92b0be"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> 。请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。  <br /></td></tr>
+<tr class="separator:ad1c81754b6c56ed65679936c7d92b0be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> 类 </p>
+<p>用法：</p><ul>
+<li>定义其派生类 <div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="classCHandler.html">CHandler</a> : <span class="keyword">public</span> <a class="code hl_class" href="classCLunarCalendar_1_1CTaskHandler.html">CLunarCalendar::CTaskHandler</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">virtual</span> uint onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                          <span class="comment">/*out*/</span>QStringList&amp; tasks) <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line">};</div>
+<div class="ttc" id="aclassCHandler_html"><div class="ttname"><a href="classCHandler.html">CHandler</a></div><div class="ttdoc">[Define CTaskHandler derived class]</div><div class="ttdef"><b>Definition</b> <a href="MainWindow_8h_source.html#l00015">MainWindow.h:16</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_1_1CTaskHandler_html"><div class="ttname"><a href="classCLunarCalendar_1_1CTaskHandler.html">CLunarCalendar::CTaskHandler</a></div><div class="ttdoc">使用者自定义任务接口 类</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8h_source.html#l00344">LunarCalendar.h:345</a></div></div>
+</div><!-- fragment --></li>
+<li>实现接口 <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html#ad1c81754b6c56ed65679936c7d92b0be" title="使用者自定义任务接口 。请遵守 农历位置显示类型优先级 。">CTaskHandler::onHandle</a> <div class="fragment"><div class="line">uint CHandler::onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                        <span class="comment">/*out*/</span>QStringList&amp; tasks) {</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(10 == d.month() &amp;&amp; 25 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;抗美援朝纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">    <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);    </div>
+<div class="line">    <span class="comment">// 纪念日（以农历年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 22 == lunarDay)</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;结婚纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 以月为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(21 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 以周为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(Qt::Wednesday == d.dayOfWeek())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">        tasks &lt;&lt; QString();</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 单个任务</span></div>
+<div class="line">    <span class="keywordflow">if</span>(2015 == d.year() &amp;&amp; 10 == d.month() &amp;&amp; 22 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 没有任务</span></div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassCLunarCalendar_html_af00f614f13c68e72d256671b4543d89d"><div class="ttname"><a href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a></div><div class="ttdeci">static int GetLunar(const QDate date, int &amp;year, int &amp;month, int &amp;day)</div><div class="ttdoc">得到给定日期的农历（公历转农历）</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00691">LunarCalendar.cpp:691</a></div></div>
+</div><!-- fragment --></li>
+<li>定义变量 <div class="fragment"><div class="line">    QSharedPointer&lt;CHandler&gt; m_Hnadler;</div>
+</div><!-- fragment --></li>
+<li>实例化对象 <div class="fragment"><div class="line">    m_Hnadler = QSharedPointer&lt;CHandler&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classCHandler.html">CHandler</a>());</div>
+</div><!-- fragment --></li>
+<li>用 SetTaskHandle 设置处理类 <div class="fragment"><div class="line">    m_pLunarCalendar-&gt;SetTaskHandle(m_Hnadler);</div>
+</div><!-- fragment --> <dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarCalendar.html#a49591a493f68a742ffbc0a1a39716b90" title="设置 使用者自定义任务接口">SetTaskHandle</a> <a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a></dd></dl>
+<div class="image">
+<img src="Task.png" alt=""/>
+</div>
+ </li>
+</ul>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00344">344</a> 行定义.</p>
+</div><h2 class="groupheader">构造及析构函数说明</h2>
+<a id="af9f9d2a881e838e9e6fd694c3c4340d0" name="af9f9d2a881e838e9e6fd694c3c4340d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9f9d2a881e838e9e6fd694c3c4340d0">&#9670;&#160;</a></span>CTaskHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CLunarCalendar::CTaskHandler::CTaskHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00347">347</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0d37737aa555e34e36525e41b20d7e44" name="a0d37737aa555e34e36525e41b20d7e44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d37737aa555e34e36525e41b20d7e44">&#9670;&#160;</a></span>~CTaskHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual CLunarCalendar::CTaskHandler::~CTaskHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00348">348</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="ad1c81754b6c56ed65679936c7d92b0be" name="ad1c81754b6c56ed65679936c7d92b0be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c81754b6c56ed65679936c7d92b0be">&#9670;&#160;</a></span>onHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uint CLunarCalendar::CTaskHandler::onHandle </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QStringList &amp;&#160;</td>
+          <td class="paramname"><em>tasks</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> 。请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>日期 </td></tr>
+    <tr><td class="paramname">tasks</td><td>任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd><ul>
+<li>加入空字符或"":表示只显示圆点，不显示内容。</li>
+<li>不设置此值。只返回任务数。表示只显示圆点，不显示内容。</li>
+<li>请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。 </li>
+</ul>
+</dd></dl>
+<dl class="section return"><dt>返回</dt><dd>未加入到 tasks 的任务数。不包括 tasks 中的任务数。 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>在 tasks 中增加的新任务，则不计入返回值中， 如果没有其它的未加入 tasks 的任务，则返回 0。 否则返回未加入到 tasks 中的任务数。</dd></dl>
+<p>例子： </p><div class="fragment"><div class="line">uint CHandler::onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                        <span class="comment">/*out*/</span>QStringList&amp; tasks) {</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(10 == d.month() &amp;&amp; 25 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;抗美援朝纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">    <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);    </div>
+<div class="line">    <span class="comment">// 纪念日（以农历年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 22 == lunarDay)</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;结婚纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 以月为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(21 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 以周为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(Qt::Wednesday == d.dayOfWeek())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">        tasks &lt;&lt; QString();</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 单个任务</span></div>
+<div class="line">    <span class="keywordflow">if</span>(2015 == d.year() &amp;&amp; 10 == d.month() &amp;&amp; 22 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 没有任务</span></div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --> <dl class="section see"><dt>参见</dt><dd><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> <a class="el" href="classCLunarCalendar.html#a49591a493f68a742ffbc0a1a39716b90" title="设置 使用者自定义任务接口">SetTaskHandle</a></dd></dl>
+<div class="image">
+<img src="Task.png" alt=""/>
+</div>
+ 
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>/home/runner/work/LunarCalendar/LunarCalendar/Src/<a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>

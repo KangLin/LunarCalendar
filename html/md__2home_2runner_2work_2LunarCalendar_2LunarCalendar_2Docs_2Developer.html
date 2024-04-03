@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: 开发文档</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">开发文档</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a> </p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+版本号说明：</h1>
+<ul>
+<li>版本号说明： <a href="https://semver.org/lang/zh-CN/">https://semver.org/lang/zh-CN/</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+工具</h1>
+<ul>
+<li><a href="https://cmake.org">cmake</a></li>
+<li><a href="https://git-scm.com/">git</a></li>
+<li>编译器<ul>
+<li>Linux<ul>
+<li>gcc</li>
+</ul>
+</li>
+<li>Windows<ul>
+<li>msvc</li>
+<li>MinGW</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+依赖</h1>
+<ul>
+<li><a href="https://www.qt.io/">Qt (LGPL v2.1)</a></li>
+<li><a href="https://github.com/KangLin/RabbitCommon">RabbitCommon</a> <pre class="fragment">git clone https://github.com/KangLin/RabbitCommon.git
+</pre> </li>
+</ul>
+<h1><a class="anchor" id="autotoc_md4"></a>
+编译</h1>
+<h2><a class="anchor" id="autotoc_md5"></a>
+建立并进入build目录</h2>
+<pre class="fragment">git clone --recursive https://github.com/KangLin/LunarCalendar.git
+cd LunarCalendar
+mkdir build
+</pre> <h2><a class="anchor" id="autotoc_md6"></a>
+平台</h2>
+<h3><a class="anchor" id="autotoc_md7"></a>
+linux</h3>
+<pre class="fragment">cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
+      -DRabbitCommon_DIR=......
+cmake --build . --config Release --target install ;安装
+cmake --build . --config Release --target package ;生成安装包
+</pre> <h3><a class="anchor" id="autotoc_md8"></a>
+windows</h3>
+<pre class="fragment">cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
+         -DCMAKE_BUILD_TYPE=Release ^
+         -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
+         -DRabbitCommon_DIR=......
+cmake --build . --config Release --target install ;安装
+cmake --build . --config Release --target package ;生成安装包
+</pre> <h3><a class="anchor" id="autotoc_md9"></a>
+android</h3>
+<h4><a class="anchor" id="autotoc_md10"></a>
+主机是 linux</h4>
+<pre class="fragment">cd build
+# 如果是 Qt6
+
+# 使用 qt-cmake
+qt-cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+    -DRabbitCommon_DIR=......
+
+# 使用 cmake
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
+    -DANDROID_ABI="armeabi-v7a with NEON" \
+    -DANDROID_PLATFORM=android-18 \
+    -DQT_DIR= \
+    -DQt6_DIR= \
+    -DRabbitCommon_DIR=......
+cmake --build . --target all
+
+# 如果是 Qt5
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
+    -DANDROID_ABI="armeabi-v7a with NEON" \
+    -DANDROID_PLATFORM=android-18 \
+    -DQT_DIR= \
+    -DQt5_DIR= \
+    -DRabbitCommon_DIR=......
+cmake --build . --config Release --target install
+cmake --build . --target APK
+</pre> <h4><a class="anchor" id="autotoc_md11"></a>
+主机是 windows</h4>
+<pre class="fragment">; 如果是 Qt6
+; 使用 qt-cmake
+qt-cmake .. -DCMAKE_BUILD_TYPE=Release ^
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+    -DRabbitCommon_DIR=......
+
+; 使用 cmake
+cmake .. -G"Unix Makefiles" ^
+    -DCMAKE_BUILD_TYPE=Release ^
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+    -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+    -DANDROID_PLATFORM=android-18 ^
+    -DANDROID_ABI=arm64-v8a ^
+    -DANDROID_ARM_NEON=ON ^
+    -DQT_DIR= ^
+    -DQt6_DIR= ^
+    -DRabbitCommon_DIR=......
+cmake --build . --target all
+
+cd build
+; 如果是 Qt5
+cmake .. -G"Unix Makefiles" ^
+    -DCMAKE_BUILD_TYPE=Release ^
+    -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+    -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+    -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+    -DANDROID_PLATFORM=android-18 ^
+    -DANDROID_ABI=arm64-v8a ^
+    -DANDROID_ARM_NEON=ON ^
+    -DQT_DIR= ^
+    -DQt5_DIR= ^
+    -DRabbitCommon_DIR=......
+cmake --build . --config Release --target install
+cmake --build . --target APK
+</pre><ul>
+<li>参数说明：https://developer.android.google.cn/ndk/guides/cmake<ul>
+<li>ANDROID_ABI: 可取下列值： <br  />
+ 目标 ABI。如果未指定目标 ABI，则 CMake 默认使用 armeabi-v7a。 有效的目标名称为： <br  />
+<ul>
+<li>armeabi：带软件浮点运算并基于 ARMv5TE 的 CPU。</li>
+<li>armeabi-v7a：带硬件 FPU 指令 (VFPv3_D16) 并基于 ARMv7 的设备。</li>
+<li>armeabi-v7a with NEON：与 armeabi-v7a 相同，但启用 NEON 浮点指令。这相当于设置 -DANDROID_ABI=armeabi-v7a 和 -DANDROID_ARM_NEON=ON。</li>
+<li>arm64-v8a：ARMv8 AArch64 指令集。</li>
+<li>x86：IA-32 指令集。</li>
+<li>x86_64 - 用于 x86-64 架构的指令集。</li>
+</ul>
+</li>
+<li>ANDROID_NDK &lt;path&gt; 主机上安装的 NDK 根目录的绝对路径</li>
+<li>ANDROID_PLATFORM: 如需平台名称和对应 Android 系统映像的完整列表，请参阅 <a href="https://developer.android.google.cn/ndk/guides/stable_apis.html">Android NDK 原生 API</a></li>
+<li>ANDROID_ARM_MODE</li>
+<li>ANDROID_ARM_NEON</li>
+<li>ANDROID_STL:指定 CMake 应使用的 STL。<ul>
+<li>c++_shared: 使用 libc++ 动态库</li>
+<li>c++_static: 使用 libc++ 静态库</li>
+<li>none: 没有 C++ 库支持</li>
+<li>system: 用系统的 STL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安装 apk 到设备 <pre class="fragment">adb install android-build-debug.apk 
+</pre> </li>
+</ul>
+<h1><a class="anchor" id="autotoc_md12"></a>
+在 v1.0.2 以前，安装注意</h1>
+<p>Qt因为版权原因，没有提供openssl动态库，所以必须自己复制openssl的动态库到安装目录下。</p>
+<ul>
+<li>windows<ul>
+<li>如果是32的，可以在 Qt 安装程序 Tools\QtCreator\bin 目录下，找到openssl的动态库（libeay32.dll、ssleay32.dll）</li>
+<li>如果是64位，则需要自己下载 openssl 的二进制安装包。</li>
+</ul>
+</li>
+<li>linux <pre class="fragment">sudo apt-get install libssl1.1
+</pre> <b>注意:</b> Qt6.2.4 以前版本使用 openssl 1.1X 。Qt6.2.4 及以后版本使用 openssl 3.x.x 版本。</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md13"></a>
+开发</h1>
+<ul>
+<li><a href="https://kanglin.github.io/LunarCalendar/html/index.html">在线开发文档</a></li>
+<li>目录结构</li>
+</ul>
+<div class="fragment"><div class="line">|-App                                  应用程序代码</div>
+<div class="line">|-Src                                  日历库代码</div>
+<div class="line">   |- LunarCalendar.h                  日历库接口头文件</div>
+<div class="line">   |- Resource</div>
+<div class="line">       |- database</div>
+<div class="line">            |- chinese_holidays.sql 中国节假日 SQL 文件</div>
+<div class="line">            |- holidays.sql         节日及节气 SQL 文件</div>
+</div><!-- fragment --><ul>
+<li>中国假日更新<ul>
+<li>从中国政府网 “首页 → 信息公开 → 国务院文件 &gt; 综合政务 → 其他” 找到假期文件</li>
+</ul>
+</li>
+</ul>
+<p>例如： <a href="http://www.gov.cn/zhengce/content/2019-11/21/content_5454164.htm">国务院办公厅关于2020年部分节假日安排的通知</a></p>
+<ul>
+<li>修改中国假期 SQL 文件： <a class="el" href="chinese__holidays_8sql_source.html">Src/Resource/database/chinese_holidays.sql</a> </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>

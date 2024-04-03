@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: CLunarTable类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-slots">Public 槽</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="classCLunarTable-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">CLunarTable类 参考<div class="ingroups"><a class="el" href="group__DEVELOPER__DOC.html">开发文档</a> &raquo; <a class="el" href="group__INTERNAL__API.html">内部使用接口</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>产生、保存、加载农历缓存。用于提高性能。  
+ <a href="classCLunarTable.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LunarTable_8h_source.html">LunarTable.h</a>&gt;</code></p>
+<div class="dynheader">
+类 CLunarTable 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classCLunarTable.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structCLunarTable_1_1__LUNAR__DAY.html">_LUNAR_DAY</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-slots" name="pub-slots"></a>
+Public 槽</h2></td></tr>
+<tr class="memitem:a51b73e7807a8824d4e52eb9500912618" id="r_a51b73e7807a8824d4e52eb9500912618"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#a51b73e7807a8824d4e52eb9500912618">slotGenerateFinished</a> ()</td></tr>
+<tr class="separator:a51b73e7807a8824d4e52eb9500912618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:abc62c0fcb386fe8697bf6dc2fbd8061a" id="r_abc62c0fcb386fe8697bf6dc2fbd8061a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#abc62c0fcb386fe8697bf6dc2fbd8061a">GetLunar</a> (const QDate &amp;date, <a class="el" href="structCLunarTable_1_1__LUNAR__DAY.html">_LUNAR_DAY</a> &amp;lunar, bool cache=true)</td></tr>
+<tr class="memdesc:abc62c0fcb386fe8697bf6dc2fbd8061a"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到指定日期的农历  <br /></td></tr>
+<tr class="separator:abc62c0fcb386fe8697bf6dc2fbd8061a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abee5e3e7289ee384b077666edfc3e52a" id="r_abee5e3e7289ee384b077666edfc3e52a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#abee5e3e7289ee384b077666edfc3e52a">Load</a> (const QString &amp;file)</td></tr>
+<tr class="separator:abee5e3e7289ee384b077666edfc3e52a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a055c2c3970b26a36104c90eaf05e141c" id="r_a055c2c3970b26a36104c90eaf05e141c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#a055c2c3970b26a36104c90eaf05e141c">Save</a> (const QString &amp;file, bool bAll=true)</td></tr>
+<tr class="separator:a055c2c3970b26a36104c90eaf05e141c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b6a4056067d5b7f5c9e89fe204f6d87" id="r_a9b6a4056067d5b7f5c9e89fe204f6d87"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#a9b6a4056067d5b7f5c9e89fe204f6d87">Generate</a> (const QDate &amp;min, const QDate &amp;max, const QString &amp;szFile, int nThread=2, bool bClearCache=false, bool bSaveAllDate=true)</td></tr>
+<tr class="separator:a9b6a4056067d5b7f5c9e89fe204f6d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc11aba9c7bf934668a1fd1463088530" id="r_abc11aba9c7bf934668a1fd1463088530"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#abc11aba9c7bf934668a1fd1463088530">Generate</a> (const QDate &amp;min, const QDate &amp;max, bool bUseCached)</td></tr>
+<tr class="separator:abc11aba9c7bf934668a1fd1463088530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:a0c094402e1d08e1e1bb632ca5f162573" id="r_a0c094402e1d08e1e1bb632ca5f162573"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classCLunarTable.html">CLunarTable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarTable.html#a0c094402e1d08e1e1bb632ca5f162573">Instance</a> ()</td></tr>
+<tr class="separator:a0c094402e1d08e1e1bb632ca5f162573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>产生、保存、加载农历缓存。用于提高性能。 </p>
+<dl class="section copyright"><dt>版权所有</dt><dd>康林工作室版权所有 (c)，保留所有权力。 </dd></dl>
+<dl class="section author"><dt>作者</dt><dd>康　林 <a href="#" onclick="location.href='mai'+'lto:'+'kl2'+'22'+'@12'+'6.'+'com'; return false;">kl222<span class="obfuscator">.nosp@m.</span>@126<span class="obfuscator">.nosp@m.</span>.com</a></dd></dl>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarCalendar.html#a733c3d3a443cbf02bec91f90f893f357" title="从缓存文件中得到农历">CLunarCalendar::LoadCalendarTable</a> <a class="el" href="classCLunarCalendar.html#ac40affba3f47c55d6cf2731719a31011" title="产生日历缓存表">CLunarCalendar::GenerateCalendarTable</a> </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8h_source.html">LunarTable.h</a> 第 <a class="el" href="LunarTable_8h_source.html#l00020">20</a> 行定义.</p>
+</div><h2 class="groupheader">成员函数说明</h2>
+<a id="abc11aba9c7bf934668a1fd1463088530" name="abc11aba9c7bf934668a1fd1463088530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc11aba9c7bf934668a1fd1463088530">&#9670;&#160;</a></span>Generate() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarTable::Generate </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bUseCached</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00214">214</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9b6a4056067d5b7f5c9e89fe204f6d87" name="a9b6a4056067d5b7f5c9e89fe204f6d87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6a4056067d5b7f5c9e89fe204f6d87">&#9670;&#160;</a></span>Generate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarTable::Generate </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>szFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nThread</em> = <code>2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bClearCache</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bSaveAllDate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00157">157</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abc62c0fcb386fe8697bf6dc2fbd8061a" name="abc62c0fcb386fe8697bf6dc2fbd8061a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc62c0fcb386fe8697bf6dc2fbd8061a">&#9670;&#160;</a></span>GetLunar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarTable::GetLunar </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structCLunarTable_1_1__LUNAR__DAY.html">_LUNAR_DAY</a> &amp;&#160;</td>
+          <td class="paramname"><em>lunar</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cache</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到指定日期的农历 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>要查询的日期 </td></tr>
+    <tr><td class="paramname">lunar</td><td>相应的农历 </td></tr>
+    <tr><td class="paramname">cache</td><td>是否先从缓存查找<ul>
+<li>true: 先从缓存查找，如果没查到，则计算。</li>
+<li>false: 不查缓存，直接计算。 </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>0，成功；其它，失败 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00247">247</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0c094402e1d08e1e1bb632ca5f162573" name="a0c094402e1d08e1e1bb632ca5f162573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c094402e1d08e1e1bb632ca5f162573">&#9670;&#160;</a></span>Instance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classCLunarTable.html">CLunarTable</a> * CLunarTable::Instance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00042">42</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abee5e3e7289ee384b077666edfc3e52a" name="abee5e3e7289ee384b077666edfc3e52a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abee5e3e7289ee384b077666edfc3e52a">&#9670;&#160;</a></span>Load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarTable::Load </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00107">107</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a055c2c3970b26a36104c90eaf05e141c" name="a055c2c3970b26a36104c90eaf05e141c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a055c2c3970b26a36104c90eaf05e141c">&#9670;&#160;</a></span>Save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarTable::Save </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bAll</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00076">76</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a51b73e7807a8824d4e52eb9500912618" name="a51b73e7807a8824d4e52eb9500912618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51b73e7807a8824d4e52eb9500912618">&#9670;&#160;</a></span>slotGenerateFinished</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarTable::slotGenerateFinished </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a> 第 <a class="el" href="LunarTable_8cpp_source.html#l00197">197</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>/home/runner/work/LunarCalendar/LunarCalendar/Src/<a class="el" href="LunarTable_8h_source.html">LunarTable.h</a></li>
+<li>/home/runner/work/LunarCalendar/LunarCalendar/Src/<a class="el" href="LunarTable_8cpp_source.html">LunarTable.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>

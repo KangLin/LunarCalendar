@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: /home/runner/work/LunarCalendar/LunarCalendar/Src/CalendarLunar.cpp 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function() { init_codefold(0); });
+/* @license-end */
+</script>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_413f4e031a85da0d68269c6fd2f76e1c.html">Src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">CalendarLunar.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CalendarLunar.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;QDate&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;QTime&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;LunarTable.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;sxtwl.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">// 天干地支: https://baike.baidu.com/item/%E5%A4%A9%E5%B9%B2%E5%9C%B0%E6%94%AF/278140</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// 天干地支纪年法: https://zhuanlan.zhihu.com/p/616094910</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_Gan[] = {<span class="stringliteral">&quot;甲&quot;</span>, <span class="stringliteral">&quot;乙&quot;</span>, <span class="stringliteral">&quot;丙&quot;</span>, <span class="stringliteral">&quot;丁&quot;</span>, <span class="stringliteral">&quot;戊&quot;</span>, <span class="stringliteral">&quot;己&quot;</span>, <span class="stringliteral">&quot;庚&quot;</span>, <span class="stringliteral">&quot;辛&quot;</span>, <span class="stringliteral">&quot;壬&quot;</span>, <span class="stringliteral">&quot;癸&quot;</span>};</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_Zhi[] = {<span class="stringliteral">&quot;子&quot;</span>, <span class="stringliteral">&quot;丑&quot;</span>, <span class="stringliteral">&quot;寅&quot;</span>, <span class="stringliteral">&quot;卯&quot;</span>, <span class="stringliteral">&quot;辰&quot;</span>, <span class="stringliteral">&quot;巳&quot;</span>, <span class="stringliteral">&quot;午&quot;</span>, <span class="stringliteral">&quot;未&quot;</span>, <span class="stringliteral">&quot;申&quot;</span>, <span class="stringliteral">&quot;酉&quot;</span>, <span class="stringliteral">&quot;戌&quot;</span>, <span class="stringliteral">&quot;亥&quot;</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_ShX[] = {<span class="stringliteral">&quot;鼠&quot;</span>, <span class="stringliteral">&quot;牛&quot;</span>, <span class="stringliteral">&quot;虎&quot;</span>, <span class="stringliteral">&quot;兔&quot;</span>, <span class="stringliteral">&quot;龙&quot;</span>, <span class="stringliteral">&quot;蛇&quot;</span>, <span class="stringliteral">&quot;马&quot;</span>, <span class="stringliteral">&quot;羊&quot;</span>, <span class="stringliteral">&quot;猴&quot;</span>, <span class="stringliteral">&quot;鸡&quot;</span>, <span class="stringliteral">&quot;狗&quot;</span>, <span class="stringliteral">&quot;猪&quot;</span>};</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_numCn[] = {<span class="stringliteral">&quot;零&quot;</span>, <span class="stringliteral">&quot;一&quot;</span>, <span class="stringliteral">&quot;二&quot;</span>, <span class="stringliteral">&quot;三&quot;</span>, <span class="stringliteral">&quot;四&quot;</span>, <span class="stringliteral">&quot;五&quot;</span>,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                                  <span class="stringliteral">&quot;六&quot;</span>, <span class="stringliteral">&quot;七&quot;</span>, <span class="stringliteral">&quot;八&quot;</span>, <span class="stringliteral">&quot;九&quot;</span>, <span class="stringliteral">&quot;十&quot;</span>}; <span class="comment">//中文数字</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_jqmc[] = {<span class="stringliteral">&quot;冬至&quot;</span>, <span class="stringliteral">&quot;小寒&quot;</span>, <span class="stringliteral">&quot;大寒&quot;</span>, <span class="stringliteral">&quot;立春&quot;</span>,</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                                 <span class="stringliteral">&quot;雨水&quot;</span>, <span class="stringliteral">&quot;惊蛰&quot;</span>, <span class="stringliteral">&quot;春分&quot;</span>, <span class="stringliteral">&quot;清明&quot;</span>,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                                 <span class="stringliteral">&quot;谷雨&quot;</span>, <span class="stringliteral">&quot;立夏&quot;</span>, <span class="stringliteral">&quot;小满&quot;</span>, <span class="stringliteral">&quot;芒种&quot;</span>,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                                 <span class="stringliteral">&quot;夏至&quot;</span>, <span class="stringliteral">&quot;小暑&quot;</span>, <span class="stringliteral">&quot;大暑&quot;</span>, <span class="stringliteral">&quot;立秋&quot;</span>,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                                 <span class="stringliteral">&quot;处暑&quot;</span>, <span class="stringliteral">&quot;白露&quot;</span>, <span class="stringliteral">&quot;秋分&quot;</span>, <span class="stringliteral">&quot;寒露&quot;</span>,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                                 <span class="stringliteral">&quot;霜降&quot;</span>, <span class="stringliteral">&quot;立冬&quot;</span>, <span class="stringliteral">&quot;小雪&quot;</span>, <span class="stringliteral">&quot;大雪&quot;</span>};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_jqImage[] = {<span class="stringliteral">&quot;DongZhi&quot;</span>, <span class="stringliteral">&quot;XiaoHan&quot;</span>, <span class="stringliteral">&quot;DaHan&quot;</span>, <span class="stringliteral">&quot;LiChun&quot;</span>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                                    <span class="stringliteral">&quot;YuShui&quot;</span>, <span class="stringliteral">&quot;JingZhe&quot;</span>, <span class="stringliteral">&quot;ChunFen&quot;</span>, <span class="stringliteral">&quot;QingMing&quot;</span>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                                    <span class="stringliteral">&quot;GuYu&quot;</span>, <span class="stringliteral">&quot;LiXia&quot;</span>, <span class="stringliteral">&quot;XiaoMan&quot;</span>, <span class="stringliteral">&quot;MangZhong&quot;</span>,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                                    <span class="stringliteral">&quot;XiaZhi&quot;</span>, <span class="stringliteral">&quot;XiaShu&quot;</span>, <span class="stringliteral">&quot;DaShu&quot;</span>, <span class="stringliteral">&quot;LiQiu&quot;</span>,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                    <span class="stringliteral">&quot;ChuShu&quot;</span>, <span class="stringliteral">&quot;BaiLu&quot;</span>, <span class="stringliteral">&quot;Qiufeng&quot;</span>, <span class="stringliteral">&quot;HanLu&quot;</span>,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                    <span class="stringliteral">&quot;ShungJiang&quot;</span>, <span class="stringliteral">&quot;LiDong&quot;</span>, <span class="stringliteral">&quot;XiaoXue&quot;</span>, <span class="stringliteral">&quot;DaXue&quot;</span>};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_ymc[] = { <span class="stringliteral">&quot;正&quot;</span>, <span class="stringliteral">&quot;二&quot;</span>, <span class="stringliteral">&quot;三&quot;</span>, <span class="stringliteral">&quot;四&quot;</span>, <span class="stringliteral">&quot;五&quot;</span>, <span class="stringliteral">&quot;六&quot;</span>, <span class="stringliteral">&quot;七&quot;</span>, <span class="stringliteral">&quot;八&quot;</span>, <span class="stringliteral">&quot;九&quot;</span>, <span class="stringliteral">&quot;十&quot;</span>,<span class="stringliteral">&quot;十一&quot;</span>, <span class="stringliteral">&quot;十二&quot;</span>}; <span class="comment">//月名称,建寅</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_rmc[] = {<span class="stringliteral">&quot;初一&quot;</span>, <span class="stringliteral">&quot;初二&quot;</span>, <span class="stringliteral">&quot;初三&quot;</span>, <span class="stringliteral">&quot;初四&quot;</span>, <span class="stringliteral">&quot;初五&quot;</span>, <span class="stringliteral">&quot;初六&quot;</span>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                                <span class="stringliteral">&quot;初七&quot;</span>, <span class="stringliteral">&quot;初八&quot;</span>, <span class="stringliteral">&quot;初九&quot;</span>, <span class="stringliteral">&quot;初十&quot;</span>, <span class="stringliteral">&quot;十一&quot;</span>, <span class="stringliteral">&quot;十二&quot;</span>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                                <span class="stringliteral">&quot;十三&quot;</span>, <span class="stringliteral">&quot;十四&quot;</span>, <span class="stringliteral">&quot;十五&quot;</span>, <span class="stringliteral">&quot;十六&quot;</span>, <span class="stringliteral">&quot;十七&quot;</span>, <span class="stringliteral">&quot;十八&quot;</span>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                <span class="stringliteral">&quot;十九&quot;</span>, <span class="stringliteral">&quot;廿&quot;</span>, <span class="stringliteral">&quot;廿一&quot;</span>, <span class="stringliteral">&quot;廿二&quot;</span>, <span class="stringliteral">&quot;廿三&quot;</span>, <span class="stringliteral">&quot;廿四&quot;</span>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                                <span class="stringliteral">&quot;廿五&quot;</span>, <span class="stringliteral">&quot;廿六&quot;</span>, <span class="stringliteral">&quot;廿七&quot;</span>, <span class="stringliteral">&quot;廿八&quot;</span>, <span class="stringliteral">&quot;廿九&quot;</span>, <span class="stringliteral">&quot;卅&quot;</span>, <span class="stringliteral">&quot;卅一&quot;</span>};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">static</span> <span class="keyword">const</span> QString g_WeekCn[] = {<span class="stringliteral">&quot;星期日&quot;</span>, <span class="stringliteral">&quot;星期一&quot;</span>, <span class="stringliteral">&quot;星期二&quot;</span>, <span class="stringliteral">&quot;星期三&quot;</span>, <span class="stringliteral">&quot;星期四&quot;</span>, <span class="stringliteral">&quot;星期五&quot;</span>, <span class="stringliteral">&quot;星期六&quot;</span>};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>CCalendarLunar::CCalendarLunar(QObject *parent) : QObject(parent)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>{}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>CCalendarLunar::CCalendarLunar(QDate date, QObject *parent) : <a class="code hl_class" href="classCCalendarLunar.html">CCalendarLunar</a>(parent)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{    </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span>(date.isValid())</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        GetLunar(date);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#aed89977b282397f995c88e2989d2bf2e">   52</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classCCalendarLunar.html#aed89977b282397f995c88e2989d2bf2e">CCalendarLunar::GetYear</a>()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> m_Year;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#ae45d041eace2776b9753b618c7f9cb9c">   57</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classCCalendarLunar.html#ae45d041eace2776b9753b618c7f9cb9c">CCalendarLunar::GetMonth</a>()</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">return</span> m_Month;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#a5b44e1e8b74457196719ae02a01f1f3a">   62</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classCCalendarLunar.html#a5b44e1e8b74457196719ae02a01f1f3a">CCalendarLunar::GetDay</a>()</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">return</span> m_Day;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">int</span> <a class="code hl_function" href="classCCalendarLunar.html#a45b7c13e676ddfa20297b38da78b44d3">CCalendarLunar::GetLunar</a>(<span class="keyword">const</span> QDate &amp;date)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span>(!date.isValid())</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    m_Solar = date;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_struct" href="structCLunarTable_1_1__LUNAR__DAY.html">CLunarTable::_LUNAR_DAY</a> day;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">int</span> nRet = CLunarTable::Instance()-&gt;<a class="code hl_function" href="classCLunarTable.html#abc62c0fcb386fe8697bf6dc2fbd8061a">GetLunar</a>(date, day);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span>(nRet)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">return</span> -2;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    m_Year = day.nYear;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    m_Month = day.nMonth;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    m_Day = day.nDay;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    m_szLunar = g_Gan[day.nTg] + g_Zhi[day.nDz] + <span class="stringliteral">&quot;年&quot;</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (day.bLeap)</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        m_szLunar += <span class="stringliteral">&quot;闰&quot;</span> + g_ymc[day.nMonth - 1] + <span class="stringliteral">&quot;月&quot;</span> + g_rmc[day.nDay - 1] + <span class="stringliteral">&quot;日&quot;</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        m_szLunar += g_ymc[day.nMonth - 1] + <span class="stringliteral">&quot;月&quot;</span> + g_rmc[day.nDay -1] + <span class="stringliteral">&quot;日&quot;</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span>(1 == day.nDay)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">if</span> (day.bLeap)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            m_szLunarDay += <span class="stringliteral">&quot;闰&quot;</span> + g_ymc[day.nMonth - 1] + <span class="stringliteral">&quot;月&quot;</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            m_szLunarDay = g_ymc[day.nMonth - 1] + <span class="stringliteral">&quot;月&quot;</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    } <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        m_szLunarDay = g_rmc[day.nDay - 1];</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span>(-1 != day.nJq)</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        m_szJieQi = g_jqmc[day.nJq];</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        m_szImageJieQi = <span class="stringliteral">&quot;:/image/&quot;</span> + g_jqImage[day.nJq];</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#a45b7c13e676ddfa20297b38da78b44d3">  106</a></span>QString <a class="code hl_function" href="classCCalendarLunar.html#a45b7c13e676ddfa20297b38da78b44d3">CCalendarLunar::GetLunar</a>()</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">return</span> m_szLunar;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
+</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#a2107a35aeeacfdca581078cec2ab4620">  111</a></span>QString <a class="code hl_function" href="classCCalendarLunar.html#a2107a35aeeacfdca581078cec2ab4620">CCalendarLunar::GetLunarDay</a>()</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> m_szLunarDay;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#ac9642fb72ff880d8266ebfadcbd8e0e7">  116</a></span>QString <a class="code hl_function" href="classCCalendarLunar.html#ac9642fb72ff880d8266ebfadcbd8e0e7">CCalendarLunar::GetJieQi</a>()</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>{</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> m_szJieQi;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#af257de7f6bd9e209cdc91531b2a4edda">  121</a></span>QString <a class="code hl_function" href="classCCalendarLunar.html#af257de7f6bd9e209cdc91531b2a4edda">CCalendarLunar::GetJieQiImage</a>()</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">return</span> m_szImageJieQi;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>}</div>
+</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="classCCalendarLunar.html#a5d4a366205d0312f485f6055c857bb02">  126</a></span>QDate <a class="code hl_function" href="classCCalendarLunar.html#a5d4a366205d0312f485f6055c857bb02">CCalendarLunar::GetSolar</a>(<span class="keywordtype">int</span> lunarYear, <span class="keywordtype">int</span> lunarMonth, <span class="keywordtype">int</span> lunarDay, <span class="keywordtype">bool</span> isLeap)</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>{</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    QSharedPointer&lt;Day&gt; day(sxtwl::fromLunar(lunarYear, lunarMonth, lunarDay, isLeap));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">return</span> QDate(day-&gt;getSolarYear(), day-&gt;getSolarMonth(), day-&gt;getSolarDay());</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
+</div>
+<div class="ttc" id="aclassCCalendarLunar_html"><div class="ttname"><a href="classCCalendarLunar.html">CCalendarLunar</a></div><div class="ttdoc">农历类</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8h_source.html#l00019">CalendarLunar.h:20</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_a2107a35aeeacfdca581078cec2ab4620"><div class="ttname"><a href="classCCalendarLunar.html#a2107a35aeeacfdca581078cec2ab4620">CCalendarLunar::GetLunarDay</a></div><div class="ttdeci">QString GetLunarDay()</div><div class="ttdoc">得到指定日期的农历当月的第几天（汉字）</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00111">CalendarLunar.cpp:111</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_a45b7c13e676ddfa20297b38da78b44d3"><div class="ttname"><a href="classCCalendarLunar.html#a45b7c13e676ddfa20297b38da78b44d3">CCalendarLunar::GetLunar</a></div><div class="ttdeci">QString GetLunar()</div><div class="ttdoc">得到指定日期的农历（汉字）</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00106">CalendarLunar.cpp:106</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_a5b44e1e8b74457196719ae02a01f1f3a"><div class="ttname"><a href="classCCalendarLunar.html#a5b44e1e8b74457196719ae02a01f1f3a">CCalendarLunar::GetDay</a></div><div class="ttdeci">int GetDay()</div><div class="ttdoc">得到指定日期的农历天数</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00062">CalendarLunar.cpp:62</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_a5d4a366205d0312f485f6055c857bb02"><div class="ttname"><a href="classCCalendarLunar.html#a5d4a366205d0312f485f6055c857bb02">CCalendarLunar::GetSolar</a></div><div class="ttdeci">static QDate GetSolar(int lunarYear, int lunarMonth, int lunarDay, bool bLeap=false)</div><div class="ttdoc">得到指定农历的阳历</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00126">CalendarLunar.cpp:126</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_ac9642fb72ff880d8266ebfadcbd8e0e7"><div class="ttname"><a href="classCCalendarLunar.html#ac9642fb72ff880d8266ebfadcbd8e0e7">CCalendarLunar::GetJieQi</a></div><div class="ttdeci">QString GetJieQi()</div><div class="ttdoc">得到节气</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00116">CalendarLunar.cpp:116</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_ae45d041eace2776b9753b618c7f9cb9c"><div class="ttname"><a href="classCCalendarLunar.html#ae45d041eace2776b9753b618c7f9cb9c">CCalendarLunar::GetMonth</a></div><div class="ttdeci">int GetMonth()</div><div class="ttdoc">得到指定日期的农历月份</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00057">CalendarLunar.cpp:57</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_aed89977b282397f995c88e2989d2bf2e"><div class="ttname"><a href="classCCalendarLunar.html#aed89977b282397f995c88e2989d2bf2e">CCalendarLunar::GetYear</a></div><div class="ttdeci">int GetYear()</div><div class="ttdoc">得到指定日期的农历年份</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00052">CalendarLunar.cpp:52</a></div></div>
+<div class="ttc" id="aclassCCalendarLunar_html_af257de7f6bd9e209cdc91531b2a4edda"><div class="ttname"><a href="classCCalendarLunar.html#af257de7f6bd9e209cdc91531b2a4edda">CCalendarLunar::GetJieQiImage</a></div><div class="ttdeci">QString GetJieQiImage()</div><div class="ttdoc">得到节气的图片</div><div class="ttdef"><b>Definition</b> <a href="CalendarLunar_8cpp_source.html#l00121">CalendarLunar.cpp:121</a></div></div>
+<div class="ttc" id="aclassCLunarTable_html_abc62c0fcb386fe8697bf6dc2fbd8061a"><div class="ttname"><a href="classCLunarTable.html#abc62c0fcb386fe8697bf6dc2fbd8061a">CLunarTable::GetLunar</a></div><div class="ttdeci">int GetLunar(const QDate &amp;date, _LUNAR_DAY &amp;lunar, bool cache=true)</div><div class="ttdoc">得到指定日期的农历</div><div class="ttdef"><b>Definition</b> <a href="LunarTable_8cpp_source.html#l00247">LunarTable.cpp:247</a></div></div>
+<div class="ttc" id="astructCLunarTable_1_1__LUNAR__DAY_html"><div class="ttname"><a href="structCLunarTable_1_1__LUNAR__DAY.html">CLunarTable::_LUNAR_DAY</a></div><div class="ttdef"><b>Definition</b> <a href="LunarTable_8h_source.html#l00026">LunarTable.h:27</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>

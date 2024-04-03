@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: LunarCalendar</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">LunarCalendar</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="autotoc_md19"></a> Author: Kang Lin <a href="#" onclick="location.href='mai'+'lto:'+'kl2'+'22'+'@12'+'6.'+'com'; return false;">kl222<span class="obfuscator">.nosp@m.</span>@126<span class="obfuscator">.nosp@m.</span>.com</a></p>
+<hr  />
+<p><a class="el" href="md__2home_2runner_2work_2LunarCalendar_2LunarCalendar_2README__zh__CN.html">:cn: 中文</a></p>
+<ul>
+<li>Project position:<ul>
+<li>The main repository: <a href="https://github.com/KangLin/LunarCalendar">https://github.com/KangLin/LunarCalendar</a></li>
+<li>Mirror repository:<ul>
+<li><a href="https://gitee.com/kl222/LunarCalendar">https://gitee.com/kl222/LunarCalendar</a></li>
+<li><a href="https://gitlab.com/kl222/LunarCalendar">https://gitlab.com/kl222/LunarCalendar</a></li>
+<li><a href="https://sourceforge.net/projects/lunarcalendar/">https://sourceforge.net/projects/lunarcalendar/</a></li>
+<li><a href="https://invent.kde.org/kanglin/LunarCalendar">https://invent.kde.org/kanglin/LunarCalendar</a></li>
+<li><a href="https://launchpad.net/lunarcalendar">https://launchpad.net/lunarcalendar</a></li>
+<li><a href="https://bitbucket.org/kl222/lunarcalendar">https://bitbucket.org/kl222/lunarcalendar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="https://kanglin.github.io/LunarCalendar/html/index.html">Project home</a></li>
+</ul>
+<hr  />
+<ul>
+<li><a href="https://kanglin.github.io/LunarCalendar/html/index.html"><img src="https://img.shields.io/badge/documentation-online-blue" alt="Documentation" class="inline"/></a></li>
+<li>master</li>
+</ul>
+<p><a href="https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml"><img src="https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=master" alt="build" style="pointer-events: none;" class="inline"/></a> <a href="https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/master"><img src="https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/master?svg=true" alt="Windows Build status" class="inline"/></a></p>
+<ul>
+<li>develop</li>
+</ul>
+<p><a href="https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml"><img src="https://github.com/KangLin/LunarCalendar/actions/workflows/build.yml/badge.svg?branch=develop" alt="build" style="pointer-events: none;" class="inline"/></a> <a href="https://ci.appveyor.com/project/KangLin/lunarcalendar/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/p5vhmmbuql9fyfpl/branch/develop?svg=true" alt="Windows Build status" class="inline"/></a></p>
+<p><a href="https://star-history.com/#KangLin/LunarCalendar&amp;Date"><img src="https://img.shields.io/github/stars/KangLin/LunarCalendar" alt="GitHub stars" class="inline"/></a> <a href="https://gitee.com/kl222/LunarCalendar/stargazers"><img src="https://gitee.com/kl222/LunarCalendar/badge/star.svg?theme=dark" alt="Gitee stars" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/KangLin/LunarCalendar/forks"><img src="https://img.shields.io/github/forks/KangLin/LunarCalendar" alt="GitHub forks" class="inline"/></a> <a href="https://github.com/KangLin/LunarCalendar/issues"><img src="https://img.shields.io/github/issues/KangLin/LunarCalendar" alt="GitHub issues" class="inline"/></a> <a href="https://github.com/KangLin/LunarCalendar/releases"><img src="https://img.shields.io/github/release/KangLin/LunarCalendar" alt="Current release" class="inline"/></a> <a href="https://github.com/KangLin/LunarCalendar/releases"><img src="https://img.shields.io/github/downloads/KangLin/LunarCalendar/total?label=Github%20downloads" alt="All releases downloads" class="inline"/></a> <a href="https://sourceforge.net/projects/lunarcalendar/files/latest/download"><img src="https://img.shields.io/sourceforge/dt/lunarcalendar.svg?label=Sourceforge%20downloads" alt="Download LunarCalendar" style="pointer-events: none;" class="inline"/></a></p>
+<hr  />
+<h2><a class="anchor" id="autotoc_md23"></a>
+Table of Contents:</h2>
+<ul>
+<li>Features</li>
+<li>Download setup package</li>
+<li>Donation</li>
+<li>Screenshots</li>
+<li>Compile</li>
+<li>Other application use the library</li>
+<li>Contribution</li>
+<li>License Agreement<ul>
+<li>The third-party libraries</li>
+</ul>
+</li>
+</ul>
+<hr  />
+<h2><a class="anchor" id="autotoc_md25"></a>
+Features</h2>
+<p>The lunar calendar written by Qt. It provides:</p>
+<ul>
+<li>A lunar calendar library of Qt GUI, support QSS.<ul>
+<li>Solar calendar</li>
+<li>Lunar calendar</li>
+<li>Solar and Lunar holiday(eg: chinese holidays. solar term etc.)</li>
+<li>Solar and Lunar anniversary (eg: birthday, wedding anniversary, etc.)</li>
+<li>User-defined task prompts on the calendar (Displayed with highlighted dots)</li>
+<li>ToolTip shows detailed tooltip content</li>
+<li>Month view</li>
+<li>Week view</li>
+</ul>
+</li>
+<li>Example<ul>
+<li>A simple calendar app. Used to illustrate how to use this lunar calendar library.</li>
+<li>A complete application of this library <a href="https://github.com/KangLin/Calendar">Calendar</a></li>
+</ul>
+</li>
+<li>Cross-platform, support multiple operating systems. See: <a href="https://doc.qt.io/qt-5/supported-platforms.html">Qt5 supported platforms</a>, <a href="https://doc.qt.io/qt-6/supported-platforms.html">Qt6 supported platforms</a>.<ul>
+<li>[x] Windows</li>
+<li>[x] Linux、Unix</li>
+<li>[x] Android</li>
+<li>[x] Mac os</li>
+<li>[ ] IOS</li>
+</ul>
+</li>
+</ul>
+<p>Mac os and IOS, I don't have the corresponding equipment, please compile and test the students with the corresponding equipment.</p>
+<h2><a class="anchor" id="autotoc_md26"></a>
+Donation</h2>
+<p><a href="https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png" title="donation">![donation](https://gitee.com/kl222/RabbitCommon/raw/master/Src/Resource/image/Contribute.png "donation")</a></p>
+<h2><a class="anchor" id="autotoc_md27"></a>
+Screenshots</h2>
+<ul>
+<li>Windows</li>
+</ul>
+<p><img src="ScreenShot.png" alt="" class="inline" title="Screenshots"/>     <img src="ScreenShotQss.png" alt="" class="inline" title="Screenshots"/>    </p>
+<ul>
+<li>Ubuntu</li>
+</ul>
+<div class="image">
+<img src="ScreenShotUbunt.png" alt=""/>
+<div class="caption">
+Ubuntu</div></div>
+    <ul>
+<li>Android</li>
+</ul>
+<div class="image">
+<img src="ScreenShotAndroid.png" alt=""/>
+<div class="caption">
+Android Screenshots</div></div>
+    <ul>
+<li>Task</li>
+</ul>
+<div class="image">
+<img src="Task.png" alt=""/>
+<div class="caption">
+Task</div></div>
+    <h2><a class="anchor" id="autotoc_md28"></a>
+&lt;a href="https://github.com/KangLin/LunarCalendar/releases/latest" &gt;Download setup package&lt;/a&gt;</h2>
+<ul>
+<li>Develop library: *.zip</li>
+<li>Example program installation package:<ul>
+<li>Ubuntu: *.deb</li>
+<li>Windows: *.exe</li>
+<li>Android: *.apk</li>
+</ul>
+</li>
+<li>Documents: <a href="https://github.com/KangLin/LunarCalendar/releases/download/v1.0.4/LunarCalendar_v1.0.4_document.zip">LunarCalendar_v1.0.4_document.zip</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md29"></a>
+Compile</h2>
+<ul>
+<li><p class="startli">Depend</p><ul>
+<li><a href="http://qt.io/">Qt (LGPL v2.1)</a></li>
+<li><a href="https://github.com/KangLin/RabbitCommon">RabbitCommon</a></li>
+</ul>
+<div class="fragment"><div class="line">git clone https://github.com/KangLin/RabbitCommon.git</div>
+</div><!-- fragment --></li>
+<li>Create and enter the build directory <pre class="fragment">  git clone --recursive https://github.com/KangLin/LunarCalendar.git
+  cd LunarCalendar
+  mkdir build
+</pre></li>
+<li>Use cmake<ul>
+<li>linux <pre class="fragment">cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+     -DCMAKE_BUILD_TYPE=Release \
+     -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
+     -DRabbitCommon_DIR=
+cmake --build . --config Release --target install
+</pre></li>
+<li>windows <pre class="fragment">cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
+       -DCMAKE_BUILD_TYPE=Release ^
+       -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
+       -DRabbitCommon_DIR=
+cmake --build . --config Release --target install
+</pre></li>
+<li>Android<ul>
+<li>The host is linux <pre class="fragment">cd build
+# If is Qt6
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+     -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+     -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
+     -DANDROID_ABI="armeabi-v7a with NEON" \
+     -DANDROID_PLATFORM=android-18 \
+     -DQT_DIR= \
+     -DQt6_DIR= \
+     -DRabbitCommon_DIR=
+cmake --build . --target all
+
+# If is Qt5
+cmake .. -DCMAKE_BUILD_TYPE=Release \
+     -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
+     -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake \
+     -DANDROID_ABI="armeabi-v7a with NEON" \
+     -DANDROID_PLATFORM=android-18 \
+     -DQT_DIR= \
+     -DQt5_DIR= \
+     -DRabbitCommon_DIR= 
+cmake --build . --config Release --target install
+cmake --build . --target APK
+</pre></li>
+<li>The host is windows <pre class="fragment">cd build
+; If is Qt5
+cmake .. -G"Unix Makefiles" ^
+   -DCMAKE_BUILD_TYPE=Release ^
+   -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+   -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+   -DANDROID_PLATFORM=android-18 ^
+   -DANDROID_ABI=arm64-v8a ^
+   -DANDROID_ARM_NEON=ON ^
+   -DQT_DIR= ^
+   -DQt5_DIR= ^
+   -DRabbitCommon_DIR= 
+cmake --build . --config Release --target install
+cmake --build . --target APK
+
+; If is Qt6
+cmake .. -G"Unix Makefiles" ^
+   -DCMAKE_BUILD_TYPE=Release ^
+   -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
+   -DCMAKE_TOOLCHAIN_FILE=${ANDROID_NDK}/build/cmake/android.toolchain.cmake ^
+   -DCMAKE_MAKE_PROGRAM=${ANDROID_NDK}/prebuilt/windows-x86_64/bin/make.exe ^
+   -DANDROID_PLATFORM=android-18 ^
+   -DANDROID_ABI=arm64-v8a ^
+   -DANDROID_ARM_NEON=ON ^
+   -DQT_DIR= ^
+   -DQt6_DIR= ^
+   -DRabbitCommon_DIR= 
+cmake --build . --target all
+</pre></li>
+<li>Parameter Description: <a href="https://developer.android.google.cn/ndk/guides/cmake">https://developer.android.google.cn/ndk/guides/cmake</a><ul>
+<li>ANDROID_ABI: The following values can be taken: Goal ABI. If the target ABI is not specified, CMake uses armeabi-v7a by default. Valid ABI are:<ul>
+<li>armeabi：CPU with software floating point arithmetic based on ARMv5TE</li>
+<li>armeabi-v7a：ARMv7-based device with hardware FPU instructions (VFP v3 D16)</li>
+<li>armeabi-v7a with NEON：Same as armeabi-v7a, but with NEON floating point instructions enabled. This is equivalent to setting -DANDROID_ABI=armeabi-v7a and -DANDROID_ARM_NEON=ON.</li>
+<li>arm64-v8a：ARMv8 AArch64 Instruction Set</li>
+<li>x86：IA-32 Instruction Set</li>
+<li>x86_64 - x86-64 Instruction Set</li>
+</ul>
+</li>
+<li>ANDROID_NDK &lt;path&gt; The path of installed ndk in host</li>
+<li>ANDROID_PLATFORM: For a full list of platform names and corresponding Android system images, see the [Android NDK Native API] (<a href="https://developer.android.google.com/ndk/guides/stable_apis.html">https://developer.android.google.com/ndk/guides/stable_apis.html</a>)</li>
+<li>ANDROID_ARM_MODE</li>
+<li>ANDROID_ARM_NEON</li>
+<li>ANDROID_STL: Specifies the STL that CMake should use.<ul>
+<li>c++_shared: The shared library variant of libc++.</li>
+<li>c++_static: The static library variant of libc++.</li>
+<li>none: No C++ standard library support.</li>
+<li>system: The system STL</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Install apk to devices <pre class="fragment"> adb install android-build-debug.apk 
+</pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Note:</li>
+</ul>
+<p>before v1.0.4 and qt6</p>
+<ul>
+<li>windows If you build app. Qt does not provide openssl dynamic library for copyright reasons, so you must copy the dynamic library of openssl to the installation directory.<ul>
+<li>If it is 32, you can find the dynamic library of openssl (libeay32.dll, ssleay32.dll) in the Qt installer Tools\QtCreator\bin directory.</li>
+<li>If it is 64-bit, you will need to download the binary installation package for openssl yourself.</li>
+</ul>
+</li>
+<li><p class="startli">linux</p>
+<p class="startli"><code> sudo apt-get install libssl1.1 </code></p>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md30"></a>
+Develop</h2>
+<ul>
+<li><a href="https://kanglin.github.io/LunarCalendar/html/index.html">Online documents</a></li>
+<li>Directory</li>
+</ul>
+<div class="fragment"><div class="line">|-App                                        application source code</div>
+<div class="line">|-Src                                        calendar library source code</div>
+<div class="line">   |- LunarCalendar.h                        calendar interface header file</div>
+<div class="line">       |- Resource</div>
+<div class="line">             |- database</div>
+<div class="line">                   |- chinese_holidays.sql   chinese holidays sql</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md31"></a>
+Other application use the library</h2>
+<ul>
+<li>Direct use the library source code.<ul>
+<li>cmake<ul>
+<li>Submodule<ul>
+<li>add submodule: <pre class="fragment">git submodule add https://github.com/KangLin/LunarCalendar.git 3th_lib/LunarCalendar
+git submodule update --init --recursive
+</pre></li>
+<li>Add follow code in CMakeLists.txt <pre class="fragment">add_subdirectory(3th_lib/LunarCalendar/Src)
+</pre></li>
+</ul>
+</li>
+<li>No submodule<ul>
+<li>Download LunarCalendar source code from <a href="https://github.com/KangLin/LunarCalendar">https://github.com/KangLin/LunarCalendar</a> <pre class="fragment">git clone --recursive https://github.com/KangLin/LunarCalendar.git
+</pre></li>
+<li>Add follow code in CMakeLists.txt <pre class="fragment">set(LunarCalendar_DIR $ENV{LunarCalendar_DIR} CACHE PATH "Set LunarCalendar source code root directory.")
+if(EXISTS ${LunarCalendar_DIR}/Src)
+    add_subdirectory(${LunarCalendar_DIR}/Src ${CMAKE_BINARY_DIR}/LunarCalendar)
+else()
+    message("1. Please download LunarCalendar source code from https://github.com/KangLin/LunarCalendar")
+    message("   ag:")
+    message("       git clone https://github.com/KangLin/LunarCalendar.git")
+    message("2. Then set cmake value or environment variable LunarCalendar_DIR to download root directory.")
+    message("   ag:")
+    message(FATAL_ERROR "       cmake -DLunarCalendar_DIR= ")
+endif()
+</pre></li>
+<li>Add libraries and include in CMakeLists.txt <pre class="fragment">SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+if(TARGET LunarCalendar)
+    target_compile_definitions(${PROJECT_NAME}
+        PRIVATE -DLunarCalendar)
+    target_include_directories(${PROJECT_NAME}
+        PRIVATE "${LunarCalendar_DIR}/Src"
+        "${LunarCalendar_DIR}/Src/export")
+    set(APP_LIBS ${APP_LIBS} LunarCalendar)
+endif()
+target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
+</pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Use in library mode<ul>
+<li>cmake<ul>
+<li>Cmake parameter LunarCalendar_DIR specifies the installation root directory <pre class="fragment">  find_package(LunarCalendar)
+</pre></li>
+<li>Add libraries and include in CMakeLists.txt <pre class="fragment">  SET(APP_LIBS ${PROJECT_NAME} ${QT_LIBRARIES})
+  if(LunarCalendar_FOUND)
+      target_compile_definitions(${PROJECT_NAME}
+                  PRIVATE -DLunarCalendar)
+      target_include_directories(${PROJECT_NAME}
+                  PRIVATE "${LunarCalendar_INCLUDE_DIRS}/Src"
+                          "${LunarCalendar_INCLUDE_DIRS}/Src/export")
+      set(APP_LIBS ${APP_LIBS} ${LunarCalendar_LIBRARIES})
+  endif()
+  target_link_libraries(${PROJECT_NAME} ${APP_LIBS})
+</pre> </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md32"></a>
+Contribution</h2>
+<ul>
+<li><a href="https://github.com/KangLin/LunarCalendar/issues">Question</a></li>
+<li><a href="https://github.com/KangLin/LunarCalendar/graphs/contributors">Contributors</a></li>
+</ul>
+<h2><a class="anchor" id="autotoc_md33"></a>
+@ref "/home/runner/work/LunarCalendar/LunarCalendar/License.md" "License.md"</h2>
+<p>Please follow the license agreement for the third-party libraries below and the license and thank the authors of the third-party libraries.</p>
+<h3><a class="anchor" id="autotoc_md34"></a>
+The third-party libraries</h3>
+<ul>
+<li><a href="https://github.com/yuangu/sxtwl_cpp">sxtwl_cpp</a></li>
+</ul>
+<h3><a class="anchor" id="autotoc_md35"></a>
+Other projects using this project</h3>
+<ul>
+<li><a href="https://github.com/KangLin/Calendar">Calendar</a> </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>

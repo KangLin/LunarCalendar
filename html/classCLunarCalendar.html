@@ -1,0 +1,2325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>农历日历: CLunarCalendar类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="calendar.svg"/></td>
+  <td id="projectalign">
+   <div id="projectname">农历日历<span id="projectnumber">&#160;v1.0.4</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#signals">信号</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="#pub-static-methods">静态 Public 成员函数</a> &#124;
+<a href="#pro-methods">Protected 成员函数</a> &#124;
+<a href="#properties">属性</a> &#124;
+<a href="classCLunarCalendar-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">CLunarCalendar类 参考<div class="ingroups"><a class="el" href="group__USE__DOC.html">使用文档</a> &#124; <a class="el" href="group__DEVELOPER__DOC.html">开发文档</a> &raquo; <a class="el" href="group__API.html">应用程序接口</a></div></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>农历日历类  
+ <a href="classCLunarCalendar.html#details">更多...</a></p>
+
+<p><code>#include &lt;<a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a>&gt;</code></p>
+<div class="dynheader">
+类 CLunarCalendar 继承关系图:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classCLunarCalendar.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar_1_1CTaskHandler.html">CTaskHandler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> 类  <a href="classCLunarCalendar_1_1CTaskHandler.html#details">更多...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:a44d5f337b1b17e1a6d38a5bd00d1b0bd" id="r_a44d5f337b1b17e1a6d38a5bd00d1b0bd"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><b>_TOUCH_UP_DOWN_FUNCTION</b> { <b>TouchChangeView</b>
+, <b>TouchChangeMounth</b>
+ }</td></tr>
+<tr class="separator:a44d5f337b1b17e1a6d38a5bd00d1b0bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="signals" name="signals"></a>
+信号</h2></td></tr>
+<tr class="memitem:a79b8358438ea8c071eb772ade20ca6a7" id="r_a79b8358438ea8c071eb772ade20ca6a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a79b8358438ea8c071eb772ade20ca6a7">sigSelectionChanged</a> ()</td></tr>
+<tr class="memdesc:a79b8358438ea8c071eb772ade20ca6a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">当前选择日期改变时触发 可以在相应的槽函数中调用下列函数  <br /></td></tr>
+<tr class="separator:a79b8358438ea8c071eb772ade20ca6a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a14c5fffd69fc61de255aeecc89f2bf7f" id="r_a14c5fffd69fc61de255aeecc89f2bf7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a14c5fffd69fc61de255aeecc89f2bf7f">CLunarCalendar</a> (QWidget *parent=nullptr)</td></tr>
+<tr class="separator:a14c5fffd69fc61de255aeecc89f2bf7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33a1e692bd1e5bad91aab021a715134" id="r_ad33a1e692bd1e5bad91aab021a715134"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ad33a1e692bd1e5bad91aab021a715134">SetTouchUpDownFunction</a> (_TOUCH_UP_DOWN_FUNCTION f)</td></tr>
+<tr class="separator:ad33a1e692bd1e5bad91aab021a715134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f4a98f24d4452e5a125dafb2f97c9e9" id="r_a6f4a98f24d4452e5a125dafb2f97c9e9"><td class="memItemLeft" align="right" valign="top">virtual QSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a6f4a98f24d4452e5a125dafb2f97c9e9">sizeHint</a> () const override</td></tr>
+<tr class="separator:a6f4a98f24d4452e5a125dafb2f97c9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a160c76322c9a87b5db45d6ade4849bee" id="r_a160c76322c9a87b5db45d6ade4849bee"><td class="memItemLeft" align="right" valign="top">virtual QSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a160c76322c9a87b5db45d6ade4849bee">minimumSizeHint</a> () const override</td></tr>
+<tr class="separator:a160c76322c9a87b5db45d6ade4849bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">下列功能仅由开发者使用。客户和使用者禁止使用。</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p><a class="el" href="index.html#RoleDefinitions">角色定义</a> </p>
+</div></td></tr>
+<tr class="memitem:a733c3d3a443cbf02bec91f90f893f357" id="r_a733c3d3a443cbf02bec91f90f893f357"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a733c3d3a443cbf02bec91f90f893f357">LoadCalendarTable</a> (const QString &amp;szFile)</td></tr>
+<tr class="memdesc:a733c3d3a443cbf02bec91f90f893f357"><td class="mdescLeft">&#160;</td><td class="mdescRight">从缓存文件中得到农历  <br /></td></tr>
+<tr class="separator:a733c3d3a443cbf02bec91f90f893f357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac40affba3f47c55d6cf2731719a31011" id="r_ac40affba3f47c55d6cf2731719a31011"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ac40affba3f47c55d6cf2731719a31011">GenerateCalendarTable</a> (const QString &amp;szFile, int nThreadNumber=2, bool bClearCache=false, bool bSaveAllDate=true)</td></tr>
+<tr class="memdesc:ac40affba3f47c55d6cf2731719a31011"><td class="mdescLeft">&#160;</td><td class="mdescRight">产生日历缓存表  <br /></td></tr>
+<tr class="separator:ac40affba3f47c55d6cf2731719a31011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+静态 Public 成员函数</h2></td></tr>
+<tr class="memitem:aab5a6cd641a2e1e3151f2f1972c0fed4" id="r_aab5a6cd641a2e1e3151f2f1972c0fed4"><td class="memItemLeft" align="right" valign="top">static const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#aab5a6cd641a2e1e3151f2f1972c0fed4">Version</a> ()</td></tr>
+<tr class="separator:aab5a6cd641a2e1e3151f2f1972c0fed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected 成员函数</h2></td></tr>
+<tr class="memitem:a961d96155b23d6a28c7d7e7ecb395be2" id="r_a961d96155b23d6a28c7d7e7ecb395be2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a961d96155b23d6a28c7d7e7ecb395be2">eventFilter</a> (QObject *watched, QEvent *event) Q_DECL_OVERRIDE</td></tr>
+<tr class="separator:a961d96155b23d6a28c7d7e7ecb395be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
+属性</h2></td></tr>
+<tr class="memitem:a972099fae4cc8e84393133285b23ff60" id="r_a972099fae4cc8e84393133285b23ff60"><td class="memItemLeft" align="right" valign="top">QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a972099fae4cc8e84393133285b23ff60">selectedDate</a></td></tr>
+<tr class="separator:a972099fae4cc8e84393133285b23ff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fc919e00db7a574cac67b7347dbefec" id="r_a3fc919e00db7a574cac67b7347dbefec"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a3fc919e00db7a574cac67b7347dbefec">selectLunar</a></td></tr>
+<tr class="separator:a3fc919e00db7a574cac67b7347dbefec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4424b89701244e4e8362ae1b726df13e" id="r_a4424b89701244e4e8362ae1b726df13e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a4424b89701244e4e8362ae1b726df13e">showYear</a></td></tr>
+<tr class="separator:a4424b89701244e4e8362ae1b726df13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de2858e4b56570305207ff40c85a767" id="r_a4de2858e4b56570305207ff40c85a767"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a4de2858e4b56570305207ff40c85a767">showMonth</a></td></tr>
+<tr class="separator:a4de2858e4b56570305207ff40c85a767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82c95592151aa2aba95380fd7278610e" id="r_a82c95592151aa2aba95380fd7278610e"><td class="memItemLeft" align="right" valign="top">QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a82c95592151aa2aba95380fd7278610e">minimumDate</a></td></tr>
+<tr class="separator:a82c95592151aa2aba95380fd7278610e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7bf60bbd8564b840821a65403783473" id="r_ad7bf60bbd8564b840821a65403783473"><td class="memItemLeft" align="right" valign="top">QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ad7bf60bbd8564b840821a65403783473">maximumDate</a></td></tr>
+<tr class="separator:ad7bf60bbd8564b840821a65403783473"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">设置界面</h2></td></tr>
+<tr class="memitem:a47a10d1f36d3e217eac63f2efbf6653b" id="r_a47a10d1f36d3e217eac63f2efbf6653b"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653b">_HEAD_position</a> { <br />
+&#160;&#160;<a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653baa74c05d080620f087c4e523977230666">Not</a> = 0
+, <a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653baa4ffdcf0dc1f31b9acaf295d75b51d00">Top</a>
+, <a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653ba08a38277b0309070706f6652eeae9a53">Down</a>
+, <a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653ba945d5e233cf7d6240f6b783b36a374ff">Left</a>
+, <br />
+&#160;&#160;<a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653ba92b09c7c48c520c3c55e497875da437c">Right</a>
+<br />
+ }</td></tr>
+<tr class="separator:a47a10d1f36d3e217eac63f2efbf6653b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfa0436583869553d87387131ba88b01" id="r_abfa0436583869553d87387131ba88b01"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">_CalendarType</a> { <a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01aed7cf8d24ee80689f247d6fffc288921">CalendarTypeSolar</a> = 0x01
+, <a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01a1d409f80c0be1b81c98b4c77afce9bef">CalendarTypeLunar</a> = 0x02
+ }</td></tr>
+<tr class="memdesc:abfa0436583869553d87387131ba88b01"><td class="mdescLeft">&#160;</td><td class="mdescRight">日历类型  <a href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">更多...</a><br /></td></tr>
+<tr class="separator:abfa0436583869553d87387131ba88b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83c9ee8c4130a3f16192da39354e4b9e" id="r_a83c9ee8c4130a3f16192da39354e4b9e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">_VIEW_TYPE</a> { <a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9ea46c79d1ac97d71c8c02555fced07e6bf">ViewTypeMonth</a>
+, <a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9eafedd843089f393ac5312e9ad8473443b">ViewTypeWeek</a>
+ }</td></tr>
+<tr class="memdesc:a83c9ee8c4130a3f16192da39354e4b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">视图类型  <a href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">更多...</a><br /></td></tr>
+<tr class="separator:a83c9ee8c4130a3f16192da39354e4b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad9040baffd88767d7b17d4e93a0fda3" id="r_aad9040baffd88767d7b17d4e93a0fda3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#aad9040baffd88767d7b17d4e93a0fda3">SetHeadposition</a> (<a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653b">_HEAD_position</a> pos=<a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653baa4ffdcf0dc1f31b9acaf295d75b51d00">_HEAD_position::Top</a>)</td></tr>
+<tr class="memdesc:aad9040baffd88767d7b17d4e93a0fda3"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置日历头的位置  <br /></td></tr>
+<tr class="separator:aad9040baffd88767d7b17d4e93a0fda3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a294161facdee9363c384e7f606a7825d" id="r_a294161facdee9363c384e7f606a7825d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a294161facdee9363c384e7f606a7825d">SetCalendarType</a> (<a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">_CalendarType</a> type)</td></tr>
+<tr class="memdesc:a294161facdee9363c384e7f606a7825d"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置日历类型（组合）  <br /></td></tr>
+<tr class="separator:a294161facdee9363c384e7f606a7825d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7579967ca6fd6993aca50082d576c5ab" id="r_a7579967ca6fd6993aca50082d576c5ab"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">_CalendarType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a7579967ca6fd6993aca50082d576c5ab">GetCalendarType</a> () const</td></tr>
+<tr class="memdesc:a7579967ca6fd6993aca50082d576c5ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到日历类型  <br /></td></tr>
+<tr class="separator:a7579967ca6fd6993aca50082d576c5ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac287fd10297812b8490ab85c38cf44fe" id="r_ac287fd10297812b8490ab85c38cf44fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ac287fd10297812b8490ab85c38cf44fe">SetViewType</a> (<a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">_VIEW_TYPE</a> type)</td></tr>
+<tr class="memdesc:ac287fd10297812b8490ab85c38cf44fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">　设置视图类型  <br /></td></tr>
+<tr class="separator:ac287fd10297812b8490ab85c38cf44fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912ecb38bbecd3d1ebb99ff525942155" id="r_a912ecb38bbecd3d1ebb99ff525942155"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">_VIEW_TYPE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a912ecb38bbecd3d1ebb99ff525942155">GetViewType</a> () const</td></tr>
+<tr class="memdesc:a912ecb38bbecd3d1ebb99ff525942155"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到视图类型  <br /></td></tr>
+<tr class="separator:a912ecb38bbecd3d1ebb99ff525942155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4435262450652bfd84ef8c18b53b6c25" id="r_a4435262450652bfd84ef8c18b53b6c25"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a4435262450652bfd84ef8c18b53b6c25">Update</a> ()</td></tr>
+<tr class="memdesc:a4435262450652bfd84ef8c18b53b6c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新数据和视图  <br /></td></tr>
+<tr class="separator:a4435262450652bfd84ef8c18b53b6c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67bc62916cd58da9b94ffb658e0225ff" id="r_a67bc62916cd58da9b94ffb658e0225ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a67bc62916cd58da9b94ffb658e0225ff">setFont</a> (const QFont &amp;font)</td></tr>
+<tr class="separator:a67bc62916cd58da9b94ffb658e0225ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb20eb281e44fa20664f93791ba52ce" id="r_a4bb20eb281e44fa20664f93791ba52ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a4bb20eb281e44fa20664f93791ba52ce">ShowHead</a> (bool bShow)</td></tr>
+<tr class="memdesc:a4bb20eb281e44fa20664f93791ba52ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏日历头  <br /></td></tr>
+<tr class="separator:a4bb20eb281e44fa20664f93791ba52ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac140ab19ff40d4c8273e3b79421e67b3" id="r_ac140ab19ff40d4c8273e3b79421e67b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ac140ab19ff40d4c8273e3b79421e67b3">ShowTools</a> (bool bShow)</td></tr>
+<tr class="memdesc:ac140ab19ff40d4c8273e3b79421e67b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏日期工具按钮  <br /></td></tr>
+<tr class="separator:ac140ab19ff40d4c8273e3b79421e67b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8893d19000a4efdfe3f4d496f20a7198" id="r_a8893d19000a4efdfe3f4d496f20a7198"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a8893d19000a4efdfe3f4d496f20a7198">ShowToday</a> (bool bShow)</td></tr>
+<tr class="memdesc:a8893d19000a4efdfe3f4d496f20a7198"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏今日工具按钮  <br /></td></tr>
+<tr class="separator:a8893d19000a4efdfe3f4d496f20a7198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60389c18c5dffbcb2bdb4ab3ab93380d" id="r_a60389c18c5dffbcb2bdb4ab3ab93380d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a60389c18c5dffbcb2bdb4ab3ab93380d">ShowDate</a> (bool bShow)</td></tr>
+<tr class="memdesc:a60389c18c5dffbcb2bdb4ab3ab93380d"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏选择日期  <br /></td></tr>
+<tr class="separator:a60389c18c5dffbcb2bdb4ab3ab93380d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9464e094849932a94900ebd1284e7ad0" id="r_a9464e094849932a94900ebd1284e7ad0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a9464e094849932a94900ebd1284e7ad0">ShowTime</a> (bool bShow)</td></tr>
+<tr class="memdesc:a9464e094849932a94900ebd1284e7ad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏当前时间  <br /></td></tr>
+<tr class="separator:a9464e094849932a94900ebd1284e7ad0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cfd4619f7d625d4ae37206f315c8982" id="r_a8cfd4619f7d625d4ae37206f315c8982"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a8cfd4619f7d625d4ae37206f315c8982">ShowWeekHead</a> (bool bShow)</td></tr>
+<tr class="memdesc:a8cfd4619f7d625d4ae37206f315c8982"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏周  <br /></td></tr>
+<tr class="separator:a8cfd4619f7d625d4ae37206f315c8982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd563ab5c9d1c4f24405c79a39f1b047" id="r_acd563ab5c9d1c4f24405c79a39f1b047"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#acd563ab5c9d1c4f24405c79a39f1b047">ShowWeeks</a> (bool bShow)</td></tr>
+<tr class="memdesc:acd563ab5c9d1c4f24405c79a39f1b047"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏第几周  <br /></td></tr>
+<tr class="separator:acd563ab5c9d1c4f24405c79a39f1b047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e054a0c56bbc46539c895d6b49f2ab8" id="r_a8e054a0c56bbc46539c895d6b49f2ab8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a8e054a0c56bbc46539c895d6b49f2ab8">ShowGrid</a> (bool show)</td></tr>
+<tr class="memdesc:a8e054a0c56bbc46539c895d6b49f2ab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏网格  <br /></td></tr>
+<tr class="separator:a8e054a0c56bbc46539c895d6b49f2ab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a5e4d9b964b92065d63efdacb8d668" id="r_af6a5e4d9b964b92065d63efdacb8d668"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#af6a5e4d9b964b92065d63efdacb8d668">EnableToolTip</a> (bool show)</td></tr>
+<tr class="memdesc:af6a5e4d9b964b92065d63efdacb8d668"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏工具提示  <br /></td></tr>
+<tr class="separator:af6a5e4d9b964b92065d63efdacb8d668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51de4322b2bdea7991b442e78c37885a" id="r_a51de4322b2bdea7991b442e78c37885a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a51de4322b2bdea7991b442e78c37885a">ShowBackgroupImage</a> (bool show)</td></tr>
+<tr class="memdesc:a51de4322b2bdea7991b442e78c37885a"><td class="mdescLeft">&#160;</td><td class="mdescRight">显示或隐藏背景图片  <br /></td></tr>
+<tr class="separator:a51de4322b2bdea7991b442e78c37885a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">日期操作</h2></td></tr>
+<tr class="memitem:a018fede9c01f9cd5626d7a9a0e90cb82" id="r_a018fede9c01f9cd5626d7a9a0e90cb82"><td class="memItemLeft" align="right" valign="top">const QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a018fede9c01f9cd5626d7a9a0e90cb82">SelectedDate</a> () const</td></tr>
+<tr class="memdesc:a018fede9c01f9cd5626d7a9a0e90cb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前选择的日期。 当前选择的日期在指定的最小日期 <a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f" title="得到日历的支持最小日期">MinimumDate()</a> 与最大日期 <a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d" title="得到日历的支持最大日期">MaximumDate()</a> 的范围内。 默认为系统当前日期。  <br /></td></tr>
+<tr class="separator:a018fede9c01f9cd5626d7a9a0e90cb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a399fde734993dc72692b23ae3550faa9" id="r_a399fde734993dc72692b23ae3550faa9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a399fde734993dc72692b23ae3550faa9">SetSelectedDate</a> (const QDate &amp;date, bool bForce=false)</td></tr>
+<tr class="memdesc:a399fde734993dc72692b23ae3550faa9"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置当前选择的日期  <br /></td></tr>
+<tr class="separator:a399fde734993dc72692b23ae3550faa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59156c01f503f2dcba767d92f48d0e92" id="r_a59156c01f503f2dcba767d92f48d0e92"><td class="memItemLeft" align="right" valign="top">const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a59156c01f503f2dcba767d92f48d0e92">SelectedLunar</a> () const</td></tr>
+<tr class="memdesc:a59156c01f503f2dcba767d92f48d0e92"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前选择的日期的农历的字符串  <br /></td></tr>
+<tr class="separator:a59156c01f503f2dcba767d92f48d0e92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b72c14699a0780dc990ececcc367ac4" id="r_a8b72c14699a0780dc990ececcc367ac4"><td class="memItemLeft" align="right" valign="top">const QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a8b72c14699a0780dc990ececcc367ac4">SelectedSolarTerm</a> () const</td></tr>
+<tr class="memdesc:a8b72c14699a0780dc990ececcc367ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前选的节气  <br /></td></tr>
+<tr class="separator:a8b72c14699a0780dc990ececcc367ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83fdce6425e430f046b5dc34ac21c29b" id="r_a83fdce6425e430f046b5dc34ac21c29b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a83fdce6425e430f046b5dc34ac21c29b">SelectedLunar</a> (int &amp;year, int &amp;month, int &amp;day)</td></tr>
+<tr class="memdesc:a83fdce6425e430f046b5dc34ac21c29b"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前选择的日期的农历  <br /></td></tr>
+<tr class="separator:a83fdce6425e430f046b5dc34ac21c29b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad726bc7103909ed2761ceb9c24af2e5f" id="r_ad726bc7103909ed2761ceb9c24af2e5f"><td class="memItemLeft" align="right" valign="top">const QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f">MinimumDate</a> () const</td></tr>
+<tr class="memdesc:ad726bc7103909ed2761ceb9c24af2e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到日历的支持最小日期  <br /></td></tr>
+<tr class="separator:ad726bc7103909ed2761ceb9c24af2e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba656547ca53a2267d6fbdc8aabb40b" id="r_a3ba656547ca53a2267d6fbdc8aabb40b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a3ba656547ca53a2267d6fbdc8aabb40b">SetMinimumDate</a> (const QDate &amp;date)</td></tr>
+<tr class="memdesc:a3ba656547ca53a2267d6fbdc8aabb40b"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置日历的支持最小日期  <br /></td></tr>
+<tr class="separator:a3ba656547ca53a2267d6fbdc8aabb40b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07ed495c0682ef205cadac30a84a898d" id="r_a07ed495c0682ef205cadac30a84a898d"><td class="memItemLeft" align="right" valign="top">const QDate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d">MaximumDate</a> () const</td></tr>
+<tr class="memdesc:a07ed495c0682ef205cadac30a84a898d"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到日历的支持最大日期  <br /></td></tr>
+<tr class="separator:a07ed495c0682ef205cadac30a84a898d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a46422e8b3b0a5f226a2e0f9083c92" id="r_ac5a46422e8b3b0a5f226a2e0f9083c92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#ac5a46422e8b3b0a5f226a2e0f9083c92">SetMaximumDate</a> (const QDate &amp;date)</td></tr>
+<tr class="memdesc:ac5a46422e8b3b0a5f226a2e0f9083c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置日历的支持最大日期  <br /></td></tr>
+<tr class="separator:ac5a46422e8b3b0a5f226a2e0f9083c92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d81a5de23853458ca51c80da8d99271" id="r_a1d81a5de23853458ca51c80da8d99271"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a1d81a5de23853458ca51c80da8d99271">SetDateRange</a> (const QDate &amp;min, const QDate &amp;max)</td></tr>
+<tr class="memdesc:a1d81a5de23853458ca51c80da8d99271"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置日历的支持日期的范围  <br /></td></tr>
+<tr class="separator:a1d81a5de23853458ca51c80da8d99271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23955fb14a12a1877c6d977a64f13972" id="r_a23955fb14a12a1877c6d977a64f13972"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a23955fb14a12a1877c6d977a64f13972">GetShowYear</a> () const</td></tr>
+<tr class="memdesc:a23955fb14a12a1877c6d977a64f13972"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前界面显示的年份  <br /></td></tr>
+<tr class="separator:a23955fb14a12a1877c6d977a64f13972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221791d6bd18d28f85665cf2423e5224" id="r_a221791d6bd18d28f85665cf2423e5224"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a221791d6bd18d28f85665cf2423e5224">GetShowMonth</a> () const</td></tr>
+<tr class="memdesc:a221791d6bd18d28f85665cf2423e5224"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到当前界面显示的月份  <br /></td></tr>
+<tr class="separator:a221791d6bd18d28f85665cf2423e5224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27ffc6bc9ee4a9e24823830d11356c0e" id="r_a27ffc6bc9ee4a9e24823830d11356c0e"><td class="memItemLeft" align="right" valign="top">const Qt::DayOfWeek&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a27ffc6bc9ee4a9e24823830d11356c0e">FirstDayOfWeek</a> () const</td></tr>
+<tr class="memdesc:a27ffc6bc9ee4a9e24823830d11356c0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到年周从哪天开始  <br /></td></tr>
+<tr class="separator:a27ffc6bc9ee4a9e24823830d11356c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af00f614f13c68e72d256671b4543d89d" id="r_af00f614f13c68e72d256671b4543d89d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">GetLunar</a> (const QDate date, int &amp;year, int &amp;month, int &amp;day)</td></tr>
+<tr class="memdesc:af00f614f13c68e72d256671b4543d89d"><td class="mdescLeft">&#160;</td><td class="mdescRight">得到给定日期的农历（公历转农历）  <br /></td></tr>
+<tr class="separator:af00f614f13c68e72d256671b4543d89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">节日、周年纪念日、任务操作</h2></td></tr>
+<tr class="memitem:a49591a493f68a742ffbc0a1a39716b90" id="r_a49591a493f68a742ffbc0a1a39716b90"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a49591a493f68a742ffbc0a1a39716b90">SetTaskHandle</a> (QSharedPointer&lt; <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html">CTaskHandler</a> &gt; handler)</td></tr>
+<tr class="memdesc:a49591a493f68a742ffbc0a1a39716b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置 <a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a>  <br /></td></tr>
+<tr class="separator:a49591a493f68a742ffbc0a1a39716b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b57647385e57aa7bf8b601bb5b45ef1" id="r_a8b57647385e57aa7bf8b601bb5b45ef1"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a8b57647385e57aa7bf8b601bb5b45ef1">SetTaskHandle</a> (std::function&lt; uint(const QDate &amp;date, QStringList &amp;tasks)&gt; cbHandler)</td></tr>
+<tr class="memdesc:a8b57647385e57aa7bf8b601bb5b45ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置 <a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a>  <br /></td></tr>
+<tr class="separator:a8b57647385e57aa7bf8b601bb5b45ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd35dccd162c4013b3ec76394d68c7e2" id="r_abd35dccd162c4013b3ec76394d68c7e2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#abd35dccd162c4013b3ec76394d68c7e2">EnableHolidays</a> (bool bEnable=true)</td></tr>
+<tr class="memdesc:abd35dccd162c4013b3ec76394d68c7e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">允许或禁用节日  <br /></td></tr>
+<tr class="separator:abd35dccd162c4013b3ec76394d68c7e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20870e47375aa161b2f9c39df167c711" id="r_a20870e47375aa161b2f9c39df167c711"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCLunarCalendar.html#a20870e47375aa161b2f9c39df167c711">EnableSolarTerm</a> (bool bEnable=true)</td></tr>
+<tr class="memdesc:a20870e47375aa161b2f9c39df167c711"><td class="mdescLeft">&#160;</td><td class="mdescRight">允许或禁用节气  <br /></td></tr>
+<tr class="separator:a20870e47375aa161b2f9c39df167c711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><p>农历日历类 </p>
+<p>显示阳历、农历、节日、任务</p>
+<h1><a class="anchor" id="UssCLunarCalendar"></a>
+CLunarCalendar 类的使用</h1>
+<ul>
+<li>实例化 <a class="el" href="classCLunarCalendar.html" title="农历日历类">CLunarCalendar</a> 对象。必须在 QApplication 实例化对象之后。 <div class="fragment"><div class="line">    <a class="code hl_class" href="classCLunarCalendar.html">CLunarCalendar</a>* m_pLunarCalendar;</div>
+<div class="ttc" id="aclassCLunarCalendar_html"><div class="ttname"><a href="classCLunarCalendar.html">CLunarCalendar</a></div><div class="ttdoc">农历日历类</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8h_source.html#l00237">LunarCalendar.h:238</a></div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">    m_pLunarCalendar = <span class="keyword">new</span> <a class="code hl_class" href="classCLunarCalendar.html">CLunarCalendar</a>(<span class="keyword">this</span>);</div>
+<div class="line">    <span class="keywordflow">if</span>(!m_pLunarCalendar)</div>
+<div class="line">        <span class="keywordflow">throw</span> std::bad_alloc();</div>
+</div><!-- fragment --></li>
+<li>[可选]设置界面 <div class="fragment"><div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show Head&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a4bb20eb281e44fa20664f93791ba52ce">ShowHead</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show Tools&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#ac140ab19ff40d4c8273e3b79421e67b3">ShowTools</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show today&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a8893d19000a4efdfe3f4d496f20a7198">ShowToday</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show date&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a60389c18c5dffbcb2bdb4ab3ab93380d">ShowDate</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show time&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a9464e094849932a94900ebd1284e7ad0">ShowTime</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show week head&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a8cfd4619f7d625d4ae37206f315c8982">ShowWeekHead</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show weeks&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#acd563ab5c9d1c4f24405c79a39f1b047">ShowWeeks</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show grid&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a8e054a0c56bbc46539c895d6b49f2ab8">ShowGrid</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">false</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Show tooltip&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#af6a5e4d9b964b92065d63efdacb8d668">EnableToolTip</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Use backgroup image&quot;</span>),</div>
+<div class="line">                                   m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a51de4322b2bdea7991b442e78c37885a">ShowBackgroupImage</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">false</span>);</div>
+<div class="line">    m_pLunarCalendar-&gt;ShowBackgroupImage(<span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">    QActionGroup* pViewHeadposition = <span class="keyword">new</span> QActionGroup(<span class="keyword">this</span>);</div>
+<div class="line">    QMenu* pViewHeadpositionMenu = pViewMenu-&gt;addMenu(tr(<span class="stringliteral">&quot;Head position&quot;</span>));</div>
+<div class="line">    QAction* pHeadNot = pViewHeadpositionMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Not&quot;</span>),</div>
+<div class="line">                                                         <span class="keyword">this</span>, SLOT(slotHeadpositionNot()));</div>
+<div class="line">    pHeadNot-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    QAction* pHeadTop = pViewHeadpositionMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Top&quot;</span>),</div>
+<div class="line">                                                         <span class="keyword">this</span>, SLOT(slotHeadpositionTop()));</div>
+<div class="line">    pHeadTop-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pHeadTop-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    QAction* pHeadDown = pViewHeadpositionMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Down&quot;</span>),</div>
+<div class="line">                                                          <span class="keyword">this</span>, SLOT(slotHeadpositionDown()));</div>
+<div class="line">    pHeadDown-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    QAction* pHeadLeft = pViewHeadpositionMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Left&quot;</span>),</div>
+<div class="line">                                                          <span class="keyword">this</span>, SLOT(slotHeadpositionLeft()));</div>
+<div class="line">    pHeadLeft-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    QAction* pHeadRight = pViewHeadpositionMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Right&quot;</span>),</div>
+<div class="line">                                                           <span class="keyword">this</span>, SLOT(slotHeadpositionRight()));</div>
+<div class="line">    pHeadRight-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pViewHeadposition-&gt;addAction(pHeadNot);</div>
+<div class="line">    pViewHeadposition-&gt;addAction(pHeadTop);</div>
+<div class="line">    pViewHeadposition-&gt;addAction(pHeadDown);</div>
+<div class="line">    pViewHeadposition-&gt;addAction(pHeadLeft);</div>
+<div class="line">    pViewHeadposition-&gt;addAction(pHeadRight);</div>
+<div class="ttc" id="aclassCLunarCalendar_html_a4bb20eb281e44fa20664f93791ba52ce"><div class="ttname"><a href="classCLunarCalendar.html#a4bb20eb281e44fa20664f93791ba52ce">CLunarCalendar::ShowHead</a></div><div class="ttdeci">void ShowHead(bool bShow)</div><div class="ttdoc">显示或隐藏日历头</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00569">LunarCalendar.cpp:569</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a51de4322b2bdea7991b442e78c37885a"><div class="ttname"><a href="classCLunarCalendar.html#a51de4322b2bdea7991b442e78c37885a">CLunarCalendar::ShowBackgroupImage</a></div><div class="ttdeci">void ShowBackgroupImage(bool show)</div><div class="ttdoc">显示或隐藏背景图片</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00526">LunarCalendar.cpp:526</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a60389c18c5dffbcb2bdb4ab3ab93380d"><div class="ttname"><a href="classCLunarCalendar.html#a60389c18c5dffbcb2bdb4ab3ab93380d">CLunarCalendar::ShowDate</a></div><div class="ttdeci">void ShowDate(bool bShow)</div><div class="ttdoc">显示或隐藏选择日期</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00588">LunarCalendar.cpp:588</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a8893d19000a4efdfe3f4d496f20a7198"><div class="ttname"><a href="classCLunarCalendar.html#a8893d19000a4efdfe3f4d496f20a7198">CLunarCalendar::ShowToday</a></div><div class="ttdeci">void ShowToday(bool bShow)</div><div class="ttdoc">显示或隐藏今日工具按钮</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00549">LunarCalendar.cpp:549</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a8cfd4619f7d625d4ae37206f315c8982"><div class="ttname"><a href="classCLunarCalendar.html#a8cfd4619f7d625d4ae37206f315c8982">CLunarCalendar::ShowWeekHead</a></div><div class="ttdeci">void ShowWeekHead(bool bShow)</div><div class="ttdoc">显示或隐藏周</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00563">LunarCalendar.cpp:563</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a8e054a0c56bbc46539c895d6b49f2ab8"><div class="ttname"><a href="classCLunarCalendar.html#a8e054a0c56bbc46539c895d6b49f2ab8">CLunarCalendar::ShowGrid</a></div><div class="ttdeci">void ShowGrid(bool show)</div><div class="ttdoc">显示或隐藏网格</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00516">LunarCalendar.cpp:516</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_a9464e094849932a94900ebd1284e7ad0"><div class="ttname"><a href="classCLunarCalendar.html#a9464e094849932a94900ebd1284e7ad0">CLunarCalendar::ShowTime</a></div><div class="ttdeci">void ShowTime(bool bShow)</div><div class="ttdoc">显示或隐藏当前时间</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l01323">LunarCalendar.cpp:1323</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_ac140ab19ff40d4c8273e3b79421e67b3"><div class="ttname"><a href="classCLunarCalendar.html#ac140ab19ff40d4c8273e3b79421e67b3">CLunarCalendar::ShowTools</a></div><div class="ttdeci">void ShowTools(bool bShow)</div><div class="ttdoc">显示或隐藏日期工具按钮</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00576">LunarCalendar.cpp:576</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_acd563ab5c9d1c4f24405c79a39f1b047"><div class="ttname"><a href="classCLunarCalendar.html#acd563ab5c9d1c4f24405c79a39f1b047">CLunarCalendar::ShowWeeks</a></div><div class="ttdeci">void ShowWeeks(bool bShow)</div><div class="ttdoc">显示或隐藏第几周</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00557">LunarCalendar.cpp:557</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_af6a5e4d9b964b92065d63efdacb8d668"><div class="ttname"><a href="classCLunarCalendar.html#af6a5e4d9b964b92065d63efdacb8d668">CLunarCalendar::EnableToolTip</a></div><div class="ttdeci">void EnableToolTip(bool show)</div><div class="ttdoc">显示或隐藏工具提示</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00542">LunarCalendar.cpp:542</a></div></div>
+</div><!-- fragment --></li>
+<li>[可选]设置自定义任务 <br  />
+ 使用下列方法之一：<ul>
+<li>使用 <a class="el" href="classCLunarCalendar.html#a8b57647385e57aa7bf8b601bb5b45ef1" title="设置 使用者自定义任务接口">CLunarCalendar::SetTaskHandle(std::function&lt;uint(const QDate&amp; date, QStringList&amp; tasks)&gt; cbHandler)</a> 处理自定义任务。 需要标准C++11及以后才支持。 请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。 <div class="fragment"><div class="line">    m_pLunarCalendar-&gt;SetTaskHandle([](<span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                                       QStringList&amp; tasks)-&gt;uint {</div>
+<div class="line">        <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">        <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">        <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">        <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 节日（以年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.month() == 10 &amp;&amp; d.day() == 26)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;环卫工人节&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// 农历节日（以农历年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(9 == lunarMonth &amp;&amp; 9 == lunarDay)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;老人节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;老年节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;登高节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;踏秋&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 10 &amp;&amp; d.month() == 10)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示显示圆点，也显示内容</span></div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;辛亥革命纪念日&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">          </div>
+<div class="line">        <span class="comment">// 生日（纪念日：以农历年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 23 == lunarDay)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;爸生日&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 以月为周期</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 11)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">            <span class="keywordflow">return</span> 1;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 以周为周期</span></div>
+<div class="line">        <span class="keywordflow">if</span>(Qt::Monday == d.dayOfWeek())</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">            tasks &lt;&lt; QString();</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 单个任务</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 12 &amp;&amp; d.month() == 10 &amp;&amp; d.year() == 2015)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">            <span class="keywordflow">return</span> 1;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 没有任务</span></div>
+<div class="line">        <span class="keywordflow">return</span> 0;});</div>
+<div class="line">    m_pLunarCalendar-&gt;Update();</div>
+<div class="ttc" id="aclassCLunarCalendar_html_af00f614f13c68e72d256671b4543d89d"><div class="ttname"><a href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a></div><div class="ttdeci">static int GetLunar(const QDate date, int &amp;year, int &amp;month, int &amp;day)</div><div class="ttdoc">得到给定日期的农历（公历转农历）</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l00691">LunarCalendar.cpp:691</a></div></div>
+</div><!-- fragment --></li>
+<li>使用 <a class="el" href="classCLunarCalendar.html#a49591a493f68a742ffbc0a1a39716b90" title="设置 使用者自定义任务接口">CLunarCalendar::SetTaskHandle()</a> 处理自定义任务。 请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。<ul>
+<li>定义 <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html" title="使用者自定义任务接口 类">CTaskHandler</a> 的派生类 <div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="classCHandler.html">CHandler</a> : <span class="keyword">public</span> <a class="code hl_class" href="classCLunarCalendar_1_1CTaskHandler.html">CLunarCalendar::CTaskHandler</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">virtual</span> uint onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                          <span class="comment">/*out*/</span>QStringList&amp; tasks) <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line">};</div>
+<div class="ttc" id="aclassCHandler_html"><div class="ttname"><a href="classCHandler.html">CHandler</a></div><div class="ttdoc">[Define CTaskHandler derived class]</div><div class="ttdef"><b>Definition</b> <a href="MainWindow_8h_source.html#l00015">MainWindow.h:16</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_1_1CTaskHandler_html"><div class="ttname"><a href="classCLunarCalendar_1_1CTaskHandler.html">CLunarCalendar::CTaskHandler</a></div><div class="ttdoc">使用者自定义任务接口 类</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8h_source.html#l00344">LunarCalendar.h:345</a></div></div>
+</div><!-- fragment --></li>
+<li>实现 onHandle 处理函数 <div class="fragment"><div class="line">uint CHandler::onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                        <span class="comment">/*out*/</span>QStringList&amp; tasks) {</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(10 == d.month() &amp;&amp; 25 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;抗美援朝纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">    <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);    </div>
+<div class="line">    <span class="comment">// 纪念日（以农历年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 22 == lunarDay)</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;结婚纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 以月为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(21 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 以周为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(Qt::Wednesday == d.dayOfWeek())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">        tasks &lt;&lt; QString();</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 单个任务</span></div>
+<div class="line">    <span class="keywordflow">if</span>(2015 == d.year() &amp;&amp; 10 == d.month() &amp;&amp; 22 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 没有任务</span></div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --></li>
+<li>定义 <a class="el" href="classCHandler.html" title="[Define CTaskHandler derived class]">CHandler</a> 变量 <div class="fragment"><div class="line">    QSharedPointer&lt;CHandler&gt; m_Hnadler;</div>
+</div><!-- fragment --></li>
+<li>实例化 <a class="el" href="classCHandler.html" title="[Define CTaskHandler derived class]">CHandler</a> <div class="fragment"><div class="line">    m_Hnadler = QSharedPointer&lt;CHandler&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classCHandler.html">CHandler</a>());</div>
+</div><!-- fragment --></li>
+<li>用 SetTaskHandle 设置处理类 <div class="fragment"><div class="line">    m_pLunarCalendar-&gt;SetTaskHandle(m_Hnadler);</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[可选]处理选择事件<ul>
+<li>定义选择事件槽 <div class="fragment"><div class="line">    <span class="keywordtype">void</span> slotUpdateCalendar();</div>
+</div><!-- fragment --></li>
+<li>连接选择事件信号 <div class="fragment"><div class="line">    <span class="keywordtype">bool</span> check = connect(m_pLunarCalendar, SIGNAL(<a class="code hl_signal" href="classCLunarCalendar.html#a79b8358438ea8c071eb772ade20ca6a7">sigSelectionChanged</a>()),</div>
+<div class="line">                         <span class="keyword">this</span>, SLOT(slotUpdateCalendar()));</div>
+<div class="line">    Q_ASSERT(check);</div>
+<div class="ttc" id="aclassCLunarCalendar_html_a79b8358438ea8c071eb772ade20ca6a7"><div class="ttname"><a href="classCLunarCalendar.html#a79b8358438ea8c071eb772ade20ca6a7">CLunarCalendar::sigSelectionChanged</a></div><div class="ttdeci">void sigSelectionChanged()</div><div class="ttdoc">当前选择日期改变时触发 可以在相应的槽函数中调用下列函数</div></div>
+</div><!-- fragment --></li>
+<li>实现选择事件 <div class="fragment"><div class="line"><span class="keywordtype">void</span> MainWindow::slotUpdateCalendar()</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">int</span> y, m, d;</div>
+<div class="line">    m_pLunarCalendar-&gt;SelectedLunar(y, m, d);</div>
+<div class="line">    qDebug(Logger) &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;Solar:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;SelectedDate() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;Lunar:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;SelectedLunar()</div>
+<div class="line">                   &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; y &lt;&lt; <span class="stringliteral">&quot;年&quot;</span> &lt;&lt; m &lt;&lt; <span class="stringliteral">&quot;月&quot;</span> &lt;&lt; d &lt;&lt; <span class="stringliteral">&quot;日&quot;</span> &lt;&lt; <span class="stringliteral">&quot;)\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;SolarTerm:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;SelectedSolarTerm() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;Year:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;GetShowYear() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;Month:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;GetShowMonth() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;MinimumDate:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;MinimumDate() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span></div>
+<div class="line">                   &lt;&lt; tr(<span class="stringliteral">&quot;MaximumDate:&quot;</span>) &lt;&lt; m_pLunarCalendar-&gt;MaximumDate()</div>
+<div class="line">        ;</div>
+<div class="line">}</div>
+</div><!-- fragment --></li>
+</ul>
+</li>
+<li>[可选] 允许节日、节气 <div class="fragment"><div class="line">    pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Clear holidays&quot;</span>), m_pLunarCalendar, SLOT(ClearHolidays()));</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Enable holidays&quot;</span>), m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#abd35dccd162c4013b3ec76394d68c7e2">EnableHolidays</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="line">    pAction = pViewMenu-&gt;addAction(tr(<span class="stringliteral">&quot;Enable solar term&quot;</span>), m_pLunarCalendar, SLOT(<a class="code hl_slot" href="classCLunarCalendar.html#a20870e47375aa161b2f9c39df167c711">EnableSolarTerm</a>(<span class="keywordtype">bool</span>)));</div>
+<div class="line">    pAction-&gt;setChecked(<span class="keyword">true</span>);</div>
+<div class="line">    pAction-&gt;setCheckable(<span class="keyword">true</span>);</div>
+<div class="ttc" id="aclassCLunarCalendar_html_a20870e47375aa161b2f9c39df167c711"><div class="ttname"><a href="classCLunarCalendar.html#a20870e47375aa161b2f9c39df167c711">CLunarCalendar::EnableSolarTerm</a></div><div class="ttdeci">bool EnableSolarTerm(bool bEnable=true)</div><div class="ttdoc">允许或禁用节气</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l01202">LunarCalendar.cpp:1202</a></div></div>
+<div class="ttc" id="aclassCLunarCalendar_html_abd35dccd162c4013b3ec76394d68c7e2"><div class="ttname"><a href="classCLunarCalendar.html#abd35dccd162c4013b3ec76394d68c7e2">CLunarCalendar::EnableHolidays</a></div><div class="ttdeci">bool EnableHolidays(bool bEnable=true)</div><div class="ttdoc">允许或禁用节日</div><div class="ttdef"><b>Definition</b> <a href="LunarCalendar_8cpp_source.html#l01195">LunarCalendar.cpp:1195</a></div></div>
+</div><!-- fragment --> </li>
+</ul>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00237">237</a> 行定义.</p>
+</div><h2 class="groupheader">成员枚举类型说明</h2>
+<a id="abfa0436583869553d87387131ba88b01" name="abfa0436583869553d87387131ba88b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa0436583869553d87387131ba88b01">&#9670;&#160;</a></span>_CalendarType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">CLunarCalendar::_CalendarType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>日历类型 </p>
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="abfa0436583869553d87387131ba88b01aed7cf8d24ee80689f247d6fffc288921" name="abfa0436583869553d87387131ba88b01aed7cf8d24ee80689f247d6fffc288921"></a>CalendarTypeSolar&#160;</td><td class="fielddoc"><p>阳历 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abfa0436583869553d87387131ba88b01a1d409f80c0be1b81c98b4c77afce9bef" name="abfa0436583869553d87387131ba88b01a1d409f80c0be1b81c98b4c77afce9bef"></a>CalendarTypeLunar&#160;</td><td class="fielddoc"><p>农历 </p>
+</td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00541">541</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a47a10d1f36d3e217eac63f2efbf6653b" name="a47a10d1f36d3e217eac63f2efbf6653b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a10d1f36d3e217eac63f2efbf6653b">&#9670;&#160;</a></span>_HEAD_position</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653b">CLunarCalendar::_HEAD_position</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a47a10d1f36d3e217eac63f2efbf6653baa74c05d080620f087c4e523977230666" name="a47a10d1f36d3e217eac63f2efbf6653baa74c05d080620f087c4e523977230666"></a>Not&#160;</td><td class="fielddoc"><p>无 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a10d1f36d3e217eac63f2efbf6653baa4ffdcf0dc1f31b9acaf295d75b51d00" name="a47a10d1f36d3e217eac63f2efbf6653baa4ffdcf0dc1f31b9acaf295d75b51d00"></a>Top&#160;</td><td class="fielddoc"><p>上 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a10d1f36d3e217eac63f2efbf6653ba08a38277b0309070706f6652eeae9a53" name="a47a10d1f36d3e217eac63f2efbf6653ba08a38277b0309070706f6652eeae9a53"></a>Down&#160;</td><td class="fielddoc"><p>下 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a10d1f36d3e217eac63f2efbf6653ba945d5e233cf7d6240f6b783b36a374ff" name="a47a10d1f36d3e217eac63f2efbf6653ba945d5e233cf7d6240f6b783b36a374ff"></a>Left&#160;</td><td class="fielddoc"><p>左 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a47a10d1f36d3e217eac63f2efbf6653ba92b09c7c48c520c3c55e497875da437c" name="a47a10d1f36d3e217eac63f2efbf6653ba92b09c7c48c520c3c55e497875da437c"></a>Right&#160;</td><td class="fielddoc"><p>右 </p>
+</td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00470">470</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a44d5f337b1b17e1a6d38a5bd00d1b0bd" name="a44d5f337b1b17e1a6d38a5bd00d1b0bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d5f337b1b17e1a6d38a5bd00d1b0bd">&#9670;&#160;</a></span>_TOUCH_UP_DOWN_FUNCTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class CLunarCalendar::_TOUCH_UP_DOWN_FUNCTION</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00570">570</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a83c9ee8c4130a3f16192da39354e4b9e" name="a83c9ee8c4130a3f16192da39354e4b9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83c9ee8c4130a3f16192da39354e4b9e">&#9670;&#160;</a></span>_VIEW_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">CLunarCalendar::_VIEW_TYPE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>视图类型 </p>
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a83c9ee8c4130a3f16192da39354e4b9ea46c79d1ac97d71c8c02555fced07e6bf" name="a83c9ee8c4130a3f16192da39354e4b9ea46c79d1ac97d71c8c02555fced07e6bf"></a>ViewTypeMonth&#160;</td><td class="fielddoc"><p>月 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a83c9ee8c4130a3f16192da39354e4b9eafedd843089f393ac5312e9ad8473443b" name="a83c9ee8c4130a3f16192da39354e4b9eafedd843089f393ac5312e9ad8473443b"></a>ViewTypeWeek&#160;</td><td class="fielddoc"><p>周 </p>
+</td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00551">551</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a14c5fffd69fc61de255aeecc89f2bf7f" name="a14c5fffd69fc61de255aeecc89f2bf7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14c5fffd69fc61de255aeecc89f2bf7f">&#9670;&#160;</a></span>CLunarCalendar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CLunarCalendar::CLunarCalendar </td>
+          <td>(</td>
+          <td class="paramtype">QWidget *&#160;</td>
+          <td class="paramname"><em>parent</em> = <code>nullptr</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00040">40</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af1d671ed6f19ad0193911e364085d0ae" name="af1d671ed6f19ad0193911e364085d0ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d671ed6f19ad0193911e364085d0ae">&#9670;&#160;</a></span>~CLunarCalendar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">CLunarCalendar::~CLunarCalendar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00245">245</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="abd35dccd162c4013b3ec76394d68c7e2" name="abd35dccd162c4013b3ec76394d68c7e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd35dccd162c4013b3ec76394d68c7e2">&#9670;&#160;</a></span>EnableHolidays</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CLunarCalendar::EnableHolidays </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bEnable</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>允许或禁用节日 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bUse</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01195">1195</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a20870e47375aa161b2f9c39df167c711" name="a20870e47375aa161b2f9c39df167c711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20870e47375aa161b2f9c39df167c711">&#9670;&#160;</a></span>EnableSolarTerm</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CLunarCalendar::EnableSolarTerm </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bEnable</em> = <code>true</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>允许或禁用节气 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bEnable</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01202">1202</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af6a5e4d9b964b92065d63efdacb8d668" name="af6a5e4d9b964b92065d63efdacb8d668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6a5e4d9b964b92065d63efdacb8d668">&#9670;&#160;</a></span>EnableToolTip</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::EnableToolTip </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏工具提示 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00542">542</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a961d96155b23d6a28c7d7e7ecb395be2" name="a961d96155b23d6a28c7d7e7ecb395be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a961d96155b23d6a28c7d7e7ecb395be2">&#9670;&#160;</a></span>eventFilter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool CLunarCalendar::eventFilter </td>
+          <td>(</td>
+          <td class="paramtype">QObject *&#160;</td>
+          <td class="paramname"><em>watched</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QEvent *&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00994">994</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a27ffc6bc9ee4a9e24823830d11356c0e" name="a27ffc6bc9ee4a9e24823830d11356c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27ffc6bc9ee4a9e24823830d11356c0e">&#9670;&#160;</a></span>FirstDayOfWeek()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Qt::DayOfWeek CLunarCalendar::FirstDayOfWeek </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到年周从哪天开始 </p>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00964">964</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac40affba3f47c55d6cf2731719a31011" name="ac40affba3f47c55d6cf2731719a31011"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac40affba3f47c55d6cf2731719a31011">&#9670;&#160;</a></span>GenerateCalendarTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::GenerateCalendarTable </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>szFile</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nThreadNumber</em> = <code>2</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bClearCache</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bSaveAllDate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>产生日历缓存表 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">szFile</td><td>缓存文件 </td></tr>
+    <tr><td class="paramname">nThreadNumber</td><td>产生的线程数 </td></tr>
+    <tr><td class="paramname">bClearCache</td><td>是否清除以前的缓存 </td></tr>
+    <tr><td class="paramname">bSaveAllDate</td><td>是否保存所有日期 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>成功返回 0　；其它失败 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>仅由开发者使用。客户和使用者禁止使用。 </dd></dl>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarTable.html" title="产生、保存、加载农历缓存。用于提高性能。">CLunarTable</a> </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01305">1305</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7579967ca6fd6993aca50082d576c5ab" name="a7579967ca6fd6993aca50082d576c5ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7579967ca6fd6993aca50082d576c5ab">&#9670;&#160;</a></span>GetCalendarType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">CLunarCalendar::_CalendarType</a> CLunarCalendar::GetCalendarType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到日历类型 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01279">1279</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af00f614f13c68e72d256671b4543d89d" name="af00f614f13c68e72d256671b4543d89d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af00f614f13c68e72d256671b4543d89d">&#9670;&#160;</a></span>GetLunar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::GetLunar </td>
+          <td>(</td>
+          <td class="paramtype">const QDate&#160;</td>
+          <td class="paramname"><em>date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>day</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>得到给定日期的农历（公历转农历） </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>日期 </td></tr>
+    <tr><td class="paramname">year</td><td>农历年 </td></tr>
+    <tr><td class="paramname">month</td><td>农历月 </td></tr>
+    <tr><td class="paramname">day</td><td>农历日 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00691">691</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a221791d6bd18d28f85665cf2423e5224" name="a221791d6bd18d28f85665cf2423e5224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a221791d6bd18d28f85665cf2423e5224">&#9670;&#160;</a></span>GetShowMonth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int CLunarCalendar::GetShowMonth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前界面显示的月份 </p>
+<dl class="section return"><dt>返回</dt><dd>得到显示的月份 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00707">707</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a23955fb14a12a1877c6d977a64f13972" name="a23955fb14a12a1877c6d977a64f13972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23955fb14a12a1877c6d977a64f13972">&#9670;&#160;</a></span>GetShowYear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int CLunarCalendar::GetShowYear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前界面显示的年份 </p>
+<dl class="section return"><dt>返回</dt><dd>显示的年份 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00700">700</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a912ecb38bbecd3d1ebb99ff525942155" name="a912ecb38bbecd3d1ebb99ff525942155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912ecb38bbecd3d1ebb99ff525942155">&#9670;&#160;</a></span>GetViewType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">CLunarCalendar::_VIEW_TYPE</a> CLunarCalendar::GetViewType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到视图类型 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01265">1265</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a733c3d3a443cbf02bec91f90f893f357" name="a733c3d3a443cbf02bec91f90f893f357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a733c3d3a443cbf02bec91f90f893f357">&#9670;&#160;</a></span>LoadCalendarTable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::LoadCalendarTable </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;&#160;</td>
+          <td class="paramname"><em>szFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>从缓存文件中得到农历 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">szFile</td><td>缓存文件 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>成功返回　0　；其它失败 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>仅由开发者使用。客户和使用者禁止使用。 </dd></dl>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarTable.html" title="产生、保存、加载农历缓存。用于提高性能。">CLunarTable</a> </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01300">1300</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a07ed495c0682ef205cadac30a84a898d" name="a07ed495c0682ef205cadac30a84a898d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07ed495c0682ef205cadac30a84a898d">&#9670;&#160;</a></span>MaximumDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QDate CLunarCalendar::MaximumDate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到日历的支持最大日期 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00714">714</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad726bc7103909ed2761ceb9c24af2e5f" name="ad726bc7103909ed2761ceb9c24af2e5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad726bc7103909ed2761ceb9c24af2e5f">&#9670;&#160;</a></span>MinimumDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QDate CLunarCalendar::MinimumDate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到日历的支持最小日期 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00751">751</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a160c76322c9a87b5db45d6ade4849bee" name="a160c76322c9a87b5db45d6ade4849bee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a160c76322c9a87b5db45d6ade4849bee">&#9670;&#160;</a></span>minimumSizeHint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QSize CLunarCalendar::minimumSizeHint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01366">1366</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a018fede9c01f9cd5626d7a9a0e90cb82" name="a018fede9c01f9cd5626d7a9a0e90cb82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a018fede9c01f9cd5626d7a9a0e90cb82">&#9670;&#160;</a></span>SelectedDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QDate CLunarCalendar::SelectedDate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前选择的日期。 当前选择的日期在指定的最小日期 <a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f" title="得到日历的支持最小日期">MinimumDate()</a> 与最大日期 <a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d" title="得到日历的支持最大日期">MaximumDate()</a> 的范围内。 默认为系统当前日期。 </p>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f" title="得到日历的支持最小日期">MinimumDate()</a> </dd>
+<dd>
+<a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d" title="得到日历的支持最大日期">MaximumDate()</a> </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00594">594</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a59156c01f503f2dcba767d92f48d0e92" name="a59156c01f503f2dcba767d92f48d0e92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59156c01f503f2dcba767d92f48d0e92">&#9670;&#160;</a></span>SelectedLunar() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QString CLunarCalendar::SelectedLunar </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前选择的日期的农历的字符串 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00661">661</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a83fdce6425e430f046b5dc34ac21c29b" name="a83fdce6425e430f046b5dc34ac21c29b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83fdce6425e430f046b5dc34ac21c29b">&#9670;&#160;</a></span>SelectedLunar() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SelectedLunar </td>
+          <td>(</td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>year</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>month</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &amp;&#160;</td>
+          <td class="paramname"><em>day</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前选择的日期的农历 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">year</td><td>农历年 </td></tr>
+    <tr><td class="paramname">month</td><td>农历月 </td></tr>
+    <tr><td class="paramname">day</td><td>农历日 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00679">679</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8b72c14699a0780dc990ececcc367ac4" name="a8b72c14699a0780dc990ececcc367ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b72c14699a0780dc990ececcc367ac4">&#9670;&#160;</a></span>SelectedSolarTerm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QString CLunarCalendar::SelectedSolarTerm </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>得到当前选的节气 </p>
+<dl class="section return"><dt>返回</dt><dd>如果有，则返回节气。否则返回空。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00670">670</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a294161facdee9363c384e7f606a7825d" name="a294161facdee9363c384e7f606a7825d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a294161facdee9363c384e7f606a7825d">&#9670;&#160;</a></span>SetCalendarType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SetCalendarType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCLunarCalendar.html#abfa0436583869553d87387131ba88b01">_CalendarType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置日历类型（组合） </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01289">1289</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1d81a5de23853458ca51c80da8d99271" name="a1d81a5de23853458ca51c80da8d99271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d81a5de23853458ca51c80da8d99271">&#9670;&#160;</a></span>SetDateRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::SetDateRange </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置日历的支持日期的范围 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00787">787</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a67bc62916cd58da9b94ffb658e0225ff" name="a67bc62916cd58da9b94ffb658e0225ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67bc62916cd58da9b94ffb658e0225ff">&#9670;&#160;</a></span>setFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::setFont </td>
+          <td>(</td>
+          <td class="paramtype">const QFont &amp;&#160;</td>
+          <td class="paramname"><em>font</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01353">1353</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aad9040baffd88767d7b17d4e93a0fda3" name="aad9040baffd88767d7b17d4e93a0fda3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad9040baffd88767d7b17d4e93a0fda3">&#9670;&#160;</a></span>SetHeadposition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SetHeadposition </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653b">_HEAD_position</a>&#160;</td>
+          <td class="paramname"><em>pos</em> = <code><a class="el" href="classCLunarCalendar.html#a47a10d1f36d3e217eac63f2efbf6653baa4ffdcf0dc1f31b9acaf295d75b51d00">_HEAD_position::Top</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置日历头的位置 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00274">274</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac5a46422e8b3b0a5f226a2e0f9083c92" name="ac5a46422e8b3b0a5f226a2e0f9083c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a46422e8b3b0a5f226a2e0f9083c92">&#9670;&#160;</a></span>SetMaximumDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::SetMaximumDate </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>date</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置日历的支持最大日期 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00721">721</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3ba656547ca53a2267d6fbdc8aabb40b" name="a3ba656547ca53a2267d6fbdc8aabb40b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba656547ca53a2267d6fbdc8aabb40b">&#9670;&#160;</a></span>SetMinimumDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::SetMinimumDate </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>date</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置日历的支持最小日期 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00758">758</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a399fde734993dc72692b23ae3550faa9" name="a399fde734993dc72692b23ae3550faa9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a399fde734993dc72692b23ae3550faa9">&#9670;&#160;</a></span>SetSelectedDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::SetSelectedDate </td>
+          <td>(</td>
+          <td class="paramtype">const QDate &amp;&#160;</td>
+          <td class="paramname"><em>date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bForce</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置当前选择的日期 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>将选择的日期。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd>选择的日期必须在指定的最小日期 <a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f" title="得到日历的支持最小日期">MinimumDate()</a> 与最大日期 <a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d" title="得到日历的支持最大日期">MaximumDate()</a> 的范围内。 如果超过范围。则会自动调整到范围内。 </dd></dl>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bForce</td><td><ul>
+<li>true: 更新模型中的日期</li>
+<li>false: 当前设置的日期与模型中的日期不相同时，才更新模型中的日期 </li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="classCLunarCalendar.html#a1d81a5de23853458ca51c80da8d99271" title="设置日历的支持日期的范围">SetDateRange()</a> </dd>
+<dd>
+<a class="el" href="classCLunarCalendar.html#a3ba656547ca53a2267d6fbdc8aabb40b" title="设置日历的支持最小日期">SetMinimumDate()</a> <a class="el" href="classCLunarCalendar.html#ad726bc7103909ed2761ceb9c24af2e5f" title="得到日历的支持最小日期">MinimumDate()</a> </dd>
+<dd>
+<a class="el" href="classCLunarCalendar.html#ac5a46422e8b3b0a5f226a2e0f9083c92" title="设置日历的支持最大日期">SetMaximumDate()</a> <a class="el" href="classCLunarCalendar.html#a07ed495c0682ef205cadac30a84a898d" title="得到日历的支持最大日期">MaximumDate()</a> </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00601">601</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a49591a493f68a742ffbc0a1a39716b90" name="a49591a493f68a742ffbc0a1a39716b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49591a493f68a742ffbc0a1a39716b90">&#9670;&#160;</a></span>SetTaskHandle() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SetTaskHandle </td>
+          <td>(</td>
+          <td class="paramtype">QSharedPointer&lt; <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html">CTaskHandler</a> &gt;&#160;</td>
+          <td class="paramname"><em>handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置 <a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handler</td><td>任务处理类（CTaskHandler）</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>使用方法：</p><ul>
+<li>声明 <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html" title="使用者自定义任务接口 类">CTaskHandler</a> 派生类 <div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="classCHandler.html">CHandler</a> : <span class="keyword">public</span> <a class="code hl_class" href="classCLunarCalendar_1_1CTaskHandler.html">CLunarCalendar::CTaskHandler</a></div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">virtual</span> uint onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                          <span class="comment">/*out*/</span>QStringList&amp; tasks) <span class="keyword">override</span> <span class="keyword">final</span>;</div>
+<div class="line">};</div>
+</div><!-- fragment --></li>
+<li>实现接口 <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html#ad1c81754b6c56ed65679936c7d92b0be" title="使用者自定义任务接口 。请遵守 农历位置显示类型优先级 。">CTaskHandler::onHandle</a> <div class="fragment"><div class="line">uint CHandler::onHandle(<span class="comment">/*in*/</span><span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                        <span class="comment">/*out*/</span>QStringList&amp; tasks) {</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(10 == d.month() &amp;&amp; 25 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;抗美援朝纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">    <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);    </div>
+<div class="line">    <span class="comment">// 纪念日（以农历年为周期）</span></div>
+<div class="line">    <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 22 == lunarDay)</div>
+<div class="line">    {</div>
+<div class="line">        tasks &lt;&lt; <span class="stringliteral">&quot;结婚纪念日&quot;</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// 以月为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(21 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 以周为周期</span></div>
+<div class="line">    <span class="keywordflow">if</span>(Qt::Wednesday == d.dayOfWeek())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">        tasks &lt;&lt; QString();</div>
+<div class="line">        <span class="keywordflow">return</span> 0;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 单个任务</span></div>
+<div class="line">    <span class="keywordflow">if</span>(2015 == d.year() &amp;&amp; 10 == d.month() &amp;&amp; 22 == d.day())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">        <span class="keywordflow">return</span> 1;</div>
+<div class="line">    }</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// 没有任务</span></div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --></li>
+<li>定义变量 <div class="fragment"><div class="line">    QSharedPointer&lt;CHandler&gt; m_Hnadler;</div>
+</div><!-- fragment --></li>
+<li>实例化对象 <div class="fragment"><div class="line">    m_Hnadler = QSharedPointer&lt;CHandler&gt;(<span class="keyword">new</span> <a class="code hl_class" href="classCHandler.html">CHandler</a>());</div>
+</div><!-- fragment --></li>
+<li>用 SetTaskHandle 设置处理类 <div class="fragment"><div class="line">    m_pLunarCalendar-&gt;SetTaskHandle(m_Hnadler);</div>
+</div><!-- fragment --></li>
+</ul>
+<dl class="section see"><dt>参见</dt><dd><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html" title="使用者自定义任务接口 类">CTaskHandler</a> <a class="el" href="classCLunarCalendar_1_1CTaskHandler.html#ad1c81754b6c56ed65679936c7d92b0be" title="使用者自定义任务接口 。请遵守 农历位置显示类型优先级 。">CTaskHandler::onHandle</a></dd></dl>
+<div class="image">
+<img src="Task.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01209">1209</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8b57647385e57aa7bf8b601bb5b45ef1" name="a8b57647385e57aa7bf8b601bb5b45ef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b57647385e57aa7bf8b601bb5b45ef1">&#9670;&#160;</a></span>SetTaskHandle() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int CLunarCalendar::SetTaskHandle </td>
+          <td>(</td>
+          <td class="paramtype">std::function&lt; uint(const QDate &amp;date, QStringList &amp;tasks)&gt;&#160;</td>
+          <td class="paramname"><em>cbHandler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>设置 <a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a> </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">date</td><td>要处理的日期 </td></tr>
+    <tr><td class="paramname">tasks</td><td>任务列表。如果使用者有新任务，并需要在农历位置处显示内容，则加入到此列表中。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>注解</dt><dd><ul>
+<li>加入空字符或"":表示只显示圆点，不显示内容。</li>
+<li>不设置此值。只返回任务数。表示只显示圆点，不显示内容。</li>
+<li>请遵守 <a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a> 。 </li>
+</ul>
+</dd></dl>
+<dl class="section return"><dt>返回</dt><dd>未加入到 tasks 的任务数。不包括 tasks 中的任务数。 </dd></dl>
+<dl class="section note"><dt>注解</dt><dd>在 tasks 中增加的新任务，则不计入返回值中， 如果没有其它的未加入 tasks 的任务，则返回 0。 否则返回未加入到 tasks 中的任务数。</dd></dl>
+<p>例子： </p><div class="fragment"><div class="line">    m_pLunarCalendar-&gt;SetTaskHandle([](<span class="keyword">const</span> QDate&amp; d,</div>
+<div class="line">                                       QStringList&amp; tasks)-&gt;uint {</div>
+<div class="line">        <span class="keywordtype">int</span> lunarYear = 0;</div>
+<div class="line">        <span class="keywordtype">int</span> lunarMonth = 0;</div>
+<div class="line">        <span class="keywordtype">int</span> lunarDay = 0;</div>
+<div class="line">        <a class="code hl_function" href="classCLunarCalendar.html#af00f614f13c68e72d256671b4543d89d">CLunarCalendar::GetLunar</a>(d, lunarYear, lunarMonth, lunarDay);</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 节日（以年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.month() == 10 &amp;&amp; d.day() == 26)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;环卫工人节&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// 农历节日（以农历年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(9 == lunarMonth &amp;&amp; 9 == lunarDay)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;老人节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;老年节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;登高节&quot;</span> &lt;&lt; <span class="stringliteral">&quot;踏秋&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">        </div>
+<div class="line">        <span class="comment">// 纪念日（以年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 10 &amp;&amp; d.month() == 10)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示显示圆点，也显示内容</span></div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;辛亥革命纪念日&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line">          </div>
+<div class="line">        <span class="comment">// 生日（纪念日：以农历年为周期）</span></div>
+<div class="line">        <span class="keywordflow">if</span>(8 == lunarMonth &amp;&amp; 23 == lunarDay)</div>
+<div class="line">        {</div>
+<div class="line">            tasks &lt;&lt; <span class="stringliteral">&quot;爸生日&quot;</span>;</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 以月为周期</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 11)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">            <span class="keywordflow">return</span> 1;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 以周为周期</span></div>
+<div class="line">        <span class="keywordflow">if</span>(Qt::Monday == d.dayOfWeek())</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容。建议用上面的方式</span></div>
+<div class="line">            tasks &lt;&lt; QString();</div>
+<div class="line">            <span class="keywordflow">return</span> 0;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 单个任务</span></div>
+<div class="line">        <span class="keywordflow">if</span>(d.day() == 12 &amp;&amp; d.month() == 10 &amp;&amp; d.year() == 2015)</div>
+<div class="line">        {</div>
+<div class="line">            <span class="comment">// 表示只显示圆点，不显示内容</span></div>
+<div class="line">            <span class="keywordflow">return</span> 1;</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        <span class="comment">// 没有任务</span></div>
+<div class="line">        <span class="keywordflow">return</span> 0;});</div>
+<div class="line">    m_pLunarCalendar-&gt;Update();</div>
+</div><!-- fragment --><dl class="section note"><dt>注解</dt><dd>需要 c++ 标准 11</dd></dl>
+<dl class="section see"><dt>参见</dt><dd><ul>
+<li><a class="el" href="index.html#UserDefinedTasks">使用者自定义任务接口</a></li>
+<li><a class="el" href="index.html#HolidayPriority">农历位置显示类型优先级</a></li>
+</ul>
+</dd></dl>
+<div class="image">
+<img src="Task.png" alt=""/>
+</div>
+ 
+</div>
+</div>
+<a id="ad33a1e692bd1e5bad91aab021a715134" name="ad33a1e692bd1e5bad91aab021a715134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33a1e692bd1e5bad91aab021a715134">&#9670;&#160;</a></span>SetTouchUpDownFunction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SetTouchUpDownFunction </td>
+          <td>(</td>
+          <td class="paramtype">_TOUCH_UP_DOWN_FUNCTION&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01273">1273</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac287fd10297812b8490ab85c38cf44fe" name="ac287fd10297812b8490ab85c38cf44fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac287fd10297812b8490ab85c38cf44fe">&#9670;&#160;</a></span>SetViewType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::SetViewType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classCLunarCalendar.html#a83c9ee8c4130a3f16192da39354e4b9e">_VIEW_TYPE</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>　设置视图类型 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01227">1227</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a51de4322b2bdea7991b442e78c37885a" name="a51de4322b2bdea7991b442e78c37885a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51de4322b2bdea7991b442e78c37885a">&#9670;&#160;</a></span>ShowBackgroupImage</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowBackgroupImage </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏背景图片 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00526">526</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a60389c18c5dffbcb2bdb4ab3ab93380d" name="a60389c18c5dffbcb2bdb4ab3ab93380d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60389c18c5dffbcb2bdb4ab3ab93380d">&#9670;&#160;</a></span>ShowDate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowDate </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏选择日期 </p>
+<div class="image">
+<img src="Date.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00588">588</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8e054a0c56bbc46539c895d6b49f2ab8" name="a8e054a0c56bbc46539c895d6b49f2ab8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e054a0c56bbc46539c895d6b49f2ab8">&#9670;&#160;</a></span>ShowGrid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowGrid </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>show</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏网格 </p>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00516">516</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4bb20eb281e44fa20664f93791ba52ce" name="a4bb20eb281e44fa20664f93791ba52ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bb20eb281e44fa20664f93791ba52ce">&#9670;&#160;</a></span>ShowHead</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowHead </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏日历头 </p>
+<div class="image">
+<img src="Head.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00569">569</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9464e094849932a94900ebd1284e7ad0" name="a9464e094849932a94900ebd1284e7ad0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9464e094849932a94900ebd1284e7ad0">&#9670;&#160;</a></span>ShowTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowTime </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏当前时间 </p>
+<div class="image">
+<img src="Date.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01323">1323</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8893d19000a4efdfe3f4d496f20a7198" name="a8893d19000a4efdfe3f4d496f20a7198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8893d19000a4efdfe3f4d496f20a7198">&#9670;&#160;</a></span>ShowToday</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowToday </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏今日工具按钮 </p>
+<div class="image">
+<img src="Tool.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00549">549</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac140ab19ff40d4c8273e3b79421e67b3" name="ac140ab19ff40d4c8273e3b79421e67b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac140ab19ff40d4c8273e3b79421e67b3">&#9670;&#160;</a></span>ShowTools</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowTools </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏日期工具按钮 </p>
+<div class="image">
+<img src="Tool.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00576">576</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8cfd4619f7d625d4ae37206f315c8982" name="a8cfd4619f7d625d4ae37206f315c8982"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cfd4619f7d625d4ae37206f315c8982">&#9670;&#160;</a></span>ShowWeekHead</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowWeekHead </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏周 </p>
+<div class="image">
+<img src="Week.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00563">563</a> 行定义.</p>
+
+</div>
+</div>
+<a id="acd563ab5c9d1c4f24405c79a39f1b047" name="acd563ab5c9d1c4f24405c79a39f1b047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd563ab5c9d1c4f24405c79a39f1b047">&#9670;&#160;</a></span>ShowWeeks</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::ShowWeeks </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bShow</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">slot</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>显示或隐藏第几周 </p>
+<div class="image">
+<img src="Week.png" alt=""/>
+</div>
+ 
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l00557">557</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a79b8358438ea8c071eb772ade20ca6a7" name="a79b8358438ea8c071eb772ade20ca6a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79b8358438ea8c071eb772ade20ca6a7">&#9670;&#160;</a></span>sigSelectionChanged</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CLunarCalendar::sigSelectionChanged </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>当前选择日期改变时触发 可以在相应的槽函数中调用下列函数 </p>
+<ul>
+<li>得到选择的日期：<ul>
+<li><a class="el" href="classCLunarCalendar.html#a018fede9c01f9cd5626d7a9a0e90cb82" title="得到当前选择的日期。 当前选择的日期在指定的最小日期 MinimumDate() 与最大日期 MaximumDate() 的范围内。 默认为系统当前日期。">SelectedDate()</a></li>
+<li><a class="el" href="classCLunarCalendar.html#a59156c01f503f2dcba767d92f48d0e92" title="得到当前选择的日期的农历的字符串">SelectedLunar()</a></li>
+<li><a class="el" href="classCLunarCalendar.html#a83fdce6425e430f046b5dc34ac21c29b" title="得到当前选择的日期的农历">SelectedLunar(int &amp;year, int &amp;month, int &amp;day)</a></li>
+</ul>
+</li>
+<li>得到节气：<ul>
+<li><a class="el" href="classCLunarCalendar.html#a8b72c14699a0780dc990ececcc367ac4" title="得到当前选的节气">SelectedSolarTerm()</a> </li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+<a id="a6f4a98f24d4452e5a125dafb2f97c9e9" name="a6f4a98f24d4452e5a125dafb2f97c9e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f4a98f24d4452e5a125dafb2f97c9e9">&#9670;&#160;</a></span>sizeHint()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QSize CLunarCalendar::sizeHint </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01361">1361</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4435262450652bfd84ef8c18b53b6c25" name="a4435262450652bfd84ef8c18b53b6c25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4435262450652bfd84ef8c18b53b6c25">&#9670;&#160;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::Update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>更新数据和视图 </p>
+<dl class="section return"><dt>返回</dt><dd></dd></dl>
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01346">1346</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aab5a6cd641a2e1e3151f2f1972c0fed4" name="aab5a6cd641a2e1e3151f2f1972c0fed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab5a6cd641a2e1e3151f2f1972c0fed4">&#9670;&#160;</a></span>Version()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const QString CLunarCalendar::Version </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a> 第 <a class="el" href="LunarCalendar_8cpp_source.html#l01494">1494</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">属性说明</h2>
+<a id="ad7bf60bbd8564b840821a65403783473" name="ad7bf60bbd8564b840821a65403783473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7bf60bbd8564b840821a65403783473">&#9670;&#160;</a></span>maximumDate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDate CLunarCalendar::maximumDate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00246">246</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a82c95592151aa2aba95380fd7278610e" name="a82c95592151aa2aba95380fd7278610e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82c95592151aa2aba95380fd7278610e">&#9670;&#160;</a></span>minimumDate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDate CLunarCalendar::minimumDate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00245">245</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a972099fae4cc8e84393133285b23ff60" name="a972099fae4cc8e84393133285b23ff60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a972099fae4cc8e84393133285b23ff60">&#9670;&#160;</a></span>selectedDate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QDate CLunarCalendar::selectedDate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00240">240</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3fc919e00db7a574cac67b7347dbefec" name="a3fc919e00db7a574cac67b7347dbefec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fc919e00db7a574cac67b7347dbefec">&#9670;&#160;</a></span>selectLunar</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString CLunarCalendar::selectLunar</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00241">241</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4de2858e4b56570305207ff40c85a767" name="a4de2858e4b56570305207ff40c85a767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de2858e4b56570305207ff40c85a767">&#9670;&#160;</a></span>showMonth</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::showMonth</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00243">243</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4424b89701244e4e8362ae1b726df13e" name="a4424b89701244e4e8362ae1b726df13e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4424b89701244e4e8362ae1b726df13e">&#9670;&#160;</a></span>showYear</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CLunarCalendar::showYear</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a> 第 <a class="el" href="LunarCalendar_8h_source.html#l00242">242</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>/home/runner/work/LunarCalendar/LunarCalendar/Src/<a class="el" href="LunarCalendar_8h_source.html">LunarCalendar.h</a></li>
+<li>/home/runner/work/LunarCalendar/LunarCalendar/Src/<a class="el" href="LunarCalendar_8cpp_source.html">LunarCalendar.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- HTML footer for doxygen 1.8.16-->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer">
+<a href="mailto:kl222@126.com" >作者：康林 (kl222@126.com) </a>
+<p/>
+<a href="https://github.com/KangLin/LunarCalendar">版权所有(c) 康林工作室 保留所有权力</a>
+</address>
+</body>
+</html>
