@@ -124,9 +124,6 @@ jobs:
               -DBUILD_APP=OFF
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
-          copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
-          copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
-          copy /Y ${{env.RUNVCPKG_VCPKG_ROOT}}\installed\${{env.RUNVCPKG_VCPKG_TRIPLET_OUT}}\bin\*.dll install\bin
           7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.triplet}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.zip .\install\*
 
       - name: Update artifact for develop library
@@ -152,16 +149,16 @@ jobs:
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_app/install ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
-              -DRABBIT_ENABLE_INSTALL_DEPENDENT=ON ^
-              -DRABBIT_ENABLE_INSTALL_QT=ON ^
-              -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=ON ^
+              -DRABBIT_ENABLE_INSTALL_DEPENDENT=OFF ^
+              -DRABBIT_ENABLE_INSTALL_QT=OFF ^
+              -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=OFF ^
               -DBUILD_APP=ON ^
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
           copy /Y ${{env.INSTALL_DIR}}\bin\*.dll install\bin
           copy /Y ${{env.INSTALL_DIR}}\lib\*.dll install\bin
-          copy /Y ${{env.RUNVCPKG_VCPKG_ROOT}}\installed\${{env.RUNVCPKG_VCPKG_TRIPLET_OUT}}\bin\*.dll install\bin
+          copy /Y vcpkg_installed\${{matrix.VCPKG_TARGET_TRIPLET}}\bin\*.dll install\bin
           makensis Install.nsi
 
       - name: Update artifact for application
@@ -187,7 +184,10 @@ jobs:
               -DCMAKE_INSTALL_PREFIX=${{github.workspace}}/build_package/install ^
               -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake ^
               -DVCPKG_VERBOSE=ON ^
-              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON
+              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON ^
+              -DRABBIT_ENABLE_INSTALL_DEPENDENT=ON ^
+              -DRABBIT_ENABLE_INSTALL_QT=ON ^
+              -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=OFF
           cmake --build . --config ${{ matrix.BUILD_TYPE }}
           cmake --build . --config ${{ matrix.BUILD_TYPE }} --target package
 

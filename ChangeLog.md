@@ -1,5 +1,5 @@
 - v1.0.4
-  - 使用 [RabbitCommon v2.2.0](https://github.com/KangLin/RabbitCommon/releases/tag/v2.2.0)
+  - 使用 [RabbitCommon v2.2.1](https://github.com/KangLin/RabbitCommon/releases/tag/v2.2.1)
   - 删除 vcpkg.json 中 baseline
 
 - v1.0.3
