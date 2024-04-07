@@ -1500,7 +1500,7 @@ const QString CLunarCalendar::Version()
 #endif
 
 #ifdef LunarCalendar_REVISION
-    szVersion += " (" + tr("Revision: [") + LunarCalendar_REVISION
+    szVersion += " (" + tr("Revision:") + " [" + LunarCalendar_REVISION
                  + "](https://github.com/KangLin/LunarCalendar/tree/"
                  + LunarCalendar_REVISION + "))";
 #endif

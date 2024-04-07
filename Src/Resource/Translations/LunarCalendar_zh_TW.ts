@@ -17,67 +17,71 @@
 <context>
     <name>CLunarCalendar</name>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="86"/>
+        <location filename="../../LunarCalendar.cpp" line="63"/>
         <source>Lunar calendar</source>
         <translation>農歷</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="91"/>
-        <location filename="../../LunarCalendar.cpp" line="92"/>
+        <location filename="../../LunarCalendar.cpp" line="68"/>
+        <location filename="../../LunarCalendar.cpp" line="69"/>
         <source>Previous year</source>
         <translation>上一年</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="94"/>
-        <location filename="../../LunarCalendar.cpp" line="95"/>
+        <location filename="../../LunarCalendar.cpp" line="71"/>
+        <location filename="../../LunarCalendar.cpp" line="72"/>
         <source>Next year</source>
         <translation>下一年</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="97"/>
-        <location filename="../../LunarCalendar.cpp" line="98"/>
+        <location filename="../../LunarCalendar.cpp" line="74"/>
+        <location filename="../../LunarCalendar.cpp" line="75"/>
         <source>Previous month</source>
         <translation>上一月</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="100"/>
-        <location filename="../../LunarCalendar.cpp" line="101"/>
+        <location filename="../../LunarCalendar.cpp" line="77"/>
+        <location filename="../../LunarCalendar.cpp" line="78"/>
         <source>Next month</source>
         <translation>下一月</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="113"/>
-        <location filename="../../LunarCalendar.cpp" line="114"/>
+        <location filename="../../LunarCalendar.cpp" line="90"/>
+        <location filename="../../LunarCalendar.cpp" line="91"/>
         <source>Today</source>
         <translation>今天</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="214"/>
-        <location filename="../../LunarCalendar.cpp" line="215"/>
+        <location filename="../../LunarCalendar.cpp" line="191"/>
+        <location filename="../../LunarCalendar.cpp" line="192"/>
         <source>Year</source>
         <translation>年</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1277"/>
-        <location filename="../../LunarCalendar.cpp" line="1278"/>
+        <location filename="../../LunarCalendar.cpp" line="1252"/>
+        <location filename="../../LunarCalendar.cpp" line="1253"/>
         <source>Week</source>
         <translation>周</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1521"/>
+        <location filename="../../LunarCalendar.cpp" line="1496"/>
         <source>Version:</source>
         <translation>版本：</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="1528"/>
+        <source>Revision: [</source>
+        <translation type="obsolete">校正版本: [</translation>
+    </message>
+    <message>
+        <location filename="../../LunarCalendar.cpp" line="1503"/>
         <source>Revision:</source>
         <translation>校訂版本：</translation>
     </message>
     <message>
-        <location filename="../../LunarCalendar.cpp" line="204"/>
-        <location filename="../../LunarCalendar.cpp" line="205"/>
-        <location filename="../../LunarCalendar.cpp" line="1281"/>
-        <location filename="../../LunarCalendar.cpp" line="1282"/>
+        <location filename="../../LunarCalendar.cpp" line="181"/>
+        <location filename="../../LunarCalendar.cpp" line="182"/>
+        <location filename="../../LunarCalendar.cpp" line="1256"/>
+        <location filename="../../LunarCalendar.cpp" line="1257"/>
         <source>Month</source>
         <translation>月</translation>
     </message>
