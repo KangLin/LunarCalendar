@@ -164,20 +164,20 @@ private:
     QLocale m_Locale;
     enum class __WORK_DAY {
         NO = 0,    //!< 无
-        WORK,       //!< 工作
+        WORK,      //!< 工作
         REST,      //!< 休息
     };
     // cached day
     struct _DAY
     {
         int Solar;
-        
+
         int nLunarYear;
         int nLunarMonth;
         int nLunarDay;
         QString szLunar;
         QString szLunarDay;
-        
+
         QStringList SolarHoliday;
         QStringList LunarHoliday;
 
@@ -189,7 +189,7 @@ private:
     };
     QVector<_DAY> m_Day;
     _DAY GetDay(int row, int col) const;
-    
+
     bool m_bEnableHolidays;
     bool m_bEnableSolarTerm;
 
