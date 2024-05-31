@@ -15,9 +15,17 @@ export DH_VERBOSE = 1
 #export QT_SELECT=qt5
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-BUILD_DIR = "build_$(DEB_HOST_MULTIARCH)"
-PACKAGE_DIR = "debian/lunarcalendar"
-PACKAGE_dev_DIR = "debian/lunarcalendar-dev"
+BUILD_DIR = build_$(DEB_HOST_MULTIARCH)
+PACKAGE_DIR = debian/lunarcalendar
+PACKAGE_DEV_DIR = debian/lunarcalendar-dev
+
+ifeq ($(strip $(shell pkg-config --libs RabbitCommon)), -lRabbitCommon)
+	PACKAGE_PREFIX = $(PACKAGE_DIR)/usr
+	PACKAGE_DEV_PREFIX = $(PACKAGE_DEV_DIR)/usr
+else
+	PACKAGE_PREFIX = $(PACKAGE_DIR)/opt/LunarCalendar
+	PACKAGE_DEV_PREFIX = $(PACKAGE_DEV_DIR)/opt/LunarCalendar
+endif
 
 %:
 	dh $@
@@ -28,7 +36,7 @@ PACKAGE_dev_DIR = "debian/lunarcalendar-dev"
 # This is example for Cmake (See https://bugs.debian.org/641051 )
 override_dh_auto_configure:
 	dh_auto_configure -B$(BUILD_DIR) -- \
-            -DCMAKE_BUILD_TYPE=Release -DBUILD_APP=OFF
+		-DCMAKE_BUILD_TYPE=Release -DBUILD_APP=OFF
 
 override_dh_auto_build:
 	cmake --build $(BUILD_DIR) --config Release --parallel $(if "`cat /proc/cpuinfo |grep 'cpu cores' |wc -l`", `cat /proc/cpuinfo |grep 'cpu cores' |wc -l`, 1)
@@ -36,11 +44,11 @@ override_dh_auto_build:
 override_dh_auto_install:
 	cmake --install $(BUILD_DIR) --config Release \
 		--component Runtime \
-		--prefix $(PACKAGE_DIR)/usr
+		--prefix $(PACKAGE_PREFIX)
 	cmake --install $(BUILD_DIR) --config Release \
 		--component Development \
-		--prefix $(PACKAGE_dev_DIR)/usr
+		--prefix $(PACKAGE_DEV_PREFIX)
 
 override_dh_builddeb:
 	dh_builddeb --package=lunarcalendar -P$(PACKAGE_DIR)
-	dh_builddeb --package=lunarcalendar-dev -P$(PACKAGE_dev_DIR)
+	dh_builddeb --package=lunarcalendar-dev -P$(PACKAGE_DEV_DIR)

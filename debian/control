@@ -7,7 +7,7 @@ Priority: optional
 Maintainer: Kang Lin <kl222@126.com>
 Standards-Version: 4.6.2 
 Build-Depends: debhelper (>=13~), debhelper-compat (=13), fakeroot, cmake,
- rabbitcommon-dev (>=2), qt6-tools-dev, qt6-tools-dev-tools,
+ rabbitcommon-dev(>=2.2.6), qt6-tools-dev, qt6-tools-dev-tools,
  qt6-base-dev, qt6-base-dev-tools, qt6-l10n-tools,
  qt6-translations-l10n, qt6-scxml-dev, qt6-webengine-dev,
  qt6-webengine-dev-tools, libsqlite3-dev
@@ -22,7 +22,6 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Replaces: rabbitcommon (>=2)
 Description: The lunar calendar library using Qt
   - A lunar calendar library of Qt GUI, support QSS.
      + solar calendar
@@ -46,7 +45,6 @@ Package: lunarcalendar-dev
 Section: libdevel
 Architecture: any
 Multi-Arch: same
-Recommends: rabbitcommon-dev (>=2)
 Depends: lunarcalendar (= ${binary:Version}), ${misc:Depends}
 Description: The lunar calendar devel library using Qt
   - A lunar calendar devel library of Qt GUI, support QSS.
