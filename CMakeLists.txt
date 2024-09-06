@@ -70,13 +70,10 @@ include(cmake/DownloadFile.cmake)
 if(NOT RabbitCommon_DIR)
     set(RabbitCommon_DIR $ENV{RabbitCommon_DIR})
     if(NOT RabbitCommon_DIR)
-        set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../RabbitCommon)
-    endif()
-    if(NOT EXISTS ${RabbitCommon_DIR}/Src)
         set(RabbitCommon_DIR ${CMAKE_SOURCE_DIR}/../../../RabbitCommon)
     endif()
 endif()
-if(RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src)
+if(RabbitCommon_DIR AND EXISTS ${RabbitCommon_DIR}/Src/CMakeLists.txt)
     message("Use RabbitCommon source code")
     add_subdirectory(${RabbitCommon_DIR}/Src ${CMAKE_BINARY_DIR}/RabbitCommon)
 else()
@@ -98,7 +95,7 @@ endif()
 GET_VERSION(OUT_VERSION LunarCalendar_VERSION
     OUT_REVISION LunarCalendar_REVISION)
 if(NOT LunarCalendar_VERSION)
-    SET(LunarCalendar_VERSION "v1.0.4")
+    SET(LunarCalendar_VERSION "1.0.4")
 endif()
 message("LunarCalendar_VERSION:${LunarCalendar_VERSION}")
 
@@ -116,7 +113,8 @@ if(BUILD_DOCS)
     find_package(Doxygen)
     if(DOXYGEN_FOUND)
         file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/Doxygen)
-        configure_file(${CMAKE_SOURCE_DIR}/Docs/doxygen/Doxyfile.in ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
+        configure_file(${CMAKE_SOURCE_DIR}/Docs/doxygen/Doxyfile.in
+            ${CMAKE_BINARY_DIR}/Doxyfile @ONLY)
         add_custom_target(doc ALL
             ${DOXYGEN_EXECUTABLE} ${CMAKE_BINARY_DIR}/Doxyfile # &> doxygen.log
             WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
