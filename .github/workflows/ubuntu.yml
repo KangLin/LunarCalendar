@@ -87,9 +87,9 @@ jobs:
           7z a LunarCalendar_v${{env.LunarCalendar_VERSION}}_ubuntu_${{matrix.BUILD_TYPE}}.zip ./install/*
 
       - name:  Update artifact for develop library
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
+          name: ${{ env.artifact_name }}_${{matrix.BUILD_TYPE}}_library
           path: |
             ${{github.workspace}}/build/LunarCalendar_v${{env.LunarCalendar_VERSION}}_ubuntu_${{matrix.BUILD_TYPE}}.zip
       
@@ -105,9 +105,9 @@ jobs:
 
       - name:  Update artifact for application
         if: ${{ matrix.BUILD_TYPE == 'Release' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}
+          name: ${{ env.artifact_name }}_${{matrix.BUILD_TYPE}}
           path: |
             ${{github.workspace}}/lunarcalendar_*.deb
             ${{github.workspace}}/lunarcalendar-dev*.deb
