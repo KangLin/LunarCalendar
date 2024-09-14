@@ -42,7 +42,7 @@ jobs:
       artifact_name: build_android
       ANDROID_PLATFORM: android-23
       ANDROID_NATIVE_API_LEVEL: 23
-      qt_modules: 'qtimageformats qtmultimedia qtscxml qtwebchannel qtwebsockets qtwebview'
+      qt_modules: 'qtimageformats qtmultimedia qtscxml qtwebchannel qtpositioning'
 
     # Map the job outputs to step outputs
     outputs:
