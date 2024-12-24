@@ -4,9 +4,13 @@ if [ -n "$1" -a -z "$QT_ROOT" ]; then
 	QT_ROOT=$1
 fi
 
-if [ ! -f /usr/bin/qmake -a -z "$QT_ROOT" ]; then
-    echo "Don't QT_ROOT"
-	echo "$1 QT_ROOT RabbitCommon_DIR"
+if [ -d "/usr/lib/`uname -m`-linux-gnu" -a -z "$QT_ROOT" ]; then
+    QT_ROOT="/usr/lib/`uname -m`-linux-gnu"
+fi
+
+if [ -z "$QT_ROOT" ]; then
+    echo "QT_ROOT=$QT_ROOT"
+	echo "$0 QT_ROOT RabbitCommon_DIR"
     exit -1
 fi
 
@@ -16,13 +20,19 @@ fi
 
 if [ -z "$RabbitCommon_DIR" ]; then
 	RabbitCommon_DIR=`pwd`/../RabbitCommon
+    echo "RabbitCommon_DIR=$RabbitCommon_DIR"
 fi
 
-export RabbitCommon_DIR=$RabbitCommon_DIR
+if [ ! -d "$RabbitCommon_DIR" ]; then
+    echo "QT_ROOT=$QT_ROOT"
+    echo "RabbitCommon_DIR=$RabbitCommon_DIR"
+	echo "$0 QT_ROOT RabbitCommon_DIR"
+    exit -1
+fi
+
 export QT_ROOT=$QT_ROOT
-export PATH=$QT_ROOT/bin:$PATH
-export LD_LIBRARY_PATH=$QT_ROOT/lib/i386-linux-gnu:$QT_ROOT/lib:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$QT_ROOT/lib/pkgconfig:$PKG_CONFIG_PATH
+export RabbitCommon_DIR=$RabbitCommon_DIR
+
 #fakeroot debian/rules binary
 
 # -p, --sign-command=sign-command

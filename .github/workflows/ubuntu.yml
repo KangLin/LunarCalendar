@@ -98,7 +98,7 @@ jobs:
         env:
           RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
-          export Qt6_DIR=/usr/lib/`uname -a`-linux-gnu/cmake/Qt6
+          export Qt6_DIR=/usr/lib/`uname -m`-linux-gnu/cmake/Qt6
           ./build_debpackage.sh
           cp ../lunarcalendar_*.deb .
           cp ../lunarcalendar-dev*.deb .
