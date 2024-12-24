@@ -32,6 +32,7 @@ fi
 
 export QT_ROOT=$QT_ROOT
 export RabbitCommon_DIR=$RabbitCommon_DIR
+export PATH=$QT_ROOT/bin:$PATH
 
 #fakeroot debian/rules binary
 
