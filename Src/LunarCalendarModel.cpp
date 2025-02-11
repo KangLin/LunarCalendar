@@ -997,7 +997,7 @@ int CLunarCalendarModel::OpenDatabase()
 
     if(!m_Database.open())
     {
-        qCritical(LogDB) << "Open datebase fail. database name:"
+        qCritical(LogDB) << "Open database fail. database name:"
                          << m_Database.databaseName()
                          << "database file:" << szDatabaseFile;
         return -3;
