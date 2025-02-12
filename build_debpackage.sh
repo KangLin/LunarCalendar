@@ -10,28 +10,28 @@ fi
 
 if [ -z "$QT_ROOT" ]; then
     echo "QT_ROOT=$QT_ROOT"
-	echo "$0 QT_ROOT RabbitCommon_DIR"
+	echo "$0 QT_ROOT RabbitCommon_ROOT"
     exit -1
 fi
 
-if [ -n "$2" -a -z "$RabbitCommon_DIR" ]; then
-	RabbitCommon_DIR=$2
+if [ -n "$2" -a -z "$RabbitCommon_ROOT" ]; then
+	RabbitCommon_ROOT=$2
 fi
 
-if [ -z "$RabbitCommon_DIR" ]; then
-	RabbitCommon_DIR=`pwd`/../RabbitCommon
-    echo "RabbitCommon_DIR=$RabbitCommon_DIR"
+if [ -z "$RabbitCommon_ROOT" ]; then
+	RabbitCommon_ROOT=`pwd`/../RabbitCommon
+    echo "RabbitCommon_ROOT=$RabbitCommon_ROOT"
 fi
 
-if [ ! -d "$RabbitCommon_DIR" ]; then
+if [ ! -d "$RabbitCommon_ROOT" ]; then
     echo "QT_ROOT=$QT_ROOT"
-    echo "RabbitCommon_DIR=$RabbitCommon_DIR"
-	echo "$0 QT_ROOT RabbitCommon_DIR"
+    echo "RabbitCommon_ROOT=$RabbitCommon_ROOT"
+	echo "$0 QT_ROOT RabbitCommon_ROOT"
     exit -1
 fi
 
 export QT_ROOT=$QT_ROOT
-export RabbitCommon_DIR=$RabbitCommon_DIR
+export RabbitCommon_ROOT=$RabbitCommon_ROOT
 export PATH=$QT_ROOT/bin:$PATH
 
 #fakeroot debian/rules binary

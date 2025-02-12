@@ -73,7 +73,7 @@ jobs:
       - name: build LunarCalendar
         working-directory: ${{github.workspace}}\build
         env:
-          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+          RabbitCommon_ROOT: ${{env.SOURCE_DIR}}/RabbitCommon
           #Qt5_Dir: C:\msys64\mingw64
           MSYSTEM: MINGW64
           PATH: C:\msys64\mingw64\bin;C:\msys64\usr\bin

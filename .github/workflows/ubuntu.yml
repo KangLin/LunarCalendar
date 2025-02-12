@@ -72,7 +72,7 @@ jobs:
       - name: Build develop library
         working-directory: ${{github.workspace}}/build
         env:
-          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+          RabbitCommon_ROOT: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
           cmake ${{github.workspace}} \
             -DCMARK_SHARED=OFF \
@@ -96,7 +96,7 @@ jobs:
       - name: build_debpackage.sh
         working-directory: ${{github.workspace}}
         env:
-          RabbitCommon_DIR: ${{env.SOURCE_DIR}}/RabbitCommon
+          RabbitCommon_ROOT: ${{env.SOURCE_DIR}}/RabbitCommon
         run: |
           export Qt6_DIR=/usr/lib/`uname -m`-linux-gnu/cmake/Qt6
           ./build_debpackage.sh

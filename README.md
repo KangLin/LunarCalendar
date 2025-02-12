@@ -12,7 +12,6 @@ Author: Kang Lin <kl222@126.com>
     - https://gitee.com/kl222/LunarCalendar
     - https://gitlab.com/kl222/LunarCalendar
     - https://sourceforge.net/projects/lunarcalendar/
-    - https://invent.kde.org/kanglin/LunarCalendar
     - https://launchpad.net/lunarcalendar
     - https://bitbucket.org/kl222/lunarcalendar
 - [Project home](https://kanglin.github.io/LunarCalendar/html/index.html)
@@ -136,7 +135,7 @@ please compile and test the students with the corresponding equipment.
         cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
              -DCMAKE_BUILD_TYPE=Release \
              -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
-             -DRabbitCommon_DIR=
+             -DRabbitCommon_ROOT=
         cmake --build . --config Release --target install
     
   - windows
@@ -145,7 +144,7 @@ please compile and test the students with the corresponding equipment.
         cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
                -DCMAKE_BUILD_TYPE=Release ^
                -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
-               -DRabbitCommon_DIR=
+               -DRabbitCommon_ROOT=
         cmake --build . --config Release --target install
 
   - Android
@@ -160,7 +159,7 @@ please compile and test the students with the corresponding equipment.
                -DANDROID_PLATFORM=android-18 \
                -DQT_DIR= \
                -DQt6_DIR= \
-               -DRabbitCommon_DIR=
+               -DRabbitCommon_ROOT=
           cmake --build . --target all
 
           # If is Qt5
@@ -171,7 +170,7 @@ please compile and test the students with the corresponding equipment.
                -DANDROID_PLATFORM=android-18 \
                -DQT_DIR= \
                -DQt5_DIR= \
-               -DRabbitCommon_DIR= 
+               -DRabbitCommon_ROOT= 
           cmake --build . --config Release --target install
           cmake --build . --target APK
 
@@ -189,7 +188,7 @@ please compile and test the students with the corresponding equipment.
              -DANDROID_ARM_NEON=ON ^
              -DQT_DIR= ^
              -DQt5_DIR= ^
-             -DRabbitCommon_DIR= 
+             -DRabbitCommon_ROOT= 
           cmake --build . --config Release --target install
           cmake --build . --target APK
           
@@ -204,7 +203,7 @@ please compile and test the students with the corresponding equipment.
              -DANDROID_ARM_NEON=ON ^
              -DQT_DIR= ^
              -DQt6_DIR= ^
-             -DRabbitCommon_DIR= 
+             -DRabbitCommon_ROOT= 
           cmake --build . --target all
 
     - Parameter Description: https://developer.android.google.cn/ndk/guides/cmake

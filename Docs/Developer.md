@@ -38,7 +38,7 @@
     cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install \
           -DCMAKE_BUILD_TYPE=Release \
           -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 \
-          -DRabbitCommon_DIR=......
+          -DRabbitCommon_ROOT=......
     cmake --build . --config Release --target install ;安装
     cmake --build . --config Release --target package ;生成安装包
         
@@ -48,7 +48,7 @@
     cmake .. -DCMAKE_INSTALL_PREFIX=`pwd`/install ^
              -DCMAKE_BUILD_TYPE=Release ^
              -DQt5_DIR=${QT_ROOT}/lib/cmake/Qt5 ^
-             -DRabbitCommon_DIR=......
+             -DRabbitCommon_ROOT=......
     cmake --build . --config Release --target install ;安装
     cmake --build . --config Release --target package ;生成安装包
 
@@ -62,7 +62,7 @@
     # 使用 qt-cmake
     qt-cmake .. -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=`pwd`/android-build \
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
 
     # 使用 cmake
     cmake .. -DCMAKE_BUILD_TYPE=Release \
@@ -72,7 +72,7 @@
         -DANDROID_PLATFORM=android-18 \
         -DQT_DIR= \
         -DQt6_DIR= \
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
     cmake --build . --target all
 
     # 如果是 Qt5
@@ -83,7 +83,7 @@
         -DANDROID_PLATFORM=android-18 \
         -DQT_DIR= \
         -DQt5_DIR= \
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
     cmake --build . --config Release --target install
     cmake --build . --target APK
     
@@ -93,7 +93,7 @@
     ; 使用 qt-cmake
     qt-cmake .. -DCMAKE_BUILD_TYPE=Release ^
         -DCMAKE_INSTALL_PREFIX=`pwd`/android-build ^
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
 
     ; 使用 cmake
     cmake .. -G"Unix Makefiles" ^
@@ -106,7 +106,7 @@
         -DANDROID_ARM_NEON=ON ^
         -DQT_DIR= ^
         -DQt6_DIR= ^
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
     cmake --build . --target all
 
     cd build
@@ -121,7 +121,7 @@
         -DANDROID_ARM_NEON=ON ^
         -DQT_DIR= ^
         -DQt5_DIR= ^
-        -DRabbitCommon_DIR=......
+        -DRabbitCommon_ROOT=......
     cmake --build . --config Release --target install
     cmake --build . --target APK
 

@@ -74,8 +74,8 @@ IF(WIN32)
     file(COPY AppIcon.ico DESTINATION ${CMAKE_BINARY_DIR})
 ENDIF()
 
-if(EXISTS ${RabbitCommon_DIR}/Src/etc/logqt.ini)
-    INSTALL_FILE(SOURCES ${RabbitCommon_DIR}/Src/etc/logqt.ini
+if(EXISTS ${RabbitCommon_ROOT}/Src/etc/logqt.ini)
+    INSTALL_FILE(SOURCES ${RabbitCommon_ROOT}/Src/etc/logqt.ini
         DESTINATION etc
             COMPONENT Application
         RENAME LunarCalendar_logqt.ini)
