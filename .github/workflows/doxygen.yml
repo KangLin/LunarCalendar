@@ -42,7 +42,7 @@ jobs:
           cmake -E make_directory ${{github.workspace}}/build
 
       - name: Cache installed
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-installed
         with:
           path: |
@@ -53,8 +53,16 @@ jobs:
         run: |
           sudo apt update -y -q
           sudo apt upgrade -y -q
-          sudo apt install -y -q cmake build-essential graphviz \
-              qttools5-dev qttools5-dev-tools qtbase5-dev qtbase5-dev-tools
+          sudo apt install xvfb xpra \
+              libglu1-mesa-dev libpulse-mainloop-glib0 \
+              cmake build-essential \
+              debhelper fakeroot graphviz \
+              qmake6 qt6-tools-dev qt6-tools-dev-tools \
+              qt6-base-dev qt6-base-dev-tools qt6-qpa-plugins \
+              libqt6svg6-dev qt6-l10n-tools qt6-translations-l10n \
+              qt6-scxml-dev qt6-websockets-dev qt6-webengine-dev \
+              qt6-webengine-dev-tools qt6-positioning-dev qt6-webchannel-dev \
+              libsqlite3-dev
 
       - name: Download doxygen
         run: |

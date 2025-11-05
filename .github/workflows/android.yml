@@ -12,36 +12,37 @@ jobs:
 
     strategy:
       matrix:
-        BUILD_TYPE: [Release]
-        qt_arch: [android_arm64_v8a, android_armv7, android_x86_64]
-        qt_version: [6.6.2]
         include:
-          - BUILD_TYPE: Release
-            qt_arch: android_arm64_v8a
+          - qt_arch: android_arm64_v8a
             VCPKG_TARGET_TRIPLET: arm64-android
+            ANDROID_ABI: arm64-v8a
+            qt_version: 6.9.3
+            BUILD_TYPE: Release
 
-          - BUILD_TYPE: Release
-            qt_arch: android_armv7
-            VCPKG_TARGET_TRIPLET: arm-android
-
-          - BUILD_TYPE: Release
-            qt_arch: android_x86_64 
+          - qt_arch: android_x86_64
             VCPKG_TARGET_TRIPLET: x64-android
+            ANDROID_ABI: x86_64
+            qt_version: 6.9.3
+            BUILD_TYPE: Release
 
     runs-on: ubuntu-latest
 
     env:
       LunarCalendar_VERSION: "v1.0.4"
-      VCPKGGITCOMMITID: 59aeb8fe8fe1c980de6bd5ba634cf21024522d81
+      VCPKGGITCOMMITID: 7213cf8135c329c37c7e2778e40774489a0583a8
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
-      VCPKG_HOST_TRIPLET: x64-linux
+      VCPKG_DEFAULT_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
+      VCPKG_DEFAULT_HOST_TRIPLET: x64-linux
+      BUILD_DIR:   ${{github.workspace}}/build
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
-      TOOSL_DIR:   ${{github.workspace}}/.cache/tools
+      TOOLS_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install
       STOREPASS: ${{secrets.STOREPASS}}
       artifact_name: build_android
-      ANDROID_PLATFORM: android-23
-      ANDROID_NATIVE_API_LEVEL: 23
+      ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/26.3.11579264
+      ANDROID_PLATFORM: android-34
+      ANDROID_NATIVE_API_LEVEL: 34
+      ANDROID_ABI: ${{matrix.ANDROID_ABI}}
       qt_modules: 'qtimageformats qtmultimedia qtscxml qtwebchannel qtpositioning'
 
     # Map the job outputs to step outputs
@@ -57,36 +58,50 @@ jobs:
       - name: make directory
         run: |
           cmake -E make_directory ${{env.SOURCE_DIR}}
-          cmake -E make_directory ${{env.TOOSL_DIR}}
+          cmake -E make_directory ${{env.TOOLS_DIR}}
           cmake -E make_directory ${{env.INSTALL_DIR}}
-          cmake -E make_directory ${{github.workspace}}/build
+          cmake -E make_directory ${{env.BUILD_DIR}}
 
       - name: Cache installed
         #if: false
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         id: cache-installed
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: install_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.VCPKG_TARGET_TRIPLET}}_${{matrix.BUILD_TYPE}}
+          key: install_android_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.BUILD_TYPE}}
+
+      - name: Install Qt of linux_gcc_64
+        uses: jurplel/install-qt-action@v4
+        if: ${{ matrix.qt_version == '6.9.3' }}
+        with:
+          dir: '${{env.TOOLS_DIR}}/qt' # optional
+          version: '${{matrix.qt_version}}'
+          #host: 'linux'
+          target: 'desktop'
+          arch: 'linux_gcc_64'
+          set-env: false
+          cache: true
+          cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
 
       - name: Install Qt of gcc_64
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
+        if: ${{  matrix.qt_version == '6.6.3' }}
         with:
-          dir: '${{env.TOOSL_DIR}}' # optional
+          dir: '${{env.TOOLS_DIR}}/qt' # optional
           version: '${{matrix.qt_version}}'
           #host: 'linux'
           target: 'desktop'
           arch: 'gcc_64'
           set-env: false
           cache: true
-          cache-key-prefix: cached_qt
+          cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
 
       - name: Install Qt of android
         uses: jurplel/install-qt-action@v3
         with:
           # Directory to install Qt
-          dir: '${{env.TOOSL_DIR}}' # optional
+          dir: '${{env.TOOLS_DIR}}/qt' # optional
           # Version of Qt to install
           version: '${{matrix.qt_version}}'
           # Host platform
@@ -97,19 +112,14 @@ jobs:
           arch: '${{matrix.qt_arch}}' # optional
           # Additional Qt modules to install
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
-          # Whether or not to actually download Qt
           cache: true
-          cache-key-prefix: cached_qt
-
-      - name: run vcpkg
-        if: false
+          cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
+      
+      - name: run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
-          # Indicates whether to only setup vcpkg (i.e. installing it and setting the environment variables VCPKG_ROOT, RUNVCPK_VCPKG_ROOT), without installing any port.
-          #setupOnly: # optional
-          #vcpkgGitURL: https://github.com/KangLin/vcpkg.git
           vcpkgGitCommitId: ${{env.VCPKGGITCOMMITID}}
-          vcpkgDirectory: ${{ runner.workspace }}/vcpkg/
+          vcpkgDirectory: ${{env.SOURCE_DIR}}/vcpkg
 
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}
@@ -130,10 +140,21 @@ jobs:
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
+              -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
+              -DQT_CHAINLOAD_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
+              -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
+              -DVCPKG_TARGET_TRIPLET=${{env.VCPKG_TARGET_TRIPLET}} \
+              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=OFF \
+              -DVCPKG_VERBOSE=ON \
+              -DRABBIT_ENABLE_INSTALL_DEPENDENT=OFF \
+              -DRABBIT_ENABLE_INSTALL_QT=OFF \
+              -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=ON \
+              -DCMAKE_PREFIX_PATH=${Qt6_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
               -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
-              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DQT_ANDROID_SIGN_APK=ON \
-              -DQT_ENABLE_VERBOSE_DEPLOYMENT=OFF \
+              -DQT_ENABLE_VERBOSE_DEPLOYMENT=ON \
+              -DVCPKG_TRACE_FIND_PACKAGE=ON \
+              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DCMAKE_INSTALL_PREFIX=`pwd`/install \
               -DBUILD_APP=OFF
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target install
@@ -154,11 +175,23 @@ jobs:
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
+              -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
+              -DQT_CHAINLOAD_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
+              -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
+              -DVCPKG_TARGET_TRIPLET=${{env.VCPKG_TARGET_TRIPLET}} \
+              -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON \
+              -DVCPKG_VERBOSE=ON \
+              -DRABBIT_ENABLE_INSTALL_DEPENDENT=ON \
+              -DRABBIT_ENABLE_INSTALL_QT=ON \
+              -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=ON \
+              -DCMAKE_PREFIX_PATH=${Qt6_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
               -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
-              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DQT_ANDROID_SIGN_APK=ON \
-              -DQT_ENABLE_VERBOSE_DEPLOYMENT=OFF \
-              -DCMAKE_INSTALL_PREFIX=`pwd`/install
+              -DQT_ENABLE_VERBOSE_DEPLOYMENT=ON \
+              -DVCPKG_TRACE_FIND_PACKAGE=ON \
+              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
+              -DCMAKE_INSTALL_PREFIX=`pwd`/install \
+              -DBUILD_APP=ON
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target all
           APK_FILE=`find . -name "android-*.apk"`
           cp $APK_FILE LunarCalendar_${{env.LunarCalendar_VERSION}}_${{matrix.qt_arch}}_qt${{matrix.qt_version}}_${{matrix.BUILD_TYPE}}.apk

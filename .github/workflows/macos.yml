@@ -14,31 +14,40 @@ jobs:
   build_macos:
     strategy:
       matrix:
-        # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
-        BUILD_TYPE: [Release, Debug]
-        qt_version: [6.6.2, 5.15.2, 5.12.12]
-        qt_arch: [clang_64]
-        VCPKG_TARGET_TRIPLET: [x64-osx]
         include:
-          - qt_version: 6.6.2
-            qt_modules: qtscxml qtwebchannel qtwebsockets qtwebview qtpositioning
+          - VCPKG_TARGET_TRIPLET: x64-osx
+            os: macos-15-intel
+            qt_version: 6.9.3
+            qt_arch: clang_64
+            WITH_MACOSX_BUNDLE: false
 
-          - qt_version: 5.15.2
-
-          - qt_version: 5.12.12
-
-    # See: https://docs.github.com/zh/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners
-    # See: https://github.com/actions/runner-images/tree/main
-    runs-on: macos-13
+          - VCPKG_TARGET_TRIPLET: arm64-osx
+            os: macos-14
+            qt_version: 6.9.3
+            qt_arch: clang_64
+            WITH_MACOSX_BUNDLE: true
+        
+          - VCPKG_TARGET_TRIPLET: arm64-osx
+            os: macos-14
+            qt_version: 6.9.3
+            qt_arch: clang_64
+            WITH_MACOSX_BUNDLE: false
+            
+    # See: [About GitHub-hosted runners](https://docs.github.com/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners)
+    # See: [Choosing the runner for a job](https://docs.github.com/actions/writing-workflows/choosing-where-your-workflow-runs/choosing-the-runner-for-a-job)
+    # See: https://github.com/actions/runner-images/
+    runs-on: ${{matrix.os}}
 
     env:
-      BUILD_TYPE:  ${{ matrix.BUILD_TYPE }}
+      BUILD_DIR:   ${{github.workspace}}/build
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
-      TOOSL_DIR:   ${{github.workspace}}/.cache/tools
+      TOOLS_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install
-      qt_modules: qtwebengine ${{matrix.qt_modules}}
-      VCPKGGITCOMMITID: 59aeb8fe8fe1c980de6bd5ba634cf21024522d81
+      qt_modules: "qtscxml qt5compat"
+      VCPKGGITCOMMITID: 7213cf8135c329c37c7e2778e40774489a0583a8
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
+      VCPKG_DEFAULT_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
+      #VCPKG_MANIFEST_FEATURES: ""      
       artifact_name: build_macos
       LunarCalendar_VERSION: "v1.0.4"
 
@@ -54,18 +63,18 @@ jobs:
     
       - name: Make directories
         run: |
+          cmake -E make_directory ${{env.BUILD_DIR}}
           cmake -E make_directory ${{env.SOURCE_DIR}}
-          cmake -E make_directory ${{env.TOOSL_DIR}}
+          cmake -E make_directory ${{env.TOOLS_DIR}}
           cmake -E make_directory ${{env.INSTALL_DIR}}
-          cmake -E make_directory ${{github.workspace}}/build
 
       - name: Cache installed
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-installed
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: install_macos_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.BUILD_TYPE}}
+          key: install_macos_${{env.VCPKG_TARGET_TRIPLET}}
 
       - name: run vcpkg
         uses: lukka/run-vcpkg@v11
@@ -76,12 +85,12 @@ jobs:
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
-          dir: '${{env.TOOSL_DIR}}/qt' # optional
+          dir: '${{env.TOOLS_DIR}}/qt' # optional
           version: '${{matrix.qt_version}}' # optional, default is 5.15.2
           arch: '${{matrix.qt_arch}}' # optional
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           cache: true
-          cache-key-prefix: cached_qt
+          cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
 
       - name: git clone RabbitCommon
         working-directory: ${{env.SOURCE_DIR}}
@@ -96,22 +105,25 @@ jobs:
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
-              -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} \
-              -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/install \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/build/RabbitRemoteControl.App/Contents \
               -DCMAKE_PREFIX_PATH=${{env.INSTALL_DIR}}/lib/cmake \
-              -DVCPKG_VERBOSE=ON \
+              -DCMAKE_TOOLCHAIN_FILE="${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake" \
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=ON \
-              -DCMAKE_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake
-          cmake --build . --config ${{ matrix.BUILD_TYPE }} --target install
-          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}_${{ matrix.BUILD_TYPE }}.zip ./install/*
+              -DVCPKG_VERBOSE=ON \
+              -DVCPKG_TARGET_TRIPLET=${{matrix.VCPKG_TARGET_TRIPLET}} \
+              -DRABBIT_WITH_MACDEPLOY=OFF              
+          cmake --build . --config Release --target install
+          7z a LunarCalendar_${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}_Release.zip ./RabbitRemoteControl.App/*
 
       - name: Update artifact
-        if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '6.6.2' }}
+        if: ${{ matrix.BUILD_TYPE == 'Release' && matrix.qt_version == '6.9.3' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.artifact_name }}_${{matrix.qt_version}}_${{matrix.qt_arch}}
           path: |
-            ${{github.workspace}}/build/LunarCalendar_${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}_${{ matrix.BUILD_TYPE }}.zip
+            ${{github.workspace}}/build/LunarCalendar_${{env.LunarCalendar_VERSION}}_macos_qt${{matrix.qt_version}}_Release.zip
 
 #    - name: Upload To Github Release
 #      if: ${{ matrix.BUILD_TYPE == 'Release' && startsWith(github.ref, 'refs/tags/') }}

@@ -45,7 +45,8 @@ jobs:
       - name: Download ubuntu
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.ubuntu.outputs.name }}
+          #name: ${{ needs.ubuntu.outputs.name }}*
+          name: build_ubuntu*
           path: ${{ env.artifact_path }}
           merge-multiple: true
 
@@ -59,7 +60,7 @@ jobs:
       - name: Download mingw
         uses: actions/download-artifact@v4
         with:
-          name: ${{ needs.mingw.outputs.name }}
+          name: ${{ needs.mingw.outputs.name }}*
           path: ${{ env.artifact_path }}
           merge-multiple: true
 

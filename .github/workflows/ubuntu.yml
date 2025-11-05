@@ -1,3 +1,5 @@
+# Author: Kang Lin <kl222@126.com>
+
 name: build_ubuntu
 
 on:
@@ -15,8 +17,12 @@ jobs:
     strategy:
       matrix:
         BUILD_TYPE: [Release, Debug]
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
 
-    runs-on: ubuntu-latest
+    # See: [About GitHub-hosted runners](https://docs.github.com/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners)
+    # See: [Choosing the runner for a job](https://docs.github.com/actions/writing-workflows/choosing-where-your-workflow-runs/choosing-the-runner-for-a-job)
+    # See: https://github.com/actions/runner-images/
+    runs-on: ${{matrix.os}}
 
     env:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
@@ -27,7 +33,7 @@ jobs:
 
     # Map the job outputs to step outputs
     outputs:
-      name: ${{ env.artifact_name }}
+      name: ${{env.artifact_name}}
 
     steps:
       - name: Checkout Repository
@@ -55,14 +61,15 @@ jobs:
               libglu1-mesa-dev libpulse-mainloop-glib0 \
               cmake build-essential \
               debhelper fakeroot graphviz \
-              qt6-tools-dev qt6-tools-dev-tools \
-              qt6-base-dev qt6-base-dev-tools \
-              qt6-l10n-tools qt6-translations-l10n \
-              qt6-scxml-dev qt6-webengine-dev qt6-webengine-dev-tools \
+              qmake6 qt6-tools-dev qt6-tools-dev-tools \
+              qt6-base-dev qt6-base-dev-tools qt6-qpa-plugins \
+              libqt6svg6-dev qt6-l10n-tools qt6-translations-l10n \
+              qt6-scxml-dev qt6-websockets-dev qt6-webengine-dev \
+              qt6-webengine-dev-tools qt6-positioning-dev qt6-webchannel-dev \
               libsqlite3-dev
 
       - name: Cache installed
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache-installed
         with:
           path: |
@@ -89,7 +96,7 @@ jobs:
       - name:  Update artifact for develop library
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}_${{matrix.BUILD_TYPE}}_library
+          name: ${{env.artifact_name}}_${{matrix.BUILD_TYPE}}_${{matrix.os}}_library
           path: |
             ${{github.workspace}}/build/LunarCalendar_v${{env.LunarCalendar_VERSION}}_ubuntu_${{matrix.BUILD_TYPE}}.zip
       
@@ -107,7 +114,7 @@ jobs:
         if: ${{ matrix.BUILD_TYPE == 'Release' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact_name }}_${{matrix.BUILD_TYPE}}
+          name: ${{env.artifact_name}}_${{matrix.BUILD_TYPE}}_${{matrix.os}}
           path: |
             ${{github.workspace}}/lunarcalendar_*.deb
             ${{github.workspace}}/lunarcalendar-dev*.deb
