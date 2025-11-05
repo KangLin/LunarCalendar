@@ -28,6 +28,8 @@
 
     git clone --recursive https://github.com/KangLin/LunarCalendar.git
     cd LunarCalendar
+    # [可选]如果已经克隆了库，则更新它
+    git submodule update --init --recursive
     mkdir build
 
 ### 平台

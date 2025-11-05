@@ -527,6 +527,53 @@ INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2025-10-07',
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2025-10-08',0,NULL);
 INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2025-10-11',1,NULL);
 
+-- https://www.gov.cn/zhengce/content/202511/content_7047090.htm
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-01-01',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-01-02',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-01-03',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-01-04',1,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-14',1,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-15',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-16',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-17',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-18',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-19',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-20',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-21',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-22',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-23',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-02-28',1,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-04-04',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-04-05',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-04-06',0,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-01',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-02',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-03',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-04',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-05',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-05-09',1,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-06-19',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-06-20',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-06-21',0,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-09-20',1,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-09-25',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-09-26',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-09-27',0,NULL);
+
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-01',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-02',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-03',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-04',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-05',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-06',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-07',0,NULL);
+INSERT INTO "chinese_holidays" ("date","iswork","comment") VALUES ('2026-10-10',1,NULL);
+
 -- TODO: add holiday
 
 COMMIT;
