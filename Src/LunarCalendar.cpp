@@ -937,7 +937,7 @@ int CLunarCalendar::UpdateMonthMenu()
     
     int index = m_cmbMonth.currentIndex();
     bool check = m_cmbMonth.disconnect();
-    Q_ASSERT(check);
+    //Q_ASSERT(check);
     m_cmbMonth.clear();
     for (int i = beg; i <= end; i++) {
         switch (GetViewType()) {
