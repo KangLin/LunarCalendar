@@ -2,6 +2,7 @@
   - 修复自动化编译打包没有打包库deb文件错误
   - 增加 aarch64 自动化编译
   - 使用 [RabbitCommon v2.3.4](https://github.com/KangLin/RabbitCommon/releases/tag/v2.3.4)
+  - 修改资源图标
 
 - v1.0.4
   - 使用 [RabbitCommon v2.2.1](https://github.com/KangLin/RabbitCommon/releases/tag/v2.2.1)

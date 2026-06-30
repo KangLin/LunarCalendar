@@ -3,23 +3,11 @@
 Name=green
 Comment=Green
 Inherits=breeze
-Directories=svg, png, ico
+Directories=scalable/apps
 
-[svg]
+[scalable/apps]
 Size=200
+Scale=1
 MinSize＝16
 ManSize=256
 Type＝Scalable
-
-[png]
-Size=200
-MinSize＝16
-ManSize=256
-Type＝Scalable
-
-[ico]
-Size=200
-MinSize＝16
-ManSize=256
-Type＝Scalable
-
