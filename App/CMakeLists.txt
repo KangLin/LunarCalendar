@@ -48,13 +48,19 @@ ADD_TARGET(NAME ${PROJECT_NAME}
         LunarCalendar_REVISION="${LunarCalendar_REVISION}"
     )
 
+set(APP_ID io.github.KangLin.LunarCalendar)
 if(UNIX AND NOT ANDROID)
     INSTALL(PROGRAMS ${CMAKE_SOURCE_DIR}/share/LunarCalendar.sh
         DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT Application)
-    INSTALL(FILES ${CMAKE_SOURCE_DIR}/share/org.Rabbit.LunarCalendar.desktop
-        DESTINATION "share/applications" COMPONENT Application)
+    configure_file(${CMAKE_SOURCE_DIR}/share/${APP_ID}.desktop.in
+        ${CMAKE_BINARY_DIR}/${APP_ID}.desktop)
+    INSTALL(FILES ${CMAKE_BINARY_DIR}/${APP_ID}.desktop
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/applications"
+            COMPONENT Application)
     INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resource/image/LunarCalendar.png
-        DESTINATION "share/pixmaps" COMPONENT Application)
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/pixmaps"
+            COMPONENT Application
+        RENAME ${APP_ID}.png)
 endif()
 
 SET(OTHER_FILES

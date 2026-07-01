@@ -1,0 +1,35 @@
+# https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+
+[Desktop Entry]
+Type=Application
+# Icon path: http://freedesktop.org/wiki/Standards/icon-theme-spec
+# The freedesktop.org standard specifies in which order and directories programs should look for icons:
+#
+#    $HOME/.icons (for backwards compatibility)
+#    $XDG_DATA_DIRS/icons
+#    /usr/share/pixmaps
+Icon=@APP_ID@
+Exec=LunarCalendarApp
+Path=@CMAKE_INSTALL_PREFIX@/bin
+Terminal=false
+StartupNotify=true
+
+Categories=Application;Development;Tools
+Keywords=Calendar;LunarCalendar;日历;农历;阴历;阳历
+
+# https://www.freedesktop.org/wiki/Specifications/mime-apps-spec/
+# https://www.freedesktop.org/wiki/Specifications/shared-mime-info-spec/
+MimeType=application/calendar+json;application/calendar+xml;application/octet-stream;text/calendar;text/x-vcalendar;application/vnd.sus-calendar;text/plain;
+X-KDE-Protocols=http,https,smb
+
+Name=Lunar calendar
+GenericName=Lunar calendar
+Comment=Lunar calendar
+
+Name[zh_CN]=日历
+GenericName[zh_CN]=日历
+Comment[zh_CN]=日历(包含农历)
+
+Name[zh_TW]=日歷
+GenericName[zh_TW]=日歷
+Comment[zh_TW]=日歷(包含農歷)
