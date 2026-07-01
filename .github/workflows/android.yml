@@ -1,3 +1,5 @@
+# Author: Kang Lin <kl222@126.com>
+
 name: android
 
 on:
@@ -16,34 +18,53 @@ jobs:
           - qt_arch: android_arm64_v8a
             VCPKG_TARGET_TRIPLET: arm64-android
             ANDROID_ABI: arm64-v8a
-            qt_version: 6.9.3
+            arch: arm64
+            qt_version: 6.11.1
             BUILD_TYPE: Release
 
           - qt_arch: android_x86_64
             VCPKG_TARGET_TRIPLET: x64-android
             ANDROID_ABI: x86_64
-            qt_version: 6.9.3
+            arch: x86_64
+            qt_version: 6.11.1
             BUILD_TYPE: Release
 
-    runs-on: ubuntu-latest
+          - qt_arch: android_arm64_v8a
+            VCPKG_TARGET_TRIPLET: arm64-android
+            ANDROID_ABI: arm64-v8a
+            arch: arm64
+            qt_version: 6.10.3
+            BUILD_TYPE: Release
+
+          - qt_arch: android_x86_64
+            VCPKG_TARGET_TRIPLET: x64-android
+            ANDROID_ABI: x86_64
+            arch: x86_64
+            qt_version: 6.10.3
+            BUILD_TYPE: Release
+
+    # See: [About GitHub-hosted runners](https://docs.github.com/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners)
+    # See: [Choosing the runner for a job](https://docs.github.com/actions/writing-workflows/choosing-where-your-workflow-runs/choosing-the-runner-for-a-job)
+    # See: https://github.com/actions/runner-images/
+    runs-on: ubuntu-24.04
 
     env:
       LunarCalendar_VERSION: "v1.0.4"
-      VCPKGGITCOMMITID: 7213cf8135c329c37c7e2778e40774489a0583a8
+      VCPKGGITCOMMITID: d015e31e90838a4c9dfa3eed45979bc70d9357fc
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_DEFAULT_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_DEFAULT_HOST_TRIPLET: x64-linux
-      BUILD_DIR:   ${{github.workspace}}/build
-      SOURCE_DIR:  ${{github.workspace}}/.cache/source
-      TOOLS_DIR:   ${{github.workspace}}/.cache/tools
-      INSTALL_DIR: ${{github.workspace}}/.cache/install
-      STOREPASS: ${{secrets.STOREPASS}}
+      VCPKG_MANIFEST_FEATURES: ""
+      BUILD_DIR:     ${{github.workspace}}/build
+      SOURCE_DIR:    ${{github.workspace}}/.cache/source
+      TOOLS_DIR:     ${{github.workspace}}/.cache/tools
+      INSTALL_DIR:   ${{github.workspace}}/.cache/install
       artifact_name: build_android
-      ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/26.3.11579264
+      #ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/26.3.11579264
       ANDROID_PLATFORM: android-34
       ANDROID_NATIVE_API_LEVEL: 34
       ANDROID_ABI: ${{matrix.ANDROID_ABI}}
-      qt_modules: 'qtimageformats qtmultimedia qtscxml qtwebchannel qtpositioning'
+      qt_modules: 'qtimageformats qtmultimedia qtscxml qt5compat'
 
     # Map the job outputs to step outputs
     outputs:
@@ -51,7 +72,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           submodules: recursive
 
@@ -62,18 +83,28 @@ jobs:
           cmake -E make_directory ${{env.INSTALL_DIR}}
           cmake -E make_directory ${{env.BUILD_DIR}}
 
+      - name: Install apt packages
+        run: |
+          sudo apt-get update -y
+          sudo apt-get upgrade -y
+          sudo apt install -y -q ninja-build nasm
+
       - name: Cache installed
-        #if: false
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache-installed
         with:
           path: |
             ${{env.INSTALL_DIR}}
           key: install_android_qt${{matrix.qt_version}}_${{matrix.qt_arch}}_${{matrix.BUILD_TYPE}}
 
+      - name: run-vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: ${{env.VCPKGGITCOMMITID}}
+          vcpkgDirectory: ${{env.SOURCE_DIR}}/vcpkg
+
       - name: Install Qt of linux_gcc_64
         uses: jurplel/install-qt-action@v4
-        if: ${{ matrix.qt_version == '6.9.3' }}
         with:
           dir: '${{env.TOOLS_DIR}}/qt' # optional
           version: '${{matrix.qt_version}}'
@@ -84,21 +115,8 @@ jobs:
           cache: true
           cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
 
-      - name: Install Qt of gcc_64
-        uses: jurplel/install-qt-action@v4
-        if: ${{  matrix.qt_version == '6.6.3' }}
-        with:
-          dir: '${{env.TOOLS_DIR}}/qt' # optional
-          version: '${{matrix.qt_version}}'
-          #host: 'linux'
-          target: 'desktop'
-          arch: 'gcc_64'
-          set-env: false
-          cache: true
-          cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
-
       - name: Install Qt of android
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           # Directory to install Qt
           dir: '${{env.TOOLS_DIR}}/qt' # optional
@@ -114,7 +132,16 @@ jobs:
           modules: '${{env.qt_modules}}' # optional. See: https://ddalcino.github.io/aqt-list-server/
           cache: true
           cache-key-prefix: cached-qt_${{matrix.qt_version}}_${{matrix.qt_arch}}
-      
+
+      - name: chmod qt-cmake
+        run: |
+          sudo chmod 777 ${QT_ROOT_DIR}/bin/qt-cmake
+          # 清理 resConfig
+          find ${QT_ROOT_DIR} -path "*/templates/build.gradle" -type f | while read file; do
+              echo "Fixing: $file"
+              sed -i 's/resConfig "en"//g' "$file"
+          done
+
       - name: run-vcpkg
         uses: lukka/run-vcpkg@v11
         with:
@@ -133,28 +160,33 @@ jobs:
           QT_ANDROID_KEYSTORE_PATH: ${{env.SOURCE_DIR}}/RabbitCommon/RabbitCommon.keystore
           QT_ANDROID_KEYSTORE_ALIAS: rabbitcommon
           QT_ANDROID_KEYSTORE_STORE_PASS: ${{secrets.STOREPASS}}
+          JAVA_HOME: ${{env.JAVA_HOME_17_X64}}
         run: |
-          sudo chmod 777 ${Qt6_DIR}/bin/qt-cmake
-          ${Qt6_DIR}/bin/qt-cmake .. \
+          sudo chmod 777 ${QT_ROOT_DIR}/bin/qt-cmake
+          ${QT_ROOT_DIR}/bin/qt-cmake .. \
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
+              -DWITH_CMARK=OFF \
+              -DWITH_CMARK_GFM=ON \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
               -DQT_CHAINLOAD_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
               -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${ANDROID_NDK_HOME}/build/cmake/android.toolchain.cmake \
               -DVCPKG_TARGET_TRIPLET=${{env.VCPKG_TARGET_TRIPLET}} \
               -DX_VCPKG_APPLOCAL_DEPS_INSTALL=OFF \
+              -DVCPKG_APPLOCAL_DEPS=ON \
               -DVCPKG_VERBOSE=ON \
+              -DRABBIT_ENABLE_INSTALL_TARGETS=ON \
               -DRABBIT_ENABLE_INSTALL_DEPENDENT=OFF \
               -DRABBIT_ENABLE_INSTALL_QT=OFF \
               -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=ON \
-              -DCMAKE_PREFIX_PATH=${Qt6_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
-              -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
+              -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
+              -DQT_HOST_PATH=${QT_ROOT_DIR}/../gcc_64 \
               -DQT_ANDROID_SIGN_APK=ON \
               -DQT_ENABLE_VERBOSE_DEPLOYMENT=ON \
               -DVCPKG_TRACE_FIND_PACKAGE=ON \
-              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
+              -DQt6LinguistTools_DIR=${QT_ROOT_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DCMAKE_INSTALL_PREFIX=`pwd`/install \
               -DBUILD_APP=OFF
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target install
@@ -169,8 +201,8 @@ jobs:
           QT_ANDROID_KEYSTORE_STORE_PASS: ${{secrets.STOREPASS}}
         run: |
           rm -fr *
-          sudo chmod 777 ${Qt6_DIR}/bin/qt-cmake
-          ${Qt6_DIR}/bin/qt-cmake .. \
+          sudo chmod 777 ${QT_ROOT_DIR}/bin/qt-cmake
+          ${QT_ROOT_DIR}/bin/qt-cmake .. \
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
@@ -184,12 +216,12 @@ jobs:
               -DRABBIT_ENABLE_INSTALL_DEPENDENT=ON \
               -DRABBIT_ENABLE_INSTALL_QT=ON \
               -DRABBIT_ENABLE_INSTALL_TO_BUILD_PATH=ON \
-              -DCMAKE_PREFIX_PATH=${Qt6_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
-              -DQT_HOST_PATH=${Qt6_DIR}/../gcc_64 \
+              -DCMAKE_PREFIX_PATH=${QT_ROOT_DIR}:${{env.INSTALL_DIR}}/lib/cmake \
+              -DQT_HOST_PATH=${QT_ROOT_DIR}/../gcc_64 \
               -DQT_ANDROID_SIGN_APK=ON \
               -DQT_ENABLE_VERBOSE_DEPLOYMENT=ON \
               -DVCPKG_TRACE_FIND_PACKAGE=ON \
-              -DQt6LinguistTools_DIR=${Qt6_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
+              -DQt6LinguistTools_DIR=${QT_ROOT_DIR}/../gcc_64/lib/cmake/Qt6LinguistTools \
               -DCMAKE_INSTALL_PREFIX=`pwd`/install \
               -DBUILD_APP=ON
           cmake --build . --config ${{matrix.BUILD_TYPE}} --target all
