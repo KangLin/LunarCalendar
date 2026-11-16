@@ -253,7 +253,19 @@ QVariant CLunarCalendarModel::data(const QModelIndex &index, int role) const
         int nCounts = 0;
         QString szTip;
         _DAY day = GetDay(row, column);
-        szTip = d.toString(m_Locale.dateFormat(QLocale::LongFormat));
+        switch(day.WorkDay) {
+        case __WORK_DAY::WORK:
+            szTip += "上班";
+            szTip += "\n";
+            break;
+        case __WORK_DAY::REST:
+            szTip += "休息";
+            szTip += "\n";
+            break;
+        default:
+            break;
+        }
+        szTip += d.toString(m_Locale.dateFormat(QLocale::LongFormat));
         szTip += "\n" + day.szLunar;
         nCounts = 2;
         if(!day.SolarHoliday.isEmpty()) {
