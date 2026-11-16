@@ -20,7 +20,7 @@ jobs:
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOSL_DIR:   ${{github.workspace}}/.cache/tools
       INSTALL_DIR: ${{github.workspace}}/.cache/install_doxygen
-      DOXYGEN_VERSION: 1.9.8
+      DOXYGEN_VERSION: 1.18.0
       LunarCalendar_VERSION: "v1.0.4"
       artifact_name: build_doxygen
 
@@ -53,8 +53,7 @@ jobs:
         run: |
           sudo apt update -y -q
           sudo apt upgrade -y -q
-          sudo apt install xvfb xpra \
-              libglu1-mesa-dev libpulse-mainloop-glib0 \
+          sudo apt install \
               cmake build-essential \
               debhelper fakeroot graphviz \
               qmake6 qt6-tools-dev qt6-tools-dev-tools \

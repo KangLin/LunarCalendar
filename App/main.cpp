@@ -64,9 +64,9 @@ int main(int argc, char *argv[])
     }
 
     if(a.arguments().size() > 1) {
-        if(!pUpdate->GenerateUpdateJson())
+        if(CFrmUpdater::ErrCode::Ok != pUpdate->GenerateUpdateJson())
             return 0;
-        if(!pUpdate->GenerateUpdateXml())
+        if(CFrmUpdater::ErrCode::Ok != pUpdate->GenerateUpdateXml())
             return 0;
     }
 #endif

@@ -20,10 +20,10 @@ if(Qt${QT_VERSION_MAJOR}_FOUND)
 endif()
 
 set(HEAD_FILES
-    MainWindow.h 
+    MainWindow.h
     )
 set(SOURCE_FILES
-    main.cpp 
+    main.cpp
     MainWindow.cpp 
     )
 set(SOURCE_UI_FILES
@@ -80,8 +80,9 @@ IF(WIN32)
     file(COPY AppIcon.ico DESTINATION ${CMAKE_BINARY_DIR})
 ENDIF()
 
-if(EXISTS ${RabbitCommon_ROOT}/Src/etc/logqt.ini)
-    INSTALL_FILE(SOURCES ${RabbitCommon_ROOT}/Src/etc/logqt.ini
+file(TO_CMAKE_PATH "${RabbitCommon_ROOT}/Src/etc/logqt.ini" _logqt_ini)
+if(EXISTS ${_logqt_ini})
+    INSTALL_FILE(SOURCES ${_logqt_ini}
         DESTINATION etc
             COMPONENT Application
         RENAME LunarCalendar_logqt.ini)

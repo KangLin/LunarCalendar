@@ -1,3 +1,5 @@
+# Author: Kang Lin <kl222@126.com>
+
 name: build_macos
 
 on:
@@ -9,42 +11,33 @@ on:
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
+
 jobs:
   build_macos:
     strategy:
       matrix:
         include:
-          - VCPKG_TARGET_TRIPLET: x64-osx
-            os: macos-15-intel
-            qt_version: 6.9.3
-            qt_arch: clang_64
-            WITH_MACOSX_BUNDLE: false
+          - VCPKG_TARGET_TRIPLET: arm64-osx
+            os: macos-26
 
           - VCPKG_TARGET_TRIPLET: arm64-osx
-            os: macos-14
-            qt_version: 6.9.3
-            qt_arch: clang_64
-            WITH_MACOSX_BUNDLE: true
-        
-          - VCPKG_TARGET_TRIPLET: arm64-osx
-            os: macos-14
-            qt_version: 6.9.3
-            qt_arch: clang_64
-            WITH_MACOSX_BUNDLE: false
-            
+            os: macos-15
+
     # See: [About GitHub-hosted runners](https://docs.github.com/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners)
     # See: [Choosing the runner for a job](https://docs.github.com/actions/writing-workflows/choosing-where-your-workflow-runs/choosing-the-runner-for-a-job)
     # See: https://github.com/actions/runner-images/
     runs-on: ${{matrix.os}}
+    defaults:
+      run:
+        shell: bash
 
     env:
       BUILD_DIR:   ${{github.workspace}}/build
       SOURCE_DIR:  ${{github.workspace}}/.cache/source
       TOOLS_DIR:   ${{github.workspace}}/.cache/tools
-      INSTALL_DIR: ${{github.workspace}}/.cache/install
+      INSTALL_DIR: ${{github.workspace}}/.cache/install_${{matrix.os}}
       qt_modules: "qtscxml qt5compat"
-      VCPKGGITCOMMITID: 7213cf8135c329c37c7e2778e40774489a0583a8
+      VCPKGGITCOMMITID: ec48c11eae9448c8c6e7739d93e06fa2433aa95f
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_DEFAULT_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       #VCPKG_MANIFEST_FEATURES: ""      
@@ -57,7 +50,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           submodules: recursive
     
@@ -74,7 +67,7 @@ jobs:
         with:
           path: |
             ${{env.INSTALL_DIR}}
-          key: install_macos_${{env.VCPKG_TARGET_TRIPLET}}
+          key: install_${{matrix.os}}
 
       - name: run vcpkg
         uses: lukka/run-vcpkg@v11

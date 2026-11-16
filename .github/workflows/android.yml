@@ -50,7 +50,7 @@ jobs:
 
     env:
       LunarCalendar_VERSION: "v1.0.4"
-      VCPKGGITCOMMITID: d015e31e90838a4c9dfa3eed45979bc70d9357fc
+      VCPKGGITCOMMITID: ec48c11eae9448c8c6e7739d93e06fa2433aa95f
       VCPKG_TARGET_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_DEFAULT_TRIPLET: ${{matrix.VCPKG_TARGET_TRIPLET}}
       VCPKG_DEFAULT_HOST_TRIPLET: x64-linux
@@ -164,11 +164,16 @@ jobs:
         run: |
           sudo chmod 777 ${QT_ROOT_DIR}/bin/qt-cmake
           ${QT_ROOT_DIR}/bin/qt-cmake .. \
+              -GNinja \
+              -DCMAKE_MAKE_PROGRAM=ninja \
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
               -DWITH_CMARK=OFF \
               -DWITH_CMARK_GFM=ON \
+              -DWITH_MEDIA_DEVICES=OFF \
+              -DWITH_FILE_TRANSFER=OFF \
+              -DWITH_WebEngineWidgets=OFF \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
               -DQT_CHAINLOAD_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
@@ -203,9 +208,14 @@ jobs:
           rm -fr *
           sudo chmod 777 ${QT_ROOT_DIR}/bin/qt-cmake
           ${QT_ROOT_DIR}/bin/qt-cmake .. \
+              -GNinja \
+              -DCMAKE_MAKE_PROGRAM=ninja \
               -DCMARK_SHARED=OFF \
               -DCMARK_TESTS=OFF \
               -DCMARK_STATIC=ON \
+              -DWITH_MEDIA_DEVICES=OFF \
+              -DWITH_FILE_TRANSFER=OFF \
+              -DWITH_WebEngineWidgets=OFF \
               -DCMAKE_BUILD_TYPE=${{matrix.BUILD_TYPE}} \
               -DANDROID_PLATFORM=${{env.ANDROID_PLATFORM}} \
               -DQT_CHAINLOAD_TOOLCHAIN_FILE=${{env.VCPKG_ROOT}}/scripts/buildsystems/vcpkg.cmake \
